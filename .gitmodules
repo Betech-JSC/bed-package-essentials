@@ -1,3 +1,6 @@
 [submodule "jam-package-core"]
 	path = jam-package-core
 	url = git@github.com:nhatkha1407/jam-package-core.git
+[submodule "jam-package-permission"]
+	path = jam-package-permission
+	url = git@github.com:nhatkha1407/jam-package-permission.git
