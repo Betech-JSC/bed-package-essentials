@@ -11,5 +11,7 @@
             "email": "nhatkha1407@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {}
 }
