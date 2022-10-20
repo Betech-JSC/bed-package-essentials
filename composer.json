@@ -1,0 +1,15 @@
+{
+    "name": "jamstackvietnam/essentials",
+    "autoload": {
+        "psr-4": {
+            "Jamstackvietnam\\Essentials\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Whoosh",
+            "email": "nhatkha1407@gmail.com"
+        }
+    ],
+    "require": {}
+}
