@@ -1,0 +1,3 @@
+[submodule "jam-package-core"]
+	path = jam-package-core
+	url = git@github.com:nhatkha1407/jam-package-core.git
