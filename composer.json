@@ -1,5 +1,6 @@
 {
     "name": "jamstackvietnam/essentials",
+    "type": "package",
     "autoload": {
         "psr-4": {
             "Jamstackvietnam\\Essentials\\": "src/"
