@@ -1,0 +1,31 @@
+{
+    "name": "jamstackvietnam/redirects",
+    "description": "redirect",
+    "homepage": "https://jamstackvietnam.com",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "email": "nhatkha1407@gmail.com",
+            "name": "Whoosh"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Jamstackvietnam\\Redirects\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jamstackvietnam\\Redirects\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
