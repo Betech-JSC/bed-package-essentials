@@ -10,8 +10,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "jamstackvietnam/core": "self.version",
-        "jamstackvietnam/permission": "self.version",
-        "jamstackvietnam/redirect": "self.version"
+        "jamstackvietnam/core": "*",
+        "jamstackvietnam/permission": "*",
+        "jamstackvietnam/redirect": "*"
     }
 }
