@@ -17,7 +17,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "./packages/jam-package-essentials/*"
+            "url": "./*"
         }
     ]
 }
