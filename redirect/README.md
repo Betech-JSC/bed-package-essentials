@@ -14,7 +14,7 @@ composer require jamstackvietnam/redirects
 Publish the migration file with:
 
 ```
-php artisan vendor:publish --provider="Jamstackvietnam\Redirects\ServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Jamstackvietnam\Redirect\ServiceProvider" --tag="migrations"
 ```
 
 After the migration has been published you can create the `redirects` table by running:

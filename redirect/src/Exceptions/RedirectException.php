@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Redirects\Exceptions;
+namespace Jamstackvietnam\Redirect\Exceptions;
 
 use Exception;
 

@@ -1,15 +1,15 @@
 <?php
 
-namespace Jamstackvietnam\Redirects;
+namespace Jamstackvietnam\Redirect;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Jamstackvietnam\Redirects\Contracts\RedirectModelContract;
-use Jamstackvietnam\Redirects\Middleware\RedirectRequests;
-use Jamstackvietnam\Redirects\Models\Redirect;
+use Jamstackvietnam\Redirect\Contracts\RedirectModelContract;
+use Jamstackvietnam\Redirect\Middleware\RedirectRequests;
+use Jamstackvietnam\Redirect\Models\Redirect;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -38,7 +38,6 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->router = $router;
 
-        $this->publishConfigs();
         $this->publishMigrations();
         $this->registerMiddleware();
         $this->registerRouteBindings();
@@ -52,16 +51,6 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->registerBindings();
-    }
-
-    /**
-     * @return void
-     */
-    protected function publishConfigs()
-    {
-        $this->publishes([
-            __DIR__.'/../config/redirects.php' => config_path('redirects.php'),
-        ], 'config');
     }
 
     /**

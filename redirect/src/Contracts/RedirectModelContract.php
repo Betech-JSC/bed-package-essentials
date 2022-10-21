@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Redirects\Contracts;
+namespace Jamstackvietnam\Redirect\Contracts;
 
 interface RedirectModelContract
 {

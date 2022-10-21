@@ -1,5 +1,5 @@
 {
-    "name": "jamstackvietnam/redirects",
+    "name": "jamstackvietnam/redirect",
     "description": "redirect",
     "homepage": "https://jamstackvietnam.com",
     "license": "MIT",
@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Jamstackvietnam\\Redirects\\": "src/"
+            "Jamstackvietnam\\Redirect\\": "src/"
         }
     },
     "config": {
@@ -22,7 +22,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Jamstackvietnam\\Redirects\\ServiceProvider"
+                "Jamstackvietnam\\Redirect\\ServiceProvider"
             ]
         }
     },

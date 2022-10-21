@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Redirects\Middleware;
+namespace Jamstackvietnam\Redirect\Middleware;
 
 use Closure;
 
