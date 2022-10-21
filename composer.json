@@ -1,9 +1,14 @@
 {
     "name": "jamstackvietnam/essentials",
     "type": "package",
-    "autoload": {
-        "psr-4": {
-            "Jamstackvietnam\\Essentials\\": "src/"
+    "package": {
+        "name": "jamstackvietnam/essentials",
+        "version": "1",
+        "type": "package",
+        "source": {
+            "url": "https://github.com/nhatkha1407/jam-package-essentials.git",
+            "type": "git",
+            "reference": "1"
         }
     },
     "authors": [
