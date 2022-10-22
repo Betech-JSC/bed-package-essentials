@@ -10,9 +10,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "jamstackvietnam/core": "*",
-        "jamstackvietnam/permission": "*",
-        "jamstackvietnam/redirect": "*"
+        "jamstackvietnam/core": "dev-main",
+        "jamstackvietnam/permission": "dev-main",
+        "jamstackvietnam/redirect": "dev-main"
     },
     "repositories": [
         {
