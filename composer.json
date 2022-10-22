@@ -9,23 +9,12 @@
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "require": {
-        "jamstackvietnam/core": "*",
-        "jamstackvietnam/permission": "*",
-        "jamstackvietnam/redirect": "*"
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "./core"
-        },
-        {
-            "type": "path",
-            "url": "./permission"
-        },
-        {
-            "type": "path",
-            "url": "./redirect"
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jamstackvietnam\\Core\\Providers\\RouteServiceProvider",
+                "Jamstackvietnam\\Redirect\\ServiceProvider"
+            ]
         }
-    ]
+    }
 }
