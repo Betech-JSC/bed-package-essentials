@@ -8,6 +8,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Artisan;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -34,7 +35,60 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware(['web', 'backend'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/backend.php'));
+
+            Route::get('/test', function () {
+                return $this->routes();
+            });
         });
+    }
+
+    public function routes(): string
+    {
+        Artisan::call('route:list --json');
+        $routes = json_decode(Artisan::output());
+        $html = <<<'TABLE'
+            <style lang="css">
+            body { margin: 20px; }
+            .routes {
+            border: 1px solid #e2e8f0;
+            padding: 6px;
+            width: 100%;
+            border-collapse: collapse;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,serif;
+            font-size: 14px;
+            color: #666;
+            }
+            .routes th, .routes td {
+            padding: 4px 6px;
+            border-right: 1px solid #e2e8f0;
+            }
+            .routes tr { border: 1px solid #e2e8f0; }
+            </style>
+            <table class="routes">
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>URI</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            TABLE;
+
+        foreach ($routes as $route) {
+            $html .= <<<BODY
+                <tr>
+                <td> $route->method </td>
+                <td> $route->uri </td>
+                <td> $route->name </td>
+                <td> $route->action </td>
+                </tr>
+            BODY;
+        }
+        $html .= '</tbody></table>';
+
+        return $html;
     }
 
     private function registerRouteModuleMacro()
