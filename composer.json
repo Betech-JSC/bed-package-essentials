@@ -8,5 +8,24 @@
         }
     ],
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require": {
+        "jamstackvietnam/core": "*",
+        "jamstackvietnam/permission": "*",
+        "jamstackvietnam/redirect": "*"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./core"
+        },
+        {
+            "type": "path",
+            "url": "./permission"
+        },
+        {
+            "type": "path",
+            "url": "./redirect"
+        }
+    ]
 }
