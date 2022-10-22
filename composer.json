@@ -9,11 +9,6 @@
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "autoload": {
-        "psr-4": {
-            "Tightenco\\Ziggy\\": "src/"
-        }
-    },
     "extra": {
         "laravel": {
             "providers": [
