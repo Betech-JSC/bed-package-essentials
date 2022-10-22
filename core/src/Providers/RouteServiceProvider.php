@@ -8,7 +8,6 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Artisan;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -31,7 +30,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/frontend.php'));
 
-            Route::prefix('admin')
+            Route::prefix('admin')->name('admin.')
                 ->middleware(['web', 'backend'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/backend.php'));
