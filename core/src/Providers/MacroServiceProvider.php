@@ -26,6 +26,19 @@ class MacroServiceProvider extends BaseServiceProvider
             $this->timestamps();
             $this->softDeletes();
         });
+
+        Blueprint::macro('addSeo', function () {
+            $this->text('custom_slug')->nullable();
+            $this->string('meta_title')->nullable();
+            $this->string('meta_description')->nullable();
+            $this->string('meta_keywords')->nullable();
+            $this->string('meta_robots')->nullable();
+            $this->text('meta_graph')->nullable();
+        });
+
+        Blueprint::macro('addStatus', function ($default = 'ACTIVE') {
+            $this->string('status')->default($default);
+        });
     }
 
     private function registerMacroRoute()
