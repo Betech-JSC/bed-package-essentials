@@ -33,6 +33,7 @@ class MacroServiceProvider extends BaseServiceProvider
             $this->string('meta_description')->nullable();
             $this->string('meta_keywords')->nullable();
             $this->string('meta_robots')->nullable();
+            $this->string('canonical')->nullable();
             $this->text('meta_graph')->nullable();
         });
 
