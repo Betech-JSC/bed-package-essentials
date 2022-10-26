@@ -5,6 +5,7 @@ namespace Jamstackvietnam\Core\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Database\Eloquent\Model;
 
 class RouteServiceProvider extends ServiceProvider
 {
