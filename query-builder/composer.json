@@ -1,0 +1,17 @@
+{
+    "name": "jamstackvietnam/query-builder",
+    "autoload": {
+        "psr-4": {
+            "Jamstackvietnam\\QueryBuilder\\": "src/"
+        }
+    },
+    "require-dev": {
+        "mockery/mockery": "1.3.*",
+        "orchestra/testbench": "4.*",
+        "phpunit/phpunit": "~8.0",
+        "php-coveralls/php-coveralls": "2.2.*"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "license": "MIT"
+}
