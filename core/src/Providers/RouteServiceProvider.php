@@ -28,7 +28,6 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::prefix('admin')->name('admin.')
                 ->middleware(['web', 'backend'])
-        Model::preventLazyLoading(!app()->isProduction());
                 ->namespace($this->namespace)
                 ->group(base_path('routes/backend.php'));
         });
