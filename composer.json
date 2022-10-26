@@ -13,6 +13,7 @@
         "laravel": {
             "providers": [
                 "Jamstackvietnam\\Core\\Providers\\RouteServiceProvider",
+                "Jamstackvietnam\\Core\\Providers\\MacroServiceProvider",
                 "Jamstackvietnam\\Redirect\\ServiceProvider",
                 "Tightenco\\Ziggy\\ZiggyServiceProvider"
             ]
