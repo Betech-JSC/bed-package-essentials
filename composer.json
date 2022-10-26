@@ -12,8 +12,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Jamstackvietnam\\Core\\Providers\\RouteServiceProvider",
                 "Jamstackvietnam\\Core\\Providers\\MacroServiceProvider",
+                "Jamstackvietnam\\Core\\Providers\\RouteServiceProvider",
                 "Jamstackvietnam\\Redirect\\ServiceProvider",
                 "Tightenco\\Ziggy\\ZiggyServiceProvider"
             ]
