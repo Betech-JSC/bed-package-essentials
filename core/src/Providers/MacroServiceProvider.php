@@ -28,13 +28,14 @@ class MacroServiceProvider extends BaseServiceProvider
         });
 
         Blueprint::macro('addSeo', function () {
-            $this->text('custom_slug')->nullable();
-            $this->string('meta_title')->nullable();
-            $this->string('meta_description')->nullable();
-            $this->string('meta_keywords')->nullable();
-            $this->string('meta_robots')->nullable();
-            $this->string('canonical')->nullable();
-            $this->text('meta_graph')->nullable();
+            $this->string('seo_meta_title')->nullable();
+            $this->string('seo_slug')->nullable();
+            $this->text('seo_meta_description')->nullable();
+            $this->string('seo_meta_keywords')->nullable();
+            $this->string('seo_meta_robots')->nullable();
+            $this->string('seo_canonical')->nullable();
+            $this->string('seo_image')->nullable();
+            $this->text('seo_schemas')->nullable();
         });
 
         Blueprint::macro('addStatus', function ($default = 'ACTIVE') {
