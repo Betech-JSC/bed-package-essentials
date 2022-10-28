@@ -247,12 +247,7 @@ trait HasCrudActions
 
     private function folder()
     {
-        return str_replace('_', '-', $this->getTable());
-    }
-
-    private function path()
-    {
-        return str_replace('_', '-', $this->getTable());
+        return Str::of(str_replace('_', '-', $this->getTable()))->upper();
     }
 
     private function search($query)
