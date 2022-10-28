@@ -11,7 +11,15 @@ class RouteServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        Model::preventLazyLoading(!app()->isProduction());
+        Model::preventLazyLoading();
+
+        if (!app()->isProduction()) {
+            Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
+                $class = get_class($model);
+
+                info("Attempted to lazy load [{$relation}] on model [{$class}].");
+            });
+        }
 
         View::addNamespace('frontend', resource_path('Frontend/views'));
         View::addNamespace('backend', resource_path('Backend/views'));
