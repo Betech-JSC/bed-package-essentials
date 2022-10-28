@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -13,11 +15,15 @@ class RouteServiceProvider extends ServiceProvider
     {
         Model::preventLazyLoading();
 
-        if (!app()->isProduction()) {
+        if (app()->isProduction()) {
             Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
                 $class = get_class($model);
 
                 info("Attempted to lazy load [{$relation}] on model [{$class}].");
+            });
+        } else {
+            DB::whenQueryingForLongerThan(2000, function (Connection $connection) {
+                Log::warning("Database queries exceeded 2 seconds on {$connection->getName()}");
             });
         }
 
