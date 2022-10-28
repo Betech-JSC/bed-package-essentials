@@ -27,6 +27,12 @@ class MacroServiceProvider extends BaseServiceProvider
             $this->softDeletes();
         });
 
+        Blueprint::macro('addInjectCode', function () {
+            $this->text('inject_head')->nullable();
+            $this->text('inject_body_start')->nullable();
+            $this->text('inject_body_end')->nullable();
+        });
+
         Blueprint::macro('addSeo', function () {
             $this->string('seo_meta_title')->nullable();
             $this->string('seo_slug')->nullable();
@@ -36,6 +42,7 @@ class MacroServiceProvider extends BaseServiceProvider
             $this->string('seo_canonical')->nullable();
             $this->string('seo_image')->nullable();
             $this->text('seo_schemas')->nullable();
+            $this->addInjectCode();
         });
 
         Blueprint::macro('addStatus', function ($default = 'ACTIVE') {
