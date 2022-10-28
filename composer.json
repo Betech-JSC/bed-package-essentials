@@ -16,7 +16,8 @@
                 "Jamstackvietnam\\Core\\Providers\\RouteServiceProvider",
                 "Jamstackvietnam\\Redirect\\ServiceProvider",
                 "Tightenco\\Ziggy\\ZiggyServiceProvider",
-                "Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider"
+                "Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider",
+                "MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider"
             ]
         },
         "aliases": {
