@@ -17,11 +17,13 @@
                 "Jamstackvietnam\\Redirect\\ServiceProvider",
                 "Tightenco\\Ziggy\\ZiggyServiceProvider",
                 "Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider",
-                "MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider"
+                "MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider",
+                "QCod\\Settings\\SettingsServiceProvider"
             ]
         },
         "aliases": {
-            "SEO": "Artesaos\\SEOTools\\Facades\\SEOTools"
+            "SEO": "Artesaos\\SEOTools\\Facades\\SEOTools",
+            "Settings": "QCod\\Settings\\Facade"
         }
     }
 }
