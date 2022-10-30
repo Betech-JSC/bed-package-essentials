@@ -15,7 +15,7 @@ class MetaPageController extends Controller
     public $model = MetaPage::class;
 
 
-    public function beforeIndex()
+    public function beforeIndex($query)
     {
         $pages = MetaPage::all();
 
@@ -31,6 +31,7 @@ class MetaPageController extends Controller
         if ($diff->count()) {
             self::insert($diff->transform(fn ($item) => ['url' => $item])->toArray());
         }
+        return $query;
     }
 
     // public function table()
