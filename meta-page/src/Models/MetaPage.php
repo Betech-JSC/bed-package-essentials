@@ -24,15 +24,11 @@ class MetaPage extends Model
         'inject_body_end'
     ];
 
-    public function modelRules()
-    {
-        return [
-            'all' => [
-                'seo_meta_title' => 'required',
-                'seo_meta_description' => 'required',
-            ],
-        ];
-    }
+    public $rules = [
+        'url' => 'required',
+        'seo_meta_title' => 'required',
+        'seo_meta_description' => 'required',
+    ];
 
     public static function getAll()
     {
