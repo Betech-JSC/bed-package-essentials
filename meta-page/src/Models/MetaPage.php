@@ -54,6 +54,6 @@ class MetaPage extends Model
                 'seo_meta_title' => $page?->seo_meta_title,
                 'seo_meta_description' => $page?->seo_meta_description,
             ]);
-        });
+        })->paginate();
     }
 }
