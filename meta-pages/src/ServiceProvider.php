@@ -35,7 +35,6 @@ class ServiceProvider extends BaseServiceProvider
         $this->router = $router;
 
         $this->publishMigrations();
-        $this->publishModels();
     }
 
     /**
@@ -50,19 +49,6 @@ class ServiceProvider extends BaseServiceProvider
             $this->publishes([
                 __DIR__.'/../database/migrations/create_meta_pages_table.php.stub' => $migration,
             ], 'migrations');
-        }
-    }
-    /**
-     * @return void
-     */
-    protected function publishModels()
-    {
-        if (empty(File::glob(app_path('/Models/MetaPage.php')))) {
-            $file = app_path('/Models/MetaPage.php');
-
-            $this->publishes([
-                __DIR__.'/../src/Models/MetaPage.php.stub' => $file,
-            ], 'models');
         }
     }
 }
