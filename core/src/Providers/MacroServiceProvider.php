@@ -7,6 +7,8 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Str;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class MacroServiceProvider extends BaseServiceProvider
 {
@@ -14,6 +16,7 @@ class MacroServiceProvider extends BaseServiceProvider
     {
         $this->registerMacroBlueprint();
         $this->registerMacroRoute();
+        $this->registerMacroCollection();
     }
 
     private function registerMacroBlueprint()
@@ -90,6 +93,24 @@ class MacroServiceProvider extends BaseServiceProvider
                     Route::any("$resource/$action", "$controller@$action")->name("$resource.$action");
                 }
             }
+        });
+    }
+
+    private function registerMacroCollection()
+    {
+        Collection::macro('paginate', function ($perPage = 20, $total = null, $page = null, $pageName = 'page') {
+            $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
+
+            return new LengthAwarePaginator(
+                $this->forPage($page, $perPage),
+                $total ?: $this->count(),
+                $perPage,
+                $page,
+                [
+                    'path' => LengthAwarePaginator::resolveCurrentPath(),
+                    'pageName' => $pageName,
+                ]
+            );
         });
     }
 }
