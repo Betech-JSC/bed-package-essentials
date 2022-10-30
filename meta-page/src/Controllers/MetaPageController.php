@@ -35,31 +35,11 @@ class MetaPageController extends Controller
         return $query;
     }
 
-    // public function table()
-    // {
-    //     $items = MetaPage::getAll();
-
-    //     return response()->json($items);
-    // }
-
-    // public function form()
-    // {
-    //     $url = request()->input('id') ?? '';
-    //     $item = MetaPage::where('url', $url)->firstOrFail();
-
-    //     $breadcrumbs = [[
-    //         'url' => route($this->getResource() . '.index'),
-    //         'name' => trans('models.table_list.' . $this->getTable()),
-    //     ]];
-
-    //     if (request()->wantsJson()) {
-    //         return response()->json($item);
-    //     }
-
-    //     return Inertia::render($this->folder() . '/Form', [
-    //         'item' => $item,
-    //         'breadcrumbs' => $breadcrumbs,
-    //         'schema' => $this->getSchema(),
-    //     ]);
-    // }
+    private function transform($item)
+    {
+        return [
+            ...$item->toArray(),
+            'url' => env('APP_URL') . $item['url']
+        ];
+    }
 }
