@@ -15,14 +15,6 @@
             "Jamstackvietnam\\MetaPages\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Jamstackvietnam\\MetaPages\\Tests\\": "tests"
-        },
-        "classmap": [
-            "tests/TestCase.php"
-        ]
-    },
     "scripts": {
         "test": "phpunit"
     },
