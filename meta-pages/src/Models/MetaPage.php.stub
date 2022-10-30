@@ -9,16 +9,27 @@ class MetaPage extends Model
 {
     public $fillable = [
         'url',
-        'meta_title',
-        'meta_description'
+
+        'seo_meta_title',
+        'seo_slug',
+        'seo_meta_description',
+        'seo_meta_keywords',
+        'seo_meta_robots',
+        'seo_canonical',
+        'seo_image',
+        'seo_schemas',
+
+        'inject_head',
+        'inject_body_start',
+        'inject_body_end'
     ];
 
     public function modelRules()
     {
         return [
             'all' => [
-                'meta_title' => 'required',
-                'meta_description' => 'required',
+                'seo_meta_title' => 'required',
+                'seo_meta_description' => 'required',
             ],
         ];
     }
@@ -44,8 +55,8 @@ class MetaPage extends Model
             return collect([
                 'id' => $item,
                 'url' => env('APP_URL') . $item,
-                'meta_title' => $page?->meta_title,
-                'meta_description' => $page?->meta_description,
+                'seo_meta_title' => $page?->seo_meta_title,
+                'seo_meta_description' => $page?->seo_meta_description,
             ]);
         });
     }
