@@ -1,0 +1,41 @@
+{
+    "name": "jamstackvietnam/meta-pages",
+    "description": "meta-page",
+    "homepage": "https://jamstackvietnam.com",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Whoosh",
+            "email": "nhatkha1407@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Jamstackvietnam\\MetaPages\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jamstackvietnam\\MetaPages\\Tests\\": "tests"
+        },
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jamstackvietnam\\MetaPages\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
