@@ -26,7 +26,5 @@ class MetaPage extends Model
 
     public $rules = [
         'url' => 'required',
-        'seo_meta_title' => 'required',
-        'seo_meta_description' => 'required',
     ];
 }
