@@ -14,7 +14,6 @@ class MetaPageController extends Controller
 
     public $model = MetaPage::class;
 
-
     public function beforeIndex($query)
     {
         $pages = MetaPage::all();
@@ -29,7 +28,7 @@ class MetaPageController extends Controller
         $diff = $routes->diff($storedRoutes);
 
         if ($diff->count()) {
-            self::insert($diff->transform(fn ($item) => ['url' => $item])->toArray());
+            MetaPage::insert($diff->transform(fn ($item) => ['url' => $item])->toArray());
         }
 
         return $query;
