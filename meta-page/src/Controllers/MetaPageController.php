@@ -31,6 +31,7 @@ class MetaPageController extends Controller
         if ($diff->count()) {
             self::insert($diff->transform(fn ($item) => ['url' => $item])->toArray());
         }
+
         return $query;
     }
 
