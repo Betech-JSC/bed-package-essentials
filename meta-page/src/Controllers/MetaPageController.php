@@ -28,7 +28,7 @@ class MetaPageController extends Controller
         $diff = $routes->diff($storedRoutes);
 
         if ($diff->count()) {
-            MetaPage::insert($diff->transform(fn ($item) => ['url' => $item])->toArray());
+            MetaPage::insert($diff->transform(fn ($item) => ['url' => $item ?? '/'])->toArray());
         }
 
         return $query;

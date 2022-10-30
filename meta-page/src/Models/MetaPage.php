@@ -28,23 +28,4 @@ class MetaPage extends Model
         'seo_meta_title' => 'required',
         'seo_meta_description' => 'required',
     ];
-
-    public static function getAll()
-    {
-        $pages = self::all();
-
-        $storedRoutes = $pages->pluck('url');
-        $routes = collect(Sitemap::create()->addStaticRoutes()->tags)
-            ->transform(fn ($item) => str_replace(env('APP_URL'), '', $item['url']));
-
-        $diff = $routes->diff($storedRoutes);
-
-        $allPages = $storedRoutes;
-        if ($diff->count()) {
-            self::insert($diff->transform(fn ($item) => ['url' => $item ?? '/'])->toArray());
-            $allPages->merge($routes);
-        }
-
-        return $pages = self::all();
-    }
 }
