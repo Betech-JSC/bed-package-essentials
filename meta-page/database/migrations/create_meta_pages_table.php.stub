@@ -19,7 +19,6 @@ class CreateMetaPagesTable extends Migration
             $table->string('url')->unique();
 
             $table->addSeo();
-            $table->addInjectCode();
             $table->addTimestamps();
         });
     }
