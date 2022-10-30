@@ -247,7 +247,7 @@ trait HasCrudActions
 
     private function folder()
     {
-        return Str::of(str_replace('_', '-', $this->getTable()))->ucfirst();
+        return Str::studly($this->getTable());
     }
 
     private function search($query)
