@@ -12,11 +12,11 @@ class MetaPageController extends Controller
 
     public $model = MetaPage::class;
 
-    public function getData()
+    public function table()
     {
-        $metaPages = MetaPage::getAll();
+        $items = MetaPage::getAll();
 
-        return ['data' => $metaPages];
+        return response()->json($items);
     }
 
     public function form()
