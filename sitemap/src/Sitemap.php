@@ -5,7 +5,7 @@ namespace Jamstackvietnam\Sitemap;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Str;
+use Illuminate\Support\Str;
 
 class Sitemap
 {
