@@ -40,10 +40,4 @@ class MetaPageController extends Controller
             'schema' => $this->getSchema(),
         ]);
     }
-
-    public function filter($query)
-    {
-        request()->merge(['paginate' => false]);
-        return $query;
-    }
 }
