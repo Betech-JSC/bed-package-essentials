@@ -19,7 +19,8 @@
                 "Tightenco\\Ziggy\\ZiggyServiceProvider",
                 "Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider",
                 "MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider",
-                "QCod\\Settings\\SettingsServiceProvider"
+                "QCod\\Settings\\SettingsServiceProvider",
+                "Jamstackvietnam\\Sitemap\\SitemapServiceProvider"
             ]
         },
         "aliases": {
