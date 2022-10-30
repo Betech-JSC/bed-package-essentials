@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\MetaPages\Models;
+namespace Jamstackvietnam\MetaPage\Models;
 
 use Jamstackvietnam\Sitemap\Sitemap;
 use Illuminate\Database\Eloquent\Model;

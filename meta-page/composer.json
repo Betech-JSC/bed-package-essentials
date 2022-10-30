@@ -1,6 +1,5 @@
 {
-    "name": "jamstackvietnam/meta-pages",
-    "description": "meta-page",
+    "name": "jamstackvietnam/meta-page",
     "homepage": "https://jamstackvietnam.com",
     "license": "MIT",
     "type": "library",
@@ -12,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Jamstackvietnam\\MetaPages\\": "src/"
+            "Jamstackvietnam\\MetaPage\\": "src/"
         }
     },
     "config": {
@@ -21,7 +20,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Jamstackvietnam\\MetaPages\\ServiceProvider"
+                "Jamstackvietnam\\MetaPage\\ServiceProvider"
             ]
         }
     },
