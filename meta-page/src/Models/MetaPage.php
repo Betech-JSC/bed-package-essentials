@@ -46,14 +46,17 @@ class MetaPage extends Model
             $allPages->merge($routes);
         }
 
-        return $allPages->transform(function ($item) use ($pages) {
-            $page = $pages->firstWhere('url', $item);
-            return collect([
-                'id' => $item,
-                'url' => env('APP_URL') . $item,
-                'seo_meta_title' => $page?->seo_meta_title,
-                'seo_meta_description' => $page?->seo_meta_description,
-            ]);
-        })->paginate();
+        // return $allPages->transform(function ($item) use ($pages) {
+        //     $page = $pages->firstWhere('url', $item);
+        //     return collect([
+        //         'id' => $item,
+        //         'url' => env('APP_URL') . $item,
+        //         'seo_meta_title' => $page?->seo_meta_title,
+        //         'seo_meta_description' => $page?->seo_meta_description,
+        //     ]);
+        // })->paginate();
+
+
+        return $pages = self::all();
     }
 }
