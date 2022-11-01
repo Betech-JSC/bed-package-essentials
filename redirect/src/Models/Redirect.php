@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Jamstackvietnam\Redirect\Contracts\RedirectModelContract;
 use Jamstackvietnam\Redirect\Exceptions\RedirectException;
+use Jamstackvietnam\Redirect\Rules\SameUrls;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Redirect extends Model implements RedirectModelContract
@@ -27,11 +28,29 @@ class Redirect extends Model implements RedirectModelContract
         ],
     ];
 
-    public $rules = [
-        'old_url' => 'required',
-        'new_url' => 'required',
-        'status_code' => 'required',
-    ];
+    // public $rules = [
+    //     'old_url' => 'required',
+    //     'new_url' => ['required', 'string', new SameUrls],
+    //     'status_code' => 'required',
+    // ];
+
+    public function rules()
+    {
+        return    [
+            'status_code' => 'required',
+            'old_url' => 'required',
+            'new_url' => [
+                'required',
+                'string',
+                function ($attribute, $value, $fail) {
+                    $isValid = !trim(strtolower($this->old_url), '/') == trim(strtolower($value), '/');
+                    if (!$isValid) {
+                        $fail('The old url cannot be the same as the new url!');
+                    }
+                },
+            ],
+        ];
+    }
 
     /**
      * Boot the model.
@@ -43,9 +62,9 @@ class Redirect extends Model implements RedirectModelContract
         parent::boot();
 
         static::saving(function (self $model) {
-            if (trim(strtolower($model->old_url), '/') == trim(strtolower($model->new_url), '/')) {
-                throw RedirectException::sameUrls();
-            }
+            // if (trim(strtolower($model->old_url), '/') == trim(strtolower($model->new_url), '/')) {
+            //     throw RedirectException::sameUrls();
+            // }
 
             static::whereOldUrl($model->new_url)->whereNewUrl($model->old_url)->delete();
 
