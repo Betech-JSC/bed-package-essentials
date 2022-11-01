@@ -3,7 +3,7 @@
 namespace Jamstackvietnam\Redirect\Controllers;
 
 use App\Http\Controllers\Controller;
-use Jamstackvietnam\Redirects\Models\Redirect;
+use Jamstackvietnam\Redirect\Models\Redirect;
 use Jamstackvietnam\Core\Traits\HasCrudActions;
 
 class RedirectController extends Controller
