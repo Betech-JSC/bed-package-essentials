@@ -80,7 +80,6 @@ class Generator
             $instanceRules = [];
         }
 
-
         $mergedRules = array_merge(
             $this->getTableRules($table),
             $instanceRules
