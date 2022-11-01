@@ -72,7 +72,14 @@ class Generator
 
         $table = $instance->getTable();
 
-        $instanceRules = $instance->rules ?? [];
+        if (property_exists($instance, 'rules')) {
+            $instanceRules = $instance->rules;
+        } elseif (method_exists($instance, 'rules')) {
+            $instanceRules = $instance->rules();
+        } else {
+            $instanceRules = [];
+        }
+
 
         $mergedRules = array_merge(
             $this->getTableRules($table),
