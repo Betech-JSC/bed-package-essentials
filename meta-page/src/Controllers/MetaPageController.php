@@ -2,7 +2,6 @@
 
 namespace Jamstackvietnam\MetaPage\Controllers;
 
-use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use Jamstackvietnam\Core\Traits\HasCrudActions;
 use Jamstackvietnam\MetaPage\Models\MetaPage;
