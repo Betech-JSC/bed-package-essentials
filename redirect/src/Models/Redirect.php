@@ -27,16 +27,11 @@ class Redirect extends Model implements RedirectModelContract
         ],
     ];
 
-    public function modelRules()
-    {
-        return [
-            'all' => [
-                'old_url' => 'required',
-                'new_url' => 'required',
-                'status_code' => 'required',
-            ],
-        ];
-    }
+    public $rules = [
+        'old_url' => 'required',
+        'new_url' => 'required',
+        'status_code' => 'required',
+    ];
 
     /**
      * Boot the model.
