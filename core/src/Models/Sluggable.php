@@ -27,6 +27,8 @@ trait Sluggable
     private function generateSlug($value, $loop = 0)
     {
         $slug = Str::slug($value);
+        $slug = empty($slug) ? Str::slug(generate_code()) : $slug;
+
         if ($loop > 0) $slug .= $loop;
 
         $query = $this->where('id', '!=', $this->id)->where('slug', $slug)->withoutGlobalScope('active');
