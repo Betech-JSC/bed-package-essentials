@@ -17,8 +17,12 @@ if (!function_exists('setupSeo')) {
         $title = $metaPage?->seo_meta_title ?? $seo['seo_meta_title'] ?? null;
         $description = $metaPage?->seo_meta_description ?? $seo['seo_meta_description'] ?? null;
         $robots = $metaPage?->seo_meta_robots ?? $seo['seo_meta_robots'] ?? null;
-        $keywords = $metaPage?->seo_meta_keywords ?? $seo['seo_meta_keywords'] ?? null;
         $image = $metaPage?->seo_image ?? $seo['seo_image'] ?? null;
+
+        $keywords = $seo['seo_meta_keywords'] ?? null;
+        if ($metaPage?->seo_meta_keywords) {
+            $keywords .= ',' . $metaPage?->seo_meta_keywords;
+        }
 
         SEOMeta::setDescription($description);
         SEOMeta::setCanonical($url);
