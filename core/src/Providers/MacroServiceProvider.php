@@ -2,13 +2,14 @@
 
 namespace Jamstackvietnam\Core\Providers;
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Str;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class MacroServiceProvider extends BaseServiceProvider
 {
@@ -92,6 +93,22 @@ class MacroServiceProvider extends BaseServiceProvider
                 foreach ($options['appends'] as $action) {
                     Route::any("$resource/$action", "$controller@$action")->name("$resource.$action");
                 }
+            }
+        });
+
+        Router::macro('dynamicRedirect', function () {
+            if (Schema::hasTable('redirects')) {
+
+                Route::name('dynamic-redirect')->group(function () {
+                    $redirects = Redirect::active()->get();
+                    foreach ($redirects as $redirect) {
+                        Route::redirect(
+                            $redirect->old_url,
+                            $redirect->new_url,
+                            $redirect->status_code
+                        );
+                    }
+                });
             }
         });
     }
