@@ -36,7 +36,8 @@
         "silber/bouncer": "*",
         "spatie/laravel-permission": "*",
         "spiritix/lada-cache": "*",
-        "stechstudio/laravel-ssh-tunnel": "*"
+        "stechstudio/laravel-ssh-tunnel": "*",
+        "appstract/laravel-opcache": "*"
     },
     "require-dev": {
         "beyondcode/laravel-query-detector": "*"
