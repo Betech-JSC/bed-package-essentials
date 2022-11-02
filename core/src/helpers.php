@@ -5,6 +5,10 @@ if (!function_exists('setupSeo')) {
     {
         $seo = settings()->group('general')->all();
 
+
+        $businessName = $seo['general_business_name'] ?? null;
+        $separator = $seo['seo_title_separator'] ?? null;
+
         $site = $seo['seo_site_name'] ?? null;
         $title = $seo['seo_meta_title'] ?? null;
         $description = $seo['seo_meta_description'] ?? null;
@@ -14,12 +18,21 @@ if (!function_exists('setupSeo')) {
         $image = $seo['seo_image'] ?? null;
         $url = url()->current();
 
+        SEOMeta::setTitleDefault($businessName);
+        SEOMeta::setDescription($description);
+        SEOMeta::setCanonical($url);
+        SEOMeta::setTitleSeparator($separator);
+        SEOMeta::addKeyword($keywords);
+        SEOMeta::setRobots($robots);
+        SEOMeta::setCanonical($url);
+        // SEOMeta::addAlternateLanguage($lang, $url);
+        // SEOMeta::addAlternateLanguages(array $languages);
+
         SEO::setTitle($title);
         SEO::setDescription($description);
         SEO::setCanonical($canonical);
         SEO::addImages([$image]);
 
-        SEO::metatags()->setTitleDefault($title);
         SEO::metatags()->setRobots($robots);
         SEO::metatags()->setKeywords($keywords);
 
