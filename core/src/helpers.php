@@ -18,9 +18,10 @@ if (!function_exists('setupSeo')) {
         $image = $seo['seo_image'] ?? null;
         $url = url()->current();
 
-        SEOMeta::setTitleDefault($businessName);
         SEOMeta::setDescription($description);
         SEOMeta::setCanonical($url);
+        SEOMeta::setTitle($title);
+        SEOMeta::setTitleDefault($businessName);
         SEOMeta::setTitleSeparator($separator);
         SEOMeta::addKeyword($keywords);
         SEOMeta::setRobots($robots);
