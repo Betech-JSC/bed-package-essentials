@@ -15,8 +15,12 @@ if (! function_exists('setupSeo')) {
         SEO::setTitle($title);
         SEO::setDescription($description);
         SEO::setCanonical($canonical);
-        SEO::setRobots($robots);
-        SEO::setKeywords($keywords);
+        SEO::addImages([$image]);
+
+        SEO::metatags()->setTitleDefault($title);
+        SEO::metatags()->setRobots($robots);
+        SEO::metatags()->setKeywords($keywords);
+
         SEO::opengraph()->addImage($image);
     }
 }
