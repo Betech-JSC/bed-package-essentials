@@ -5,13 +5,13 @@ if (!function_exists('setupSeo')) {
     {
         $seo = settings()->group('general')->all();
 
-        $site = $seo['seo_site_name'] ?: null;
-        $title = $seo['seo_meta_title'] ?: null;
-        $description = $seo['seo_meta_description'] ?: null;
-        $canonical = $seo['seo_canonical'] ?: null;
-        $robots = $seo['seo_meta_robots'] ?: null;
-        $keywords = $seo['seo_meta_keywords'] ?: null;
-        $image = $seo['seo_image'] ?: null;
+        $site = $seo['seo_site_name'] ?? null;
+        $title = $seo['seo_meta_title'] ?? null;
+        $description = $seo['seo_meta_description'] ?? null;
+        $canonical = $seo['seo_canonical'] ?? null;
+        $robots = $seo['seo_meta_robots'] ?? null;
+        $keywords = $seo['seo_meta_keywords'] ?? null;
+        $image = $seo['seo_image'] ?? null;
         $url = url()->current();
 
         SEO::setTitle($title);
