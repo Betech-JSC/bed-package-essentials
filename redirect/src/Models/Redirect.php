@@ -2,10 +2,10 @@
 
 namespace Jamstackvietnam\Redirect\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Nicolaslopezj\Searchable\SearchableTrait;
+use Illuminate\Database\Eloquent\Model;
 use Jamstackvietnam\Redirect\Contracts\RedirectModelContract;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Redirect extends Model implements RedirectModelContract
 {
@@ -27,26 +27,10 @@ class Redirect extends Model implements RedirectModelContract
     ];
 
     public $rules = [
-        'status_code' => 'required|integer',
+        'status_code' => 'required',
         'old_url' => 'required',
         'new_url' => 'required|different:old_url',
     ];
-
-    /**
-     * Boot the model.
-     *
-     * @return void
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::saving(function (self $model) {
-            static::whereOldUrl($model->new_url)->whereNewUrl($model->old_url)->delete();
-
-            $model->syncOldRedirects($model, $model->new_url);
-        });
-    }
 
     public function scopeActive($query)
     {
