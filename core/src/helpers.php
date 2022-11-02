@@ -4,19 +4,21 @@ if (!function_exists('setupSeo')) {
     function setupSeo()
     {
         $seo = settings()->group('general')->all();
+        $url = url()->current();
 
+        $relativeUrl = str_replace(env('APP_URL'), '', $url);
+        $metaPage = MetaPage::where('url', $relativeUrl)->first();
 
         $businessName = $seo['general_business_name'] ?? null;
         $separator = $seo['seo_title_separator'] ?? null;
 
         $site = $seo['seo_site_name'] ?? null;
-        $title = $seo['seo_meta_title'] ?? null;
-        $description = $seo['seo_meta_description'] ?? null;
         $canonical = $seo['seo_canonical'] ?? null;
-        $robots = $seo['seo_meta_robots'] ?? null;
-        $keywords = $seo['seo_meta_keywords'] ?? null;
-        $image = $seo['seo_image'] ?? null;
-        $url = url()->current();
+        $title = $metaPage?->seo_meta_title ?? $seo['seo_meta_title'] ?? null;
+        $description = $metaPage?->seo_meta_description ?? $seo['seo_meta_description'] ?? null;
+        $robots = $metaPage?->seo_meta_robots ?? $seo['seo_meta_robots'] ?? null;
+        $keywords = $metaPage?->seo_meta_keywords ?? $seo['seo_meta_keywords'] ?? null;
+        $image = $metaPage?->seo_image ?? $seo['seo_image'] ?? null;
 
         SEOMeta::setDescription($description);
         SEOMeta::setCanonical($url);
