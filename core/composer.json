@@ -13,7 +13,10 @@
     "autoload": {
         "psr-4": {
             "Jamstackvietnam\\Core\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "config": {
         "optimize-autoloader": true,
