@@ -1,7 +1,7 @@
 <?php
 
-if (! function_exists('setMeta')) {
-    function setMeta()
+if (! function_exists('setupSeo')) {
+    function setupSeo()
     {
         $seo = settings()->group('general')->all();
 
