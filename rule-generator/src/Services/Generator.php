@@ -208,7 +208,6 @@ class Generator
         return $this->combine->columns($merged, $rules);
     }
 
-
     public function getUniqueRules($rules, $id, $idColumn = 'id')
     {
         if (is_null($id))  return $rules;
@@ -236,7 +235,10 @@ class Generator
      */
     public function getColumnUniqueRules($rules, $id, $idColumn = 'id')
     {
+        if (!is_string($rules)) return $rules;
+
         $upos = strpos($rules, 'unique:');
+
         if ($upos === False) {
             return $rules;      // no unique rules for this field; return
         }
