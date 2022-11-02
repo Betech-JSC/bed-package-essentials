@@ -29,8 +29,8 @@ if (!function_exists('setupSeo')) {
 
         SEO::twitter()->setSite($site);
 
-        SEO::jsonLd()->setTitle($type);
-        SEO::jsonLd()->setSite($type);
+        SEO::jsonLd()->setTitle($title);
+        SEO::jsonLd()->setSite($site);
         SEO::jsonLd()->setDescription($description);
         SEO::jsonLd()->setUrl($url);
         SEO::jsonLd()->setImage($image);
