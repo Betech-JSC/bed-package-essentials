@@ -33,16 +33,6 @@
       "QCod\\Settings\\Tests\\": "tests/"
     }
   },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "QCod\\Settings\\SettingsServiceProvider"
-      ],
-      "aliases": {
-        "Settings": "QCod\\Settings\\Facade"
-      }
-    }
-  },
   "scripts": {
     "test": "vendor/bin/phpunit"
   }
