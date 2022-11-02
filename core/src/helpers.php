@@ -29,7 +29,7 @@ if (!function_exists('setupSeo')) {
         SEOMeta::setTitle($title);
         SEOMeta::setTitleDefault($businessName);
         SEOMeta::setTitleSeparator($separator);
-        SEOMeta::addKeyword($keywords);
+        $keywords && SEOMeta::addKeyword($keywords);
         SEOMeta::setRobots($robots);
         SEOMeta::setCanonical($url);
         // SEOMeta::addAlternateLanguage($lang, $url);
@@ -41,7 +41,7 @@ if (!function_exists('setupSeo')) {
         SEO::addImages([$image]);
 
         SEO::metatags()->setRobots($robots);
-        SEO::metatags()->setKeywords($keywords);
+        $keywords && SEO::metatags()->setKeywords($keywords);
 
         SEO::opengraph()->addImage($image);
         SEO::opengraph()->setUrl($url);
