@@ -20,7 +20,8 @@
                 "Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider",
                 "MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider",
                 "QCod\\Settings\\SettingsServiceProvider",
-                "Jamstackvietnam\\Sitemap\\SitemapServiceProvider"
+                "Jamstackvietnam\\Sitemap\\SitemapServiceProvider",
+                "Bjerke\\ApiQueryBuilder\\QueryBuilderServiceProvider"
             ]
         },
         "aliases": {
