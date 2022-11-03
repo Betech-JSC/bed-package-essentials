@@ -51,20 +51,20 @@ class ServiceProvider extends BaseServiceProvider
             empty(File::glob(database_path('migrations/*_create_related_posts_table.php')))
         ) {
             $timestamp = date('Y_m_d_Hi', time());
-            $post = database_path("migrations/{$timestamp}01_create_posts_table.php");
-            $postTranslation = database_path("migrations/{$timestamp}02_create_post_translations_table.php");
-            $postCategory = database_path("migrations/{$timestamp}03_create_post_categories_table.php");
-            $postCategoryTranslation = database_path("migrations/{$timestamp}04_create_post_category_translations_table.php");
-            $postRefCategory = database_path("migrations/{$timestamp}05_create_post_ref_categories_table.php");
-            $relatedPost = database_path("migrations/{$timestamp}06_create_related_posts_table.php");
+            $post = database_path("migrations/blog/{$timestamp}01_create_posts_table.php");
+            $postTranslation = database_path("migrations/blog/{$timestamp}02_create_post_translations_table.php");
+            $postCategory = database_path("migrations/blog/{$timestamp}03_create_post_categories_table.php");
+            $postCategoryTranslation = database_path("migrations/blog/{$timestamp}04_create_post_category_translations_table.php");
+            $postRefCategory = database_path("migrations/blog/{$timestamp}05_create_post_ref_categories_table.php");
+            $relatedPost = database_path("migrations/blog/{$timestamp}06_create_related_posts_table.php");
 
             $this->publishes([
-                __DIR__.'/../database/migrations/blog/create_posts_table.php.stub' => $post,
-                __DIR__.'/../database/migrations/blog/create_post_translations_table.php.stub' => $postTranslation,
-                __DIR__.'/../database/migrations/blog/create_post_categories_table.php.stub' => $postCategory,
-                __DIR__.'/../database/migrations/blog/create_post_category_translations_table.php.stub' => $postCategoryTranslation,
-                __DIR__.'/../database/migrations/blog/create_post_ref_categories_table.php.stub' => $postRefCategory,
-                __DIR__.'/../database/migrations/blog/create_related_posts_table.php.stub' => $relatedPost,
+                __DIR__.'/../database/migrations/create_posts_table.php.stub' => $post,
+                __DIR__.'/../database/migrations/create_post_translations_table.php.stub' => $postTranslation,
+                __DIR__.'/../database/migrations/create_post_categories_table.php.stub' => $postCategory,
+                __DIR__.'/../database/migrations/create_post_category_translations_table.php.stub' => $postCategoryTranslation,
+                __DIR__.'/../database/migrations/create_post_ref_categories_table.php.stub' => $postRefCategory,
+                __DIR__.'/../database/migrations/create_related_posts_table.php.stub' => $relatedPost,
             ], 'migrations');
         }
     }
