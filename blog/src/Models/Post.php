@@ -4,9 +4,9 @@ namespace Jamstackvietnam\Blog\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Jamstackvietnam\Support\Models\BaseModel;
+use Jamstackvietnam\Core\Models\BaseModel;
 use Nicolaslopezj\Searchable\SearchableTrait;
-use Jamstackvietnam\Support\Models\Translatable;
+use Jamstackvietnam\Core\Models\Translatable;
 
 class Post extends BaseModel
 {

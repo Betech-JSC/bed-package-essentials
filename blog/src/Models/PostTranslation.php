@@ -3,8 +3,8 @@
 namespace Jamstackvietnam\Blog\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Jamstackvietnam\Support\Models\BaseModel;
-use Jamstackvietnam\Support\Models\Sluggable;
+use Jamstackvietnam\Core\Models\BaseModel;
+use Jamstackvietnam\Core\Models\Sluggable;
 
 class PostTranslation extends BaseModel
 {
