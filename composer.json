@@ -12,6 +12,7 @@
     "extra": {
         "laravel": {
             "providers": [
+                "Jamstackvietnam\\Core\\Providers\\AppServiceProvider",
                 "Jamstackvietnam\\Core\\Providers\\MacroServiceProvider",
                 "Jamstackvietnam\\Core\\Providers\\RouteServiceProvider",
                 "Jamstackvietnam\\Redirect\\ServiceProvider",
