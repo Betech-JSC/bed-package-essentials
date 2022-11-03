@@ -151,13 +151,6 @@ class Post extends BaseModel
         return $query->where('status', self::STATUS_ACTIVE);
     }
 
-    public function scopeWhereSlug($query, $slug)
-    {
-        return $query->whereHas('translations', function ($query) use ($slug) {
-            $query->where('slug', $slug)->orWhere('custom_slug', $slug);
-        });
-    }
-
     public function transform()
     {
         return [
