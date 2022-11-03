@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->id();
 
             $table->string('image_url')->nullable();
-            $table->date('published_at')->nullable();
+            $table->date('published_at')->useCurrent();
 
             $table->boolean('is_home')->nullable()->default(0);
             $table->boolean('is_featured')->nullable()->default(0);
