@@ -1,0 +1,34 @@
+{
+    "name": "jamstackvietnam/blog",
+    "description": "blog",
+    "homepage": "https://jamstackvietnam.com",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Whoosh",
+            "email": "nhatkha1407@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Jamstackvietnam\\Blog\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jamstackvietnam\\Blog\\Tests\\": "tests"
+        },
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

@@ -21,7 +21,8 @@
                 "MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider",
                 "QCod\\Settings\\SettingsServiceProvider",
                 "Jamstackvietnam\\Sitemap\\SitemapServiceProvider",
-                "Bjerke\\ApiQueryBuilder\\QueryBuilderServiceProvider"
+                "Bjerke\\ApiQueryBuilder\\QueryBuilderServiceProvider",
+                "Jamstackvietnam\\Blog\\ServiceProvider"
             ]
         },
         "aliases": {
