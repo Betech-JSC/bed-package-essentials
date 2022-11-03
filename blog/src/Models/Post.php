@@ -32,7 +32,11 @@ class Post extends BaseModel
 
         'inject_head',
         'inject_body_start',
-        'inject_body_end'
+        'inject_body_end',
+
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     public $translatedAttributes = [
@@ -76,7 +80,6 @@ class Post extends BaseModel
     {
         static::saving(function (self $model) {
             if (request()->route() === null) return;
-            $model->view = request()->input('view', 0);
             $model->published_at = request()->input('published_at') ?? now();
         });
 
@@ -105,7 +108,7 @@ class Post extends BaseModel
             PostCategory::class,
             'post_ref_categories',
             'post_id',
-            'category_id'
+            'post_category_id'
         );
     }
 

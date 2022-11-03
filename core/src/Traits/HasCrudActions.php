@@ -152,15 +152,15 @@ trait HasCrudActions
         if (!$isValidationRequest) {
             $appends = [];
             if ($id) {
-                $appends['updated_by'] = current_admin();
+                $appends['updated_by'] = current_admin_id();
             } else {
-                $appends['created_by'] = current_admin();
+                $appends['created_by'] = current_admin_id();
             }
 
             $request->request->add([
-                ...$appends,
                 ...$this->getEmptyFields(),
-                ...$request->all()
+                ...$request->all(),
+                ...$appends
             ]);
         }
 
