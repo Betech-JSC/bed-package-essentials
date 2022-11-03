@@ -135,9 +135,9 @@ class PostCategory extends BaseModel
     {
         return Post::query()
             ->active()
-            ->where('posted_at', '<=', now())
+            ->where('published_at', '<=', now())
             ->orderByDesc('is_featured')
-            ->orderByDesc('posted_at')
+            ->orderByDesc('published_at')
             ->orderByDesc('id')
             ->whereHas('categories', function ($query) {
                 $query->where('post_categories.id', $this->id);

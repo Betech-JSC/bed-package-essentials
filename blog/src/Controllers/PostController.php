@@ -15,9 +15,9 @@ class PostController extends Controller
     {
         $posts = $this->model::query()
             ->active()
-            ->where('posted_at', '<=', now())
+            ->where('published_at', '<=', now())
             ->orderByDesc('is_featured')
-            ->orderByDesc('posted_at')
+            ->orderByDesc('published_at')
             ->orderByDesc('id')
             ->take(5)
             ->get();
@@ -49,9 +49,9 @@ class PostController extends Controller
 
         $query = $this->model::query()
             ->active()
-            ->where('posted_at', '<=', now())
+            ->where('published_at', '<=', now())
             ->orderByDesc('is_featured')
-            ->orderByDesc('posted_at')
+            ->orderByDesc('published_at')
             ->orderByDesc('id')
             ->whereHas('categories', function ($query) use ($category) {
                 $query->where('post_categories.id', $category->id);

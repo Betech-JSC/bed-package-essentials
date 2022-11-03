@@ -24,7 +24,7 @@ class Post extends BaseModel
 
     public $fillable = [
         'status',
-        'posted_at',
+        'published_at',
         'is_home',
         'is_featured',
         'view_count',
@@ -52,12 +52,10 @@ class Post extends BaseModel
         'seo_schemas',
     ];
 
-    public function modelRules(): array
+    public function rules()
     {
         return [
-            'all' => [
-                'title' => 'required|string|max:255',
-            ],
+            'title' => 'required|string|max:255',
         ];
     }
 
@@ -79,7 +77,7 @@ class Post extends BaseModel
         static::saving(function (self $model) {
             if (request()->route() === null) return;
             $model->view = request()->input('view', 0);
-            $model->posted_at = request()->input('posted_at') ?? now();
+            $model->published_at = request()->input('published_at') ?? now();
         });
 
         static::saved(function (self $model) {
@@ -129,7 +127,7 @@ class Post extends BaseModel
     public function getUrlAttribute(): array
     {
         $urls = [];
-        if($this->status == self::STATUS_ACTIVE && $this->posted_at <= now()) {
+        if ($this->status == self::STATUS_ACTIVE && $this->published_at <= now()) {
             foreach ($this->translations as $translation) {
                 $urls[strtoupper($translation->locale)] = route("$translation->locale.posts.show", [
                     'slug' => $translation->custom_slug ?? $translation->slug,
@@ -182,7 +180,7 @@ class Post extends BaseModel
             'description' => $this->description,
             'content' => $this->content,
             'category' => $this->category,
-            'categories' => $this->categories->map(fn($item) => $item->transform()),
+            'categories' => $this->categories->map(fn ($item) => $item->transform()),
             'thumbnail' => static_url($this->image_url),
 
             'meta_title' => $this->meta_title ?? $this->title,
@@ -201,7 +199,7 @@ class Post extends BaseModel
             })
             ->take(8)
             ->get()
-            ->map(fn($items) => $items->transform());
+            ->map(fn ($items) => $items->transform());
     }
 
     public function related()
@@ -225,7 +223,7 @@ class Post extends BaseModel
                 ->take(8 - count($relatedPosts))
                 ->get();
 
-            if(count($addPosts) > 0) {
+            if (count($addPosts) > 0) {
                 $relatedPosts = $relatedPosts->concat($addPosts);
             }
         }
