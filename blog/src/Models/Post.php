@@ -27,7 +27,7 @@ class Post extends BaseModel
         'posted_at',
         'is_home',
         'is_featured',
-        'view',
+        'view_count',
         'image_url'
     ];
 
@@ -69,7 +69,7 @@ class Post extends BaseModel
     {
         static::saving(function (self $model) {
             if (request()->route() === null) return;
-            $model->view = request()->input('view', 0);
+            $model->view = request()->input('view_count', 0);
             $model->posted_at = request()->input('posted_at') ?? now();
         });
 

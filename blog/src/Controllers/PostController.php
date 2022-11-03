@@ -81,7 +81,7 @@ class PostController extends Controller
             ->with('translations')
             ->findOrFail($id);
 
-        $post->increment('view');
+        $post->increment('view_count');
 
         $relatedPosts = $post->related();
 
