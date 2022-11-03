@@ -16,9 +16,12 @@ class CreatePostCategoriesTable extends Migration
     {
         Schema::create('post_categories', function (Blueprint $table) {
             $table->id();
+
+            $table->integer('position')->nullable();
             $table->string('status', 30)->default(PostCategory::STATUS_INACTIVE);
 
-            $table->addSeo();
+            $table->integer('view_count')->default(0);
+            $table->addInjectCode();
             $table->addTimestamps();
         });
     }

@@ -39,8 +39,6 @@ class MacroServiceProvider extends BaseServiceProvider
         });
 
         Blueprint::macro('addSeo', function () {
-            $this->integer('view_count')->default(0);
-
             $this->string('seo_meta_title')->nullable();
             $this->string('seo_slug')->nullable();
             $this->text('seo_meta_description')->nullable();
@@ -49,7 +47,6 @@ class MacroServiceProvider extends BaseServiceProvider
             $this->string('seo_canonical')->nullable();
             $this->string('seo_image')->nullable();
             $this->text('seo_schemas')->nullable();
-            $this->addInjectCode();
         });
 
         Blueprint::macro('addStatus', function ($default = 'ACTIVE') {
