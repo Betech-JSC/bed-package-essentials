@@ -18,10 +18,8 @@ class CreatePostCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('status', 30)->default(PostCategory::STATUS_INACTIVE);
 
-            $table->timestamps();
-            $table->softDeletes();
-
-            $table->index('deleted_at', 'deleted_at');
+            $table->addSeo();
+            $table->addTimestamps();
         });
     }
 

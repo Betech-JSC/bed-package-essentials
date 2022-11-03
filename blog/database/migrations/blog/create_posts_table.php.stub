@@ -21,12 +21,9 @@ class CreatePostsTable extends Migration
             $table->date('posted_at')->nullable();
             $table->boolean('is_home')->nullable()->default(0);
             $table->boolean('is_featured')->nullable()->default(0);
-            $table->integer('view')->nullable()->default(0);
 
-            $table->timestamps();
-            $table->softDeletes();
-
-            $table->index('deleted_at', 'deleted_at');
+            $table->addSeo();
+            $table->addTimestamps();
         });
     }
 

@@ -39,6 +39,8 @@ class MacroServiceProvider extends BaseServiceProvider
         });
 
         Blueprint::macro('addSeo', function () {
+            $this->integer('view_count')->default(0);
+
             $this->string('seo_meta_title')->nullable();
             $this->string('seo_slug')->nullable();
             $this->text('seo_meta_description')->nullable();
