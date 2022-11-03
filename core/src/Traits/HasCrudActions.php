@@ -150,7 +150,15 @@ trait HasCrudActions
         $isValidationRequest = $request->header('X-Dry-Run') == 'true';
 
         if (!$isValidationRequest) {
+            $appends = [];
+            if ($id) {
+                $appends['updated_by']  = current_admin();
+            } else {
+                $appends['created_by']  = current_admin();
+            }
+
             $request->request->add([
+                ...$appends,
                 ...$this->getEmptyFields(),
                 ...$request->all()
             ]);
