@@ -59,12 +59,12 @@ class ServiceProvider extends BaseServiceProvider
             $relatedPost = database_path("migrations/{$timestamp}06_create_related_posts_table.php");
 
             $this->publishes([
-                __DIR__.'/../database/migrations/create_posts_table.php.stub' => $post,
-                __DIR__.'/../database/migrations/create_post_translations_table.php.stub' => $postTranslation,
-                __DIR__.'/../database/migrations/create_post_categories_table.php.stub' => $postCategory,
-                __DIR__.'/../database/migrations/create_post_category_translations_table.php.stub' => $postCategoryTranslation,
-                __DIR__.'/../database/migrations/create_post_ref_categories_table.php.stub' => $postRefCategory,
-                __DIR__.'/../database/migrations/create_related_posts_table.php.stub' => $relatedPost,
+                __DIR__.'/../database/migrations/blog/create_posts_table.php.stub' => $post,
+                __DIR__.'/../database/migrations/blog/create_post_translations_table.php.stub' => $postTranslation,
+                __DIR__.'/../database/migrations/blog/create_post_categories_table.php.stub' => $postCategory,
+                __DIR__.'/../database/migrations/blog/create_post_category_translations_table.php.stub' => $postCategoryTranslation,
+                __DIR__.'/../database/migrations/blog/create_post_ref_categories_table.php.stub' => $postRefCategory,
+                __DIR__.'/../database/migrations/blog/create_related_posts_table.php.stub' => $relatedPost,
             ], 'migrations');
         }
     }
