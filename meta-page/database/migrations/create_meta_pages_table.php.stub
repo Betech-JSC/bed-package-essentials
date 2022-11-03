@@ -14,7 +14,7 @@ class CreateMetaPagesTable extends Migration
     public function up()
     {
         Schema::create('meta_pages', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
 
             $table->string('url')->unique();
 

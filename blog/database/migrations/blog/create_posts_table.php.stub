@@ -15,7 +15,7 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('status', 30)->default(Post::STATUS_INACTIVE);
             $table->string('image_url')->nullable();
             $table->date('posted_at')->nullable();

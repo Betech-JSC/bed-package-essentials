@@ -15,7 +15,7 @@ class CreatePostCategoriesTable extends Migration
     public function up()
     {
         Schema::create('post_categories', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('status', 30)->default(PostCategory::STATUS_INACTIVE);
 
             $table->addSeo();

@@ -14,7 +14,7 @@ class CreateRelatedPostsTable extends Migration
     public function up()
     {
         Schema::create('related_posts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('related_post_id');
             $table->unique(['post_id', 'related_post_id']);
