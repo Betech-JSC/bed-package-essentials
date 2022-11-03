@@ -24,7 +24,7 @@ class MacroServiceProvider extends BaseServiceProvider
     private function registerMacroBlueprint()
     {
         Blueprint::macro('addTimestamps', function () {
-            $this->unsignedBigInteger('created_by')->index();
+            $this->unsignedBigInteger('created_by')->nullable()->index();
             $this->unsignedBigInteger('updated_by')->nullable()->index();
             $this->unsignedBigInteger('deleted_by')->nullable()->index();
 
