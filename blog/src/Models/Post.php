@@ -78,11 +78,6 @@ class Post extends BaseModel
 
     protected static function booted()
     {
-        static::saving(function (self $model) {
-            if (request()->route() === null) return;
-            $model->published_at = request()->input('published_at') ?? now();
-        });
-
         static::saved(function (self $model) {
             if (request()->route() === null) return;
             $model->saveRelatedPosts($model);
