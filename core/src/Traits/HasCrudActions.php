@@ -345,6 +345,7 @@ trait HasCrudActions
 
         $tableCols = RuleGenerator::getTableDefault($table);
         $modelCols = array_values($model->getFillable());
+        $modelCols = array_merge($model->translatedAttributes ?? [], $modelCols);
 
         $columns = array_filter($tableCols, function ($key) use ($modelCols) {
             return in_array($key, $modelCols);

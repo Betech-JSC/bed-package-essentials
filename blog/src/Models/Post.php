@@ -28,7 +28,11 @@ class Post extends BaseModel
         'is_home',
         'is_featured',
         'view_count',
-        'image_url'
+        'image_url',
+
+        'inject_head',
+        'inject_body_start',
+        'inject_body_end'
     ];
 
     public $translatedAttributes = [
@@ -38,9 +42,14 @@ class Post extends BaseModel
         'description',
         'content',
 
-        'meta_title',
-        'custom_slug',
-        'meta_description'
+        'seo_meta_title',
+        'seo_slug',
+        'seo_meta_description',
+        'seo_meta_keywords',
+        'seo_meta_robots',
+        'seo_canonical',
+        'seo_image',
+        'seo_schemas',
     ];
 
     public function modelRules(): array
@@ -69,7 +78,7 @@ class Post extends BaseModel
     {
         static::saving(function (self $model) {
             if (request()->route() === null) return;
-            $model->view = request()->input('view_count', 0);
+            $model->view = request()->input('view', 0);
             $model->posted_at = request()->input('posted_at') ?? now();
         });
 

@@ -20,9 +20,14 @@ class PostTranslation extends BaseModel
         'description',
         'content',
 
-        'meta_title',
-        'custom_slug',
-        'meta_description'
+        'seo_meta_title',
+        'seo_slug',
+        'seo_meta_description',
+        'seo_meta_keywords',
+        'seo_meta_robots',
+        'seo_canonical',
+        'seo_image',
+        'seo_schemas',
     ];
 
     public function post()

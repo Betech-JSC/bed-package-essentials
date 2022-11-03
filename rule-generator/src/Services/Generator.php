@@ -3,6 +3,7 @@
 namespace Jamstackvietnam\RuleGenerator\Services;
 
 use InvalidArgumentException;
+use Illuminate\Support\Str;
 
 class Generator
 {
@@ -163,6 +164,9 @@ class Generator
             throw new InvalidArgumentException;
 
         $columns = $this->schema->columns($table);
+        $translationColumns = $this->schema->columns(Str::singular($table) . '_translations');
+
+        $columns = array_merge($translationColumns, $columns);
 
         foreach ($columns as $key => $column) {
             $columns[$key] = $column->getDefault();
