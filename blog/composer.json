@@ -15,6 +15,9 @@
             "Jamstackvietnam\\Blog\\": "src/"
         }
     },
+    "require": {
+        "astrotomic/laravel-translatable": "*"
+    },
     "scripts": {
         "test": "phpunit"
     },
