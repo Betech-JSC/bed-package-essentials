@@ -37,7 +37,8 @@
         "spatie/laravel-permission": "*",
         "spiritix/lada-cache": "*",
         "stechstudio/laravel-ssh-tunnel": "*",
-        "appstract/laravel-opcache": "*"
+        "appstract/laravel-opcache": "*",
+        "codezero/laravel-localized-routes": "*"
     },
     "require-dev": {
         "beyondcode/laravel-query-detector": "*"
