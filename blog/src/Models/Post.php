@@ -16,8 +16,8 @@ class Post extends BaseModel
     public const STATUS_INACTIVE = 'INACTIVE';
 
     public const STATUS_LIST = [
-        self::STATUS_ACTIVE => 'ACTIVE',
-        self::STATUS_INACTIVE => 'INACTIVE',
+        self::STATUS_ACTIVE => 'Kích hoạt',
+        self::STATUS_INACTIVE => 'Tắt',
     ];
 
     public $with = ['translations', 'categories'];
