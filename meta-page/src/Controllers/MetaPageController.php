@@ -30,7 +30,7 @@ class MetaPageController extends Controller
             MetaPage::insert($diff->transform(fn ($item) => ['url' => $item])->toArray());
         }
 
-        return $query;
+        return $query->orderBy('url', 'ASC');
     }
 
     private function transform($item)
