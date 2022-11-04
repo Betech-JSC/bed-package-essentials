@@ -22,8 +22,8 @@ class RouteServiceProvider extends ServiceProvider
                 info("Attempted to lazy load [{$relation}] on model [{$class}].");
             });
         } else {
-            DB::whenQueryingForLongerThan(2000, function (Connection $connection) {
-                Log::warning("Database queries exceeded 2 seconds on {$connection->getName()}");
+            DB::whenQueryingForLongerThan(10000, function (Connection $connection) {
+                Log::warning("Database queries exceeded 10 seconds on {$connection->getName()}");
             });
         }
 
