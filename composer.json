@@ -23,7 +23,8 @@
                 "QCod\\Settings\\SettingsServiceProvider",
                 "Jamstackvietnam\\Sitemap\\SitemapServiceProvider",
                 "Bjerke\\ApiQueryBuilder\\QueryBuilderServiceProvider",
-                "Jamstackvietnam\\Blog\\ServiceProvider"
+                "Jamstackvietnam\\Blog\\ServiceProvider",
+                "Amirami\\Localizator\\ServiceProvider"
             ]
         },
         "aliases": {
