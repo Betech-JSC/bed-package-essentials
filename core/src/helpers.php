@@ -56,3 +56,9 @@ if (!function_exists('setupSeo')) {
         SEO::jsonLd()->setImage($image);
     }
 }
+
+// if (!function_exists('setupSeo')) {
+//     function setupSeo()
+//     {
+//     }
+// }

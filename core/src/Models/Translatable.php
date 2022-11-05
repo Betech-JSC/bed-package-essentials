@@ -16,7 +16,7 @@ trait Translatable
     public function scopeWhereSlug($query, $slug)
     {
         return $query->whereHas('translations', function ($query) use ($slug) {
-            $query->where('custom_slug', $slug)->orWhere('slug', $slug);
+            $query->where('seo_slug', $slug)->orWhere('slug', $slug);
         });
     }
 }
