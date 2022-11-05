@@ -206,9 +206,11 @@ class Post extends BaseModel
             ->map(fn ($items) => $items->transform());
     }
 
-    public function related()
+    public function related($limit = 8)
     {
-        $relatedPosts = $this->relatedPosts->where('status', self::STATUS_ACTIVE)->values()->take(8);
+        $relatedPosts = $this->relatedPosts
+            ->where('status', self::STATUS_ACTIVE)->values()
+            ->take($limit);
 
         $relatedPostIds = [];
 
@@ -216,15 +218,17 @@ class Post extends BaseModel
             $relatedPostIds = $relatedPosts->pluck('id');
         }
 
-        if (count($relatedPosts) < 8) {
+        if (count($relatedPosts) < $limit) {
             $addPosts = self::query()
                 ->active()
-                ->whereHas('categories', function ($query) {
-                    $query->where('post_categories.id', $this->category['id']);
+                ->when($this->category['id'] ?? false, function ($query) {
+                    $query->whereHas('categories', function ($query) {
+                        $query->where('post_categories.id', $this->category['id']);
+                    });
                 })
                 ->where('id', '<>', $this->id)
                 ->whereNotIn('id', $relatedPostIds)
-                ->take(8 - count($relatedPosts))
+                ->take($limit - count($relatedPosts))
                 ->get();
 
             if (count($addPosts) > 0) {

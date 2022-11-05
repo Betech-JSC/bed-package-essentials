@@ -44,9 +44,14 @@ class PostCategory extends BaseModel
         'locale',
         'title',
 
-        'meta_title',
-        'custom_slug',
-        'meta_description'
+        'seo_meta_title',
+        'seo_slug',
+        'seo_meta_description',
+        'seo_meta_keywords',
+        'seo_meta_robots',
+        'seo_canonical',
+        'seo_image',
+        'seo_schemas',
     ];
 
     protected $searchable = [
@@ -92,7 +97,7 @@ class PostCategory extends BaseModel
         if($this->status == self::STATUS_ACTIVE) {
             foreach ($this->translations as $translation) {
                 $urls[strtoupper($translation->locale)] = route("$translation->locale.posts.category", [
-                    'slug' => $translation->custom_slug ?? $translation->slug,
+                    'slug' => $translation->seo_slug ?? $translation->slug,
                 ]);
             }
         }
@@ -104,7 +109,7 @@ class PostCategory extends BaseModel
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'slug' => $this->custom_slug ?? $this->slug,
+            'slug' => $this->seo_slug ?? $this->slug,
 
             'meta_title' => $this->meta_title ?? $this->title,
             'meta_description' => $this->meta_description ?? $this->description
@@ -116,7 +121,7 @@ class PostCategory extends BaseModel
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'slug' => $this->custom_slug ?? $this->slug,
+            'slug' => $this->seo_slug ?? $this->slug,
             'posts' => $this->posts(),
 
             'meta_title' => $this->meta_title ?? $this->title,
