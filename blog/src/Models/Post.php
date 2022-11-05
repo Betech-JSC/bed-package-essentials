@@ -186,9 +186,12 @@ class Post extends BaseModel
             'category' => $this->category,
             'categories' => $this->categories->map(fn ($item) => $item->transform()),
             'thumbnail' => static_url($this->image_url),
-
-            ...append_seo_fields($this)
         ];
+    }
+
+    public function transformSeo()
+    {
+        return transform_seo($this);
     }
 
     public static function postByPosition($position)
