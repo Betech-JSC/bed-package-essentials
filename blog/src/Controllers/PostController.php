@@ -11,11 +11,10 @@ class PostController extends Controller
 {
     public $model = Post::class;
 
-    public function index()
+    public function categories()
     {
         $posts = $this->model::query()
             ->active()
-            ->where('published_at', '<=', now())
             ->orderByDesc('is_featured')
             ->orderByDesc('published_at')
             ->orderByDesc('id')
@@ -37,7 +36,7 @@ class PostController extends Controller
             return response()->json($data);
         }
 
-        return Inertia::render('Posts/Index', $data);
+        return Inertia::render('Posts/Categories', $data);
     }
 
     public function category($slug)
@@ -49,7 +48,6 @@ class PostController extends Controller
 
         $query = $this->model::query()
             ->active()
-            ->where('published_at', '<=', now())
             ->orderByDesc('is_featured')
             ->orderByDesc('published_at')
             ->orderByDesc('id')
@@ -57,10 +55,13 @@ class PostController extends Controller
                 $query->where('post_categories.id', $category->id);
             });
 
-        $posts = $query->paginate(18)
+        $posts = $query
+            ->paginate(18)
+            ->onEachSide(3)
             ->through(function ($item) {
                 return $item->transform();
-            })->withQueryString();
+            })
+            ->withQueryString();
 
         $data = [
             'category' => $category->transform(),
@@ -81,7 +82,7 @@ class PostController extends Controller
             ->with('translations')
             ->findOrFail($id);
 
-        $post->increment('view');
+        $post->increment('view_count');
 
         $relatedPosts = $post->related();
 
@@ -99,6 +100,8 @@ class PostController extends Controller
 
     public function getCategories()
     {
-        return PostCategory::active()->get()->map(fn($item) => $item->transform());
+        return PostCategory::active()
+            ->get()
+            ->map(fn ($item) => $item->transform());
     }
 }
