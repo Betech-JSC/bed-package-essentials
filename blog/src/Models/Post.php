@@ -130,10 +130,10 @@ class Post extends BaseModel
     public function getUrlAttribute(): array
     {
         $urls = [];
-        if ($this->status == self::STATUS_ACTIVE && $this->published_at <= now()) {
+        if ($this->is_active) {
             foreach ($this->translations as $translation) {
                 $urls[strtoupper($translation->locale)] = route("$translation->locale.posts.show", [
-                    'slug' => $translation->custom_slug ?? $translation->slug,
+                    'slug' => $translation->seo_slug ?? $translation->slug,
                     'id' => $this->id,
                 ]);
             }
@@ -148,7 +148,15 @@ class Post extends BaseModel
 
     public function scopeActive($query)
     {
-        return $query->where('status', self::STATUS_ACTIVE);
+        return $query
+            ->where('status', self::STATUS_ACTIVE)
+            ->where('published_at', '<=', now());
+    }
+
+    public function getIsActiveAttribute()
+    {
+        return $this->status === self::STATUS_ACTIVE &&
+            $this->published_at <= now();
     }
 
     public function transform()
@@ -156,7 +164,7 @@ class Post extends BaseModel
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'slug' => $this->custom_slug ?? $this->slug,
+            'slug' => $this->seo_slug ?? $this->slug,
             'updated_at' => $this->formatted_updated_at,
             'formatted_created_at' => $this->formatted_created_at,
             'description' => $this->description,
@@ -170,7 +178,7 @@ class Post extends BaseModel
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'slug' => $this->custom_slug ?? $this->slug,
+            'slug' => $this->seo_slug ?? $this->slug,
             'updated_at' => $this->formatted_updated_at,
             'formatted_created_at' => $this->formatted_created_at,
             'description' => $this->description,
