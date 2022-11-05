@@ -187,8 +187,7 @@ class Post extends BaseModel
             'categories' => $this->categories->map(fn ($item) => $item->transform()),
             'thumbnail' => static_url($this->image_url),
 
-            'meta_title' => $this->meta_title ?? $this->title,
-            'meta_description' => $this->meta_description ?? $this->description
+            ...append_seo_fields($this)
         ];
     }
 
