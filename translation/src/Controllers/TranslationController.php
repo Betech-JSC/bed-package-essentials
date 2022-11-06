@@ -38,7 +38,7 @@ class TranslationController extends Controller
                     $parser->getKeys($locale, $type),
                     $type,
                     $locale,
-                    $this->option('remove-missing')
+                    false
                 );
             }
         }
