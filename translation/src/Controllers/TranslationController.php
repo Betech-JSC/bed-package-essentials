@@ -17,7 +17,7 @@ class TranslationController extends Controller
 
     public function beforeIndex($query)
     {
-        $this->generate();
+        $this->scanFromView();
         return $query->groupBy('key');
     }
 
@@ -43,10 +43,12 @@ class TranslationController extends Controller
             $request->only('value'),
         );
 
+        $this->storeToJson();
+
         return response()->json($item);
     }
 
-    public function generate()
+    public function scanFromView()
     {
         $localizator = new Localizator;
 
@@ -79,6 +81,30 @@ class TranslationController extends Controller
                     'locale' => $locale
                 ])->toArray()
             );
+        }
+    }
+
+    public function storeToJson()
+    {
+        $translations = Translation::get()->groupBy('key');
+        $appLocales = config('app.locales');
+        $defaultLocale = config('app.locale');
+
+        $locales = [];
+        foreach ($appLocales as $locale) {
+            $locales[$locale] = [];
+            foreach ($translations as $key => $translation) {
+                $translateLocale = $translation->firstWhere('locale', $locale)?->value;
+                $translateDefaultLocale = $translation->firstWhere('locale', $defaultLocale)?->value;
+
+                $locales[$locale][$key] = $translateLocale ?? $translateDefaultLocale;
+            }
+        }
+
+        foreach ($locales as $locale => $value) {
+            $jsonLocales = json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . PHP_EOL;
+
+            file_put_contents(public_path("build/locales/$locale.json"), $jsonLocales);
         }
     }
 
