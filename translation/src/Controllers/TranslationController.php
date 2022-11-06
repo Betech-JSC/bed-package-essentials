@@ -2,12 +2,13 @@
 
 namespace Jamstackvietnam\Translation\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Jamstackvietnam\Core\Traits\HasCrudActions;
-use Jamstackvietnam\Translation\Models\Translation;
-use Amirami\Localizator\Services\Localizator;
 use Amirami\Localizator\Services\Parser;
 use Amirami\Localizator\Services\FileFinder;
+use Amirami\Localizator\Services\Localizator;
+use Jamstackvietnam\Core\Traits\HasCrudActions;
+use Jamstackvietnam\Translation\Models\Translation;
 
 class TranslationController extends Controller
 {
@@ -17,8 +18,32 @@ class TranslationController extends Controller
     public function beforeIndex($query)
     {
         $this->generate();
-        dd('1');
-        // return $query->groupBy('key');
+        return $query->groupBy('key');
+    }
+
+    private function table()
+    {
+        $items = $this->model::query()
+            ->get()
+            ->groupBy('key')
+            ->map(function ($value, $key) {
+                return [
+                    'key' => $key,
+                    'translations' => $value->keyBy('locale')->map(fn ($translation) => $translation->value)
+                ];
+            })->values();
+
+        return response()->json($items);
+    }
+
+    public function store(Request $request)
+    {
+        $item = Translation::updateOrCreate(
+            $request->only('key', 'locale'),
+            $request->only('value'),
+        );
+
+        return response()->json($item);
     }
 
     public function generate()
@@ -56,6 +81,7 @@ class TranslationController extends Controller
             );
         }
     }
+
     protected function getLocales(): array
     {
         return $this->argument('lang')
