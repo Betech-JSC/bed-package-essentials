@@ -25,7 +25,7 @@ class Localizator
      * @param string $locale
      * @return Translatable
      */
-    protected function collect(Translatable $keys, string $type, string $locale, bool $removeMissing): Translatable
+    public function collect(Translatable $keys, string $type, string $locale, bool $removeMissing): Translatable
     {
         return $keys
             ->merge($this->getCollector($type)->getTranslated($locale)
