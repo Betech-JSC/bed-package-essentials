@@ -1,7 +1,6 @@
 <?php
 
 namespace Jamstackvietnam\MetaPage\Models;
-
 use Illuminate\Database\Eloquent\Model;
 
 class MetaPage extends Model

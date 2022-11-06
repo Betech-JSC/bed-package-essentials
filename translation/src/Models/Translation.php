@@ -1,8 +1,9 @@
 <?php
 
 namespace Jamstackvietnam\Translation\Models;
+use Illuminate\Database\Eloquent\Model;
 
-class Translation
+class Translation extends Model
 {
     public $fillable = [
         'locale',
