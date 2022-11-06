@@ -84,7 +84,7 @@ class DefaultWriter implements Writable
      */
     protected function getFile(string $locale, string $fileName): string
     {
-        return lang_path($locale.DIRECTORY_SEPARATOR.$fileName.'.php');
+        return lang_path_group($locale.DIRECTORY_SEPARATOR.$fileName.'.php');
     }
 
     /**

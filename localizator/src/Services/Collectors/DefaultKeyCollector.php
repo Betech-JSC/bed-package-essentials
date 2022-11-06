@@ -36,7 +36,7 @@ class DefaultKeyCollector implements Collectable
      */
     protected function getFiles(string $locale): Collection
     {
-        $dir = lang_path($locale);
+        $dir = lang_path_group($locale);
 
         if (! file_exists($dir)) {
             if (! mkdir($dir, 0755) && ! is_dir($dir)) {
@@ -59,7 +59,7 @@ class DefaultKeyCollector implements Collectable
      */
     protected function requireFile(string $locale, SplFileInfo $fileInfo): array
     {
-        return require lang_path(
+        return require lang_path_group(
             $locale.DIRECTORY_SEPARATOR.$fileInfo->getRelativePathname()
         );
     }
