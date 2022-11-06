@@ -2,7 +2,6 @@
 
 namespace Jamstackvietnam\MetaPage\Models;
 
-use Jamstackvietnam\Sitemap\Sitemap;
 use Illuminate\Database\Eloquent\Model;
 
 class MetaPage extends Model
