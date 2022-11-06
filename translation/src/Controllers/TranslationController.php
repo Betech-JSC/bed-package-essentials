@@ -27,7 +27,6 @@ class TranslationController extends Controller
 
         $config = config();
         $file = new FileFinder($config);
-
         $parser = new Parser($config, $file);
 
         $parser->parseKeys();
