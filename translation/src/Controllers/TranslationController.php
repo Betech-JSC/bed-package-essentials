@@ -17,12 +17,12 @@ class TranslationController extends Controller
 
     public function beforeIndex($query)
     {
-        $this->scanFromView();
         return $query->groupBy('key');
     }
 
     private function table()
     {
+        $this->scanFromView();
         $items = $this->model::query()
             ->get()
             ->groupBy('key')
@@ -55,12 +55,11 @@ class TranslationController extends Controller
         $config = config();
         $file = new FileFinder($config);
         $parser = new Parser($config, $file);
-
         $parser->parseKeys();
 
         $translations = collect();
-
         $locale = config('app.locale');
+
         foreach ($this->getTypes() as $type) {
             $translations = $translations->concat($localizator->collect(
                 $parser->getKeys($locale, $type),
