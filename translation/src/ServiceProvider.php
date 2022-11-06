@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\MetaPage;
+namespace Jamstackvietnam\Translation;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Routing\Router;
