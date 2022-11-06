@@ -15,9 +15,7 @@ class MetaPageController extends Controller
 
     public function beforeIndex($query)
     {
-        $pages = MetaPage::all();
-
-        $storedRoutes = $pages->pluck('url');
+        $storedRoutes = MetaPage::pluck('url');
         $routes = collect(Sitemap::create()->addStaticRoutes()->tags)
             ->transform(
                 fn ($item) =>

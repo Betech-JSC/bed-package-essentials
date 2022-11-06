@@ -31,16 +31,29 @@ class TranslationController extends Controller
 
         $parser->parseKeys();
 
-        foreach (config('app.locales') as $locale) {
+        $translations = collect();
 
-            foreach ($this->getTypes() as $type) {
-                $localizator->collect(
-                    $parser->getKeys($locale, $type),
-                    $type,
-                    $locale,
-                    false
-                );
-            }
+        $locale = config('app.locale');
+        foreach ($this->getTypes() as $type) {
+            $translations = $translations->concat($localizator->collect(
+                $parser->getKeys($locale, $type),
+                $type,
+                $locale,
+                true
+            ));
+        }
+
+        $storedTranslations = Translation::pluck('key');
+        $diff = $translations->diff($storedTranslations);
+
+        if ($diff->count()) {
+            Translation::insert(
+                $diff->transform(fn ($item) => [
+                    'key' => $item,
+                    'value' => $item,
+                    'locale' => $locale
+                ])->toArray()
+            );
         }
     }
     protected function getLocales(): array
