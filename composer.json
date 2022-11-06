@@ -17,13 +17,14 @@
                 "Jamstackvietnam\\Core\\Providers\\RouteServiceProvider",
                 "Jamstackvietnam\\Redirect\\ServiceProvider",
                 "Jamstackvietnam\\MetaPage\\ServiceProvider",
+                "Jamstackvietnam\\Blog\\ServiceProvider",
+                "Jamstackvietnam\\Translation\\ServiceProvider",
                 "Tightenco\\Ziggy\\ZiggyServiceProvider",
                 "Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider",
                 "MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider",
                 "QCod\\Settings\\SettingsServiceProvider",
                 "Jamstackvietnam\\Sitemap\\SitemapServiceProvider",
                 "Bjerke\\ApiQueryBuilder\\QueryBuilderServiceProvider",
-                "Jamstackvietnam\\Blog\\ServiceProvider",
                 "Amirami\\Localizator\\ServiceProvider"
             ]
         },
