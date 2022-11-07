@@ -17,7 +17,9 @@ class CreateSlidersTable extends Migration
             $table->id();
             $table->string('status', 30)->default('ACTIVE');
             $table->string('position')->nullable()->default('HOME_SLIDER');
-            $table->integer('sort_position')->unsigned()->nullable();
+            
+            $table->date('started_at')->nullable();
+            $table->date('ended_at')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
