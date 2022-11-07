@@ -5,7 +5,7 @@ namespace Jamstackvietnam\Slider\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
-use Jamstackvietnam\Support\Models\BaseModel;
+use Jamstackvietnam\Core\Models\BaseModel;
 use Illuminate\Database\Eloquent\Builder;
 use Jamstackvietnam\Core\Models\Translatable;
 
@@ -47,12 +47,10 @@ class Slider extends BaseModel
         'banner_mobile_thumbnail_url',
     ];
 
-    public function modelRules()
+    public function rules()
     {
         return [
-            'all' => [
-                'title' => 'required|string|max:255',
-            ],
+            'title' => 'required|string|max:255',
         ];
     }
 
