@@ -110,10 +110,12 @@ class PostCategory extends BaseModel
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
-
-            'meta_title' => $this->meta_title ?? $this->title,
-            'meta_description' => $this->meta_description ?? $this->description
         ];
+    }
+
+    public function transformSeo()
+    {
+        return transform_seo($this);
     }
 
     public function transformPosts()

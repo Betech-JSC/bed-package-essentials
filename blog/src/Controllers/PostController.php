@@ -72,7 +72,8 @@ class PostController extends Controller
             return response()->json($data);
         }
 
-        return Inertia::render('Posts/Category', $data);
+        return Inertia::render('Posts/Category', $data)
+            ->withViewData(['seo' => $category->transformSeo()]);
     }
 
     public function show($slug, $id)
@@ -95,7 +96,8 @@ class PostController extends Controller
             return response()->json($data);
         }
 
-        return Inertia::render('Posts/Show', $data);
+        return Inertia::render('Posts/Show', $data)
+            ->withViewData(['seo' => $post->transformSeo()]);
     }
 
     public function getCategories()
