@@ -23,8 +23,8 @@ class CreateSliderTranslationsTable extends Migration
             $table->string('description')->nullable();
             $table->string('link')->nullable();
 
-            $table->string('banner_thumbnail_url')->nullable();
-            $table->string('banner_mobile_thumbnail_url')->nullable();
+            $table->json('banner_thumbnail')->nullable();
+            $table->json('banner_mobile_thumbnail')->nullable();
 
             $table->unique(['locale', 'slider_id']);
             $table->foreign('slider_id')

@@ -36,15 +36,21 @@ class Slider extends BaseModel
         'status',
         'position',
         'sort_position',
-
+        'started_at',
+        'ended_at',
     ];
 
     public $translatedAttributes = [
         'title',
         'description',
         'link',
-        'banner_thumbnail_url',
-        'banner_mobile_thumbnail_url',
+        'banner_thumbnail',
+        'banner_mobile_thumbnail',
+    ];
+
+    public $casts = [
+        'banner_thumbnail' => 'array',
+        'banner_mobile_thumbnail' => 'array',
     ];
 
     public function rules()
@@ -52,19 +58,6 @@ class Slider extends BaseModel
         return [
             'title' => 'required|string|max:255',
         ];
-    }
-
-    protected static function booted()
-    {
-        static::saved(function (self $model) {
-            if (request()->route() === null) return;
-            if ($model->status == self::STATUS_ACTIVE && config('slider.positions.' . $model->position . '.count') == 1) {
-                self::where('id', '<>', $model->id)
-                    ->where('status', self::STATUS_ACTIVE)
-                    ->where('position', $model->position)
-                    ->update(['status' => self::STATUS_INACTIVE]);
-            }
-        });
     }
 
     public function getFormattedPositionAttribute()
@@ -77,6 +70,14 @@ class Slider extends BaseModel
         return $query->where('status', self::STATUS_ACTIVE);
     }
 
+    public function scopeAvailable($query)
+    {
+        $query->whereDate('started_at', '<=', now())->whereDate('ended_at', '>=', now());
+        $query->orWhereDate('started_at', '<=', now())->whereNull('ended_at');
+        $query->orWhereDate('ended_at', '>=', now())->whereNull('started_at');
+        $query->orWhereNull('ended_at')->whereNull('started_at');
+    }
+
     public function transform()
     {
         return [
@@ -84,25 +85,24 @@ class Slider extends BaseModel
             'title' => $this->title,
             'description' => $this->description,
             'link' => $this->link,
-            'banner_thumbnail' => $this->banner_thumbnail_url,
-            'banner_mobile_thumbnail' => $this->banner_mobile_thumbnail_url,
+            'banner_thumbnail' => $this->banner_thumbnail,
+            'banner_mobile_thumbnail' => $this->banner_mobile_thumbnail,
         ];
     }
 
     public function scopeGetByPosition(Builder $query, $position)
     {
         $query->where('position', $position)
+            ->available()
             ->orderBy('sort_position', 'desc')
+            ->orderBy('started_at', 'desc')
             ->orderBy('id', 'desc');
 
-        $length = config('slider.positions.' . $position . '.count');
-
-        if($length == 1) {
-            return $query->first()->transform();
+        if(config('slider.positions.' . $position . '.banner')) {
+            return $query?->first()->transform();
         }
         else {
-            return $query->take($length)
-                ->get()
+            return $query->get()
                 ->map(fn ($item) => $item->transform());
         }
     }
