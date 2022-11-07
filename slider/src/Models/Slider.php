@@ -17,8 +17,8 @@ class Slider extends BaseModel
     const STATUS_INACTIVE = 'INACTIVE';
 
     public const STATUS_LIST = [
-        self::STATUS_ACTIVE => 'ACTIVE',
-        self::STATUS_INACTIVE => 'INACTIVE',
+        self::STATUS_ACTIVE => 'Hiển thị',
+        self::STATUS_INACTIVE => 'Ẩn',
     ];
 
     public $with = ['translations'];

@@ -18,6 +18,7 @@
                 "Jamstackvietnam\\Redirect\\ServiceProvider",
                 "Jamstackvietnam\\MetaPage\\ServiceProvider",
                 "Jamstackvietnam\\Blog\\ServiceProvider",
+                "Jamstackvietnam\\Slider\\ServiceProvider",
                 "Jamstackvietnam\\Translation\\ServiceProvider",
                 "Tightenco\\Ziggy\\ZiggyServiceProvider",
                 "Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider",
