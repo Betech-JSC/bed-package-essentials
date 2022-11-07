@@ -1,0 +1,41 @@
+{
+    "name": "jamstackvietnam/slider",
+    "description": "slider",
+    "homepage": "https://jamstackvietnam.com",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Whoosh",
+            "email": "nhatkha1407@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Jamstackvietnam\\Slider\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jamstackvietnam\\Slider\\Tests\\": "tests"
+        },
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jamstackvietnam\\Slider\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
