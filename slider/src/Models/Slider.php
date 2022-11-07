@@ -44,6 +44,7 @@ class Slider extends BaseModel
         'title',
         'description',
         'link',
+        'target',
         'banner_thumbnail',
         'banner_mobile_thumbnail',
     ];
@@ -85,6 +86,7 @@ class Slider extends BaseModel
             'title' => $this->title,
             'description' => $this->description,
             'link' => $this->link,
+            'target' => $this->target,
             'banner_thumbnail' => $this->banner_thumbnail,
             'banner_mobile_thumbnail' => $this->banner_mobile_thumbnail,
         ];

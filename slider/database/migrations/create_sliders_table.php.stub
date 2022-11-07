@@ -21,8 +21,7 @@ class CreateSlidersTable extends Migration
             $table->date('started_at')->nullable();
             $table->date('ended_at')->nullable();
 
-            $table->softDeletes();
-            $table->timestamps();
+            $table->addTimestamps();
         });
     }
 

@@ -47,12 +47,12 @@ See the configuration below:
         'HOME_SLIDER' => [
             'title' => 'Slider trang chủ',
             'value' => 'HOME_SLIDER',
-            'count' => 5,
+            'banner' => false,
         ],
         'BLOB' => [
             'title' => 'Banner bài viết',
             'value' => 'BLOB',
-            'count' => 1,
+            'banner' => true,
         ],
     ],
 ```

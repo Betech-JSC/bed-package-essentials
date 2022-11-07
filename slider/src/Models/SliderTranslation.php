@@ -15,8 +15,9 @@ class SliderTranslation extends BaseModel
         'title',
         'description',
         'link',
-        'banner_thumbnail_url',
-        'banner_mobile_thumbnail_url',
+        'target',
+        'banner_thumbnail',
+        'banner_mobile_thumbnail',
     ];
 
     public function slider()
