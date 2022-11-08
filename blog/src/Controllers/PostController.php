@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackietnam\Blog\Controllers;
+namespace JamstackVietnam\Blog\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Routing\Controller;
