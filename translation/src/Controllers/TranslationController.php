@@ -4,6 +4,7 @@ namespace Jamstackvietnam\Translation\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Artisan;
 use Amirami\Localizator\Services\Parser;
 use Amirami\Localizator\Services\FileFinder;
 use Amirami\Localizator\Services\Localizator;
@@ -44,9 +45,11 @@ class TranslationController extends Controller
         );
 
         $this->storeToJson();
+        $this->buildFrontendAssets();
 
         return response()->json($item);
     }
+
 
     public function scanFromView()
     {
@@ -105,6 +108,11 @@ class TranslationController extends Controller
 
             file_put_contents(public_path("build/locales/$locale.json"), $jsonLocales);
         }
+    }
+
+    public function buildFrontendAssets()
+    {
+        Artisan::call('route');
     }
 
     protected function getLocales(): array
