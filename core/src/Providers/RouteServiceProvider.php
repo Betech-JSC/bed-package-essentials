@@ -15,17 +15,17 @@ class RouteServiceProvider extends ServiceProvider
     {
         Model::preventLazyLoading();
 
-        if (app()->isProduction()) {
-            Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
-                $class = get_class($model);
+        // if (app()->isProduction()) {
+        //     Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
+        //         $class = get_class($model);
 
-                info("Attempted to lazy load [{$relation}] on model [{$class}].");
-            });
-        } else {
-            DB::whenQueryingForLongerThan(10000, function (Connection $connection) {
-                Log::warning("Database queries exceeded 10 seconds on {$connection->getName()}");
-            });
-        }
+        //         info("Attempted to lazy load [{$relation}] on model [{$class}].");
+        //     });
+        // } else {
+        //     DB::whenQueryingForLongerThan(10000, function (Connection $connection) {
+        //         Log::warning("Database queries exceeded 10 seconds on {$connection->getName()}");
+        //     });
+        // }
 
         View::addNamespace('frontend', resource_path('Frontend/views'));
         View::addNamespace('backend', resource_path('Backend/views'));
