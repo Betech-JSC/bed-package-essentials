@@ -1,11 +1,11 @@
 <?php
 
-namespace Jamstackvietnam\MetaPage\Controllers;
+namespace JamstackVietnam\MetaPage\Controllers;
 
 use App\Http\Controllers\Controller;
-use Jamstackvietnam\Core\Traits\HasCrudActions;
-use Jamstackvietnam\MetaPage\Models\MetaPage;
-use Jamstackvietnam\Sitemap\Sitemap;
+use JamstackVietnam\Core\Traits\HasCrudActions;
+use JamstackVietnam\MetaPage\Models\MetaPage;
+use JamstackVietnam\Sitemap\Sitemap;
 
 class MetaPageController extends Controller
 {

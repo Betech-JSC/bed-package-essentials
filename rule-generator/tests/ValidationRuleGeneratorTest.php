@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 
 use Illuminate\Support\Facades\DB;
-use Jamstackvietnam\RuleGenerator\Generator;
+use JamstackVietnam\RuleGenerator\Generator;
 
 
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Jamstackvietnam\Blog\Controllers;
+namespace Jamstackietnam\Blog\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Routing\Controller;
-use Jamstackvietnam\Blog\Models\Post;
-use Jamstackvietnam\Blog\Models\PostCategory;
+use JamstackVietnam\Blog\Models\Post;
+use JamstackVietnam\Blog\Models\PostCategory;
 
 class PostController extends Controller
 {

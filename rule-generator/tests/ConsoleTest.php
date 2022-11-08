@@ -183,7 +183,7 @@ class ConsoleTest extends TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['Jamstackvietnam\RuleGenerator\ServiceProvider'];
+        return ['JamstackVietnam\RuleGenerator\ServiceProvider'];
     }
 
     protected function assertSubstring(string $needle, string $haystack, string $message = '') : void

@@ -1,9 +1,9 @@
 <?php
 
-namespace Jamstackvietnam\RuleGenerator\Facades;
+namespace JamstackVietnam\RuleGenerator\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Jamstackvietnam\RuleGenerator\Services\Generator;
+use JamstackVietnam\RuleGenerator\Services\Generator;
 
 class RuleGenerator extends Facade
 {

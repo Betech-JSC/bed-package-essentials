@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Core\Models;
+namespace JamstackVietnam\Core\Models;
 
 use Astrotomic\Translatable\Translatable as AstrotomicTranslatable;
 

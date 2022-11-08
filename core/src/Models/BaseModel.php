@@ -1,9 +1,9 @@
 <?php
 
-namespace Jamstackvietnam\Core\Models;
+namespace JamstackVietnam\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Jamstackvietnam\Core\Traits\ResponseCache;
+use JamstackVietnam\Core\Traits\ResponseCache;
 
 /**
  * Class BaseModel

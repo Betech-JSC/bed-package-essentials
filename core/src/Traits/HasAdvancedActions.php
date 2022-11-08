@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Core\Traits;
+namespace JamstackVietnam\Core\Traits;
 
 use OpenSpout\Writer\Common\Creator\Style\StyleBuilder;
 use Rap2hpoutre\FastExcel\FastExcel;

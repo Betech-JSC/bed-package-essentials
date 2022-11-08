@@ -1,10 +1,10 @@
 <?php
 
-namespace Jamstackvietnam\Redirect\Controllers;
+namespace JamstackVietnam\Redirect\Controllers;
 
 use App\Http\Controllers\Controller;
-use Jamstackvietnam\Redirect\Models\Redirect;
-use Jamstackvietnam\Core\Traits\HasCrudActions;
+use JamstackVietnam\Redirect\Models\Redirect;
+use JamstackVietnam\Core\Traits\HasCrudActions;
 
 class RedirectController extends Controller
 {

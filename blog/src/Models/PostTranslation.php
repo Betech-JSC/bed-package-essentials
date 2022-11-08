@@ -1,10 +1,10 @@
 <?php
 
-namespace Jamstackvietnam\Blog\Models;
+namespace JamstackVietnam\Blog\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Jamstackvietnam\Core\Models\BaseModel;
-use Jamstackvietnam\Core\Models\Sluggable;
+use JamstackVietnam\Core\Models\BaseModel;
+use JamstackVietnam\Core\Models\Sluggable;
 
 class PostTranslation extends BaseModel
 {

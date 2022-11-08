@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Translation\Controllers;
+namespace JamstackVietnam\Translation\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Artisan;
 use Amirami\Localizator\Services\Parser;
 use Amirami\Localizator\Services\FileFinder;
 use Amirami\Localizator\Services\Localizator;
-use Jamstackvietnam\Core\Traits\HasCrudActions;
-use Jamstackvietnam\Translation\Models\Translation;
+use JamstackVietnam\Core\Traits\HasCrudActions;
+use JamstackVietnam\Translation\Models\Translation;
 
 class TranslationController extends Controller
 {

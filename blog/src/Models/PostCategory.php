@@ -1,12 +1,12 @@
 <?php
 
-namespace Jamstackvietnam\Blog\Models;
+namespace JamstackVietnam\Blog\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Jamstackvietnam\Core\Models\BaseModel;
+use JamstackVietnam\Core\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
-use Jamstackvietnam\Core\Models\Translatable;
+use JamstackVietnam\Core\Models\Translatable;
 
 class PostCategory extends BaseModel
 {

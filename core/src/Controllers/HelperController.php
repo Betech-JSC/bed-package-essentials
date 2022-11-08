@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Core\Controllers;
+namespace JamstackVietnam\Core\Controllers;
 
 use Illuminate\Routing\Controller;
 

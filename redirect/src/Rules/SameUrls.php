@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Redirect\Rules;
+namespace JamstackVietnam\Redirect\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 

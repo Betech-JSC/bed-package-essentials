@@ -1,10 +1,10 @@
 <?php
 
-namespace Jamstackvietnam\Redirect\Tests;
+namespace JamstackVietnam\Redirect\Tests;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Http\Kernel;
-use Jamstackvietnam\Redirect\Middleware\RedirectRequests;
+use JamstackVietnam\Redirect\Middleware\RedirectRequests;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra

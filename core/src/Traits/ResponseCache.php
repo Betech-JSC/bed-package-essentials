@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Core\Traits;
+namespace JamstackVietnam\Core\Traits;
 
 use Illuminate\Support\Facades\Cache;
 use \Spiritix\LadaCache\Database\LadaCacheTrait;

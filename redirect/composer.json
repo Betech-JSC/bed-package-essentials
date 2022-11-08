@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Jamstackvietnam\\Redirect\\": "src/"
+            "JamstackVietnam\\Redirect\\": "src/"
         }
     },
     "config": {

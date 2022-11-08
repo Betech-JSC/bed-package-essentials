@@ -1,14 +1,14 @@
 <?php
 
-namespace Jamstackvietnam\Core\Traits;
+namespace JamstackVietnam\Core\Traits;
 
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Silber\Bouncer\BouncerFacade;
 use Illuminate\Support\Facades\DB;
-use Jamstackvietnam\QueryBuilder\EloquentBuilderTrait;
-use Jamstackvietnam\RuleGenerator\Facades\RuleGenerator;
+use JamstackVietnam\QueryBuilder\EloquentBuilderTrait;
+use JamstackVietnam\RuleGenerator\Facades\RuleGenerator;
 
 trait HasCrudActions
 {

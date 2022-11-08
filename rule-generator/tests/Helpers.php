@@ -1,6 +1,6 @@
 <?php
 
-use Jamstackvietnam\RuleGenerator\Services\Generator;
+use JamstackVietnam\RuleGenerator\Services\Generator;
 
 trait Helpers
 {

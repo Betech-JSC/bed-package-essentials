@@ -1,11 +1,11 @@
 <?php
 
-namespace Jamstackvietnam\Core\Controllers;
+namespace JamstackVietnam\Core\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
-use Jamstackvietnam\Core\Models\File;
-use Jamstackvietnam\Core\Traits\ApiResponse;
+use JamstackVietnam\Core\Models\File;
+use JamstackVietnam\Core\Traits\ApiResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
