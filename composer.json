@@ -19,11 +19,11 @@
                 "JamstackVietnam\\MetaPage\\ServiceProvider",
                 "JamstackVietnam\\Blog\\ServiceProvider",
                 "JamstackVietnam\\Translation\\ServiceProvider",
+                "JamstackVietnam\\Sitemap\\SitemapServiceProvider",
                 "Tightenco\\Ziggy\\ZiggyServiceProvider",
                 "Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider",
                 "MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider",
                 "QCod\\Settings\\SettingsServiceProvider",
-                "JamstackVietnam\\Sitemap\\SitemapServiceProvider",
                 "Bjerke\\ApiQueryBuilder\\QueryBuilderServiceProvider",
                 "Amirami\\Localizator\\ServiceProvider"
             ]
