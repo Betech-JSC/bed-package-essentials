@@ -1,11 +1,11 @@
 <?php
 
-namespace Jamstackvietnam\Core\Controllers;
+namespace JamstackVietnam\Core\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Jamstackvietnam\Core\Models\File;
+use JamstackVietnam\Core\Models\File;
 
 class FileController extends Controller
 {
