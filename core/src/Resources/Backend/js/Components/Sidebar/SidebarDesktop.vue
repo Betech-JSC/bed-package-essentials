@@ -9,8 +9,8 @@
     </div>
 </template>
 <script>
-import SidebarItems from "@/Components/Sidebar/SidebarItems.vue";
-import SidebarAccount from "@/Components/Sidebar/Account.vue";
+import SidebarItems from "@Core/Components/Sidebar/SidebarItems.vue";
+import SidebarAccount from "@Core/Components/Sidebar/Account.vue";
 export default {
     props: ["admin"],
     components: {

@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import SidebarDesktop from "@/Components/Sidebar/SidebarDesktop.vue";
-import SidebarMobile from "@/Components/Sidebar/SidebarMobile.vue";
-import Breadcrumbs from "@/Components/Breadcrumbs.vue";
+import SidebarDesktop from "@Core/Components/Sidebar/SidebarDesktop.vue";
+import SidebarMobile from "@Core/Components/Sidebar/SidebarMobile.vue";
+import Breadcrumbs from "@Core/Components/Breadcrumbs.vue";
 
 export default {
     props: ["admin"],
