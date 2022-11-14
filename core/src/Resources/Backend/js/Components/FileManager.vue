@@ -10,7 +10,7 @@
           @click="$emit('update:show', false)"
           v-if="selectable"
         >
-          <
+          <ph-caret-left />
         </div>
         File Manager
       </h1>
