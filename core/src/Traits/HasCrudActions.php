@@ -177,9 +177,9 @@ trait HasCrudActions
             }
 
             $resource = $resource->findOrFail($id);
-            $resource->update($validated);
+            $resource->update($$request->all());
         } else {
-            $resource = $this->model::create($validated);
+            $resource = $this->model::create($request->all());
         }
 
         $this->afterStore($request, $resource);
