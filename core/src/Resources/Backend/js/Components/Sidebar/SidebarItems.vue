@@ -31,15 +31,6 @@
             <span>{{ $t("models.table_list.files") }}</span>
         </Link>
         <Link
-            v-if="adminAbilities.can('index', 'settings')"
-            :href="route('admin.settings.form', { id: 'general' })"
-            :class="{ active: isUrl('admin.settings.*') }"
-            class="item"
-        >
-            <heroicons-outline:cog-8-tooth />
-            <span>{{ $t("models.table_list.settings") }}</span>
-        </Link>
-        <Link
             v-if="adminAbilities.can('index', 'admins')"
             :href="route('admin.admins.index')"
             :class="{ active: isUrl('admin.admins.*') }"
