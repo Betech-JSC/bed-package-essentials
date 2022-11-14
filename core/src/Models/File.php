@@ -6,7 +6,7 @@ use Image;
 use Illuminate\Support\Str;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-use Illuminate\Core\Facades\Storage;
+use Illuminate\Support\Facades\Storage;
 
 class File
 {
