@@ -53,7 +53,7 @@
 </template>
 <script>
 import SidebarItems from "@Core/Components/Sidebar/SidebarItems.vue";
-import SidebarAccount from "@Core/Components/Sidebar/Account.vue";
+import SidebarAccount from "@Core/Components/Sidebar/SidebarAccount.vue";
 
 export default {
     props: ["admin"],
