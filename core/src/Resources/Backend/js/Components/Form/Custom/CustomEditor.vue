@@ -9,7 +9,7 @@
 
 <script>
 import Tiny from "@tinymce/tinymce-vue";
-import templates from "@/templates";
+import templates from "@Core/templates";
 const MAX_FILE_SIZE = 5;
 
 export default {
