@@ -40,8 +40,17 @@
 </template>
 
 <script>
+import SidebarDesktop from "@/Components/Sidebar/SidebarDesktop.vue";
+import SidebarMobile from "@/Components/Sidebar/SidebarMobile.vue";
+import Breadcrumbs from "@/Components/Breadcrumbs.vue";
+
 export default {
     props: ["admin"],
+    components: {
+        SidebarDesktop,
+        SidebarMobile,
+        Breadcrumbs,
+    },
     data() {
         return {
             visibleLeft: true,
