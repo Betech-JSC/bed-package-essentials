@@ -172,7 +172,7 @@
 </template>
 <script>
 import { onMounted, onUnmounted } from "vue";
-import Thumbnail from "@Core/Components/Thumbnail";
+import Thumbnail from "@Core/Components/Thumbnail.vue";
 
 const MAX_SIZE_OF_IMAGE = 5;
 const MAX_SIZE_OF_VIDEO = 10;
