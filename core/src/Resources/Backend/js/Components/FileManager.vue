@@ -10,7 +10,7 @@
           @click="$emit('update:show', false)"
           v-if="selectable"
         >
-          <Icon name="arrow-right" class="transform rotate-180" />
+          <
         </div>
         File Manager
       </h1>
@@ -26,11 +26,11 @@
           class="space-x-2"
           variant="outline-primary"
         >
-          <Icon name="plus" class="w-4 h-4" />
+          <ph-plus-circle-light />
           <span> Tạo Folder </span>
         </Button>
         <Button @click.prevent="browse" class="space-x-2">
-          <Icon name="upload" class="w-4 h-4" />
+          <ph:upload-simple />
           <span> Upload </span>
         </Button>
         <input
