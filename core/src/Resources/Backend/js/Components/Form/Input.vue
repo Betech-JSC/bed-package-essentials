@@ -144,14 +144,14 @@
 </template>
 
 <script>
-import CustomDropdown from "@/Components/Form/Custom/CustomDropdown.vue";
-import CustomSelectDate from "@/Components/Form/Custom/CustomSelectDate.vue";
-import CustomMultipleSelect from "@/Components/Form/Custom/CustomMultipleSelect.vue";
-import CustomRadioList from "@/Components/Form/Custom/CustomRadioList.vue";
-import CustomSelectButton from "@/Components/Form/Custom/CustomSelectButton.vue";
-import CustomTreeSelect from "@/Components/Form/Custom/CustomTreeSelect.vue";
-import CustomEditor from "@/Components/Form/Custom/CustomEditor.vue";
-import CustomTags from "@/Components/Form/Custom/CustomTags.vue";
+import CustomDropdown from "@Core/Components/Form/Custom/CustomDropdown.vue";
+import CustomSelectDate from "@Core/Components/Form/Custom/CustomSelectDate.vue";
+import CustomMultipleSelect from "@Core/Components/Form/Custom/CustomMultipleSelect.vue";
+import CustomRadioList from "@Core/Components/Form/Custom/CustomRadioList.vue";
+import CustomSelectButton from "@Core/Components/Form/Custom/CustomSelectButton.vue";
+import CustomTreeSelect from "@Core/Components/Form/Custom/CustomTreeSelect.vue";
+import CustomEditor from "@Core/Components/Form/Custom/CustomEditor.vue";
+import CustomTags from "@Core/Components/Form/Custom/CustomTags.vue";
 
 export default {
     props: ["field", "modelValue", "disabled"],

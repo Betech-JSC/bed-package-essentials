@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import FlashMessages from "@/Components/FlashMessages.vue";
-import TrashedMessage from "@/Components/TrashedMessage.vue";
+import FlashMessages from "@Core/Components/FlashMessages.vue";
+import TrashedMessage from "@Core/Components/TrashedMessage.vue";
 export default {
     components: { FlashMessages, TrashedMessage },
     props: {
