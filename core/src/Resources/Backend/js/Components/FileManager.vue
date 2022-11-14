@@ -267,9 +267,9 @@ export default {
       this.getFiles();
     },
     getFiles(params = {}) {
-      axios
+      this.$axios
         .get(
-          this.route("sidebar.files.index", {
+          this.route("admin.files.index", {
             page: 1,
             search: null,
             path: this.currentPath,
