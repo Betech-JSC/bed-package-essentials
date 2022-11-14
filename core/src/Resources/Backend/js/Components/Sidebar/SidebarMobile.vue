@@ -52,15 +52,8 @@
     </div>
 </template>
 <script>
-import SidebarItems from "@/Components/Sidebar/SidebarItems.vue";
-import SidebarAccount from "@/Components/Sidebar/Account.vue";
-
 export default {
     props: ["admin"],
-    components: {
-        SidebarItems,
-        SidebarAccount,
-    },
 
     data() {
         return {

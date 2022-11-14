@@ -8,9 +8,7 @@
 </template>
 
 <script>
-import SettingBar from "@/Components/SettingBar.vue";
 export default {
-    components: { SettingBar },
     props: ["schema"],
 };
 </script>
