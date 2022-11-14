@@ -233,16 +233,6 @@ export default {
     this.getFiles();
   },
 
-  mounted() {
-    this.$bus.on("treeSelectedItemFileManager", (item) => {
-      this.selectedItem(item);
-    });
-  },
-
-  beforeDestroy() {
-    this.$bus.off("treeSelectedItemFileManager");
-  },
-
   watch: {
     show(value) {
       if (value && this.data === null) {
