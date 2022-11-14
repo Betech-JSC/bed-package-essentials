@@ -3,6 +3,7 @@ module.exports = {
     content: [
         "./resources/Backend/js/**/*.blade.php",
         "./resources/Backend/js/**/*.vue",
+        "./packages/jam-package-essentials/core/src/Resources/Backend/js/**/*.vue",
     ],
     theme: {
         extend: {
