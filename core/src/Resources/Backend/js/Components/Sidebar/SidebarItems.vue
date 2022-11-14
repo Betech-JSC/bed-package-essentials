@@ -54,7 +54,7 @@
             :class="{ active: isUrl('admin.translations.*') }"
             class="item"
         >
-            <heroicons-outline:cog-8-tooth />
+            <ph-translate/>
             <span>{{ $t("models.table_list.translations") }}</span>
         </Link>
         <Link
