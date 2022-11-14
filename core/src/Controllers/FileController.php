@@ -14,7 +14,7 @@ class FileController extends Controller
         if (request()->wantsJson()) {
             return $this->getData();
         }
-        return Inertia::render('FileManager');
+        return Inertia::render('core/src/Resources/Backend/js/Pages/FileManager');
     }
 
     private function getData()

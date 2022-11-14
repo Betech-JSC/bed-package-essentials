@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import Authenticated from '@Core/Layouts/Authenticated';
-import FileManager from '@Core/Components/Fields/FileManager.vue';
+import Authenticated from '@Core/Layouts/Authenticatedl.vue';
+import FileManager from '@Core/Components/FileManager.vue';
 
 export default {
   components: {
