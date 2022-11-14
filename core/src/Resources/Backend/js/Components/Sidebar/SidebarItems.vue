@@ -27,7 +27,7 @@
             :class="{ active: isUrl('admin.files.*') }"
             class="item"
         >
-            <h:image-square-duotone />
+            <ph:image/>
             <span>{{ $t("models.table_list.files") }}</span>
         </Link>
         <Link
