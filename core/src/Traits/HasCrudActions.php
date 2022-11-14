@@ -143,6 +143,7 @@ trait HasCrudActions
 
     public function store(Request $request, $id = null)
     {
+        $request['locale'] = current_locale();
         $this->checkAuthorize($id ? 'update' : 'store');
 
         $rules = $this->getModelRules(__FUNCTION__, $id);
