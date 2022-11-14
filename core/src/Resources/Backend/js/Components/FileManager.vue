@@ -138,7 +138,7 @@
     </div>
     <Dialog
       header="Folder"
-      v-model:visible="showAdminForm"
+      v-model:visible="showFolderModal"
       :breakpoints="{
         '960px': '75vw',
         '640px': '90vw',
@@ -232,6 +232,7 @@ export default {
   created() {
     this.getFiles();
   },
+
 
   watch: {
     show(value) {
