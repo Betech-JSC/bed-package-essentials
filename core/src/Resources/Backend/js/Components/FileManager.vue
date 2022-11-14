@@ -178,7 +178,7 @@ const MAX_SIZE_OF_IMAGE = 5;
 const MAX_SIZE_OF_VIDEO = 10;
 
 export default {
-  components: { Thumbnail, DialogModal },
+  components: { Thumbnail },
   props: {
     show: {
       default: false,
