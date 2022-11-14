@@ -22,7 +22,7 @@
           @input="onChange"
         />
         <Button
-          @click.prevent="createFolderModal = true"
+          @click.prevent="showFolderModal = true"
           class="space-x-2"
           variant="outline-primary"
         >
@@ -62,7 +62,7 @@
       <aside
         class="hidden p-8 pb-16 overflow-y-auto bg-white border-l border-r border-gray-200 w-80 lg:block"
       >
-        <Fieldset
+        <Field
           v-if="tree && tree.length"
           :field="{
             key: 'FileManager',
@@ -136,14 +136,18 @@
         Chọn ({{ selectedFiles.length }})
       </Button>
     </div>
-
-    <DialogModal
-      :show="createFolderModal"
-      @close="createFolderModal = false"
-      max-width="lg"
+    <Dialog
+      header="Folder"
+      v-model:visible="showAdminForm"
+      :breakpoints="{
+        '960px': '75vw',
+        '640px': '90vw',
+      }"
+      :style="{ width: '50vw' }"
+      :draggable="false"
     >
       <template #content>
-        <Fieldset
+        <Field
           v-model="folderForm.name"
           :field="{
             rules: 'required',
@@ -152,28 +156,23 @@
         />
       </template>
       <template #footer>
-        <Button
-          variant="white"
-          @click="createFolderModal = false"
-          label="Hủy"
-        />
+        <Button variant="white" @click="showFolderModal = false" label="Hủy" />
         <Button
           type="button"
           class="ml-2"
           @click="
             createFolder(folderForm.name);
-            createFolderModal = false;
+            showFolderModal = false;
           "
           label="Lưu"
         />
       </template>
-    </DialogModal>
+    </Dialog>
   </div>
 </template>
 <script>
 import { onMounted, onUnmounted } from "vue";
-import Thumbnail from "@/Components/Thumbnail";
-import DialogModal from "@/Components/DialogModal";
+import Thumbnail from "@Core/Components/Thumbnail";
 
 const MAX_SIZE_OF_IMAGE = 5;
 const MAX_SIZE_OF_VIDEO = 10;
@@ -222,7 +221,7 @@ export default {
       data: null,
       tree: null,
       currentPath: "/",
-      createFolderModal: null,
+      showFolderModal: null,
       folderForm: {
         name: null,
       },

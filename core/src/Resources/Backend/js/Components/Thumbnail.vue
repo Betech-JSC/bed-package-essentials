@@ -6,7 +6,7 @@
       :href="file.static_url"
       target="_blank"
     >
-      <Icon name="open-link" />
+      <ph:arrow-square-up-right />
     </a>
     <Button
       class="absolute invisible right-1 bottom-1 group-hover:visible"
