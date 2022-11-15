@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Guest from "@/Layouts/Guest.vue";
+import Guest from "@Core/Layouts/Guest.vue";
 import FlashMessages from "@Core/Components/FlashMessages.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 
