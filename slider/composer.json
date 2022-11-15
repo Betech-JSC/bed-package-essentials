@@ -1,7 +1,7 @@
 {
-    "name": "JamstackVietnam/slider",
+    "name": "jamstackvietnam/slider",
     "description": "slider",
-    "homepage": "https://JamstackVietnam.com",
+    "homepage": "https://jamstackvietnam.com",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -12,12 +12,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "JamstackVietnam\\Slider\\": "src/"
+            "jamstackvietnam\\Slider\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "JamstackVietnam\\Slider\\Tests\\": "tests"
+            "jamstackvietnam\\Slider\\Tests\\": "tests"
         },
         "classmap": [
             "tests/TestCase.php"

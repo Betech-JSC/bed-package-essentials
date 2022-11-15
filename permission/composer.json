@@ -1,7 +1,7 @@
 {
-    "name": "JamstackVietnam/permission",
+    "name": "jamstackvietnam/permission",
     "description": "permission",
-    "homepage": "https://JamstackVietnam.com",
+    "homepage": "https://jamstackvietnam.com",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "JamstackVietnam\\Permission\\": "src/"
+            "jamstackvietnam\\Permission\\": "src/"
         }
     },
     "config": {

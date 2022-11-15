@@ -1,11 +1,11 @@
 {
-    "name": "JamstackVietnam/rule-generator",
+    "name": "jamstackvietnam/rule-generator",
     "require": {
         "doctrine/dbal": "*"
     },
     "autoload": {
         "psr-4": {
-            "JamstackVietnam\\RuleGenerator\\": "src/"
+            "jamstackvietnam\\RuleGenerator\\": "src/"
         }
     },
     "autoload-dev": {

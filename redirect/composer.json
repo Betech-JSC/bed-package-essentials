@@ -1,7 +1,7 @@
 {
-    "name": "JamstackVietnam/redirect",
+    "name": "jamstackvietnam/redirect",
     "description": "redirect",
-    "homepage": "https://JamstackVietnam.com",
+    "homepage": "https://jamstackvietnam.com",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "JamstackVietnam\\Redirect\\": "src/"
+            "jamstackvietnam\\Redirect\\": "src/"
         }
     },
     "config": {

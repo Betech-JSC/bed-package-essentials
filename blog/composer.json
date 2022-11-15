@@ -1,7 +1,7 @@
 {
-    "name": "JamstackVietnam/blog",
+    "name": "jamstackvietnam/blog",
     "description": "blog",
-    "homepage": "https://JamstackVietnam.com",
+    "homepage": "https://jamstackvietnam.com",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "JamstackVietnam\\Blog\\": "src/"
+            "jamstackvietnam\\Blog\\": "src/"
         }
     },
     "require": {

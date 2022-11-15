@@ -8,13 +8,13 @@
 Install the package via Composer:
 
 ```
-composer require JamstackVietnam/blog
+composer require jamstackvietnam/blog
 ```
 
 Publish the migration file with:
 
 ```
-php artisan vendor:publish --provider="JamstackVietnam\Blog\ServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="jamstackvietnam\Blog\ServiceProvider" --tag="migrations"
 ```
 
 After the migration has been published you can create db tables by running:

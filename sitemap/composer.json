@@ -1,7 +1,7 @@
 {
-    "name": "JamstackVietnam/sitemap",
+    "name": "jamstackvietnam/sitemap",
     "description": "sitemap",
-    "homepage": "https://JamstackVietnam.com",
+    "homepage": "https://jamstackvietnam.com",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "JamstackVietnam\\Sitemap\\": "src/"
+            "jamstackvietnam\\Sitemap\\": "src/"
         }
     },
     "config": {
@@ -23,7 +23,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "JamstackVietnam\\Sitemap\\SitemapServiceProvider"
+                "jamstackvietnam\\Sitemap\\SitemapServiceProvider"
             ]
         }
     },
