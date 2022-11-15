@@ -16,13 +16,13 @@ composer require jamstackvietnam/contact
 Publish the migration file with:
 
 ```bash
-php artisan vendor:publish --provider="Jamstackvietnam\Contact\ServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="JamstackVietnam\Contact\ServiceProvider" --tag="migrations"
 ```
 
 ### Config
 
 ```bash
-php artisan vendor:publish --provider="Jamstackvietnam\Contact\ServiceProvider" --tag="config"
+php artisan vendor:publish --provider="JamstackVietnam\Contact\ServiceProvider" --tag="config"
 ```
 
 ### Setting
@@ -69,10 +69,12 @@ See the configuration below:
                         ],
                     ],
                 ],
+                'File CV'
             ],
             'rules' => [
                 'Phone' => 'required|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:9|max:12',
                 'Email' => 'required',
+                'File CV.*' => 'mimes:pdf|max:5120'
             ],
             'route' => 'contacts',
         ],
@@ -99,7 +101,7 @@ php artisan migrate
 
 `routes/frontend.php`
 ```php
-use Jamstackvietnam\Contact\Controllers\ContactController;
+use JamstackVietnam\Contact\Controllers\ContactController;
 
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 ```

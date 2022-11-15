@@ -4,11 +4,11 @@ namespace JamstackVietnam\Contact\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use JamstackVietnam\Support\Traits\ApiResponse;
 use JamstackVietnam\Support\Traits\HasApiCrudActions;
 use Illuminate\Support\Facades\Validator;
 use JamstackVietnam\Contact\Models\Contact;
+use JamstackVietnam\Support\Models\File;
 
 class ContactController extends Controller
 {
@@ -28,6 +28,23 @@ class ContactController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors());
+        }
+        
+        if (isset($requestData['data']['File CV'])) {
+            $files = $requestData['data']['File CV'];
+            $file = new File($request->input('path', '/'));
+
+            $fileUploaded = $file->store($files);
+
+            unset($requestData['data']['File CV']);
+
+            $requestData['data']['File CV'] = [];
+
+            if(isset($fileUploaded['successFiles'])) {
+                foreach ($fileUploaded['successFiles'] as $item) {
+                    $requestData['data']['File CV'][] = static_url($item);
+                }
+            }
         }
 
         $this->model::create($requestData);
