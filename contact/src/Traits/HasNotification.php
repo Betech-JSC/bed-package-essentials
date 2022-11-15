@@ -12,7 +12,7 @@ trait HasNotification
         static::created(function ($model) {
             if (request()->route() === null) return;
 
-            $emails = explode(',', env('MAIL_NOTIFICATION_TO'));
+            $emails = explode(',', settings()->group('notification')->get('notification_to', null));
             $data['mail_title'] = config('contact.message.new_contact');
 
             if (method_exists($model, 'transformEmail')) {
