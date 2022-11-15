@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "jamstackvietnam\\Core\\": "src/"
+            "Jamstackvietnam\\Core\\": "src/"
         },
         "files": [
             "src/helpers.php"

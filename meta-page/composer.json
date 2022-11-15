@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "jamstackvietnam\\MetaPage\\": "src/"
+            "Jamstackvietnam\\MetaPage\\": "src/"
         }
     },
     "config": {
@@ -20,7 +20,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "jamstackvietnam\\MetaPage\\ServiceProvider"
+                "Jamstackvietnam\\MetaPage\\ServiceProvider"
             ]
         }
     },

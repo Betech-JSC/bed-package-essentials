@@ -5,7 +5,7 @@
     },
     "autoload": {
         "psr-4": {
-            "jamstackvietnam\\RuleGenerator\\": "src/"
+            "Jamstackvietnam\\RuleGenerator\\": "src/"
         }
     },
     "autoload-dev": {

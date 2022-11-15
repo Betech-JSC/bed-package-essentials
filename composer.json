@@ -1,5 +1,5 @@
 {
-    "name": "JamstackVietnam/essentials",
+    "name": "jamstackvietnam/essentials",
     "type": "library",
     "authors": [
         {
@@ -12,19 +12,19 @@
     "extra": {
         "laravel": {
             "providers": [
-                "JamstackVietnam\\Core\\Providers\\AppServiceProvider",
-                "JamstackVietnam\\Core\\Providers\\MacroServiceProvider",
-                "JamstackVietnam\\Core\\Providers\\RouteServiceProvider",
-                "JamstackVietnam\\Redirect\\ServiceProvider",
-                "JamstackVietnam\\MetaPage\\ServiceProvider",
-                "JamstackVietnam\\Blog\\ServiceProvider",
-                "JamstackVietnam\\Slider\\ServiceProvider",
-                "JamstackVietnam\\Translation\\ServiceProvider",
+                "Jamstackvietnam\\Core\\Providers\\AppServiceProvider",
+                "Jamstackvietnam\\Core\\Providers\\MacroServiceProvider",
+                "Jamstackvietnam\\Core\\Providers\\RouteServiceProvider",
+                "Jamstackvietnam\\Redirect\\ServiceProvider",
+                "Jamstackvietnam\\MetaPage\\ServiceProvider",
+                "Jamstackvietnam\\Blog\\ServiceProvider",
+                "Jamstackvietnam\\Slider\\ServiceProvider",
+                "Jamstackvietnam\\Translation\\ServiceProvider",
                 "Tightenco\\Ziggy\\ZiggyServiceProvider",
                 "Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider",
                 "MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider",
                 "QCod\\Settings\\SettingsServiceProvider",
-                "JamstackVietnam\\Sitemap\\SitemapServiceProvider",
+                "Jamstackvietnam\\Sitemap\\SitemapServiceProvider",
                 "Bjerke\\ApiQueryBuilder\\QueryBuilderServiceProvider",
                 "Amirami\\Localizator\\ServiceProvider"
             ]

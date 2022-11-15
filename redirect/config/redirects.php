@@ -20,14 +20,14 @@ return [
     | To extend or replace this functionality, change the value below with your full "redirect model" FQN.
     |
     | Your class will have to (first option is recommended):
-    | - extend the "JamstackVietnam\Redirect\Models\Redirect" class
-    | - or at least implement the "JamstackVietnam\Redirect\Contracts\RedirectModelContract" interface.
+    | - extend the "Jamstackvietnam\Redirect\Models\Redirect" class
+    | - or at least implement the "Jamstackvietnam\Redirect\Contracts\RedirectModelContract" interface.
     |
     | Regardless of the concrete implementation below, you can still use it like:
-    | - app('redirect.model') OR app('\JamstackVietnam\Redirect\Contracts\RedirectsModelContract')
+    | - app('redirect.model') OR app('\Jamstackvietnam\Redirect\Contracts\RedirectsModelContract')
     | - or you could even use your own class as a direct implementation
     |
     */
-    'redirect_model' => \JamstackVietnam\Redirect\Models\Redirect::class,
+    'redirect_model' => \Jamstackvietnam\Redirect\Models\Redirect::class,
 
 ];

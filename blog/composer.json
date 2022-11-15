@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "jamstackvietnam\\Blog\\": "src/"
+            "Jamstackvietnam\\Blog\\": "src/"
         }
     },
     "require": {

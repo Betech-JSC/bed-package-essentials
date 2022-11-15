@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "jamstackvietnam\\Translation\\": "src/"
+            "Jamstackvietnam\\Translation\\": "src/"
         }
     },
     "config": {
