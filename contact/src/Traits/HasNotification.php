@@ -1,9 +1,9 @@
 <?php
 
-namespace Jamstackvietnam\Contact\Traits;
+namespace JamstackVietnam\Contact\Traits;
 
 use Illuminate\Support\Facades\Notification;
-use Jamstackvietnam\Contact\Notifications\CommonNotification;
+use JamstackVietnam\Contact\Notifications\CommonNotification;
 
 trait HasNotification
 {

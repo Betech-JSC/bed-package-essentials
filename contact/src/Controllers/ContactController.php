@@ -1,14 +1,14 @@
 <?php
 
-namespace Jamstackvietnam\Contact\Controllers;
+namespace JamstackVietnam\Contact\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Jamstackvietnam\Support\Traits\ApiResponse;
-use Jamstackvietnam\Support\Traits\HasApiCrudActions;
+use JamstackVietnam\Support\Traits\ApiResponse;
+use JamstackVietnam\Support\Traits\HasApiCrudActions;
 use Illuminate\Support\Facades\Validator;
-use Jamstackvietnam\Contact\Models\Contact;
+use JamstackVietnam\Contact\Models\Contact;
 
 class ContactController extends Controller
 {

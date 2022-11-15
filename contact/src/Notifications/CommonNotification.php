@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Contact\Notifications;
+namespace JamstackVietnam\Contact\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;

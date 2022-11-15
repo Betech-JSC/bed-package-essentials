@@ -1,13 +1,13 @@
 <?php
 
-namespace Jamstackvietnam\Contact\Models;
+namespace JamstackVietnam\Contact\Models;
 
-use Jamstackvietnam\Contact\Rules\Blackwords;
+use JamstackVietnam\Contact\Rules\Blackwords;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Validator;
-use Jamstackvietnam\Core\Models\BaseModel;
+use JamstackVietnam\Core\Models\BaseModel;
 use Nicolaslopezj\Searchable\SearchableTrait;
-use Jamstackvietnam\Contact\Traits\HasNotification;
+use JamstackVietnam\Contact\Traits\HasNotification;
 
 class Contact extends BaseModel
 {

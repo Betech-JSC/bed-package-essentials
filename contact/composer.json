@@ -12,12 +12,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Jamstackvietnam\\Contact\\": "src/"
+            "JamstackVietnam\\Contact\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Jamstackvietnam\\Contact\\Tests\\": "tests"
+            "JamstackVietnam\\Contact\\Tests\\": "tests"
         },
         "classmap": [
             "tests/TestCase.php"
@@ -32,7 +32,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Jamstackvietnam\\Contact\\ServiceProvider"
+                "JamstackVietnam\\Contact\\ServiceProvider"
             ]
         }
     },

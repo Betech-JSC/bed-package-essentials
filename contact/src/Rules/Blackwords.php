@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Contact\Rules;
+namespace JamstackVietnam\Contact\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
