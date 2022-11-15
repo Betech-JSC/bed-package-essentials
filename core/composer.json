@@ -1,7 +1,7 @@
 {
-    "name": "jamstackvietnam/core",
-    "description": "jamstackvietnam/core",
-    "homepage": "https://jamstackvietnam.com",
+    "name": "JamstackVietnam/core",
+    "description": "JamstackVietnam/core",
+    "homepage": "https://JamstackVietnam.com",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Jamstackvietnam\\Core\\": "src/"
+            "JamstackVietnam\\Core\\": "src/"
         },
         "files": [
             "src/helpers.php"

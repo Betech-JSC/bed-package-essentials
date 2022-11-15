@@ -1,10 +1,10 @@
 <?php
 
-namespace Jamstackvietnam\Redirect\Models;
+namespace JamstackVietnam\Redirect\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Jamstackvietnam\Redirect\Contracts\RedirectModelContract;
+use JamstackVietnam\Redirect\Contracts\RedirectModelContract;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Redirect extends Model implements RedirectModelContract

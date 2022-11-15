@@ -1,10 +1,10 @@
 <?php
 
-namespace Jamstackvietnam\Core\Models;
+namespace JamstackVietnam\Core\Models;
 
 use App\Models\Admin;
 use Illuminate\Support\Facades\Storage;
-use Jamstackvietnam\Core\Models\BaseModel;
+use JamstackVietnam\Core\Models\BaseModel;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File as FileFacades;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\QueryBuilder;
+namespace JamstackVietnam\QueryBuilder;
 
 use DB;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;

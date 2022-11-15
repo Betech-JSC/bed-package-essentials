@@ -1,9 +1,9 @@
 <?php
 
-namespace Jamstackvietnam\Core\Traits;
+namespace JamstackVietnam\Core\Traits;
 
 use Illuminate\Support\Facades\Storage;
-use Jamstackvietnam\Core\Models\File;
+use JamstackVietnam\Core\Models\File;
 
 trait HasCrudFile
 {

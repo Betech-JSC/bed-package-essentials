@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Core\Providers;
+namespace JamstackVietnam\Core\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

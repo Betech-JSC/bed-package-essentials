@@ -1,11 +1,11 @@
 <?php
 
-namespace Jamstackvietnam\Redirect\Tests;
+namespace JamstackVietnam\Redirect\Tests;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Jamstackvietnam\Redirect\Contracts\RedirectModelContract;
-use Jamstackvietnam\Redirect\Models\Redirect;
+use JamstackVietnam\Redirect\Contracts\RedirectModelContract;
+use JamstackVietnam\Redirect\Models\Redirect;
 
 class ServiceProvider extends BaseServiceProvider
 {

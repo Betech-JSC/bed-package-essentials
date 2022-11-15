@@ -17,15 +17,15 @@ class CreateSliderTranslationsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('slider_id');
 
-            $table->string('title');
+            $table->text('title');
             $table->string('locale');
 
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('link')->nullable();
             $table->string('target')->nullable();
 
-            $table->json('banner_thumbnail')->nullable();
-            $table->json('banner_mobile_thumbnail')->nullable();
+            $table->json('image')->nullable();
+            $table->json('image_mobile')->nullable();
 
             $table->unique(['locale', 'slider_id']);
             $table->foreign('slider_id')

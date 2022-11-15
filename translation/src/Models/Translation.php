@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Translation\Models;
+namespace JamstackVietnam\Translation\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Translation extends Model

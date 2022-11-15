@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\QueryBuilder;
+namespace JamstackVietnam\QueryBuilder;
 
 use JsonSerializable;
 use InvalidArgumentException;

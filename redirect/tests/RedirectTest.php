@@ -1,9 +1,9 @@
 <?php
 
-namespace Jamstackvietnam\Redirect\Tests;
+namespace JamstackVietnam\Redirect\Tests;
 
-use Jamstackvietnam\Redirect\Exceptions\RedirectException;
-use Jamstackvietnam\Redirect\Models\Redirect;
+use JamstackVietnam\Redirect\Exceptions\RedirectException;
+use JamstackVietnam\Redirect\Models\Redirect;
 
 class RedirectTest extends TestCase
 {

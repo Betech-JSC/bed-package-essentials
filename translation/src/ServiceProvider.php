@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Translation;
+namespace JamstackVietnam\Translation;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Routing\Router;

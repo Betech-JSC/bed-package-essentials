@@ -1,7 +1,7 @@
 {
-    "name": "jamstackvietnam/translation",
+    "name": "JamstackVietnam/translation",
     "description": "translation",
-    "homepage": "https://jamstackvietnam.com",
+    "homepage": "https://JamstackVietnam.com",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Jamstackvietnam\\Translation\\": "src/"
+            "JamstackVietnam\\Translation\\": "src/"
         }
     },
     "config": {

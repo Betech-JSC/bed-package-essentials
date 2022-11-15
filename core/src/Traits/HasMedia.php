@@ -1,8 +1,8 @@
 <?php
 
-namespace Jamstackvietnam\Core\Traits;
+namespace JamstackVietnam\Core\Traits;
 
-use Jamstackvietnam\Core\Models\File;
+use JamstackVietnam\Core\Models\File;
 
 trait HasMedia
 {

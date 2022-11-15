@@ -16,7 +16,8 @@ class CreateSlidersTable extends Migration
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->string('status', 30)->default('ACTIVE');
-            $table->string('position')->nullable()->default('HOME_SLIDER');
+            $table->string('position_display')->nullable()->default('HOME_SLIDER');
+            $table->integer('position_sort')->nullable()->default(0);
             
             $table->date('started_at')->nullable();
             $table->date('ended_at')->nullable();

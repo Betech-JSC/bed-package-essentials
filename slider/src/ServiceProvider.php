@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Slider;
+namespace JamstackVietnam\Slider;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Routing\Router;

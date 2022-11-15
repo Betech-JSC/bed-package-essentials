@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Jamstackvietnam\Blog\Models\PostCategory;
+use JamstackVietnam\Blog\Models\PostCategory;
 
 class CreatePostCategoriesTable extends Migration
 {

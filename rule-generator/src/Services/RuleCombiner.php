@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\RuleGenerator\Services;
+namespace JamstackVietnam\RuleGenerator\Services;
 
 class RuleCombiner
 {

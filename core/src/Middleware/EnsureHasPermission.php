@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Core\Middleware;
+namespace JamstackVietnam\Core\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

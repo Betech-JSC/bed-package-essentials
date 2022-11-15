@@ -1,13 +1,13 @@
 <?php
 
-namespace Jamstackvietnam\Slider\Models;
+namespace JamstackVietnam\Slider\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use JamstackVietnam\Core\Models\BaseModel;
+use JamstackVietnam\Core\Models\Translatable;
 use Nicolaslopezj\Searchable\SearchableTrait;
-use Jamstackvietnam\Core\Models\BaseModel;
-use Illuminate\Database\Eloquent\Builder;
-use Jamstackvietnam\Core\Models\Translatable;
 
 class Slider extends BaseModel
 {
@@ -34,8 +34,8 @@ class Slider extends BaseModel
 
     public $fillable = [
         'status',
-        'position',
-        'sort_position',
+        'position_display',
+        'position_sort',
         'started_at',
         'ended_at',
     ];
@@ -45,13 +45,8 @@ class Slider extends BaseModel
         'description',
         'link',
         'target',
-        'banner_thumbnail',
-        'banner_mobile_thumbnail',
-    ];
-
-    public $casts = [
-        'banner_thumbnail' => 'array',
-        'banner_mobile_thumbnail' => 'array',
+        'image_mobile',
+        'image',
     ];
 
     public function rules()
@@ -61,9 +56,9 @@ class Slider extends BaseModel
         ];
     }
 
-    public function getFormattedPositionAttribute()
+    public function getFormattedPositionDisplayAttribute()
     {
-        return config('slider.positions.' . $this->position . '.title');
+        return config('slider.positions.' . $this->position_display . '.title');
     }
 
     public function scopeActive($query)
@@ -79,6 +74,15 @@ class Slider extends BaseModel
         $query->orWhereNull('ended_at')->whereNull('started_at');
     }
 
+    public function getAvailableAttribute(): bool
+    {
+        $started_at = $this->started_at;
+        $ended_at = $this->ended_at;
+        return (is_null($started_at) || $started_at == "" || $started_at <= now()) &&
+            (is_null($ended_at) || $ended_at == "" || $ended_at >= now()->subDays(1)) &&
+            $this->status == self::STATUS_ACTIVE;
+    }
+
     public function transform()
     {
         return [
@@ -87,25 +91,24 @@ class Slider extends BaseModel
             'description' => $this->description,
             'link' => $this->link,
             'target' => $this->target,
-            'banner_thumbnail' => $this->banner_thumbnail,
-            'banner_mobile_thumbnail' => $this->banner_mobile_thumbnail,
+            'image' => $this->image,
+            'image_mobile' => $this->image_mobile,
         ];
     }
 
-    public function scopeGetByPosition(Builder $query, $position)
+    public function scopeGetByPosition(Builder $query, $positionDisplay)
     {
-        $query->where('position', $position)
+        $query->where('position_display', $positionDisplay)
             ->available()
             ->orderBy('sort_position', 'desc')
-            ->orderBy('started_at', 'desc')
+            ->orderBy('position_sort', 'desc')
             ->orderBy('id', 'desc');
 
-        if(config('slider.positions.' . $position . '.banner')) {
+        if (config('slider.positions.' . $positionDisplay . '.banner')) {
             return $query?->first()->transform();
-        }
-        else {
+        } else {
             return $query->get()
-                ->map(fn ($item) => $item->transform());
+                ->map(fn($item) => $item->transform());
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\RuleGenerator\Services\Types;
+namespace JamstackVietnam\RuleGenerator\Services\Types;
 
 
 class IntegerType

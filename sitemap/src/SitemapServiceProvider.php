@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Sitemap;
+namespace JamstackVietnam\Sitemap;
 
 use Illuminate\Support\ServiceProvider;
 

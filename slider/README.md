@@ -10,31 +10,31 @@
 `composer.json`
 ```
 "require": {
-    "jamstackvietnam/slider": "*"
+    "JamstackVietnam/slider": "*"
 },
 "repositories": {
     {
         "type": "path",
-        "url": "./packages/jamstackvietnam/slider"
+        "url": "./packages/JamstackVietnam/slider"
     }
 }
 ```
 Install the package via Composer:
 
 ```
-composer require jamstackvietnam/slider
+composer require JamstackVietnam/slider
 ```
 
 Publish the migration file with:
 
 ```
-php artisan vendor:publish --provider="Jamstackvietnam\Slider\ServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="JamstackVietnam\Slider\ServiceProvider" --tag="migrations"
 ```
 
 ### Config
 
 ```bash
-php artisan vendor:publish --provider="Jamstackvietnam\Slider\ServiceProvider" --tag="config"
+php artisan vendor:publish --provider="JamstackVietnam\Slider\ServiceProvider" --tag="config"
 ```
 
 ### Setting

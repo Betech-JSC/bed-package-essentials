@@ -1,9 +1,9 @@
 <?php
 
-namespace Jamstackvietnam\Blog\Models;
+namespace JamstackVietnam\Blog\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Jamstackvietnam\Core\Models\BaseModel;
+use JamstackVietnam\Core\Models\BaseModel;
 
 class SliderTranslation extends BaseModel
 {
@@ -16,8 +16,13 @@ class SliderTranslation extends BaseModel
         'description',
         'link',
         'target',
-        'banner_thumbnail',
-        'banner_mobile_thumbnail',
+        'image',
+        'image_mobile',
+    ];
+
+    public $casts = [
+        'image_mobile' => 'array',
+        'image' => 'array',
     ];
 
     public function slider()
