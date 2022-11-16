@@ -1,13 +1,13 @@
 <template>
-  <FileManager :show="true" :selectable="false" />
+    <FileManager :show="true" :selectable="false" />
 </template>
 
 <script>
 import FileManager from "@Core/Components/FileManager.vue";
 
 export default {
-  components: {
-    FileManager,
-  },
+    components: {
+        FileManager,
+    },
 };
 </script>
