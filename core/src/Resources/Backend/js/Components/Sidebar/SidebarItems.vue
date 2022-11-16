@@ -11,15 +11,7 @@
         </Link>
     </div>
     <nav class="flex-1 px-2 mt-5 space-y-1 navs">
-        <Link
-            v-if="adminAbilities.can('index', 'posts')"
-            :href="route('admin.posts.index')"
-            :class="{ active: isUrl('admin.posts.*') }"
-            class="item"
-        >
-            <heroicons-outline:user-circle />
-            <span>{{ $t("models.table_list.posts") }}</span>
-        </Link>
+        <SidebarMain/>
         <hr />
         <Link
             v-if="adminAbilities.can('index', 'files')"
@@ -70,26 +62,14 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-            items: [
-                {
-                    name: "Dashboard",
-                },
-            ],
-        };
-    },
     computed: {
         adminAbilities() {
             return this.bouncer(this.$page.props.admin);
         },
-        tables() {
-            return this.$page.props.tables;
-        },
     },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .navs {
     hr {
         @apply opacity-10;
