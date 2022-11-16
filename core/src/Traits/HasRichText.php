@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Support\Traits;
+namespace JamstackVietnam\Core\Traits;
 
 use Illuminate\Support\Facades\Schema;
 use JamstackVietnam\Core\Models\File;
