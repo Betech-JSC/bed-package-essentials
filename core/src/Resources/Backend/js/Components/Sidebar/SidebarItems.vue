@@ -1,13 +1,7 @@
 <template>
     <div class="flex items-center flex-shrink-0 px-4">
         <Link href="/" class="flex items-center w-full p-2 space-x-2">
-            <Avatar
-                label="J"
-                size="large"
-                shape="circle"
-                class="w-1/3 bg-white"
-            />
-            <div class="text-xl text-yellow-400">JAMstack Vietnam</div>
+            <img src="/assets/images/jam-logo.png" class="max-w-[10rem]" />
         </Link>
     </div>
     <nav class="flex-1 px-2 mt-5 space-y-1 navs">
