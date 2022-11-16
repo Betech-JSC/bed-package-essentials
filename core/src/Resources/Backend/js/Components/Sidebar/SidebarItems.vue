@@ -6,7 +6,7 @@
             <img src="/assets/images/jam-logo.png" class="max-w-[9rem]" />
         </Link>
     </div>
-    <nav class="flex-1 px-2 mt-5 space-y-1 navs pt-5 pb-4">
+    <nav class="flex-1 px-2 space-y-1 navs pt-5 pb-4">
         <SidebarMain />
         <hr />
         <Link
