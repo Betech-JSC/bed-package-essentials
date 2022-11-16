@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
     mode: "jit",
     content: [
@@ -12,6 +14,11 @@ module.exports = {
                     DEFAULT: "#FF6F00",
                     dark: "#E56400",
                     darker: "#DB5F00",
+                },
+
+                gray: {
+                    ...defaultTheme.colors.gray,
+                    900: "#111111",
                 },
             },
             fontSize: {
