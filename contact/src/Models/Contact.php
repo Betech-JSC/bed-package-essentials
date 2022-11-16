@@ -117,7 +117,7 @@ class Contact extends BaseModel
 
     private function setRequestUrl()
     {
-        return parse_url(request()->headers->get('referer'), PHP_URL_HOST);
+        return request()->server->get('HTTP_REFERER');
     }
 
     private function setStatus()
