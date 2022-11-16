@@ -10,7 +10,7 @@
 `composer.json`
 ```
 "require": {
-    "JamstackVietnam/slider": "*"
+    "jamstackvietnam/slider": "*"
 },
 "repositories": {
     {
