@@ -349,8 +349,8 @@ export default {
       this.postFiles(formData);
     },
     postFiles(formData) {
-      axios
-        .post(this.route("sidebar.files.store"), formData)
+      this.$axios
+        .post(this.route("admin.files.store"), formData)
         .then((response) => {
           if (response.status === 200) {
             this.getFiles();
@@ -358,8 +358,8 @@ export default {
         });
     },
     onRemove(file) {
-      axios
-        .post(this.route("sidebar.files.destroy"), { files: [file] })
+      this.$axios
+        .post(this.route("admin.files.destroy"), { files: [file] })
         .then((response) => {
           if (response.status === 200) {
             this.getFiles();
@@ -385,8 +385,8 @@ export default {
       }, 150);
     },
     createFolder(name) {
-      axios
-        .post(this.route("sidebar.files.folders.create"), {
+      this.$axios
+        .post(this.route("admin.files.folders.create"), {
           name: name,
           path: this.currentPath,
         })
