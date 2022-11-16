@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex items-center flex-shrink-0 px-4 py-5 border-b border-gray-800"
+        class="flex items-center flex-shrink-0 p-5 border-b border-gray-800"
     >
         <Link href="/" class="flex items-center w-full p-2 space-x-2">
             <img src="/assets/images/jam-logo.png" class="max-w-[9rem]" />
