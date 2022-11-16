@@ -110,7 +110,7 @@ class File
             ->values()
             ->map(fn ($item) => $this->transformFile($item))
             ->reject(fn ($item) => $this->firstCharIs($item['filename'], '.'))
-            ->sortBy('path')
+            ->sortBy('search_name')
             ->keyBy('path');
     }
 
@@ -196,7 +196,6 @@ class File
 
             $this->storage->put($filename, $file);
             return parse_url($this->storage->url($filename))['path'];
-
         } catch (\Throwable $th) {
             logger()->error('Can not store image: ' . $url);
             logger()->error($th->getMessage());
