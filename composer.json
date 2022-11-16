@@ -12,6 +12,7 @@
     "extra": {
         "laravel": {
             "providers": [
+<<<<<<< HEAD
                 "Jamstackvietnam\\Core\\Providers\\AppServiceProvider",
                 "Jamstackvietnam\\Core\\Providers\\MacroServiceProvider",
                 "Jamstackvietnam\\Core\\Providers\\RouteServiceProvider",
@@ -20,11 +21,20 @@
                 "Jamstackvietnam\\Blog\\ServiceProvider",
                 "Jamstackvietnam\\Slider\\ServiceProvider",
                 "Jamstackvietnam\\Translation\\ServiceProvider",
+=======
+                "JamstackVietnam\\Core\\Providers\\AppServiceProvider",
+                "JamstackVietnam\\Core\\Providers\\MacroServiceProvider",
+                "JamstackVietnam\\Core\\Providers\\RouteServiceProvider",
+                "JamstackVietnam\\Redirect\\ServiceProvider",
+                "JamstackVietnam\\MetaPage\\ServiceProvider",
+                "JamstackVietnam\\Blog\\ServiceProvider",
+                "JamstackVietnam\\Translation\\ServiceProvider",
+                "JamstackVietnam\\Sitemap\\SitemapServiceProvider",
+>>>>>>> 4195f6edc37a5460985d253062b117f3bef029ff
                 "Tightenco\\Ziggy\\ZiggyServiceProvider",
                 "Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider",
                 "MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider",
                 "QCod\\Settings\\SettingsServiceProvider",
-                "Jamstackvietnam\\Sitemap\\SitemapServiceProvider",
                 "Bjerke\\ApiQueryBuilder\\QueryBuilderServiceProvider",
                 "Amirami\\Localizator\\ServiceProvider"
             ]

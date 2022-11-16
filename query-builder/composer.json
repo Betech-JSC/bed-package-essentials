@@ -2,7 +2,7 @@
     "name": "jamstackvietnam/query-builder",
     "autoload": {
         "psr-4": {
-            "Jamstackvietnam\\QueryBuilder\\": "src/"
+            "JamstackVietnam\\QueryBuilder\\": "src/"
         }
     },
     "minimum-stability": "stable",

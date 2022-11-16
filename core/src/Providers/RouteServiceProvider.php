@@ -21,10 +21,6 @@ class RouteServiceProvider extends ServiceProvider
 
                 info("Attempted to lazy load [{$relation}] on model [{$class}].");
             });
-        } else {
-            DB::whenQueryingForLongerThan(10000, function (Connection $connection) {
-                Log::warning("Database queries exceeded 10 seconds on {$connection->getName()}");
-            });
         }
 
         View::addNamespace('frontend', resource_path('Frontend/views'));

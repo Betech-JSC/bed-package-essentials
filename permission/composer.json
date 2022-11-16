@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Jamstackvietnam\\Permission\\": "src/"
+            "JamstackVietnam\\Permission\\": "src/"
         }
     },
     "config": {

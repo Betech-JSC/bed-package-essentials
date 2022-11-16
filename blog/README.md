@@ -14,7 +14,7 @@ composer require jamstackvietnam/blog
 Publish the migration file with:
 
 ```
-php artisan vendor:publish --provider="Jamstackvietnam\Blog\ServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="JamstackVietnam\Blog\ServiceProvider" --tag="migrations"
 ```
 
 After the migration has been published you can create db tables by running:

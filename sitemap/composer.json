@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Jamstackvietnam\\Sitemap\\": "src/"
+            "JamstackVietnam\\Sitemap\\": "src/"
         }
     },
     "config": {
@@ -23,7 +23,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Jamstackvietnam\\Sitemap\\SitemapServiceProvider"
+                "JamstackVietnam\\Sitemap\\SitemapServiceProvider"
             ]
         }
     },
