@@ -2,14 +2,7 @@
 
 namespace JamstackVietnam\Core\Models;
 
-<<<<<<< HEAD
-use App\Models\Admin;
-use Illuminate\Support\Facades\Storage;
-use JamstackVietnam\Core\Models\BaseModel;
-use Nicolaslopezj\Searchable\SearchableTrait;
-=======
 use Image;
->>>>>>> 4195f6edc37a5460985d253062b117f3bef029ff
 use Illuminate\Support\Str;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
