@@ -12,19 +12,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "jamstackvietnam\\Slider\\": "src/"
+            "JamstackVietnam\\Slider\\": "src/"
         }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "jamstackvietnam\\Slider\\Tests\\": "tests"
-        },
-        "classmap": [
-            "tests/TestCase.php"
-        ]
-    },
-    "scripts": {
-        "test": "phpunit"
     },
     "config": {
         "sort-packages": true
