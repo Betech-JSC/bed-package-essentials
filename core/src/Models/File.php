@@ -80,6 +80,7 @@ class File
             return [[
                 'slug' => Str::slug('/') .  '-' . generate_code(5),
                 'name' => 'File Manager',
+                'label' => 'File Manager',
                 'path' => '/',
                 'children' => $itemChildren,
             ]];
@@ -88,6 +89,7 @@ class File
         return [
             'slug' => Str::slug($path) .  '-' . generate_code(5),
             'name' => $name,
+            'label' => $name,
             'path' => $path,
             'children' => $itemChildren,
         ];

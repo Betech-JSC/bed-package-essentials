@@ -152,15 +152,13 @@
             :style="{ width: '50vw' }"
             :draggable="false"
         >
-            <template #content>
-                <Field
-                    v-model="folderForm.name"
-                    :field="{
-                        rules: 'required',
-                        label: 'Tên Folder',
-                    }"
-                />
-            </template>
+            <Field
+                v-model="folderForm.name"
+                :field="{
+                    rules: 'required',
+                    label: 'Tên Folder',
+                }"
+            />
             <template #footer>
                 <Button
                     variant="white"
