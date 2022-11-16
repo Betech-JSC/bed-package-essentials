@@ -22,7 +22,7 @@
 Install the package via Composer:
 
 ```
-composer require JamstackVietnam/slider
+composer require jamstackvietnam/slider
 ```
 
 Publish the migration file with:
