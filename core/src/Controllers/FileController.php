@@ -40,7 +40,7 @@ class FileController extends Controller
 
     public function destroy(Request $request)
     {
-        $file = new File($request->input('path', '/'));
+        $file = new File();
         return $file->delete($request->input('files'));
     }
 

@@ -378,7 +378,9 @@ export default {
         },
         onRemove(file) {
             this.$axios
-                .post(this.route("admin.files.destroy"), { files: [file] })
+                .post(this.route("admin.files.destroy", { id: 0 }), {
+                    files: [file],
+                })
                 .then((response) => {
                     if (response.status === 200) {
                         this.getFiles();
