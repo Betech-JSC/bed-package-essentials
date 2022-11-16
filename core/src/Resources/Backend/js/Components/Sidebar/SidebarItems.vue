@@ -1,7 +1,7 @@
 <template>
-    <div class="flex items-center flex-shrink-0 px-4">
+    <div class="flex items-center flex-shrink-0 px-4 border-b border-gray-800">
         <Link href="/" class="flex items-center w-full p-2 space-x-2">
-            <img src="/assets/images/jam-logo.png" class="max-w-[10rem]" />
+            <img src="/assets/images/jam-logo.png" class="max-w-[9rem]" />
         </Link>
     </div>
     <nav class="flex-1 px-2 mt-5 space-y-1 navs">
