@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-shrink-0 p-2 bg-gray-800">
+    <div class="flex flex-shrink-0 px-5 py-2 bg-gray-800">
         <div class="flex items-center justify-between w-full">
             <div class="flex items-center">
                 <Avatar
