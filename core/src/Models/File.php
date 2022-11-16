@@ -117,7 +117,7 @@ class File
         $filePath = $this->storage->get($this->path);
         $mimeType = $this->storage->mimeType($this->path);
 
-        if (contains($mimeType, 'image/') && $mimeType !== 'image/heic') {
+        if (str_contains($mimeType, 'image/') && $mimeType !== 'image/heic') {
             if (isset($options['cache'])) {
                 $image = Image::cache(function ($image) use ($filePath, $options) {
                     $image->make($filePath);
@@ -249,7 +249,7 @@ class File
         $mimeType = $file->getMimeType();
         $maxSize = self::MAX_SIZE_LIST['others'];
         foreach (self::MAX_SIZE_LIST as $key => $size) {
-            if (contains($mimeType, $key)) {
+            if (str_contains($mimeType, $key)) {
                 $maxSize = $size;
             }
         }

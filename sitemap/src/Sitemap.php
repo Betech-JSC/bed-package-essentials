@@ -5,7 +5,6 @@ namespace JamstackVietnam\Sitemap;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 
 class Sitemap
 {
@@ -30,8 +29,8 @@ class Sitemap
                 if (is_array($middleware)) {
                     if (
                         in_array('frontend', $middleware) &&
-                        !Str::contains($uri, '{') &&
-                        !Str::contains($uri, '}') &&
+                        !str_contains($uri, '{') &&
+                        !str_contains($uri, '}') &&
                         $uri !== 'sitemap.xml'
                     ) {
                         $this->add(url($uri), $route->getName());

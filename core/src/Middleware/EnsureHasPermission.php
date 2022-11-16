@@ -25,6 +25,6 @@ class EnsureHasPermission
         $routeName = explode('.', request()->route()->getName());
         $routeName[count($routeName) - 1] = 'index';
         $routeName = implode('.', $routeName);
-        return !contains($routeName, 'sidebar') ?: auth()->guard('admin')->user()->can($routeName);
+        return !str_contains($routeName, 'sidebar') ?: auth()->guard('admin')->user()->can($routeName);
     }
 }
