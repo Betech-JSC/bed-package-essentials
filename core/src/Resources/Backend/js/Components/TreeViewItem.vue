@@ -9,12 +9,12 @@
         group="category"
         :disabled="!draggable"
         ghostClass="ghost"
-        class="tree-view-list"
+        class="text-lg tree-view-list"
     >
         <template #item="{ element }">
-            <li class="flex-col select-none tree-view-item">
+            <li class="flex-col w-full select-none tree-view-item-wrapper">
                 <div
-                    class="flex cursor-pointer hover:bg-blue-50"
+                    class="flex items-center w-full mt-1 space-x-1 rounded cursor-pointer group handle tree-view-item"
                     :class="{
                         'text-blue-500':
                             selectable &&
@@ -22,23 +22,18 @@
                             modelValue.some((x) => x[keyBy] === element[keyBy]),
                     }"
                 >
-                    <div
-                        class="flex items-center w-full px-1 group handle"
-                        @click="onClickItem(element)"
-                    >
-                        <div @click="onClickIcon(element)">
-                            <ph-folder-notch-fill
-                                v-if="!elementIsActive(element)"
-                            />
-                            <ph-folder-notch-open-fill v-else />
-                        </div>
-                        <label
-                            class="flex-1 py-1"
-                            @click="onClickName(element)"
-                        >
-                            {{ element[labelBy] }}
-                        </label>
+                    <div @click="onClickIcon(element)" class="p-2">
+                        <ph-folder-notch-fill
+                            v-if="!elementIsActive(element)"
+                        />
+                        <ph-folder-notch-open-fill v-else />
                     </div>
+                    <label
+                        class="flex-1 py-2"
+                        @click="onClickName($event.target, element)"
+                    >
+                        {{ element[labelBy] }}
+                    </label>
                 </div>
                 <TreeViewItem
                     :key="element.hash_id"
@@ -50,7 +45,7 @@
                             'max-h-0 overflow-hidden':
                                 !elementIsActive(element),
                         },
-                        selectable ? 'ml-4' : 'ml-8',
+                        selectable ? 'ml-2' : 'ml-6',
                     ]"
                     :active="!elementIsActive(element)"
                     :field="field"
@@ -149,27 +144,36 @@ export default {
                 return false;
             }
         },
-        onClickItem(element) {
+        onClickIcon(element) {
+            if (!this.selectable) {
+                element.active = !this.elementIsActive(element);
+            }
+        },
+        onClickName(target, element) {
             if (!this.selectable) {
                 this.$bus.emit(this.busKey, element);
-                element.active = !this.elementIsActive(element);
-            }
-        },
-        onClickIcon(element) {
-            if (this.selectable) {
-                element.active = !this.elementIsActive(element);
-            }
-        },
-        onClickName(element) {
-            if (this.selectable) {
-                this.$bus.emit(this.busKey, element);
+                document
+                    .querySelector(".tree-view-item-wrapper .is-selected")
+                    ?.classList.remove("is-selected");
+                console.log(target.parentNode.closest(".group"));
+                target.parentNode
+                    .closest(".group")
+                    .classList.add("is-selected");
             }
         },
     },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .ghost {
     @apply opacity-50 border-t;
+}
+.tree-view-item {
+    &.is-selected {
+        @apply bg-gray-100 text-primary;
+    }
+    &:not(.is-selected):hover {
+        @apply bg-gray-100;
+    }
 }
 </style>

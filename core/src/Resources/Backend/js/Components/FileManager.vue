@@ -23,13 +23,12 @@
                 />
                 <Button
                     @click.prevent="showFolderModal = true"
-                    class="space-x-2"
-                    variant="outline-primary"
+                    class="space-x-2 btn-outline-primary"
                 >
                     <ph-plus-circle-light />
                     <span> Tạo Folder </span>
                 </Button>
-                <Button @click.prevent="browse" class="space-x-2">
+                <Button @click.prevent="browse" class="space-x-2 btn-primary">
                     <ph:upload-simple />
                     <span> Upload </span>
                 </Button>
@@ -240,6 +239,16 @@ export default {
 
     created() {
         this.getFiles();
+    },
+
+    mounted() {
+        this.$bus.on("treeSelectedItemFileManager", (item) => {
+            this.selectedItem(item);
+        });
+    },
+
+    beforeDestroy() {
+        this.$bus.off("treeSelectedItemFileManager");
     },
 
     watch: {
