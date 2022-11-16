@@ -18,6 +18,8 @@
                 "JamstackVietnam\\Redirect\\ServiceProvider",
                 "JamstackVietnam\\MetaPage\\ServiceProvider",
                 "JamstackVietnam\\Blog\\ServiceProvider",
+                "JamstackVietnam\\Slider\\ServiceProvider",
+                "JamstackVietnam\\Contact\\ServiceProvider",
                 "JamstackVietnam\\Translation\\ServiceProvider",
                 "JamstackVietnam\\Sitemap\\SitemapServiceProvider",
                 "Tightenco\\Ziggy\\ZiggyServiceProvider",
