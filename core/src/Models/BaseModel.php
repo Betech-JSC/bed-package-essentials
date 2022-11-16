@@ -4,6 +4,7 @@ namespace JamstackVietnam\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use JamstackVietnam\Core\Traits\ResponseCache;
+use Jamstackvietnam\Core\Traits\HasRichText;
 
 /**
  * Class BaseModel
@@ -12,6 +13,7 @@ use JamstackVietnam\Core\Traits\ResponseCache;
 class BaseModel extends Model
 {
     use ResponseCache;
+    use HasRichText;
 
     public function getFormattedUpdatedAtAttribute(): string
     {
