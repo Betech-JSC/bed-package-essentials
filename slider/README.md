@@ -15,7 +15,7 @@
 "repositories": {
     {
         "type": "path",
-        "url": "./packages/JamstackVietnam/slider"
+        "url": "./packages/jamstackvietnam/slider"
     }
 }
 ```
