@@ -1,21 +1,21 @@
 <template>
-    <div class="flex flex-shrink-0 p-4 bg-gray-700">
+    <div class="flex flex-shrink-0 p-2 bg-gray-700">
         <div class="flex items-center justify-between w-full">
             <div class="flex items-center">
                 <Avatar
                     :label="admin && admin.name ? admin.name.charAt(0) : 'JAM'"
-                    size="large"
                     shape="circle"
                     class="text-white bg-primary"
                 />
                 <div class="ml-3">
-                    <div class="text-base font-medium text-white">
+                    <div class="text-sm text-white">
                         {{ admin ? admin.name : "" }}
                     </div>
                     <div
-                        class="text-sm font-medium text-gray-400 cursor-pointer group-hover:text-gray-300"
+                        @click="showAdminForm = true"
+                        class="text-xs text-gray-400 cursor-pointer hover:text-gray-300 hover:underline"
                     >
-                        <div @click="showAdminForm = true">Đổi mật khẩu</div>
+                        Đổi mật khẩu
                     </div>
 
                     <Form
@@ -26,7 +26,7 @@
                             resource: 'admins',
                             showActions: false,
                             showFlashMessages: false,
-                            addGrid: false
+                            addGrid: false,
                         }"
                     >
                         <Dialog
@@ -83,13 +83,13 @@
                 </div>
             </div>
             <Link
-                class="flex-shrink-0"
+                class="flex-shrink-0 rounded hover:bg-gray-900/50"
                 method="post"
                 :href="route('admin.logout')"
+                title="Đăng xuất"
             >
-                <heroicons-outline:logout
+                <ph-sign-out-duotone
                     class="w-10 h-10 p-1 text-gray-400 hover:text-white"
-                    aria-hidden="true"
                 />
             </Link>
         </div>
