@@ -75,14 +75,15 @@ export default {
         @apply opacity-10;
     }
     .item {
-        @apply flex items-center px-2 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white space-x-2;
+        @apply flex items-center w-full gap-2 px-6 py-2 text-white transition duration-150 text-base;
+
         svg {
             @apply h-6 w-6;
         }
         &:not(.active) {
-            @apply bg-opacity-70;
+            @apply opacity-70;
             &:hover {
-                @apply bg-opacity-100;
+                @apply opacity-100;
             }
         }
         &.active {

@@ -1,143 +1,88 @@
 <template>
-    <div class="flex flex-shrink-0 p-2 bg-gray-700">
-        <div class="flex items-center justify-between w-full">
-            <div class="flex items-center">
-                <Avatar
-                    :label="admin && admin.name ? admin.name.charAt(0) : 'JAM'"
-                    shape="circle"
-                    class="text-white bg-primary"
-                />
-                <div class="ml-3">
-                    <div class="text-sm text-white">
-                        {{ admin ? admin.name : "" }}
-                    </div>
-                    <div
-                        @click="showAdminForm = true"
-                        class="text-xs text-gray-400 cursor-pointer hover:text-gray-300 hover:underline"
-                    >
-                        Đổi mật khẩu
-                    </div>
-
-                    <Form
-                        v-model="adminForm"
-                        v-slot="{ form }"
-                        class="card"
-                        :config="{
-                            resource: 'admins',
-                            showActions: false,
-                            showFlashMessages: false,
-                            addGrid: false,
-                        }"
-                    >
-                        <Dialog
-                            header="Cập nhật thông tin"
-                            v-model:visible="showAdminForm"
-                            :breakpoints="{
-                                '960px': '75vw',
-                                '640px': '90vw',
-                            }"
-                            :style="{ width: '50vw' }"
-                            :draggable="false"
-                        >
-                            <Field
-                                v-model="adminForm.name"
-                                :field="{
-                                    type: 'text',
-                                    name: 'name',
-                                    label: 'Tên',
-                                }"
-                            />
-                            <div class="mt-6 field-row">
-                                <Field
-                                    v-model="form.password"
-                                    :field="{
-                                        type: 'password',
-                                        name: 'password',
-                                        label: 'Mật khẩu mới',
-                                    }"
-                                />
-                                <Field
-                                    v-model="form.password_confirmation"
-                                    :field="{
-                                        type: 'password',
-                                        name: 'password_confirmation',
-                                        label: 'Xác nhận mật khẩu mới',
-                                    }"
-                                />
-                            </div>
-                            <template #footer>
-                                <Button
-                                    label="Hủy"
-                                    @click="showAdminForm = false"
-                                />
-                                <Button
-                                    label="Lưu"
-                                    icon="pi pi-check"
-                                    @click="submitAdminForm"
-                                    class="btn-primary"
-                                    autofocus
-                                />
-                            </template>
-                        </Dialog>
-                    </Form>
-                </div>
-            </div>
-            <Link
-                class="flex-shrink-0 rounded hover:bg-gray-900/50"
-                method="post"
-                :href="route('admin.logout')"
-                title="Đăng xuất"
-            >
-                <ph-sign-out-duotone
-                    class="w-10 h-10 p-1 text-gray-400 hover:text-white"
-                />
-            </Link>
-        </div>
+    <div class="flex items-center flex-shrink-0 px-4">
+        <Link href="/" class="flex items-center w-full p-2 space-x-2">
+            <img src="/assets/images/jam-log.png" class="max-w-[10rem]" />
+        </Link>
     </div>
+    <nav class="flex-1 px-2 mt-5 space-y-1 navs">
+        <SidebarMain />
+        <hr />
+        <Link
+            v-if="adminAbilities.can('index', 'files')"
+            :href="route('admin.files.index')"
+            :class="{ active: isUrl('admin.files.*') }"
+            class="item"
+        >
+            <ph:image />
+            <span>{{ $t("models.table_list.files") }}</span>
+        </Link>
+        <Link
+            v-if="adminAbilities.can('index', 'admins')"
+            :href="route('admin.admins.index')"
+            :class="{ active: isUrl('admin.admins.*') }"
+            class="item"
+        >
+            <heroicons-outline:user-circle />
+            <span>{{ $t("models.table_list.admins") }}</span>
+        </Link>
+        <Link
+            v-if="adminAbilities.can('index', 'roles')"
+            :href="route('admin.roles.index')"
+            :class="{ active: isUrl('admin.roles.*') }"
+            class="item"
+        >
+            <heroicons-outline:user-group />
+            <span>{{ $t("models.table_list.roles") }}</span>
+        </Link>
+        <Link
+            v-if="adminAbilities.can('index', 'translations')"
+            :href="route('admin.translations.index')"
+            :class="{ active: isUrl('admin.translations.*') }"
+            class="item"
+        >
+            <ph-translate />
+            <span>{{ $t("models.table_list.translations") }}</span>
+        </Link>
+        <Link
+            v-if="adminAbilities.can('index', 'settings')"
+            :href="route('admin.settings.form', { id: 'general' })"
+            :class="{ active: isUrl('admin.settings.*') }"
+            class="item"
+        >
+            <heroicons-outline:cog-8-tooth />
+            <span>{{ $t("models.table_list.settings") }}</span>
+        </Link>
+    </nav>
 </template>
-
 <script>
 export default {
-    props: ["admin"],
-    data() {
-        return {
-            adminForm: this.$inertia.form(this.getEmptyForm()),
-            showAdminForm: false,
-        };
-    },
-    methods: {
-        submitAdminForm() {
-            this.$axios
-                .put(this.route(`admin.updateInformation`), this.adminForm)
-                .then((res) => {
-                    this.adminForm.reset();
-                    this.showAdminForm = false;
-                    this.$toast.add({
-                        severity: "success",
-                        summary: "Thành công",
-                        detail: `Cập nhật thông tin thành công`,
-                        life: 2000,
-                    });
-                    window.location.href = window.location.href;
-                })
-                .catch(({ response }) => {
-                    this.$toast.add({
-                        severity: "error",
-                        summary: "Thất bại",
-                        detail: response.data.message,
-                        life: 2000,
-                    });
-                });
-        },
-
-        getEmptyForm() {
-            return {
-                id: this.admin?.id,
-                name: this.admin?.name,
-                password: null,
-                password_confirmation: null,
-            };
+    computed: {
+        adminAbilities() {
+            return this.bouncer(this.$page.props.admin);
         },
     },
 };
 </script>
+<style lang="scss">
+.navs {
+    hr {
+        @apply opacity-10;
+    }
+    .item {
+        @apply flex items-center w-full gap-2 px-6 py-2 text-white transition duration-150 text-base;
+
+        svg {
+            @apply h-6 w-6;
+        }
+        &:not(.active) {
+            @apply opacity-70;
+            &:hover {
+                @apply opacity-100;
+            }
+        }
+        &.active {
+            @apply bg-gray-800 text-primary;
+        }
+    }
+}
+</style>
