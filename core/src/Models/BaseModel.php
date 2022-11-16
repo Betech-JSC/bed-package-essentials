@@ -4,7 +4,7 @@ namespace JamstackVietnam\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use JamstackVietnam\Core\Traits\ResponseCache;
-use Jamstackvietnam\Core\Traits\HasRichText;
+use JamstackVietnam\Core\Traits\HasRichText;
 
 /**
  * Class BaseModel
