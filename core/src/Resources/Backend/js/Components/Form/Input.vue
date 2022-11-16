@@ -116,6 +116,9 @@
             v-model:disabled="disabled"
         />
     </template>
+    <template v-else-if="field.type === 'tree'">
+        <TreeViewItem v-model="modelValue" :field="field" />
+    </template>
     <template v-else-if="field.type === 'radio_list'">
         <CustomRadioList
             class="mt-2"
@@ -152,6 +155,7 @@ import CustomSelectButton from "@Core/Components/Form/Custom/CustomSelectButton.
 import CustomTreeSelect from "@Core/Components/Form/Custom/CustomTreeSelect.vue";
 import CustomEditor from "@Core/Components/Form/Custom/CustomEditor.vue";
 import CustomTags from "@Core/Components/Form/Custom/CustomTags.vue";
+import TreeViewItem from "@Core/Components/TreeViewItem.vue";
 
 export default {
     props: ["field", "modelValue", "disabled"],
@@ -164,7 +168,8 @@ export default {
         CustomTreeSelect,
         CustomSelectDate,
         CustomEditor,
-        CustomTags
+        CustomTags,
+        TreeViewItem
     },
     computed: {
         fieldId() {
