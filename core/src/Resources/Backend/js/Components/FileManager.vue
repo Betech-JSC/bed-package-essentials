@@ -173,12 +173,13 @@
 <script>
 import { onMounted, onUnmounted } from "vue";
 import Thumbnail from "@Core/Components/Thumbnail.vue";
+import Pagination from "@Core/Components/Pagination.vue";
 
 const MAX_SIZE_OF_IMAGE = 5;
 const MAX_SIZE_OF_VIDEO = 10;
 
 export default {
-  components: { Thumbnail },
+  components: { Thumbnail, Pagination },
   props: {
     show: {
       default: false,
@@ -232,7 +233,6 @@ export default {
   created() {
     this.getFiles();
   },
-
 
   watch: {
     show(value) {
