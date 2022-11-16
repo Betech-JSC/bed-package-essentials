@@ -15,17 +15,6 @@
             "JamstackVietnam\\Contact\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "JamstackVietnam\\Contact\\Tests\\": "tests"
-        },
-        "classmap": [
-            "tests/TestCase.php"
-        ]
-    },
-    "scripts": {
-        "test": "phpunit"
-    },
     "config": {
         "sort-packages": true
     },
