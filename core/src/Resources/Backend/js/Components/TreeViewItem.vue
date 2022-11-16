@@ -26,17 +26,12 @@
                         class="flex items-center w-full px-1 group handle"
                         @click="onClickItem(element)"
                     >
-                        <Icon
-                            name="arrow-right"
-                            class="transform"
-                            :class="{
-                                'rotate-90': elementIsActive(element),
-                                'opacity-20':
-                                    !element[childrenBy] ||
-                                    element[childrenBy].length === 0,
-                            }"
-                            @click="onClickIcon(element)"
-                        />
+                        <div @click="onClickIcon(element)">
+                            <ph-folder-notch-fill
+                                v-if="!elementIsActive(element)"
+                            />
+                            <ph-folder-notch-open-fill v-else />
+                        </div>
                         <label
                             class="flex-1 py-1"
                             @click="onClickName(element)"
