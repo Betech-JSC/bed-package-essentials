@@ -18,6 +18,7 @@ module.exports = {
 
                 gray: {
                     ...defaultTheme.colors.gray,
+                    800: "#1c1c1c",
                     900: "#111111",
                 },
             },

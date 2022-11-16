@@ -11,7 +11,7 @@
         </Link>
     </div>
     <nav class="flex-1 px-2 mt-5 space-y-1 navs">
-        <SidebarMain/>
+        <SidebarMain />
         <hr />
         <Link
             v-if="adminAbilities.can('index', 'files')"
@@ -19,7 +19,7 @@
             :class="{ active: isUrl('admin.files.*') }"
             class="item"
         >
-            <ph:image/>
+            <ph:image />
             <span>{{ $t("models.table_list.files") }}</span>
         </Link>
         <Link
@@ -46,7 +46,7 @@
             :class="{ active: isUrl('admin.translations.*') }"
             class="item"
         >
-            <ph-translate/>
+            <ph-translate />
             <span>{{ $t("models.table_list.translations") }}</span>
         </Link>
         <Link
@@ -79,8 +79,14 @@ export default {
         svg {
             @apply h-6 w-6;
         }
+        &:not(.active) {
+            @apply bg-opacity-70;
+            &:hover {
+                @apply bg-opacity-100;
+            }
+        }
         &.active {
-            @apply text-white bg-gray-900;
+            @apply bg-gray-800 text-primary;
         }
     }
 }
