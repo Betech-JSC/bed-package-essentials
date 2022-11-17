@@ -15,9 +15,9 @@
                                 })
                             "
                             :class="{
-                                active:
-                                    isUrl('admin.settings.form') &&
-                                    route().params.id === 'general',
+                                active: isUrl('admin.settings.form', {
+                                    id: 'general',
+                                }),
                             }"
                         >
                             Thông tin chung
@@ -39,9 +39,9 @@
                                 })
                             "
                             :class="{
-                                active:
-                                    isUrl('admin.settings.form') &&
-                                    route().params.id === 'robots_txt',
+                                active: isUrl('admin.settings.form', {
+                                    id: 'robots_txt',
+                                }),
                             }"
                         >
                             Robots.txt
@@ -65,9 +65,9 @@
                                 })
                             "
                             :class="{
-                                active:
-                                    isUrl('admin.settings.form') &&
-                                    route().params.id === 'smtp',
+                                active: isUrl('admin.settings.form', {
+                                    id: 'smtp',
+                                }),
                             }"
                         >
                             Cấu hình SMTP
@@ -80,9 +80,9 @@
                                 })
                             "
                             :class="{
-                                active:
-                                    isUrl('admin.settings.form') &&
-                                    route().params.id === 'notification',
+                                active: isUrl('admin.settings.form', {
+                                    id: 'notification',
+                                }),
                             }"
                         >
                             Thông báo
