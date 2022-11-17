@@ -70,7 +70,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .p-datatable tr td:first-child {
     max-width: 12vw;
 }
