@@ -79,10 +79,10 @@ export default {
             return this.bouncer(this.$page.props.admin);
         },
         currentLocale() {
-            return this.$page.props.locale;
+            return this.$page.props.locale.current;
         },
         defaultLocale() {
-            return this.$page.props.default_locale;
+            return this.$page.props.locale.default;
         },
     },
     methods: {
