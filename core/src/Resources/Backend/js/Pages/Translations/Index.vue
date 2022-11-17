@@ -8,7 +8,9 @@
         <Column field="translations" header="Bản dịch">
             <template #body="{ data }">
                 <table>
-                    <template v-for="(locale, index) in $page.props.locale.list">
+                    <template
+                        v-for="(locale, index) in $page.props.locale.list"
+                    >
                         <tr>
                             <td class="w-10 label">
                                 {{ locale.toUpperCase() }}
@@ -67,3 +69,9 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" scoped>
+.p-datatable tr td:first-child {
+    max-width: 12vw;
+}
+</style>
