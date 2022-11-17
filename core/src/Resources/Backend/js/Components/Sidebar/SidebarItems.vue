@@ -4,9 +4,8 @@
             <img src="/assets/images/jam-logo.png" class="max-w-[9rem]" />
         </Link>
     </div>
-    <hr />
-    <nav class="flex-1 px-2 pt-5 pb-4 space-y-1 navs">
-        <ul class="flex space-x-2 btn-group" v-if="$page.props.locales.length">
+    <nav class="flex-1 px-2 pb-4 space-y-1 navs">
+        <ul class="flex py-5 space-x-2 btn-group" v-if="$page.props.locales.length">
             <Button
                 class="grow"
                 v-for="(locale, index) in $page.props.locales"
