@@ -14,7 +14,7 @@
                 v-for="(locale, index) in $page.props.locale.list"
                 :label="locale"
                 size="sm"
-                @click="changeLocale(locale)"
+                @click="switchLocale(locale)"
                 :class="
                     currentLocale === locale
                         ? 'btn-primary'
@@ -80,32 +80,6 @@ export default {
         },
         currentLocale() {
             return this.$page.props.locale.current;
-        },
-        defaultLocale() {
-            return this.$page.props.locale.default;
-        },
-    },
-    methods: {
-        changeLocale(locale) {
-            let url;
-            if (this.currentLocale === locale) {
-                url = window.location.href;
-            } else if (this.isDefaultLocale(locale)) {
-                url = window.location.href.replace(
-                    "/admin/" + this.currentLocale,
-                    "/admin"
-                );
-            } else {
-                url = window.location.href.replace(
-                    "/admin",
-                    "/admin/" + locale
-                );
-            }
-
-            window.location.href = url;
-        },
-        isDefaultLocale(locale) {
-            return locale === this.defaultLocale;
         },
     },
 };
