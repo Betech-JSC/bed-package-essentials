@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace JamstackVietnam\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

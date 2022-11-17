@@ -2,11 +2,11 @@
 
 namespace JamstackVietnam\Core\Controllers;
 
-use App\Models\Admin;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
+use JamstackVietnam\Core\Models\Admin;
 use JamstackVietnam\Core\Traits\HasCrudActions;
 
 class AdminController extends Controller
