@@ -2,16 +2,22 @@
 
 namespace JamstackVietnam\MetaPage\Controllers;
 
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use JamstackVietnam\Core\Traits\HasCrudActions;
-use JamstackVietnam\MetaPage\Models\MetaPage;
 use JamstackVietnam\Sitemap\Sitemap;
+use JamstackVietnam\MetaPage\Models\MetaPage;
+use JamstackVietnam\Core\Traits\HasCrudActions;
 
 class MetaPageController extends Controller
 {
     use HasCrudActions;
 
     public $model = MetaPage::class;
+
+    private function folder()
+    {
+        return "@Core/" . Str::studly($this->getTable());
+    }
 
     public function beforeIndex($query)
     {

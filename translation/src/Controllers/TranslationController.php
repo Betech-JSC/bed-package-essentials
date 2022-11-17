@@ -2,6 +2,7 @@
 
 namespace JamstackVietnam\Translation\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
@@ -15,6 +16,11 @@ class TranslationController extends Controller
 {
     use HasCrudActions;
     public $model = Translation::class;
+
+    private function folder()
+    {
+        return "@Core/" . Str::studly($this->getTable());
+    }
 
     public function beforeIndex($query)
     {
