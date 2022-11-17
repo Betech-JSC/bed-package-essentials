@@ -1,3 +1,4 @@
+@@ -1,60 +0,0 @@
 .p-button {
     @extend .btn;
 }
@@ -9,12 +10,17 @@
         @apply transition-none;
     }
 
-    @apply text-sm h-[2.5rem] px-4 min-w-[6rem];
+    @apply text-sm h-[2.5rem] px-4;
 
     &.btn-sm,
     .btn-sm & {
         @apply text-xs h-[1.75rem] px-3;
     }
+
+    &:not(.btn-sm) {
+        @apply min-w-[6rem];
+    }
+
     .p-buttonset > & {
         @apply flex-grow;
     }
@@ -48,4 +54,8 @@
 
 .btn-info {
     @apply text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700;
+}
+
+.btn-white {
+    @apply bg-white text-gray-700 border border-gray-300 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-200;
 }
