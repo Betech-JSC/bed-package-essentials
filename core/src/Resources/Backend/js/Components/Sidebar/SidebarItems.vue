@@ -1,12 +1,23 @@
 <template>
-    <div
-        class="flex items-center flex-shrink-0 p-5 border-b border-gray-800"
-    >
+    <div class="flex items-center flex-shrink-0 p-5 border-b border-gray-800">
         <Link href="/" class="flex items-center w-full p-2 space-x-2">
             <img src="/assets/images/jam-logo.png" class="max-w-[9rem]" />
         </Link>
     </div>
-    <nav class="flex-1 px-2 space-y-1 navs pt-5 pb-4">
+    <hr />
+    <ul class="flex space-x-2 btn-group" v-if="$page.props.locales.length">
+        <Button
+            class="grow"
+            v-for="(locale, index) in $page.props.locales"
+            :label="locale"
+            size="sm"
+            @click="changeLocale(locale)"
+            :class="
+                currentLocale === locale ? 'btn-primary' : 'btn-outline-primary'
+            "
+        />
+    </ul>
+    <nav class="flex-1 px-2 pt-5 pb-4 space-y-1 navs">
         <SidebarMain />
         <hr />
         <Link
@@ -61,6 +72,35 @@ export default {
     computed: {
         adminAbilities() {
             return this.bouncer(this.$page.props.admin);
+        },
+        currentLocale() {
+            return this.$page.props.locale;
+        },
+        defaultLocale() {
+            return this.$page.props.default_locale;
+        },
+    },
+    methods: {
+        changeLocale(locale) {
+            let url;
+            if (this.currentLocale === locale) {
+                url = window.location.href;
+            } else if (this.isDefaultLocale(locale)) {
+                url = window.location.href.replace(
+                    "/admin/" + this.currentLocale,
+                    "/admin"
+                );
+            } else {
+                url = window.location.href.replace(
+                    "/admin",
+                    "/admin/" + locale
+                );
+            }
+
+            window.location.href = url;
+        },
+        isDefaultLocale(locale) {
+            return locale === this.defaultLocale;
         },
     },
 };
