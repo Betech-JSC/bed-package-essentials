@@ -8,7 +8,7 @@
         <Column field="translations" header="Bản dịch">
             <template #body="{ data }">
                 <table>
-                    <template v-for="(locale, index) in $page.props.locales">
+                    <template v-for="(locale, index) in $page.props.locale.list">
                         <tr>
                             <td class="w-10 label">
                                 {{ locale.toUpperCase() }}
