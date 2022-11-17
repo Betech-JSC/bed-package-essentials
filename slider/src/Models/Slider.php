@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use JamstackVietnam\Core\Models\BaseModel;
-use JamstackVietnam\Core\Models\Translatable;
+use JamstackVietnam\Core\Traits\Translatable;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Slider extends BaseModel

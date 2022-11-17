@@ -1,6 +1,6 @@
 <?php
 
-namespace JamstackVietnam\Core\Models;
+namespace JamstackVietnam\Core\Traits;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;

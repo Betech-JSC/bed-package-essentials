@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use JamstackVietnam\Core\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
-use JamstackVietnam\Core\Models\Translatable;
+use JamstackVietnam\Core\Traits\Translatable;
 
 class PostCategory extends BaseModel
 {

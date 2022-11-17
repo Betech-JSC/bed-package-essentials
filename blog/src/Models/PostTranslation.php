@@ -4,7 +4,7 @@ namespace JamstackVietnam\Blog\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use JamstackVietnam\Core\Models\BaseModel;
-use JamstackVietnam\Core\Models\Sluggable;
+use JamstackVietnam\Core\Traits\Sluggable;
 
 class PostTranslation extends BaseModel
 {
