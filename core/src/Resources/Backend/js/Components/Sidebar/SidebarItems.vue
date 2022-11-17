@@ -5,19 +5,22 @@
         </Link>
     </div>
     <hr />
-    <ul class="flex space-x-2 btn-group" v-if="$page.props.locales.length">
-        <Button
-            class="grow"
-            v-for="(locale, index) in $page.props.locales"
-            :label="locale"
-            size="sm"
-            @click="changeLocale(locale)"
-            :class="
-                currentLocale === locale ? 'btn-primary' : 'btn-outline-primary'
-            "
-        />
-    </ul>
     <nav class="flex-1 px-2 pt-5 pb-4 space-y-1 navs">
+        <ul class="flex space-x-2 btn-group" v-if="$page.props.locales.length">
+            <Button
+                class="grow"
+                v-for="(locale, index) in $page.props.locales"
+                :label="locale"
+                size="sm"
+                @click="changeLocale(locale)"
+                :class="
+                    currentLocale === locale
+                        ? 'btn-primary'
+                        : 'btn-outline-primary'
+                "
+            />
+        </ul>
+        <hr />
         <SidebarMain />
         <hr />
         <Link
