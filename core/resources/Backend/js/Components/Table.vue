@@ -177,7 +177,7 @@ export default {
         tableName() {
             return (
                 this.config.name ??
-                this.$t("models.table_list." + this.currentResource)
+                this.tt("models.table_list." + this.currentResource)
             );
         },
         hideHeader() {

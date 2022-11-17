@@ -32,7 +32,7 @@
             class="item"
         >
             <ph:image />
-            <span>{{ $t("models.table_list.files") }}</span>
+            <span>{{ tt("models.table_list.files") }}</span>
         </Link>
         <Link
             v-if="adminAbilities.can('index', 'admins')"
@@ -41,7 +41,7 @@
             class="item"
         >
             <heroicons-outline:user-circle />
-            <span>{{ $t("models.table_list.admins") }}</span>
+            <span>{{ tt("models.table_list.admins") }}</span>
         </Link>
         <Link
             v-if="adminAbilities.can('index', 'roles')"
@@ -50,7 +50,7 @@
             class="item"
         >
             <heroicons-outline:user-group />
-            <span>{{ $t("models.table_list.roles") }}</span>
+            <span>{{ tt("models.table_list.roles") }}</span>
         </Link>
         <Link
             v-if="adminAbilities.can('index', 'translations')"
@@ -59,7 +59,7 @@
             class="item"
         >
             <ph-translate />
-            <span>{{ $t("models.table_list.translations") }}</span>
+            <span>{{ tt("models.table_list.translations") }}</span>
         </Link>
         <Link
             v-if="adminAbilities.can('index', 'settings')"
@@ -68,7 +68,7 @@
             class="item"
         >
             <heroicons-outline:cog-8-tooth />
-            <span>{{ $t("models.table_list.settings") }}</span>
+            <span>{{ tt("models.table_list.settings") }}</span>
         </Link>
     </nav>
 </template>
