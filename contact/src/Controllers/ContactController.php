@@ -4,15 +4,12 @@ namespace JamstackVietnam\Contact\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use JamstackVietnam\Core\Traits\ApiResponse;
 use Illuminate\Support\Facades\Validator;
 use JamstackVietnam\Contact\Models\Contact;
 use JamstackVietnam\Support\Models\File;
 
 class ContactController extends Controller
 {
-    use ApiResponse;
-
     public $model = Contact::class;
 
     public function store(Request $request)
