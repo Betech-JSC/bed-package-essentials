@@ -155,7 +155,6 @@ export default {
                 document
                     .querySelector(".tree-view-item-wrapper .is-selected")
                     ?.classList.remove("is-selected");
-                console.log(target.parentNode.closest(".group"));
                 target.parentNode
                     .closest(".group")
                     .classList.add("is-selected");
