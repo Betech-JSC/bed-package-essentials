@@ -31,12 +31,12 @@ class HelperController extends Controller
         if ($const = request()->input('const')) {
             $model = $this->modelNamespace();
             $items = collect(constant($model . '::' . $const))
-                        ->map(function ($value, $key) {
-                            return [
-                                'id' => $key,
-                                'label' => $value
-                            ];
-                        })->values()->toArray();
+                ->map(function ($value, $key) {
+                    return [
+                        'id' => $key,
+                        'label' => $value
+                    ];
+                })->values()->toArray();
         } else {
             $model = $this->modelNamespace();
             $model = new $model;
@@ -64,7 +64,13 @@ class HelperController extends Controller
     private function modelNamespace()
     {
         $model = request()->input('model');
-        return "\App\Models\\$model";
+        if (class_exists("\App\Models\\$model")) {
+            return "\App\Models\\$model";
+        } else if (class_exists("\JamstackVietnam\\Core\\Models\\$model")) {
+            return "\JamstackVietnam\\Core\\Models\\$model";
+        } else {
+            return $model;
+        }
     }
 
     private function onlyFields($items)

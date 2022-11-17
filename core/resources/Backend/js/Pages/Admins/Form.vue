@@ -41,7 +41,7 @@
                         keyBy: 'name',
                         labelBy: 'title',
                         source: {
-                            model: 'JamstackVietnam\\Core\\Models\\Role',
+                            model: 'Role',
                             method: 'getRoles',
                             only: ['name', 'title'],
                         },
