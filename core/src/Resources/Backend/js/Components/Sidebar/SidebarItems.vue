@@ -5,7 +5,7 @@
         </Link>
     </div>
     <nav class="flex-1 px-2 pb-4 space-y-1 navs">
-        <ul class="flex py-5 space-x-2 btn-group" v-if="$page.props.locales.length">
+        <ul class="flex px-4 py-5 space-x-2 btn-group" v-if="$page.props.locales.length">
             <Button
                 class="grow"
                 v-for="(locale, index) in $page.props.locales"
