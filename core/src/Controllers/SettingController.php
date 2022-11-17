@@ -3,10 +3,10 @@
 namespace JamstackVietnam\Core\Controllers;
 
 use Inertia\Inertia;
-use Illuminate\Support\Str;
 use App\Models\Setting;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use JamstackVietnam\Core\Traits\HasCrudActions;
 
 class SettingController extends Controller
