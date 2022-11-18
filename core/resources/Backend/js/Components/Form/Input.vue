@@ -136,6 +136,15 @@
             v-model:disabled="disabled"
         />
     </template>
+    <template v-else-if="field.type === 'file_upload'">
+        <InputUpload
+            :value="modelValue"
+            @change="inputChange"
+            :field="field"
+            v-model:disabled="disabled"
+        />
+    </template>
+
     <template v-else-if="field.type === 'tags'">
         <CustomTags
             :field="field"
@@ -155,7 +164,9 @@ import CustomSelectButton from "@Core/Components/Form/Custom/CustomSelectButton.
 import CustomTreeSelect from "@Core/Components/Form/Custom/CustomTreeSelect.vue";
 import CustomEditor from "@Core/Components/Form/Custom/CustomEditor.vue";
 import CustomTags from "@Core/Components/Form/Custom/CustomTags.vue";
+
 import TreeViewItem from "@Core/Components/TreeViewItem.vue";
+import InputUpload from "@Core/Components/Form/InputUpload.vue";
 
 export default {
     props: ["field", "modelValue", "disabled"],
@@ -169,7 +180,8 @@ export default {
         CustomSelectDate,
         CustomEditor,
         CustomTags,
-        TreeViewItem
+        TreeViewItem,
+        InputUpload
     },
     computed: {
         fieldId() {
