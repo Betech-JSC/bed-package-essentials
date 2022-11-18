@@ -28,7 +28,7 @@ class Post extends BaseModel
         'is_home',
         'is_featured',
         'view_count',
-        'image_url',
+        'image',
 
         'inject_head',
         'inject_body_start',
@@ -54,6 +54,10 @@ class Post extends BaseModel
         'seo_canonical',
         'seo_image',
         'seo_schemas',
+    ];
+
+    protected $casts = [
+        'image' => 'array'
     ];
 
     public function rules()
@@ -169,7 +173,10 @@ class Post extends BaseModel
             'formatted_created_at' => $this->formatted_created_at,
             'description' => $this->description,
             'category' => $this->category,
-            'thumbnail' => static_url($this->image_url)
+            'image' => [
+                'url' => static_url($this->image['url'] ?? null),
+                'alt' => $this->image['alt'] ?? $this->title,
+            ]
         ];
     }
 
@@ -185,7 +192,10 @@ class Post extends BaseModel
             'content' => $this->content,
             'category' => $this->category,
             'categories' => $this->categories->map(fn ($item) => $item->transform()),
-            'thumbnail' => static_url($this->image_url),
+            'image' => [
+                'url' => static_url($this->image['url'] ?? null),
+                'alt' => $this->image['alt'] ?? $this->title,
+            ]
         ];
     }
 

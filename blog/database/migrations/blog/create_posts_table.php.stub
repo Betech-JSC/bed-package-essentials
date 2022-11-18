@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
 
-            $table->string('image_url')->nullable();
+            $table->json('image')->nullable();
             $table->date('published_at')->nullable();
 
             $table->boolean('is_home')->nullable()->default(0);
