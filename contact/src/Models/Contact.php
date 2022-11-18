@@ -178,6 +178,6 @@ class Contact extends BaseModel
     public function getUrl()
     {
         $route = config('contact.types.' . $this->type . '.route');
-        return route('admin.' . $route . '.form', [ 'id' => $this->id ]);
+        return route('admin.' . current_locale() . '.' . $route . '.form', [ 'id' => $this->id ]);
     }
 }

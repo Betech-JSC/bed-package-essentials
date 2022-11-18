@@ -4,22 +4,16 @@ namespace JamstackVietnam\Contact\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use JamstackVietnam\Support\Traits\ApiResponse;
-use JamstackVietnam\Support\Traits\HasApiCrudActions;
 use Illuminate\Support\Facades\Validator;
 use JamstackVietnam\Contact\Models\Contact;
 use JamstackVietnam\Support\Models\File;
 
 class ContactController extends Controller
 {
-    use HasApiCrudActions, ApiResponse;
-
     public $model = Contact::class;
 
     public function store(Request $request)
     {
-        $errors = $this->validateRequest(__FUNCTION__);
-
         $data = $request->input('contact')['data'];
         $requestData = $request->all()['contact'];
         $requestData['type'] = $requestData['type'] ?? key(config('contact.types'));
