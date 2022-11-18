@@ -31,16 +31,26 @@ class Generator
         if (is_null($table) && !is_null($column))
             throw new InvalidArgumentException;
 
-        if (is_object($table))
-            return $this->getUniqueRules($this->getModelRules($table, $rules, $column), $id);
+        $uniqueRules = [];
 
-        if (is_null($table))
-            return $this->getAllTableRules();
+        if (is_object($table)) {
+            $uniqueRules = $this->getUniqueRules($this->getModelRules($table, $rules, $column), $id);
+        } else if (is_null($table)) {
+            $uniqueRules = $this->getAllTableRules();
+        } else if (is_null($column)) {
+            $uniqueRules = $this->getUniqueRules($this->getTableRules($table, $rules), $id);
+        } else {
+            $uniqueRules = $this->getUniqueRules($this->getColumnRules($table, $column, $rules), $id);
+        }
 
-        if (is_null($column))
-            return $this->getUniqueRules($this->getTableRules($table, $rules), $id);
-
-        return $this->getUniqueRules($this->getColumnRules($table, $column, $rules), $id);
+        $instance = $this->getModelInstance($table);
+        foreach ($instance->getCasts() as $column => $type) {
+            if ($type === 'array') {
+                $uniqueRules[$column] = str_replace('json', 'array', $uniqueRules[$column]);
+                $uniqueRules[$column] = str_replace('text', 'array', $uniqueRules[$column]);
+            }
+        }
+        return $uniqueRules;
     }
 
     public static function make()
@@ -224,6 +234,7 @@ class Generator
         foreach ($rules as $key => $value) {
             $return[$key] = $this->getColumnUniqueRules($value, $id, $idColumn);
         }
+
         return $return;
     }
 
