@@ -138,9 +138,9 @@
     </template>
     <template v-else-if="field.type === 'file_upload'">
         <InputUpload
-            :value="modelValue"
-            @change="inputChange"
             :field="field"
+            v-model="modelValue"
+            @change="$emit('update:modelValue', $event)"
             v-model:disabled="disabled"
         />
     </template>
@@ -181,7 +181,7 @@ export default {
         CustomEditor,
         CustomTags,
         TreeViewItem,
-        InputUpload
+        InputUpload,
     },
     computed: {
         fieldId() {

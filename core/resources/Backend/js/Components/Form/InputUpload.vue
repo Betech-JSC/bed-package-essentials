@@ -26,9 +26,9 @@
                     class="absolute flex invisible space-x-1 transition-all duration-200 opacity-0 right-2 bottom-2 group-hover:opacity-100 group-hover:visible"
                 >
                     <Button
-                        size="xs"
                         @click="chosenImage(file)"
-                        label=" Chọn"
+                        label="Chọn"
+                        class="btn-sm btn-white"
                     />
                     <Button
                         @click="removeSelectedFiles(index)"
@@ -165,7 +165,7 @@ export default {
         FileManager,
     },
 
-    props: ["field", "value"],
+    props: ["field", "modelValue"],
     emits: ["change"],
 
     data() {
@@ -200,13 +200,6 @@ export default {
         },
     },
 
-    watch: {
-        value() {
-            this.files = [];
-            this.initFiles();
-        },
-    },
-
     created() {
         this.initFiles();
     },
@@ -217,9 +210,13 @@ export default {
         },
         initFiles() {
             if (this.multiple) {
-                this.files = this.value;
-            } else if (!this.multiple && this.value) {
-                this.files = [this.value];
+                this.files = this.modelValue;
+            } else if (
+                !this.multiple &&
+                this.modelValue !== null &&
+                Object.keys(this.modelValue).length
+            ) {
+                this.files = [this.modelValue];
             }
         },
         onSelect(files) {
