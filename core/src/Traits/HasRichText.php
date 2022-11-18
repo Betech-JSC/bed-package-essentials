@@ -10,7 +10,9 @@ trait HasRichText
     public static function bootHasRichText()
     {
         static::saving(function ($model) {
-            if (request()->route() === null) return;
+            if (request()->route() === null) {
+                return;
+            }
 
             $model->getAllRichTextColumns();
         });
@@ -32,22 +34,19 @@ trait HasRichText
     private function storeExternalMedia($field)
     {
         $this->{$field} = $this->matchContent($this->{$field});
-        return;
     }
-    
+
     private function matchContent($content)
     {
-        if(is_array($content)) {
+        if (is_array($content)) {
             foreach ($content as $key => $value) {
                 $content[$key] = $this->matchContent($value);
             }
 
             return $content;
-        }
-        else if(empty($content)) {
+        } else if (empty($content)) {
             return;
-        }
-        else {
+        } else {
             $regex = '/src\s*=\s*"(.+?)"/m';
             preg_match_all($regex, $content, $matches, PREG_SET_ORDER, 0);
 
@@ -55,7 +54,9 @@ trait HasRichText
                 foreach ($matches as $match) {
                     $url = $match[1];
 
-                    if (strstr($url, 'static/')) continue;
+                    if (strstr($url, 'static/')) {
+                        continue;
+                    }
 
                     try {
                         $newUrl = (new File)->storeFromUrl($url);
@@ -63,7 +64,7 @@ trait HasRichText
                         if ($newUrl) {
                             $content = str_replace($url, $newUrl, $content);
                         }
-                    } catch (\Exception $exception) {
+                    } catch (\Exception$exception) {
                         logger()->error('Can not store image: ' . $url);
                         logger()->error($th->getMessage());
                     }
