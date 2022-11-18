@@ -14,12 +14,12 @@
                     class="flex items-center justify-center overflow-hidden transition-colors duration-200 bg-gray-100 border border-gray-100 rounded select-none aspect-[1/1]"
                 >
                     <img
-                        v-if="isImage(file)"
-                        :src="`${file}?w=200`"
+                        v-if="isImage(file.static_url)"
+                        :src="`${file.static_url}?w=200`"
                         class="object-contain w-full"
                     />
                     <div v-else class="flex items-center p-4 text-xs break-all">
-                        {{ getFileName(file) }}
+                        {{ file.filename }}
                     </div>
                 </div>
                 <div
@@ -31,9 +31,9 @@
                         label=" Chọn"
                     />
                     <Button
-                        size="xs"
                         @click="removeSelectedFiles(index)"
                         label="Xóa"
+                        class="btn-sm btn-white"
                     />
                 </div>
             </div>
@@ -68,17 +68,18 @@
                         <Button
                             size="xs"
                             @click="removeSelectedFiles"
-                            label="Xoá"
+                            label="Xóa"
+                            class="btn-sm btn-white"
                         />
                     </div>
                 </div>
                 <img
-                    v-if="isImage(files[0])"
-                    :src="`${files[0]}?w=200`"
+                    v-if="isImage(files[0].static_url)"
+                    :src="`${files[0].static_url}?w=200`"
                     class="object-contain w-full"
                 />
                 <div v-else class="flex items-center p-4 text-xs break-all">
-                    {{ getFileName(files[0]) }}
+                    {{ files[0].filename }}
                 </div>
             </div>
         </template>
@@ -103,12 +104,17 @@
         :multiple="multiple"
     />
 
-    <DialogModal
-        :show="editFileModal !== null"
-        @close="editFileModal === null"
-        max-width="lg"
+    <Dialog
+        header="Folder"
+        v-model:visible="showFileModal"
+        :breakpoints="{
+            '960px': '75vw',
+            '640px': '90vw',
+        }"
+        :style="{ width: '50vw' }"
+        :draggable="false"
     >
-        <div class="space-y-6" v-if="editFileModal">
+        <div class="space-y-6">
             <div>
                 <label
                     class="block mb-2 font-semibold tracking-wide text-gray-700 font-display"
@@ -116,13 +122,13 @@
                     URL
                 </label>
                 <input
-                    v-model="editFileModal.link"
+                    v-model="showFileModal.link"
                     type="text"
                     class="block w-full py-[0.5rem] px-[1rem] border border-gray-300 focus:border-solid focus:outline-none focus:ring-0 rounded"
                 />
             </div>
-            <template v-if="editFileModal.options">
-                <template v-for="(option, field) in editFileModal.options">
+            <template v-if="showFileModal.options">
+                <template v-for="(option, field) in showFileModal.options">
                     <div>
                         <label
                             class="block mb-2 font-semibold tracking-wide text-gray-700 font-display"
@@ -130,7 +136,7 @@
                             {{ field }}
                         </label>
                         <input
-                            v-model="editFileModal.options[field]"
+                            v-model="showFileModal.options[field]"
                             type="text"
                             class="block w-full py-[0.5rem] px-[1rem] border border-gray-300 focus:border-solid focus:outline-none focus:ring-0 rounded"
                         />
@@ -140,7 +146,7 @@
         </div>
 
         <template #footer>
-            <Button variant="white" @click="editFileModal = null" label="Hủy" />
+            <Button variant="white" @click="showFileModal = null" label="Hủy" />
             <Button
                 type="button"
                 class="ml-2"
@@ -148,7 +154,7 @@
                 label="Lưu"
             />
         </template>
-    </DialogModal>
+    </Dialog>
 </template>
 
 <script>
@@ -166,7 +172,7 @@ export default {
         return {
             files: [],
             showMediaManager: false,
-            editFileModal: null,
+            showFileModal: null,
         };
     },
 
@@ -210,66 +216,31 @@ export default {
             this.$bus.emit("SelectedImage", file);
         },
         initFiles() {
-            if (!this.value || Object.keys(this.value).length === 0) return;
-            if (typeof this.value === "string" && this.value) {
-                this.files = [this.value];
-            } else if (
-                typeof this.value === "object" &&
-                Object.keys(this.value).length
-            ) {
+            if (this.multiple) {
                 this.files = this.value;
-            }
-        },
-        appendDefaultValue() {
-            if (this.field.options) {
-                this.files = this.files.map((x) => {
-                    let options = this.field.options;
-                    if (x.options) {
-                        options = { ...options, ...x.options };
-                    }
-                    return { ...x, options: options };
-                });
+            } else if (!this.multiple && this.value) {
+                this.files = [this.value];
             }
         },
         onSelect(files) {
-            const self = this;
+            this.files = files;
             if (this.multiple) {
-                this.files = [
-                    ...this.files,
-                    ...this.pluck(files, "static_url"),
-                ];
                 this.$emit("change", this.files);
             } else {
-                this.files = files;
-                this.$emit("change", this.files[0].static_url);
+                this.$emit("change", this.files[0]);
             }
         },
-
-        showEditFileModal(index = 0) {
-            this.editFileModal = this.files[index];
-        },
-
         editFileUpdate() {
             const index = this.files.findIndex(
-                (x) => x.url === this.editFileModal.url
+                (x) => x.url === this.showFileModal.url
             );
-            this.files[index] = this.editFileModal;
-            this.editFileModal = null;
+            this.files[index] = this.showFileModal;
+            this.showFileModal = null;
             this.$emit("change", this.files);
         },
-
         removeSelectedFiles(index = 0) {
             this.files.splice(index, 1);
-
-            if (!this.multiple) {
-                this.$emit("change", null);
-            } else {
-                this.$emit("change", this.files);
-            }
-        },
-
-        getFileName(path) {
-            return path ? path.split("/").pop() : path;
+            this.$emit("change", this.files);
         },
     },
 };
