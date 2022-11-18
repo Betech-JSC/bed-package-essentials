@@ -4,8 +4,8 @@
         @change="selectChange($event.value)"
         :options="options"
         :loading="field.loading"
-        :optionLabel="labelBy"
         :placeholder="placeholder"
+        :optionLabel="labelBy"
         display="chip"
     />
 </template>
@@ -26,20 +26,21 @@ export default {
             return this.field.placeholder || `Chọn ${this.field.label}`;
         },
         options() {
-            return this.field.options?.map((option) => {
-                option.key = option[this.keyBy];
-                option.label = option[this.labelBy];
-                return option;
+            let options = [];
+            this.field.options?.forEach((option) => {
+                options.push({
+                    id: option[this.keyBy].toString(),
+                    [this.labelBy]: option[this.labelBy].toString(),
+                });
             });
+            return options;
         },
         selectedOptions() {
             let options = [];
             this.modelValue?.forEach((option) => {
                 options.push({
-                    key: option[this.keyBy].toString(),
                     id: option[this.keyBy].toString(),
-                    label: option[this.labelBy].toString(),
-                    name: option[this.labelBy].toString(),
+                    [this.labelBy]: option[this.labelBy].toString(),
                 });
             });
             return options;
