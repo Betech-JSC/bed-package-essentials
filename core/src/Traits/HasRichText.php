@@ -10,7 +10,9 @@ trait HasRichText
     public static function bootHasRichText()
     {
         static::saving(function ($model) {
-            if (request()->route() === null) return;
+            if (request()->route() === null) {
+                return;
+            }
 
             $model->getAllRichTextColumns();
         });
@@ -31,65 +33,44 @@ trait HasRichText
 
     private function storeExternalMedia($field)
     {
-        $regex = '/src\s*=\s*"(.+?)"/m';
+        $this->{$field} = $this->matchContent($this->{$field});
+    }
 
-        $content = $this->{$field};
-
-        if(is_array($content)) {
+    private function matchContent($content)
+    {
+        if (is_array($content)) {
             foreach ($content as $key => $value) {
-                preg_match_all($regex, $value, $matches, PREG_SET_ORDER, 0);
+                $content[$key] = $this->matchContent($value);
+            }
 
-                if (!empty($matches)) {
-                    foreach ($matches as $match) {
-                        $url = $match[1];
+            return $content;
+        } else if (empty($content)) {
+            return;
+        } else {
+            $regex = '/src\s*=\s*"(.+?)"/m';
+            preg_match_all($regex, $content, $matches, PREG_SET_ORDER, 0);
 
-                        if (strstr($url, 'static/')) continue;
+            if (!empty($matches)) {
+                foreach ($matches as $match) {
+                    $url = $match[1];
 
-                        try {
-                            $newUrl = (new File)->storeFromUrl($url);
+                    if (strstr($url, 'static/')) {
+                        continue;
+                    }
 
-                            if ($newUrl) {
-                                $value = str_replace($url, $newUrl, $value);
-                            }
-                        } catch (\Exception $exception) {
-                            logger()->error('Can not store image: ' . $url);
-                            logger()->error($th->getMessage());
+                    try {
+                        $newUrl = (new File)->storeFromUrl($url);
+
+                        if ($newUrl) {
+                            $content = str_replace($url, $newUrl, $content);
                         }
+                    } catch (\Exception$exception) {
+                        logger()->error('Can not store image: ' . $url);
+                        logger()->error($th->getMessage());
                     }
                 }
-                $content[$key] = $value;
             }
-
-            $this->{$field} = $content;
-            return;
-        }
-
-        if (empty($content)) {
-            return;
-        }
-
-        preg_match_all($regex, $content, $matches, PREG_SET_ORDER, 0);
-
-        if (empty($matches)) {
-            return;
-        }
-
-        foreach ($matches as $match) {
-            $url = $match[1];
-
-            if (strstr($url, 'static/')) continue;
-
-            try {
-                $newUrl = (new File)->storeFromUrl($url);
-
-                if ($newUrl) {
-                    $content = str_replace($url, $newUrl, $content);
-                    $this->{$field} = $content;
-                }
-            } catch (\Exception $exception) {
-                logger()->error('Can not store image: ' . $url);
-                logger()->error($th->getMessage());
-            }
+            return $content;
         }
     }
 }
