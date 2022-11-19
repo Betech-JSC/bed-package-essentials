@@ -70,7 +70,7 @@ export default {
             return this.field.resource ?? this.getResource();
         },
         hideLabel() {
-            return this.label === false;
+            return this.field.label === false;
         },
     },
     data() {
