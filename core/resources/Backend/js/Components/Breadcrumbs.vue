@@ -33,9 +33,9 @@
                     </svg>
                     <Link
                         :href="breadcrumb.url"
-                        class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
+                        class="ml-4 text-sm font-medium text-gray-500 capitalize hover:text-gray-700"
                         :aria-current="breadcrumb.current ? 'page' : undefined"
-                        >{{ breadcrumb.name }}
+                        >{{ tt(breadcrumb.name) }}
                     </Link>
                 </div>
             </li>

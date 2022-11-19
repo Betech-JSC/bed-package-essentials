@@ -27,7 +27,7 @@ trait HasCrudActions
             'breadcrumbs' => [
                 [
                     'url' => route($this->getResource() . '.index'),
-                    'name' => trans('models.table_list.' . $this->getTable()),
+                    'name' => 'models.table_list.' . $this->getTable(),
                 ]
             ],
             'schema' => $this->getSchema(),
@@ -99,7 +99,7 @@ trait HasCrudActions
 
         $breadcrumbs = [[
             'url' => route($this->getResource() . '.index'),
-            'name' => trans('models.table_list.' . $this->getTable()),
+            'name' => 'models.table_list.' . $this->getTable(),
         ]];
 
         if (!empty($id)) {
