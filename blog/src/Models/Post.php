@@ -5,12 +5,12 @@ namespace JamstackVietnam\Blog\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use JamstackVietnam\Core\Models\BaseModel;
-use Nicolaslopezj\Searchable\SearchableTrait;
+use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
 
 class Post extends BaseModel
 {
-    use HasFactory, SoftDeletes, SearchableTrait, Translatable;
+    use HasFactory, SoftDeletes, Searchable, Translatable;
 
     public const STATUS_ACTIVE = 'ACTIVE';
     public const STATUS_INACTIVE = 'INACTIVE';

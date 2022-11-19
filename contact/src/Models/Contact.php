@@ -6,13 +6,13 @@ use JamstackVietnam\Contact\Rules\Blackwords;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Validator;
 use JamstackVietnam\Core\Models\BaseModel;
-use Nicolaslopezj\Searchable\SearchableTrait;
+use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Contact\Traits\HasNotification;
 
 class Contact extends BaseModel
 {
     use HasFactory;
-    use SearchableTrait;
+    use Searchable;
     use HasNotification;
 
     const STATUS_NEW = 'NEW';
