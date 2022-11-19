@@ -76,8 +76,8 @@
                 </div>
             </div>
         </template>
-        <template #empty> No items found. </template>
-        <template #loading>Loading items data. Please wait.</template>
+        <template #empty> Không tìm thấy dữ liệu. </template>
+        <template #loading>Đang tải dữ liệu...</template>
 
         <Column
             selectionMode="multiple"
