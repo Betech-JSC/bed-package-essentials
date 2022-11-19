@@ -95,7 +95,14 @@
                 :header="tt('models.' + currentResource + '.' + column.label)"
             >
                 <template #body="{ data }">
+                    <Image
+                        v-if="isImageCell(data, column)"
+                        :src="data[column.field]?.static_url"
+                        width="50"
+                        preview
+                    />
                     <Link
+                        v-else
                         :href="
                             route(`admin.${currentResource}.form`, {
                                 id: data.id,
@@ -108,15 +115,6 @@
                             :style="getStyles(data, column)"
                         >
                             {{ transformCell(data, column) }}
-                        </span>
-                        <span v-else-if="column.type === 'decimal'">
-                            {{ toMoney(data[column.field]) }}
-                        </span>
-                        <span v-else-if="column.type === 'date'">
-                            {{ toDate(data[column.field], 'DD/MM/YYYY') }}
-                        </span>
-                        <span v-else-if="column.type === 'integer'">
-                            {{ toNumber(data[column.field]) }}
                         </span>
                         <span v-else>
                             {{ transformCell(data, column) }}
@@ -397,18 +395,29 @@ export default {
 
             if (this.mergedColumns[column.field].transform) {
                 value = this.mergedColumns[column.field].transform(data);
+            } else if (column.type === "date") {
+                value = this.toDate(value, "DD/MM/YYYY");
             } else if (column.type === "datetime") {
                 value = this.toDate(value);
             } else if (column.type === "decimal") {
                 value = this.toMoney(value);
             } else if (
-                (column.type === "bigint" || column.type === "int") &&
+                (column.type === "bigint" || column.type === "integer") &&
                 column.field !== "id"
             ) {
                 value = this.toNumber(value);
+            } else if (
+                column.type === "json" &&
+                value &&
+                Object.keys(value).length === 0
+            ) {
+                return null;
             }
 
             return value;
+        },
+        isImageCell(data, column) {
+            return column.type === "json" && data[column.field]?.static_url;
         },
         capitalize(string) {
             return string?.charAt(0).toUpperCase() + string.slice(1);
