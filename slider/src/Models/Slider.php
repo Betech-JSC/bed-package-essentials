@@ -100,12 +100,11 @@ class Slider extends BaseModel
     {
         $query->where('position_display', $positionDisplay)
             ->available()
-            ->orderBy('sort_position', 'desc')
             ->orderBy('position_sort', 'desc')
             ->orderBy('id', 'desc');
 
         if (config('slider.positions.' . $positionDisplay . '.banner')) {
-            return $query?->first()->transform();
+            return $query->first()?->transform();
         } else {
             return $query->get()
                 ->map(fn($item) => $item->transform());
