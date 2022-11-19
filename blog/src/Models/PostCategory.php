@@ -61,7 +61,7 @@ class PostCategory extends BaseModel
             'post_category_translations.slug' => 5,
         ],
         'joins' => [
-            'post_category_translations' => ['post_category_translations.category_id', 'post_categories.id'],
+            'post_category_translations' => ['post_category_translations.post_category_id', 'post_categories.id'],
         ],
     ];
 
