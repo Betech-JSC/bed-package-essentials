@@ -2,7 +2,7 @@
 
 namespace JamstackVietnam\Core\Traits;
 
-use JamstackVietnam\Core\Traits\Searchable;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 trait Searchable
 {
