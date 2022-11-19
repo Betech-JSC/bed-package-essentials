@@ -104,7 +104,7 @@
                     >
                         <span
                             v-if="getStyles(data, column)"
-                            class="px-2 py-1 text-xs font-semibold uppercase rounded-sm"
+                            class="px-2 py-1 text-xs font-medium uppercase rounded-sm"
                             :style="getStyles(data, column)"
                         >
                             {{ transformCell(data, column) }}
