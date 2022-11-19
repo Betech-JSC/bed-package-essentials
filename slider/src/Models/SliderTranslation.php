@@ -1,6 +1,6 @@
 <?php
 
-namespace JamstackVietnam\Blog\Models;
+namespace JamstackVietnam\Slider\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use JamstackVietnam\Core\Models\BaseModel;
