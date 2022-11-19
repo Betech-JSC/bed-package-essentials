@@ -112,6 +112,12 @@
                         <span v-else-if="column.type === 'decimal'">
                             {{ toMoney(data[column.field]) }}
                         </span>
+                        <span v-else-if="column.type === 'date'">
+                            {{ toDate(data[column.field], 'DD/MM/YYYY') }}
+                        </span>
+                        <span v-else-if="column.type === 'integer'">
+                            {{ toNumber(data[column.field]) }}
+                        </span>
                         <span v-else>
                             {{ transformCell(data, column) }}
                         </span>
