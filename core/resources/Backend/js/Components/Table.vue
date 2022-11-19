@@ -91,9 +91,9 @@
         >
             <Column
                 :field="column.field"
-                :header="capitalize(column.label)"
                 filterMatchMode="contains"
                 :sortable="false"
+                :header="tt('models.' + currentResource + '.' + column.label)"
             >
                 <template #body="{ data }">
                     <Link

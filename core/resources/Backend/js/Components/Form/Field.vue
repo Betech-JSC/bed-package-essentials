@@ -1,12 +1,15 @@
 <template>
     <div class="field group">
         <label
-            v-if="field.label && field.type !== 'checkbox'"
+            v-if="!hideLabel && field.type !== 'checkbox'"
             :for="fieldId"
             class="flex items-center label"
         >
             <span>
-                {{ field.label }}
+                {{
+                    field.label ||
+                    tt("models." + currentResource + "." + field.name)
+                }}
             </span>
             <small
                 class="invisible ml-auto font-normal normal-case group-hover:visible"
@@ -62,6 +65,12 @@ export default {
         charCount() {
             if (!this.modelValue) return 0;
             return this.modelValue.length;
+        },
+        currentResource() {
+            return this.field.resource ?? this.getResource();
+        },
+        hideLabel() {
+            return this.label === false;
         },
     },
     data() {
