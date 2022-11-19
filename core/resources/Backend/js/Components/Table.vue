@@ -69,8 +69,7 @@
                         />
                         <InputText
                             v-model="filters['global'].value"
-                            @blur="loadLazyData()"
-                            v-on:keyup.enter="loadLazyData()"
+                            @input="onChangeSearch()"
                             placeholder="Tìm kiếm.."
                         />
                     </div>
@@ -157,6 +156,7 @@ export default {
             totalItems: 0,
             loading: false,
             lazyParams: {},
+            timer: null,
 
             selectedItems: null,
             selectAll: false,
@@ -260,6 +260,16 @@ export default {
                     this.rows = data.per_page;
                     this.totalItems = data.total;
                 });
+        },
+        onChangeSearch() {
+            if (this.timer) {
+                clearTimeout(this.timer);
+                this.timer = null;
+            }
+
+            this.timer = setTimeout(() => {
+                this.loadLazyData();
+            }, 200);
         },
         onPage(event) {
             this.lazyParams = event;
