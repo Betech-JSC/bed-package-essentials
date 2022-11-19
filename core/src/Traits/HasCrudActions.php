@@ -264,7 +264,7 @@ trait HasCrudActions
         if (!method_exists($this->model, 'scopeSearchLike')) return $query;
 
         if ($keyword = request()->input('filters.global.value')) {
-            return $query->searchLike($keyword);
+            return $query->searchLike($keyword)->distinct();
         }
         return $query;
     }
