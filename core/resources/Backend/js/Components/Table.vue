@@ -98,7 +98,7 @@
                     <Image
                         v-if="isImageCell(data, column)"
                         :src="data[column.field]?.static_url"
-                        width="50"
+                        width="80"
                         preview
                     />
                     <Link
