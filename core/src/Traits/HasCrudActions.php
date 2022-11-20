@@ -260,7 +260,9 @@ trait HasCrudActions
 
         if ($translationModel = $model->getTranslationModelNameDefault()) {
             $translationColumns = RuleGenerator::getTableSchema($translationModel);
-            $translationColumns = collect($translationColumns)->whereIn('field', $model->translatedAttributes)->toArray();
+            $translationColumns = collect($translationColumns)
+                ->whereIn('field', $model->translatedAttributes)
+                ->toArray();
             $columns = array_merge($translationColumns, $columns);
         }
 
