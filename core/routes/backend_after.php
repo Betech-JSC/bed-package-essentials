@@ -1,6 +1,5 @@
 <?php
 
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use JamstackVietnam\Core\Controllers\RoleController;
 use JamstackVietnam\Core\Controllers\AdminController;
@@ -17,7 +16,7 @@ Route::middleware(['auth:admin'])->name('admin.')->group(function () {
     });
 
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        return inertia('Dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::module(AdminController::class);
