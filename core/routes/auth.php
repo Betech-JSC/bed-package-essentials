@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Admin;
+use JamstackVietnam\Core\Models\Admin;
 use Illuminate\Support\Facades\Route;
 use JamstackVietnam\Core\Controllers\Auth\NewPasswordController;
 use JamstackVietnam\Core\Controllers\Auth\VerifyEmailController;

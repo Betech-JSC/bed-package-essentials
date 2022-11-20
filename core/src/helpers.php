@@ -1,5 +1,12 @@
 <?php
 
+if (!function_exists('package_path')) {
+    function package_path($path)
+    {
+        return base_path('packages/jam-package-essentials/'. $path);
+    }
+}
+
 if (!function_exists('static_url')) {
     function static_url($path, $parameters = [])
     {
