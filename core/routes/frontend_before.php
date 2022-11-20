@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use JamstackVietnam\Core\Controllers\FileController;
 
 Route::get('robots.txt', function () {
     return response(
