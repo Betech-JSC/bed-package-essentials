@@ -118,7 +118,7 @@ class TranslationController extends Controller
 
     public function buildFrontendAssets()
     {
-        Artisan::call('route');
+        // Artisan::call('route');
     }
 
     protected function getLocales(): array
