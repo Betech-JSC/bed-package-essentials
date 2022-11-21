@@ -211,7 +211,8 @@ export default {
                         x.field !== "locale" &&
                         !x.field.includes("seo_")
                 )
-                .sort((a, b) => (a.order > b.order ? 1 : -1));
+                .sort((a, b) => (a.order > b.order ? 1 : -1))
+                .slice(0, 8);
         },
         canCreate() {
             return (
