@@ -111,13 +111,12 @@
                     >
                         <span
                             v-if="getStyles(data, column)"
-                            class="px-2 py-1 text-xs font-medium uppercase rounded-sm"
+                            class="px-2 py-1 text-xs font-medium uppercase whitespace-pre rounded-sm"
                             :style="getStyles(data, column)"
                         >
                             {{ transformCell(data, column) }}
                         </span>
-                        <span v-else>
-                            {{ transformCell(data, column) }}
+                        <span v-else v-html="transformCell(data, column)">
                         </span>
                     </Link>
                 </template>
@@ -415,6 +414,10 @@ export default {
                 column.field !== "id"
             ) {
                 value = this.toNumber(value);
+            } else if (column.type === "boolean") {
+                value = `<div class="w-3 h-3 ${
+                    value ? "bg-green-500" : "bg-orange-300"
+                } rounded-full"></div>`;
             } else if (
                 column.type === "json" &&
                 value &&
