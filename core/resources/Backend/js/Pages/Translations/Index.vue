@@ -86,6 +86,6 @@ export default {
 
 <style lang="scss">
 .p-datatable tr td:first-child {
-    max-width: 12vw;
+    max-width: 20vw;
 }
 </style>
