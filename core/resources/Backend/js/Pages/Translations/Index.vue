@@ -17,7 +17,7 @@
                             </td>
                             <td>
                                 <CustomEditor
-                                    v-if="isHTML(data.translations[locale])"
+                                    v-if="isHTML(data.translations[$page.props.locale.default])"
                                     :modelValue="data.translations[locale]"
                                     @change="data.translations[locale] = $event"
                                     :field="{ size: 'sm' }"
