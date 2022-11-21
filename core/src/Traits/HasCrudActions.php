@@ -258,7 +258,8 @@ trait HasCrudActions
 
         $columns =  RuleGenerator::getTableSchema($model);
 
-        if ($translationModel = $model->getTranslationModelNameDefault()) {
+        if (method_exists($model, 'getTranslationModelNameDefault')) {
+            $translationModel = $model->getTranslationModelNameDefault();
             $translationColumns = RuleGenerator::getTableSchema($translationModel);
             $translationColumns = collect($translationColumns)
                 ->whereIn('field', $model->translatedAttributes)
