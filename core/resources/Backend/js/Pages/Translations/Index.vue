@@ -16,7 +16,14 @@
                                 {{ locale.toUpperCase() }}
                             </td>
                             <td>
+                                <CustomEditor
+                                    v-if="isHTML(data.translations[locale])"
+                                    :modelValue="data.translations[locale]"
+                                    @change="data.translations[locale] = $event"
+                                    :field="{ size: 'sm' }"
+                                />
                                 <InputText
+                                    v-else
                                     v-model="data.translations[locale]"
                                     @blur="
                                         updateTranslation(
@@ -35,7 +42,11 @@
     </DataTable>
 </template>
 <script>
+import CustomEditor from "@Core/Components/Form/Custom/CustomEditor.vue";
 export default {
+    components: {
+        CustomEditor,
+    },
     props: ["schema"],
     data() {
         return {
@@ -65,6 +76,9 @@ export default {
                 key,
                 locale,
             });
+        },
+        isHTML(string) {
+            return /(<([^>]+)>)/.test(string);
         },
     },
 };

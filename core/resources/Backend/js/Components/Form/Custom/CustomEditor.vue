@@ -37,7 +37,7 @@ export default {
                 sm: 300,
                 md: 600,
                 lg: 1000,
-            }[this.field.size ?? "md"];
+            }[this.field?.size ?? "md"];
         },
     },
 
