@@ -17,7 +17,7 @@ class HelperController extends Controller
             $files = collect($files)->map(function ($file) {
                 return [
                     'file' => basename($file),
-                    'url' => route('helper.logs', ['file' => basename($file)])
+                    'url' => route('admin.helper.logs', ['file' => basename($file)])
                 ];
             })->reverse()->take(10)->values();
             return response()->json($files);
