@@ -17,9 +17,22 @@
                             </td>
                             <td>
                                 <CustomEditor
-                                    v-if="isHTML(data.translations[$page.props.locale.default])"
+                                    v-if="
+                                        isHTML(
+                                            data.translations[
+                                                $page.props.locale.default
+                                            ]
+                                        )
+                                    "
                                     :modelValue="data.translations[locale]"
-                                    @change="data.translations[locale] = $event"
+                                    @change="
+                                        data.translations[locale] = $event;
+                                        updateTranslation(
+                                            $event,
+                                            data.key,
+                                            locale
+                                        );
+                                    "
                                     :field="{ size: 'sm' }"
                                 />
                                 <InputText
