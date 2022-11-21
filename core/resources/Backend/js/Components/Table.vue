@@ -205,6 +205,13 @@ export default {
         displayColumns() {
             return Object.values(this.mergedColumns)
                 .filter((x) => x.display)
+                .filter(
+                    (x) =>
+                        x.type !== "text" &&
+                        x.field !== "slug" &&
+                        x.field !== "locale" &&
+                        !x.field.includes("seo_")
+                )
                 .sort((a, b) => (a.order > b.order ? 1 : -1));
         },
         canCreate() {
@@ -351,6 +358,8 @@ export default {
                     };
                 }
             });
+
+            schemaColumns["id"].order = 0;
 
             return schemaColumns;
         },
