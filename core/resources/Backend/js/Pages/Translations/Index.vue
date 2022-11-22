@@ -9,7 +9,7 @@
                         width="80"
                         preview
                     />
-                    <div v-html="data.key" class="break-all"></div>
+                    <div v-html="data.key" class="break-words"></div>
                 </div>
             </template>
         </Column>
@@ -127,6 +127,6 @@ export default {
 
 <style lang="scss">
 .p-datatable tr td:first-child {
-    max-width: 20vw;
+    max-width: 40vw;
 }
 </style>
