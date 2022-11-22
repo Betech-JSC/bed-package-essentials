@@ -53,7 +53,7 @@ export default {
                     "undo redo formatselect bold italic forecolor template fullscreen link filemanager image alignleft aligncenter alignright alignjustify bullist numlist removeformat code",
 
                 templates,
-                toolbar_sticky: true,
+                toolbar_sticky: this.field?.size === "lg",
                 autosave_ask_before_unload: false,
                 autosave_interval: "30s",
                 autosave_prefix: "{path}{query}-{id}-",
