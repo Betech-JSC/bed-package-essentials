@@ -50,6 +50,17 @@
                                     :modelValue="data.translations[locale]"
                                     :field="{ urlOnly: true }"
                                 />
+                                <Textarea
+                                    v-else-if="data.key.length > 100"
+                                    v-model="data.translations[locale]"
+                                    @blur="
+                                        updateTranslation(
+                                            $event.target.value,
+                                            data.key,
+                                            locale
+                                        )
+                                    "
+                                />
                                 <InputText
                                     v-else
                                     v-model="data.translations[locale]"

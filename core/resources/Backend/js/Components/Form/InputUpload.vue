@@ -213,7 +213,6 @@ export default {
         },
         initFiles() {
             if (this.urlOnly) {
-                console.log("this.modelValue", this.modelValue);
                 if (this.multiple) {
                     this.files = this.modelValue?.map(function (url) {
                         return {
