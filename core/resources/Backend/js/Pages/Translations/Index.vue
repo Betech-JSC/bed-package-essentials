@@ -25,13 +25,7 @@
                             </td>
                             <td>
                                 <CustomEditor
-                                    v-if="
-                                        isHTML(
-                                            data.translations[
-                                                $page.props.locale.default
-                                            ]
-                                        )
-                                    "
+                                    v-if="isHTML(data.key)"
                                     :modelValue="data.translations[locale]"
                                     @change="
                                         data.translations[locale] = $event;
@@ -44,13 +38,7 @@
                                     :field="{ size: 'sm' }"
                                 />
                                 <InputUpload
-                                    v-else-if="
-                                        isImage(
-                                            data.translations[
-                                                $page.props.locale.default
-                                            ]
-                                        )
-                                    "
+                                    v-else-if="isImage(data.key)"
                                     @change="
                                         data.translations[locale] = $event;
                                         updateTranslation(
@@ -60,6 +48,7 @@
                                         );
                                     "
                                     :modelValue="data.translations[locale]"
+                                    :field="{ urlOnly: true }"
                                 />
                                 <InputText
                                     v-else

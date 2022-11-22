@@ -177,6 +177,9 @@ export default {
     },
 
     computed: {
+        urlOnly() {
+            return this.field?.urlOnly ?? false;
+        },
         multiple() {
             return this.field?.multiple ?? false;
         },
@@ -209,22 +212,50 @@ export default {
             this.$bus.emit("SelectedImage", file);
         },
         initFiles() {
-            if (this.multiple) {
-                this.files = this.modelValue;
-            } else if (
-                !this.multiple &&
-                this.modelValue !== null &&
-                Object.keys(this.modelValue).length
-            ) {
-                this.files = [this.modelValue];
+            if (this.urlOnly) {
+                console.log("this.modelValue", this.modelValue);
+                if (this.multiple) {
+                    this.files = this.modelValue?.map(function (url) {
+                        return {
+                            static_url: url,
+                        };
+                    });
+                } else if (
+                    !this.multiple &&
+                    this.modelValue !== null &&
+                    this.modelValue !== undefined &&
+                    Object.keys(this.modelValue).length
+                ) {
+                    this.files = [{ static_url: this.modelValue }];
+                }
+            } else {
+                if (this.multiple) {
+                    this.files = this.modelValue;
+                } else if (
+                    !this.multiple &&
+                    this.modelValue !== null &&
+                    this.modelValue !== undefined &&
+                    Object.keys(this.modelValue).length
+                ) {
+                    this.files = [this.modelValue];
+                }
             }
         },
         onSelect(files) {
             this.files = files;
-            if (this.multiple) {
-                this.$emit("change", this.files);
+
+            if (this.urlOnly) {
+                if (this.multiple) {
+                    this.$emit("change", pluck(this.files, "static_url"));
+                } else {
+                    this.$emit("change", this.files[0]?.static_url);
+                }
             } else {
-                this.$emit("change", this.files[0]);
+                if (this.multiple) {
+                    this.$emit("change", this.files);
+                } else {
+                    this.$emit("change", this.files[0]);
+                }
             }
         },
         editFileUpdate() {
