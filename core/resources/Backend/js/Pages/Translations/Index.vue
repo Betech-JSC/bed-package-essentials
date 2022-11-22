@@ -2,7 +2,7 @@
     <DataTable :value="items" responsiveLayout="scroll" :loading="loading">
         <Column field="key" header="Mặc định">
             <template #body="{ data }">
-                <span v-html="data.key"></span>
+                <span v-html="data.key" class="break-all"></span>
             </template>
         </Column>
         <Column field="translations" header="Bản dịch">
