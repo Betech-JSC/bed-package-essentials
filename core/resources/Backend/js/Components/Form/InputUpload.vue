@@ -178,7 +178,7 @@ export default {
 
     computed: {
         multiple() {
-            return this.field.multiple || false;
+            return this.field?.multiple ?? false;
         },
         accept() {
             return (

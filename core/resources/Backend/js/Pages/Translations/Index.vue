@@ -2,7 +2,15 @@
     <DataTable :value="items" responsiveLayout="scroll" :loading="loading">
         <Column field="key" header="Mặc định">
             <template #body="{ data }">
-                <span v-html="data.key" class="break-all"></span>
+                <div>
+                    <Image
+                        v-if="isImage(data.key)"
+                        :src="data.key"
+                        width="80"
+                        preview
+                    />
+                    <div v-html="data.key" class="break-all"></div>
+                </div>
             </template>
         </Column>
         <Column field="translations" header="Bản dịch">
@@ -35,6 +43,24 @@
                                     "
                                     :field="{ size: 'sm' }"
                                 />
+                                <InputUpload
+                                    v-else-if="
+                                        isImage(
+                                            data.translations[
+                                                $page.props.locale.default
+                                            ]
+                                        )
+                                    "
+                                    @change="
+                                        data.translations[locale] = $event;
+                                        updateTranslation(
+                                            $event,
+                                            data.key,
+                                            locale
+                                        );
+                                    "
+                                    :modelValue="data.translations[locale]"
+                                />
                                 <InputText
                                     v-else
                                     v-model="data.translations[locale]"
@@ -56,9 +82,11 @@
 </template>
 <script>
 import CustomEditor from "@Core/Components/Form/Custom/CustomEditor.vue";
+import InputUpload from "@Core/Components/Form/InputUpload.vue";
 export default {
     components: {
         CustomEditor,
+        InputUpload,
     },
     props: ["schema"],
     data() {
