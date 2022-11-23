@@ -12,9 +12,9 @@ if (!function_exists('static_url')) {
     {
         if (!$path || contains($path, 'http')) return $path;
         if (!empty($parameters)) {
-            return env('STATIC_URL') . '/' . $path . '?' . http_build_query($parameters);
+            return config('app.static_url') . '/' . $path . '?' . http_build_query($parameters);
         } else {
-            return env('STATIC_URL') . '/' . $path;
+            return config('app.static_url') . '/' . $path;
         }
     }
 }
