@@ -10,7 +10,7 @@ if (!function_exists('package_path')) {
 if (!function_exists('static_url')) {
     function static_url($path, $parameters = [])
     {
-        if (!$path || contains($path, 'http')) return $path;
+        if (!$path || str_contains($path, 'http')) return $path;
         if (!empty($parameters)) {
             return config('app.static_url') . '/' . $path . '?' . http_build_query($parameters);
         } else {
