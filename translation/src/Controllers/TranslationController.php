@@ -80,8 +80,8 @@ class TranslationController extends Controller
         $storedTranslations = Translation::pluck('key');
         $diff = $translations->diff($storedTranslations);
 
-        // $unusedTranslations = $storedTranslations->diff($translations)->values();
-        Translation::whereIn('key', $diff->values())->delete();
+        $unusedTranslations = $storedTranslations->diff($translations)->values();
+        // Translation::whereIn('key', $diff->values())->delete();
 
         if ($diff->count()) {
             Translation::insert(
