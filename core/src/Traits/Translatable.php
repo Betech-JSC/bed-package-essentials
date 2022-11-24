@@ -11,7 +11,7 @@ trait Translatable
 
     public function getDefaultLocale(): ?string
     {
-        return current_locale();
+        return config('app.locale');
     }
 
     public function getTranslationStatusesAttribute()
