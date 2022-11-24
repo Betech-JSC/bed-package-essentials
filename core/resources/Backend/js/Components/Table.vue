@@ -69,16 +69,15 @@
                         />
                         <InputText
                             v-model="filters['global'].value"
-                            @blur="loadLazyData()"
-                            v-on:keyup.enter="loadLazyData()"
+                            @input="onChangeSearch()"
                             placeholder="Tìm kiếm.."
                         />
                     </div>
                 </div>
             </div>
         </template>
-        <template #empty> No items found. </template>
-        <template #loading>Loading items data. Please wait.</template>
+        <template #empty> Không tìm thấy dữ liệu. </template>
+        <template #loading>Đang tải dữ liệu...</template>
 
         <Column
             selectionMode="multiple"
@@ -91,12 +90,37 @@
         >
             <Column
                 :field="column.field"
-                :header="capitalize(column.label)"
                 filterMatchMode="contains"
                 :sortable="false"
+                :header="tt('models.' + currentResource + '.' + column.label)"
             >
                 <template #body="{ data }">
+                    <span v-if="column.field == 'locale'">
+                        <p class="flex">
+                            <Link
+                                v-for="(lang, index) in $page.props.locale.list"
+                                :key="index"
+                                :href="route(lang + `.admin.${currentResource}.form`, {
+                                    id: data.id
+                                })"
+                                class="badge hover:underline w-[30px] text-center m-1"
+                                :class="
+                                transformCell(data, column).includes(lang)                                  ? 'text-green-600 bg-green-200'
+                                    : 'text-red-600 bg-red-200'
+                                "
+                            >
+                                {{ lang }}
+                            </Link>
+                        </p>
+                    </span>
+                    <Image
+                        v-if="isImageCell(data, column)"
+                        :src="data[column.field]?.static_url"
+                        width="80"
+                        preview
+                    />
                     <Link
+                        v-else-if="column.field != 'locale'"
                         :href="
                             route(`admin.${currentResource}.form`, {
                                 id: data.id,
@@ -105,16 +129,12 @@
                     >
                         <span
                             v-if="getStyles(data, column)"
-                            class="px-2 py-1 text-xs font-semibold uppercase rounded-sm"
+                            class="px-2 py-1 text-xs font-medium uppercase whitespace-pre rounded-sm"
                             :style="getStyles(data, column)"
                         >
                             {{ transformCell(data, column) }}
                         </span>
-                        <span v-else-if="column.type === 'decimal'">
-                            {{ toMoney(data[column.field]) }}
-                        </span>
-                        <span v-else>
-                            {{ transformCell(data, column) }}
+                        <span v-else v-html="transformCell(data, column)">
                         </span>
                     </Link>
                 </template>
@@ -157,6 +177,7 @@ export default {
             totalItems: 0,
             loading: false,
             lazyParams: {},
+            timer: null,
 
             selectedItems: null,
             selectAll: false,
@@ -201,7 +222,14 @@ export default {
         displayColumns() {
             return Object.values(this.mergedColumns)
                 .filter((x) => x.display)
-                .sort((a, b) => (a.order > b.order ? 1 : -1));
+                .filter(
+                    (x) =>
+                        x.type !== "text" &&
+                        x.field !== "slug" &&
+                        !x.field.includes("seo_")
+                )
+                .sort((a, b) => (a.order > b.order ? 1 : -1))
+                .slice(0, 8);
         },
         canCreate() {
             return (
@@ -260,6 +288,16 @@ export default {
                     this.rows = data.per_page;
                     this.totalItems = data.total;
                 });
+        },
+        onChangeSearch() {
+            if (this.timer) {
+                clearTimeout(this.timer);
+                this.timer = null;
+            }
+
+            this.timer = setTimeout(() => {
+                this.loadLazyData();
+            }, 200);
         },
         onPage(event) {
             this.lazyParams = event;
@@ -338,6 +376,8 @@ export default {
                 }
             });
 
+            schemaColumns["id"].order = 0;
+
             return schemaColumns;
         },
 
@@ -381,18 +421,33 @@ export default {
 
             if (this.mergedColumns[column.field].transform) {
                 value = this.mergedColumns[column.field].transform(data);
+            } else if (column.type === "date") {
+                value = this.toDate(value, "DD/MM/YYYY");
             } else if (column.type === "datetime") {
                 value = this.toDate(value);
             } else if (column.type === "decimal") {
                 value = this.toMoney(value);
             } else if (
-                (column.type === "bigint" || column.type === "int") &&
+                (column.type === "bigint" || column.type === "integer") &&
                 column.field !== "id"
             ) {
                 value = this.toNumber(value);
+            } else if (column.type === "boolean") {
+                value = `<div class="w-3 h-3 ${
+                    value ? "bg-green-500" : "bg-orange-300"
+                } rounded-full"></div>`;
+            } else if (
+                column.type === "json" &&
+                value &&
+                Object.keys(value).length === 0
+            ) {
+                return null;
             }
 
             return value;
+        },
+        isImageCell(data, column) {
+            return column.type === "json" && data[column.field]?.static_url;
         },
         capitalize(string) {
             return string?.charAt(0).toUpperCase() + string.slice(1);
