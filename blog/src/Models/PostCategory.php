@@ -5,12 +5,12 @@ namespace JamstackVietnam\Blog\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use JamstackVietnam\Core\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Nicolaslopezj\Searchable\SearchableTrait;
+use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
 
 class PostCategory extends BaseModel
 {
-    use HasFactory, Translatable, SoftDeletes, SearchableTrait;
+    use HasFactory, Translatable, SoftDeletes, Searchable;
 
     public const STATUS_ACTIVE = 'ACTIVE';
     public const STATUS_INACTIVE = 'INACTIVE';
@@ -61,7 +61,7 @@ class PostCategory extends BaseModel
             'post_category_translations.slug' => 5,
         ],
         'joins' => [
-            'post_category_translations' => ['post_category_translations.category_id', 'post_categories.id'],
+            'post_category_translations' => ['post_category_translations.post_category_id', 'post_categories.id'],
         ],
     ];
 

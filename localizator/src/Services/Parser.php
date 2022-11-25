@@ -61,11 +61,7 @@ class Parser
                 return stripslashes($string);
             })
             ->each(function (string $string) {
-                if ($this->isDotKey($string)) {
-                    $this->defaultKeys->push($string);
-                } else {
                     $this->jsonKeys->push($string);
-                }
             });
     }
 

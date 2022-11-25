@@ -17,7 +17,7 @@ class CreateTranslationsTable extends Migration
             $table->id();
 
             $table->string('locale');
-            $table->string('key');
+            $table->text('key');
             $table->text('value')->nullable();
 
             $table->addTimestamps();

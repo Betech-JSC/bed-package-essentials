@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Translatable;
-use Nicolaslopezj\Searchable\SearchableTrait;
+use JamstackVietnam\Core\Traits\Searchable;
 
 class Slider extends BaseModel
 {
-    use HasFactory, SoftDeletes, SearchableTrait, Translatable;
+    use HasFactory, SoftDeletes, Searchable, Translatable;
 
     const STATUS_ACTIVE = 'ACTIVE';
     const STATUS_INACTIVE = 'INACTIVE';

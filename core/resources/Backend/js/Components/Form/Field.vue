@@ -1,12 +1,12 @@
 <template>
     <div class="field group">
         <label
-            v-if="field.label && field.type !== 'checkbox'"
+            v-if="fieldConfig.label && field.type !== 'checkbox'"
             :for="fieldId"
             class="flex items-center label"
         >
             <span>
-                {{ field.label }}
+                {{ fieldConfig.label }}
             </span>
             <small
                 class="invisible ml-auto font-normal normal-case group-hover:visible"
@@ -55,6 +55,15 @@ export default {
         fieldId() {
             return Math.random().toString(36).substr(2, 9);
         },
+        fieldLabel() {
+            if (this.field.label === false) return false;
+            return (
+                this.field.label ||
+                this.tt(
+                    "models." + this.currentResource + "." + this.field.name
+                )
+            );
+        },
         wordCount() {
             if (typeof this.modelValue !== "string") return 0;
             return this.modelValue.trim().split(/\s+/).length;
@@ -62,6 +71,9 @@ export default {
         charCount() {
             if (!this.modelValue) return 0;
             return this.modelValue.length;
+        },
+        currentResource() {
+            return this.field.resource ?? this.getResource();
         },
     },
     data() {
@@ -74,6 +86,8 @@ export default {
             this.fieldConfig.loading = true;
             this.fetchSource();
         }
+
+        this.fieldConfig.label = this.fieldLabel;
     },
     methods: {
         fetchSource() {

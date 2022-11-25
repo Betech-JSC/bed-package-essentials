@@ -5,11 +5,11 @@ namespace JamstackVietnam\Redirect\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use JamstackVietnam\Redirect\Contracts\RedirectModelContract;
-use Nicolaslopezj\Searchable\SearchableTrait;
+use JamstackVietnam\Core\Traits\Searchable;
 
 class Redirect extends Model implements RedirectModelContract
 {
-    use SearchableTrait;
+    use Searchable;
 
     public $fillable = [
         'old_url',

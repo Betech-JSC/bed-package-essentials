@@ -5,7 +5,6 @@ namespace JamstackVietnam\Translation\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Artisan;
 use Amirami\Localizator\Services\Parser;
 use Amirami\Localizator\Services\FileFinder;
 use Amirami\Localizator\Services\Localizator;
@@ -81,6 +80,9 @@ class TranslationController extends Controller
         $storedTranslations = Translation::pluck('key');
         $diff = $translations->diff($storedTranslations);
 
+        $unusedTranslations = $storedTranslations->diff($translations)->values();
+        // Translation::whereIn('key', $diff->values())->delete();
+
         if ($diff->count()) {
             Translation::insert(
                 $diff->transform(fn ($item) => [
@@ -118,7 +120,7 @@ class TranslationController extends Controller
 
     public function buildFrontendAssets()
     {
-        Artisan::call('route');
+        // Artisan::call('route');
     }
 
     protected function getLocales(): array

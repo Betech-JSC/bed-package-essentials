@@ -2,7 +2,15 @@
     <DataTable :value="items" responsiveLayout="scroll" :loading="loading">
         <Column field="key" header="Mặc định">
             <template #body="{ data }">
-                <span v-html="data.key"></span>
+                <div>
+                    <Image
+                        v-if="isImage(data.key)"
+                        :src="data.key"
+                        width="80"
+                        preview
+                    />
+                    <div v-html="data.key" class="break-words"></div>
+                </div>
             </template>
         </Column>
         <Column field="translations" header="Bản dịch">
@@ -16,7 +24,45 @@
                                 {{ locale.toUpperCase() }}
                             </td>
                             <td>
+                                <CustomEditor
+                                    v-if="isHTML(data.key)"
+                                    :modelValue="data.translations[locale]"
+                                    @change="
+                                        data.translations[locale] = $event;
+                                        updateTranslation(
+                                            $event,
+                                            data.key,
+                                            locale
+                                        );
+                                    "
+                                    :field="{ size: 'sm' }"
+                                />
+                                <InputUpload
+                                    v-else-if="isImage(data.key)"
+                                    @change="
+                                        data.translations[locale] = $event;
+                                        updateTranslation(
+                                            $event,
+                                            data.key,
+                                            locale
+                                        );
+                                    "
+                                    :modelValue="data.translations[locale]"
+                                    :field="{ urlOnly: true }"
+                                />
+                                <Textarea
+                                    v-else-if="data.key.length > 100"
+                                    v-model="data.translations[locale]"
+                                    @blur="
+                                        updateTranslation(
+                                            $event.target.value,
+                                            data.key,
+                                            locale
+                                        )
+                                    "
+                                />
                                 <InputText
+                                    v-else
                                     v-model="data.translations[locale]"
                                     @blur="
                                         updateTranslation(
@@ -35,7 +81,13 @@
     </DataTable>
 </template>
 <script>
+import CustomEditor from "@Core/Components/Form/Custom/CustomEditor.vue";
+import InputUpload from "@Core/Components/Form/InputUpload.vue";
 export default {
+    components: {
+        CustomEditor,
+        InputUpload,
+    },
     props: ["schema"],
     data() {
         return {
@@ -66,12 +118,15 @@ export default {
                 locale,
             });
         },
+        isHTML(string) {
+            return /(<([^>]+)>)/.test(string);
+        },
     },
 };
 </script>
 
 <style lang="scss">
 .p-datatable tr td:first-child {
-    max-width: 12vw;
+    max-width: 40vw;
 }
 </style>

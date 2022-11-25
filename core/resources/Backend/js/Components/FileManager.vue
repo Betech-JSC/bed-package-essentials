@@ -67,6 +67,7 @@
                     v-if="tree && tree.length"
                     :field="{
                         key: 'FileManager',
+                        label: false,
                         type: 'tree',
                         maxLevel: 10,
                         expandDefaultLevel: 2,

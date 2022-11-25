@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -34,12 +32,12 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware(['web', 'frontend'])
                 ->namespace($this->namespace)
-                ->group(base_path('routes/frontend.php'));
+                ->group(package_path('core/routes/frontend.php'));
 
             Route::prefix('admin')
                 ->middleware(['web', 'backend'])
                 ->namespace($this->namespace)
-                ->group(base_path('routes/backend.php'));
+                ->group(package_path('core/routes/backend.php'));
         });
     }
 }

@@ -27,10 +27,10 @@ trait HasCrudActions
             'breadcrumbs' => [
                 [
                     'url' => route($this->getResource() . '.index'),
-                    'name' => trans('models.table_list.' . $this->getTable()),
+                    'name' => 'models.table_list.' . $this->getTable(),
                 ]
             ],
-            'schema' => $this->getSchema(),
+            'schema' => $this->getSchema()
         ]);
     }
 
@@ -53,6 +53,19 @@ trait HasCrudActions
 
         // Create JSON response of parsed data
         // return response()->json($items);
+
+        // $tableCols = RuleGenerator::getTableDefault($table);
+
+        // $schema = $this->getSchema();
+        // $schema['columns']['title'] = null;
+        // $relations = $this->relationAttributes(0);
+        // $model->getRelations();
+        // dd($relations['with']);
+
+        // $schema = $this->getSchema();
+        // dd($schema['columns']);
+        // dd($this->getSchema());
+        // dd(RuleGenerator::getTableDefault($table));
 
         $query = $this->loadRelations($query, 3);
         $query = $this->search($query);
@@ -99,7 +112,7 @@ trait HasCrudActions
 
         $breadcrumbs = [[
             'url' => route($this->getResource() . '.index'),
-            'name' => trans('models.table_list.' . $this->getTable()),
+            'name' => 'models.table_list.' . $this->getTable(),
         ]];
 
         if (!empty($id)) {
@@ -243,9 +256,20 @@ trait HasCrudActions
     {
         $model = $model ?? $this->model();
 
+        $columns =  RuleGenerator::getTableSchema($model);
+
+        if (method_exists($model, 'getTranslationModelNameDefault')) {
+            $translationModel = $model->getTranslationModelNameDefault();
+            $translationColumns = RuleGenerator::getTableSchema($translationModel);
+            $translationColumns = collect($translationColumns)
+                ->whereIn('field', $model->translatedAttributes)
+                ->toArray();
+            $columns = array_merge($translationColumns, $columns);
+        }
+
         return [
             'resource' => $this->getTable(),
-            'columns' => RuleGenerator::getTableSchema($model)
+            'columns' => $columns
         ];
     }
 
@@ -264,7 +288,7 @@ trait HasCrudActions
         if (!method_exists($this->model, 'scopeSearchLike')) return $query;
 
         if ($keyword = request()->input('filters.global.value')) {
-            return $query->searchLike($keyword);
+            return $query->searchLike($keyword)->distinct();
         }
         return $query;
     }
