@@ -139,7 +139,7 @@ export default {
         destroy() {
             if (confirm("Bạn chắc chắn muốn xoá đối tượng này?")) {
                 this.$inertia.post(
-                    this.route(`${this.currentResource}.destroy`, {
+                    this.route(`admin.${this.currentResource}.destroy`, {
                         id: this.form.id,
                     })
                 );
@@ -149,7 +149,7 @@ export default {
         restore() {
             if (confirm("Bạn muốn khôi phục đối tượng này?")) {
                 this.$inertia.post(
-                    this.route(`${this.currentResource}.restore`, {
+                    this.route(`admin.${this.currentResource}.restore`, {
                         id: this.form.id,
                     })
                 );
