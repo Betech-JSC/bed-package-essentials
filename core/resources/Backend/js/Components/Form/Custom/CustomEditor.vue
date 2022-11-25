@@ -75,7 +75,7 @@ export default {
                     "body {margin:1rem;};img { max-width: 100%; height: auto; }",
                 paste_data_images: true,
                 convert_urls: false,
-                images_upload_handler(blobInfo, success, failure, progress) {
+                images_upload_handler(blobInfo, progress) {
                     const data = new FormData();
                     const file = new File(
                         [blobInfo.blob()],
@@ -87,11 +87,11 @@ export default {
                         window.location.pathname.split("/")[1]
                     );
 
-                    this.$axios
-                        .post(route("admin.media.store"), data)
+                    return $axios
+                        .post(route("admin.files.store"), data)
                         .then((response) => {
                             if (response.status === 200) {
-                                success(response.data.data[0].static_url);
+                                return response.data.successFiles[0];
                             }
                         });
                 },
