@@ -18,8 +18,7 @@ if (!function_exists('static_url')) {
         }
         if (!$absolute) {
             $parts = parse_url($url);
-            unset($parts['scheme']);
-            unset($parts['host']);
+            unset($parts['scheme'], $parts['host']);
             $url = join(',', $parts);
         }
 
