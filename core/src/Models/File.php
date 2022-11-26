@@ -165,11 +165,12 @@ class File
 
         foreach ($files as $file) {
             if ($this->fileValidation($file)) {
-                $successFiles[] = $this->storage->putFileAs(
+                $filePath = $this->storage->putFileAs(
                     $this->path,
                     $file,
                     $file->getClientOriginalName()
                 );
+                $successFiles[] = static_url($filePath);
             } else {
                 $failureFiles[] = $file->getClientOriginalName();
             }
