@@ -17,9 +17,7 @@ if (!function_exists('static_url')) {
             $url = config('app.static_url') . '/' . $path;
         }
         if (!$absolute) {
-            $parts = parse_url($url);
-            unset($parts['scheme'], $parts['host']);
-            $url = join(',', $parts);
+            $url = collect(parse_url($url))->only('path', 'query')->join(',');
         }
 
         return $url;
