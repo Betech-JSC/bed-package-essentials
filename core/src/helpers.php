@@ -18,7 +18,9 @@ if (!function_exists('static_url')) {
         }
         if (!$absolute) {
             $parts = parse_url($url);
-            $url = Illuminate\Support\Arr::join([$parts['path'], $parts['query'] ?? null], ',');
+            unset($parts['scheme']);
+            unset($parts['host']);
+            $url = join(',', $parts);
         }
 
         return $url;
