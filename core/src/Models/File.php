@@ -170,7 +170,7 @@ class File
                     $file,
                     $file->getClientOriginalName()
                 );
-                $successFiles[] = static_url($filePath);
+                $successFiles[] = static_url($filePath, [], false);
             } else {
                 $failureFiles[] = $file->getClientOriginalName();
             }

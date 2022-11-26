@@ -8,14 +8,20 @@ if (!function_exists('package_path')) {
 }
 
 if (!function_exists('static_url')) {
-    function static_url($path, $parameters = [])
+    function static_url($path, $parameters = [], $absolute = true)
     {
         if (!$path || str_contains($path, 'http')) return $path;
         if (!empty($parameters)) {
-            return config('app.static_url') . '/' . $path . '?' . http_build_query($parameters);
+            $url =  config('app.static_url') . '/' . $path . '?' . http_build_query($parameters);
         } else {
-            return config('app.static_url') . '/' . $path;
+            $url = config('app.static_url') . '/' . $path;
         }
+        if (!$absolute) {
+            $parts = parse_url($url);
+            $url = Illuminate\Support\Arr::join([$parts['path'], $parts['query']], ',');
+        }
+
+        return $url;
     }
 }
 
