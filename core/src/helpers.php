@@ -3,7 +3,7 @@
 if (!function_exists('package_path')) {
     function package_path($path)
     {
-        return base_path('packages/jam-package-essentials/'. $path);
+        return base_path('packages/jam-package-essentials/' . $path);
     }
 }
 
@@ -18,7 +18,7 @@ if (!function_exists('static_url')) {
         }
         if (!$absolute) {
             $parts = parse_url($url);
-            $url = Illuminate\Support\Arr::join([$parts['path'], $parts['query']], ',');
+            $url = Illuminate\Support\Arr::join([$parts['path'], $parts['query'] ?? null], ',');
         }
 
         return $url;
