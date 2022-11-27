@@ -132,14 +132,14 @@ trait HasCrudActions
 
             $item = array_merge($emptyFields, $item);
             // $breadcrumbs[] = [
-            //     'url' => url()->current(),
-            //     'name' => trans('models.actions.create') . ' ' . trans('models.table_list.' . $this->getTable()),
+            //   'url' => url()->current(),
+            //   'name' => trans('models.actions.create') . ' ' . trans('models.table_list.' . $this->getTable()),
             // ];
         } else {
             $item = $emptyFields;
             // $breadcrumbs[] = [
-            //     'url' => url()->current(),
-            //     'name' => trans('models.actions.create') . ' ' . trans('models.table_list.' . $this->getTable()),
+            //   'url' => url()->current(),
+            //   'name' => trans('models.actions.create') . ' ' . trans('models.table_list.' . $this->getTable()),
             // ];
         }
 
@@ -256,7 +256,7 @@ trait HasCrudActions
     {
         $model = $model ?? $this->model();
 
-        $columns =  RuleGenerator::getTableSchema($model);
+        $columns = RuleGenerator::getTableSchema($model);
 
         if (method_exists($model, 'getTranslationModelNameDefault')) {
             $translationModel = $model->getTranslationModelNameDefault();
@@ -345,7 +345,7 @@ trait HasCrudActions
 
     private function redirectToForm($id, $message)
     {
-        $currentRoute =  request()->route()->getName();
+        $currentRoute = request()->route()->getName();
         $currentRoutePaths = explode('.', $currentRoute);
         $currentRoutePaths[count($currentRoutePaths) - 1] = 'form';
         $formRoute = implode('.', $currentRoutePaths);
@@ -355,7 +355,7 @@ trait HasCrudActions
 
     private function getResource()
     {
-        $currentRoute =  request()->route()->getName();
+        $currentRoute = request()->route()->getName();
         $currentRoutePaths = explode('.', $currentRoute);
         array_pop($currentRoutePaths);
         return implode('.', $currentRoutePaths);
@@ -363,7 +363,7 @@ trait HasCrudActions
 
     private function redirectToIndex()
     {
-        $currentRoute =  request()->route()->getName();
+        $currentRoute = request()->route()->getName();
         $currentRoutePaths = explode('.', $currentRoute);
         $currentRoutePaths[count($currentRoutePaths) - 1] = 'index';
         $formRoute = implode('.', $currentRoutePaths);
