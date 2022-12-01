@@ -84,7 +84,7 @@ class Post extends BaseModel
     {
         static::saving(function (self $model) {
             if (request()->route() === null) return;
-            $model->published_at = request()->input('published_at', now());
+            $model->published_at = request()->input('published_at') ?? now();
         });
 
         static::saved(function (self $model) {
@@ -102,7 +102,7 @@ class Post extends BaseModel
 
     public function saveRelatedPosts($model)
     {
-        $relatedPosts = array_column(request()->input('post_related_ids', []), 'id');
+        $relatedPosts = array_column(request()->input('related_posts', []), 'id');
         $model->relatedPosts()->sync($relatedPosts, 'id');
     }
 
@@ -174,7 +174,7 @@ class Post extends BaseModel
             'description' => $this->description,
             'category' => $this->category,
             'image' => [
-                'url' => static_url($this->image['url'] ?? null),
+                'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
                 'alt' => $this->image['alt'] ?? $this->title,
             ]
         ];
@@ -193,7 +193,7 @@ class Post extends BaseModel
             'category' => $this->category,
             'categories' => $this->categories->map(fn ($item) => $item->transform()),
             'image' => [
-                'url' => static_url($this->image['url'] ?? null),
+                'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
                 'alt' => $this->image['alt'] ?? $this->title,
             ]
         ];
@@ -202,20 +202,6 @@ class Post extends BaseModel
     public function transformSeo()
     {
         return transform_seo($this);
-    }
-
-    public static function postByPosition($position)
-    {
-        return self::query()
-            ->active()
-            ->orderBy('is_featured', 'desc')
-            ->orderBy('id', 'desc')
-            ->whereHas('categories', function ($query) use ($position) {
-                $query->active()->where('post_categories.position', $position);
-            })
-            ->take(8)
-            ->get()
-            ->map(fn ($items) => $items->transform());
     }
 
     public function related($limit = 8)

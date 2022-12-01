@@ -15,19 +15,9 @@ class PostCategory extends BaseModel
     public const STATUS_ACTIVE = 'ACTIVE';
     public const STATUS_INACTIVE = 'INACTIVE';
 
-    public const POSITION_HOMEPAGE = 'HOMEPAGE';
-    public const POSITION_JOURNEY = 'JOURNEY';
-    public const POSITION_STRATEGY = 'STRATEGY';
-
     public const STATUS_LIST = [
-        self::STATUS_ACTIVE => 'ACTIVE',
-        self::STATUS_INACTIVE => 'INACTIVE',
-    ];
-
-    public const POSITION_LIST = [
-        self::POSITION_HOMEPAGE => 'Trang chủ',
-        self::POSITION_JOURNEY => 'Hành trình kiến tạo giá trị',
-        self::POSITION_STRATEGY => 'Chiến lược nhân sự',
+        self::STATUS_ACTIVE => 'Kích hoạt',
+        self::STATUS_INACTIVE => 'Tắt',
     ];
 
     public $with = ['translations'];
@@ -37,6 +27,7 @@ class PostCategory extends BaseModel
     public $fillable = [
         'status',
         'position',
+        'view_count'
     ];
 
     public $translatedAttributes = [
@@ -61,7 +52,10 @@ class PostCategory extends BaseModel
             'post_category_translations.slug' => 5,
         ],
         'joins' => [
-            'post_category_translations' => ['post_category_translations.post_category_id', 'post_categories.id'],
+            'post_category_translations' => [
+                'post_category_translations.post_category_id',
+                'post_categories.id'
+            ],
         ],
     ];
 
@@ -76,13 +70,9 @@ class PostCategory extends BaseModel
 
     protected static function booted()
     {
-        static::saved(function (self $model) {
+        static::saving(function (self $model) {
             if (request()->route() === null) return;
-            if ($model->status == self::STATUS_ACTIVE && !empty($model->position)) {
-                self::where('id', '<>', $model->id)
-                    ->where('position', $model->position)
-                    ->update(['position' => null]);
-            }
+            $model->view_count = request()->input('view_count', 0);
         });
     }
 
@@ -116,34 +106,5 @@ class PostCategory extends BaseModel
     public function transformSeo()
     {
         return transform_seo($this);
-    }
-
-    public function transformPosts()
-    {
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'slug' => $this->seo_slug ?? $this->slug,
-            'posts' => $this->posts(),
-
-            'meta_title' => $this->meta_title ?? $this->title,
-            'meta_description' => $this->meta_description ?? $this->description
-        ];
-    }
-
-    public function posts()
-    {
-        return Post::query()
-            ->active()
-            ->where('published_at', '<=', now())
-            ->orderByDesc('is_featured')
-            ->orderByDesc('published_at')
-            ->orderByDesc('id')
-            ->whereHas('categories', function ($query) {
-                $query->where('post_categories.id', $this->id);
-            })
-            ->take(6)
-            ->get()
-            ->map(fn ($item) => $item->transform());
     }
 }

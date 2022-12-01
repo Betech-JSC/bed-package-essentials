@@ -24,7 +24,7 @@ class CreatePostsTable extends Migration
             $table->boolean('is_featured')->nullable()->default(0);
             $table->integer('position')->nullable();
 
-            $table->string('status', 30)->default(Post::STATUS_INACTIVE);
+            $table->string('status', 30)->default(Post::STATUS_ACTIVE);
 
             $table->integer('view_count')->default(0);
             $table->addInjectCode();
