@@ -28,10 +28,10 @@ php artisan migrate
 
 `routes/frontend.php`
 ```php
-use Jamstackvietnam\Policy\Controllers\PolicyController;
+use JamstackVietnam\Policy\Controllers\PolicyController;
 
 Route::controller(PolicyController::class)->group(function () {
-    Route::get('policies', 'index')->name('policies.index');
-    Route::get('policies/{slug}', 'show')->name('policies.show');
+    Route::get(Lang::uri('policies'), 'index')->name('policies.index');
+    Route::get(Lang::uri('policies') . '/{slug}', 'show')->name('policies.show');
 });
 ```
