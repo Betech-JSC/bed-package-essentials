@@ -18,7 +18,7 @@ class CreatePostCategoriesTable extends Migration
             $table->id();
 
             $table->integer('position')->nullable();
-            $table->string('status', 30)->default(PostCategory::STATUS_INACTIVE);
+            $table->string('status', 30)->default(PostCategory::STATUS_ACTIVE);
 
             $table->integer('view_count')->default(0);
             $table->addInjectCode();
