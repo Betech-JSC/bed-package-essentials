@@ -1,11 +1,11 @@
 <?php
 
-namespace Jamstackvietnam\Policy\Controllers;
+namespace JamstackVietnam\Policy\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Routing\Controller;
-use Jamstackvietnam\Policy\Models\Policy;
+use JamstackVietnam\Policy\Models\Policy;
 
 class PolicyController extends Controller
 {

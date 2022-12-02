@@ -47,10 +47,10 @@ class ServiceProvider extends BaseServiceProvider
         ) {
             $timestamp = date('Y_m_d_His', time());
             $policy = database_path("migrations/{$timestamp}_create_policies_table.php");
-            $policyTranslation = database_path("migrations/{$timestamp}create_policy_translations_table.php");
+            $policyTranslation = database_path("migrations/{$timestamp}_create_policy_translations_table.php");
 
             $this->publishes([
-                __DIR__.'/../database/migrations/create_policy_translations_table.php.stub' => $policy,
+                __DIR__.'/../database/migrations/create_policies_table.php.stub' => $policy,
                 __DIR__.'/../database/migrations/create_policy_translations_table.php.stub' => $policyTranslation,
             ], 'migrations');
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Policy\Models;
+namespace JamstackVietnam\Policy\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +10,7 @@ use JamstackVietnam\Core\Traits\Translatable;
 
 class Policy extends BaseModel
 {
-    use HasFactory, SoftDeletes, Translatable, SearchableTrait;
+    use HasFactory, SoftDeletes, Translatable, Searchable;
 
     public const STATUS_ACTIVE = 'ACTIVE';
     public const STATUS_INACTIVE = 'INACTIVE';
@@ -47,10 +47,8 @@ class Policy extends BaseModel
     public function modelRules()
     {
         return [
-            'all' => [
-                'title' => 'required',
-                'content' => 'required',
-            ],
+            'title' => 'required|string|max:255',
+            'content' => 'required',
         ];
     }
 
@@ -65,17 +63,17 @@ class Policy extends BaseModel
         ],
     ];
 
-    protected $appends = [
-        'url'
-    ];
+    protected $appends = ['url'];
 
     public function getUrlAttribute()
     {
         $urls = [];
-        if ($this->status == self::STATUS_ACTIVE) {
-            $urls[] = route("policies.show", [
-                'slug' => $this->seo_slug ?? $this->slug
-            ]);
+        if ($this->is_active) {
+            foreach ($this->translations as $translation) {
+                $urls[strtoupper($translation->locale)] = route("$translation->locale.policies.show", [
+                    'slug' => $translation->seo_slug ?? $translation->slug
+                ]);
+            }
         }
         return $urls;
     }
@@ -83,6 +81,11 @@ class Policy extends BaseModel
     public function scopeActive($query)
     {
         return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public function getIsActiveAttribute()
+    {
+        return $this->status === self::STATUS_ACTIVE;
     }
 
     public function transform()

@@ -18,16 +18,18 @@ class CreatePolicyTranslationsTable extends Migration
             $table->unsignedBigInteger('policy_id');
 
             $table->string('title');
-            $table->string('slug')->nullable();
+            $table->string('slug');
+            $table->string('locale');
+
             $table->text('content')->nullable();
 
             $table->addSeo();
 
-            $table->unique(['locale', 'post_category_id']);
+            $table->unique(['locale', 'policy_id']);
             $table->unique(['locale', 'slug']);
-            $table->foreign('post_category_id')
+            $table->foreign('policy_id')
                 ->references('id')
-                ->on('post_categories')
+                ->on('policies')
                 ->onDelete('cascade');
         });
     }
