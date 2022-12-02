@@ -20,6 +20,7 @@ class CreateAgenciesTable extends Migration
             $table->string('region')->nullable();
             $table->string('link_google_map')->nullable();
             $table->boolean('is_headquarter')->nullable()->default(0);
+            $table->boolean('is_featured')->nullable()->default(0);
             $table->integer('position')->nullable();
 
             $table->softDeletes();

@@ -25,6 +25,7 @@ class Agency extends BaseModel
     public $fillable = [
         'position',
         'is_headquarter',
+        'is_featured',
         'status',
         'link_google_map',
         'region',
@@ -60,6 +61,20 @@ class Agency extends BaseModel
             'agency_translations' => ['agency_translations.agency_id', 'agencies.id'],
         ],
     ];
+
+    protected static function booted()
+    {
+        static::saved(function (self $model) {
+            if (request()->route() === null) return;
+
+            if($model->status == self::STATUS_ACTIVE && $model->is_headquarter) {
+                self::active()
+                    ->where('is_headquarter', true)
+                    ->where('id', '<>', $model->id)
+                    ->update(['is_headquarter' => false]);
+            }
+        });
+    }
 
     public function scopeActive($query)
     {
