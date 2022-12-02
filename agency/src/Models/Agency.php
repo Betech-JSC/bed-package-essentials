@@ -1,0 +1,90 @@
+<?php
+
+namespace JamstackVietnam\Agency\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use JamstackVietnam\Core\Models\BaseModel;
+use JamstackVietnam\Core\Traits\Searchable;
+use JamstackVietnam\Core\Traits\Translatable;
+
+class Agency extends BaseModel
+{
+    use HasFactory, SoftDeletes, Translatable, Searchable;
+
+    public const STATUS_ACTIVE = 'ACTIVE';
+    public const STATUS_INACTIVE = 'INACTIVE';
+
+    public const STATUS_LIST = [
+        self::STATUS_ACTIVE => 'Kích hoạt',
+        self::STATUS_INACTIVE => 'Tắt',
+    ];
+
+    public $with = ['translations'];
+
+    public $fillable = [
+        'position',
+        'is_headquarter',
+        'status',
+        'link_google_map',
+        'region',
+    ];
+
+    public $translatedAttributes = [
+        'locale',
+        'title',
+        'location',
+        'description',
+        'phones'
+    ];
+
+    protected $casts = [
+        'phones' => 'array'
+    ];
+
+    public function modelRules()
+    {
+        return [
+            'title' => 'required|string|max:255',
+            'location' => 'required',
+        ];
+    }
+
+    protected $searchable = [
+        'columns' => [
+            'agency_translations.title' => 10,
+            'agency_translations.locale' => 10,
+            'agency_translations.id' => 1,
+        ],
+        'joins' => [
+            'agency_translations' => ['agency_translations.agency_id', 'agencies.id'],
+        ],
+    ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public function transform()
+    {
+        return [
+            'title' => $this->title,
+            'location' => $this->location,
+            'phones' => $this->phones,
+            'link_google_map' => $this->link_google_map
+        ];
+    }
+
+    public function transformDetails()
+    {
+        return [
+            'title' => $this->title,
+            'location' => $this->location,
+            'phones' => $this->phones,
+            'link_google_map' => $this->link_google_map,
+            'description' => $this->description,
+            'region' => $this->region
+        ];
+    }
+}
