@@ -3,8 +3,6 @@
         :model-value="selectedOptions"
         @change="selectChange($event)"
         :options="options"
-        :optionValue="keyBy"
-        :optionLabel="labelBy"
         :display="!field.mode || field.mode === 'single' ? 'comma' : 'chip'"
         :selectionMode="field.mode || 'single'"
         :placeholder="placeholder"
@@ -24,12 +22,13 @@ export default {
             return this.field.keyBy || "id";
         },
         labelBy() {
-            return this.field.labelBy || "label";
+            return this.field.labelBy || "title";
         },
         placeholder() {
             return this.field.placeholder || `Chọn ${this.field.label}`;
         },
         options() {
+            return this.field.options?.map((option) => this.transformOption(option));
             return this.field.options?.map((option) => {
                 option.key = option[this.keyBy];
                 option.label = option[this.labelBy];
@@ -49,6 +48,15 @@ export default {
         selectChange(value) {
             this.$emit("change", Object.keys(value));
         },
+        transformOption(option){
+            let newOption = option;
+            newOption.key = newOption[this.keyBy];
+            newOption.label = newOption[this.labelBy];
+            if (newOption.children && newOption.children.length){
+                newOption.children.map(x => this.transformOption(x));
+            }
+            return newOption;
+        }
     },
 };
 </script>

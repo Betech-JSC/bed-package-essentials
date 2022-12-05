@@ -28,6 +28,8 @@ class Agency extends BaseModel
         'is_featured',
         'status',
         'link_google_map',
+        'longitude',
+        'latitude',
         'region',
     ];
 
@@ -36,11 +38,13 @@ class Agency extends BaseModel
         'title',
         'location',
         'description',
-        'phones'
+        'phones',
+        'info'
     ];
 
     protected $casts = [
-        'phones' => 'array'
+        'phones' => 'array',
+        'info' => 'array'
     ];
 
     public function modelRules()
@@ -87,6 +91,8 @@ class Agency extends BaseModel
             'title' => $this->title,
             'location' => $this->location,
             'phones' => $this->phones,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
             'link_google_map' => $this->link_google_map
         ];
     }
@@ -97,8 +103,11 @@ class Agency extends BaseModel
             'title' => $this->title,
             'location' => $this->location,
             'phones' => $this->phones,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
             'link_google_map' => $this->link_google_map,
             'description' => $this->description,
+            'info' => $this->info,
             'region' => $this->region
         ];
     }

@@ -16,7 +16,8 @@ class AgencyTranslation extends BaseModel
         'title',
         'location',
         'description',
-        'phones'
+        'phones',
+        'info'
     ];
 
     public function agency()
