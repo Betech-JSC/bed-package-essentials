@@ -1,6 +1,6 @@
 <?php
 
-namespace Jamstackvietnam\Agency;
+namespace JamstackVietnam\Agency;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Routing\Router;

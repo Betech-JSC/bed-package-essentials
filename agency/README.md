@@ -14,7 +14,7 @@ composer require jamstackvietnam/agency
 Publish the migration file with:
 
 ```
-php artisan vendor:publish --provider="Jamstackvietnam\Agency\ServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="JamstackVietnam\Agency\ServiceProvider" --tag="migrations"
 ```
 
 After the migration has been published you can create the `agencies` table by running:
