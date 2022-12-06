@@ -69,7 +69,7 @@
                 class="hidden"
                 disabled
                 v-model="form.id"
-                :field="{ default: route().params.id }"
+                :field="{ default: 'notification' }"
             />
         </Form>
     </WrapSetting>

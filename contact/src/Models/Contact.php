@@ -159,14 +159,22 @@ class Contact extends BaseModel
         $data = ['Form' => $this->formatted_type];
 
         $columns = config('contact.types.' . $this->type . '.all_columns');
-        foreach($columns as $column) {
+        foreach($columns as $key => $column) {
             if(is_array($column) && isset($column['route']['name'])) {
                 $params = [];
                 foreach($column['route']['params'] as $param) {
-                    $params[$param] = $this->data[$column][$param] ?? null;
+                    $params[$param] = $this->data[$key][$param] ?? null;
                 }
 
-                $data[$column['column']] = route($column['route']['name'], $params);
+                $routeLocale = config('app.locale');
+
+                foreach(config('app.locales') as $locale) {
+                    if(strpos($this->request_url, '/' . $locale . '/')) {
+                        $routeLocale = $locale;
+                    }
+                }
+
+                $data[$column['column']] = route($routeLocale . '.' . $column['route']['name'], $params);
             }
             else {
                 $data[$column] = $this->data[$column] ?? null;
