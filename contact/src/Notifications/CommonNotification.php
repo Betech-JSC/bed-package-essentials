@@ -56,13 +56,15 @@ class CommonNotification extends Notification implements ShouldQueue
                     }
                 }
                 if(!is_array($this->data[$key])) {
+                    $isUrl = false;
                     foreach(config('contact.email_urls') as $key_url => $message) {
                         if($key == $key_url) {
                             $email->line(new HtmlString($this->bottom($message, $value)));
+                            $isUrl = true;
                         }
-                        else {
-                            $email->line(Str::title(str_replace('_', ' ', $key)) . ': ' . $value);
-                        }
+                    }
+                    if(!$isUrl) {
+                        $email->line(Str::title(str_replace('_', ' ', $key)) . ': ' . $value);
                     }
                 }
             }
