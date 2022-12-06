@@ -42,7 +42,8 @@ class Setting extends Model
                 'mail_encryption' => 'required',
             ],
             'notification' => [
-                'notification_to' => 'required',
+                'notification_production_to' => 'required',
+                'notification_staging_to' => 'required',
             ],
             'robots_txt' => [
                 'robots_txt'  => 'required',

@@ -31,7 +31,7 @@
                 class="hidden"
                 disabled
                 v-model="form.id"
-                :field="{ default: route().params.id }"
+                :field="{ default: 'robots_txt' }"
             />
         </Form>
     </WrapSetting>
