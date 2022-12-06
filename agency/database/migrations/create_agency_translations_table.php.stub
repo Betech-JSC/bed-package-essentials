@@ -25,7 +25,6 @@ class CreateAgencyTranslationsTable extends Migration
             $table->json('info')->nullable();
 
             $table->unique(['locale', 'agency_id']);
-            $table->unique(['locale', 'slug']);
             $table->foreign('agency_id')
                 ->references('id')
                 ->on('agencies')

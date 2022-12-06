@@ -42,11 +42,6 @@ class Agency extends BaseModel
         'info'
     ];
 
-    protected $casts = [
-        'phones' => 'array',
-        'info' => 'array'
-    ];
-
     public function modelRules()
     {
         return [

@@ -20,6 +20,11 @@ class AgencyTranslation extends BaseModel
         'info'
     ];
 
+    protected $casts = [
+        'phones' => 'array',
+        'info' => 'array'
+    ];
+
     public function agency()
     {
         return $this->belongsTo(Agency::class);
