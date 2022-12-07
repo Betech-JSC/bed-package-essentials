@@ -102,7 +102,7 @@ class Agency extends BaseModel
             'latitude' => $this->latitude,
             'link_google_map' => $this->link_google_map,
             'description' => $this->description,
-            'info' => $this->info,
+            'info' => collect($this->info)->first(),
             'region' => $this->region
         ];
     }
