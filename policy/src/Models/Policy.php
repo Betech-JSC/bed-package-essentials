@@ -97,4 +97,9 @@ class Policy extends BaseModel
             'icon' => $this->icon,
         ];
     }
+
+    public function transformSeo()
+    {
+        return transform_seo($this);
+    }
 }
