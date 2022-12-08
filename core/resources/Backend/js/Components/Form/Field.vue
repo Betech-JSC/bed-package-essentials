@@ -83,7 +83,7 @@ export default {
     },
     watch: {
         field() {
-            this.fieldConfig.options = this.transformOptions(this.field.options);
+            this.fieldConfig.options = this.field.options;
         },
     },
     created() {
@@ -108,10 +108,9 @@ export default {
                 });
         },
         transformOptions(options) {
-            if(this.field.type && this.field.type === 'file_upload') {
+            if(!options) {
                 return options;
             }
-
             const keyBy = this.field.keyBy || "id";
             return options.map((item) => {
                 item[keyBy] = item[keyBy].toString();
