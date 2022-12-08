@@ -1,121 +1,123 @@
 <template>
-  <div class="field group">
-    <label
-      v-if="fieldConfig.label && field.type !== 'checkbox'"
-      :for="fieldId"
-      class="flex items-center label"
-    >
-      <span>
-        {{ fieldConfig.label }}
-      </span>
-      <small
-        class="invisible ml-auto font-normal normal-case group-hover:visible"
-        v-if="
-          !field.type ||
-          field.type === 'text' ||
-          field.type === 'textarea' ||
-          field.type === 'richtext'
-        "
-      >
-        {{ charCount }} ký tự, {{ wordCount }} từ
-      </small>
-    </label>
-    <Input
-      :id="fieldId"
-      :class="{ 'p-invalid': !!fieldError }"
-      v-bind="{ ...$props, ...$attrs }"
-      v-model:field="fieldConfig"
-      @update:modelValue="$emit('update:modelValue', $event)"
-    />
-    <small v-if="field.help" v-html="field.help" class="leading-4"></small>
-    <small class="p-error" v-if="fieldError">
-      {{ fieldError }}
-    </small>
-  </div>
+    <div class="field group">
+        <label
+            v-if="fieldConfig.label && field.type !== 'checkbox'"
+            :for="fieldId"
+            class="flex items-center label"
+        >
+            <span>
+                {{ fieldConfig.label }}
+            </span>
+            <small
+                class="invisible ml-auto font-normal normal-case group-hover:visible"
+                v-if="
+                    !field.type ||
+                    field.type === 'text' ||
+                    field.type === 'textarea' ||
+                    field.type === 'richtext'
+                "
+            >
+                {{ charCount }} ký tự, {{ wordCount }} từ
+            </small>
+        </label>
+        <Input
+            :id="fieldId"
+            :class="{ 'p-invalid': !!fieldError }"
+            v-bind="{ ...$props, ...$attrs }"
+            v-model:field="fieldConfig"
+            @update:modelValue="$emit('update:modelValue', $event)"
+        />
+        <small v-if="field.help" v-html="field.help" class="leading-4"></small>
+        <small class="p-error" v-if="fieldError">
+            {{ fieldError }}
+        </small>
+    </div>
 </template>
-  <script>
+<script>
 export default {
-  props: {
-    field: {
-      type: Object,
+    props: {
+        field: {
+            type: Object,
+        },
+        modelValue: {
+            type: [Object, Array, Number, String, Boolean],
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
     },
-    modelValue: {
-      type: [Object, Array, Number, String, Boolean],
+    emits: ["update:modelValue"],
+    computed: {
+        fieldError() {
+            return this.$parent.form?.errors[this.field.name];
+        },
+        fieldId() {
+            return Math.random().toString(36).substr(2, 9);
+        },
+        fieldLabel() {
+            if (this.field.label === false) return false;
+            return (
+                this.field.label ||
+                this.tt(
+                    "models." + this.currentResource + "." + this.field.name
+                )
+            );
+        },
+        wordCount() {
+            if (typeof this.modelValue !== "string") return 0;
+            return this.modelValue.trim().split(/\s+/).length;
+        },
+        charCount() {
+            if (!this.modelValue) return 0;
+            return this.modelValue.length;
+        },
+        currentResource() {
+            return this.field.resource ?? this.getResource();
+        },
     },
-    disabled: {
-      type: Boolean,
-      default: false,
+    data() {
+        return {
+            fieldConfig: this.field,
+        };
     },
-  },
-  emits: ["update:modelValue"],
-  computed: {
-    fieldError() {
-      return this.$parent.form?.errors[this.field.name];
+    watch: {
+        field() {
+            this.fieldConfig.options = this.transformOptions(this.field.options);
+        },
     },
-    fieldId() {
-      return Math.random().toString(36).substr(2, 9);
-    },
-    fieldLabel() {
-      if (this.field.label === false) return false;
-      return (
-        this.field.label ||
-        this.tt("models." + this.currentResource + "." + this.field.name)
-      );
-    },
-    wordCount() {
-      if (typeof this.modelValue !== "string") return 0;
-      return this.modelValue.trim().split(/\s+/).length;
-    },
-    charCount() {
-      if (!this.modelValue) return 0;
-      return this.modelValue.length;
-    },
-    currentResource() {
-      return this.field.resource ?? this.getResource();
-    },
-  },
-  data() {
-    return {
-      fieldConfig: this.field,
-    };
-  },
-  watch: {
-    field() {
-      this.fieldConfig.options = this.transformOptions(this.field.options);
-    },
-  },
-  created() {
-    if (this.field.source) {
-      this.fieldConfig.loading = true;
-      this.fetchSource();
-    }
+    created() {
+        if (this.field.source) {
+            this.fieldConfig.loading = true;
+            this.fetchSource();
+        }
 
-    if (this.field.options) {
-      this.fieldConfig.options = this.transformOptions(this.field.options);
-    }
+        if (this.field.options) {
+        this.fieldConfig.options = this.transformOptions(this.field.options);
+        }
 
-    this.fieldConfig.label = this.fieldLabel;
-  },
-  methods: {
-    fetchSource() {
-      this.$axios
-        .post(this.route("admin.helper.model-data"), this.field.source)
-        .then((res) => {
-          this.fieldConfig.options = this.transformOptions(res.data);
-          this.fieldConfig.loading = false;
-        });
+        this.fieldConfig.label = this.fieldLabel;
     },
-    transformOptions(options) {
-      const keyBy = this.field.keyBy || "id";
+    methods: {
+        fetchSource() {
+            this.$axios
+                .post(this.route("admin.helper.model-data"), this.field.source)
+                .then((res) => {
+                    this.fieldConfig.options = this.transformOptions(res.data);
+                    this.fieldConfig.loading = false;
+                });
+        },
+        transformOptions(options) {
+            if(this.field.type && this.field.type === 'file_upload') {
+                return options;
+            }
 
-      if (this.field.type && this.field.type === "file_upload") {
-        return options;
-      }
-      return options.map((item) => {
-        item[keyBy] = item[keyBy].toString();
-        return item;
-      });
+            const keyBy = this.field.keyBy || "id";
+            return options.map((item) => {
+                item[keyBy] = item[keyBy].toString();
+                return item;
+            });
+        },
     },
-  },
 };
 </script>
