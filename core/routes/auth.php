@@ -4,7 +4,6 @@ use JamstackVietnam\Core\Models\Admin;
 use Illuminate\Support\Facades\Route;
 use JamstackVietnam\Core\Controllers\Auth\NewPasswordController;
 use JamstackVietnam\Core\Controllers\Auth\VerifyEmailController;
-use JamstackVietnam\Core\Controllers\Auth\RegisteredUserController;
 use JamstackVietnam\Core\Controllers\Auth\PasswordResetLinkController;
 use JamstackVietnam\Core\Controllers\Auth\ConfirmablePasswordController;
 use JamstackVietnam\Core\Controllers\Auth\AuthenticatedSessionController;

@@ -64,7 +64,7 @@ if (!function_exists('cache_response')) {
     function cache_response($key, $handle, ...$tags)
     {
         array_unshift($tags, 'cache_response');
-        if (env('LADA_CACHE_ACTIVE', false)) {
+        if (config('lada-cache.active', false)) {
             return Illuminate\Support\Facades\Cache::tags($tags)
                 ->rememberForever($key, $handle);
         } else {
