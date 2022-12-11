@@ -102,9 +102,11 @@ class Slider extends BaseModel
         ];
     }
 
-    public function scopeGetByPosition(Builder $query, $positionDisplay)
+    public static function getByPosition($positionDisplay)
     {
-        $query->where('position_display', $positionDisplay)
+        $query = self::query()
+            ->active()
+            ->where('position_display', $positionDisplay)
             ->available()
             ->orderBy('position_sort', 'desc')
             ->orderBy('id', 'desc');
@@ -113,7 +115,7 @@ class Slider extends BaseModel
             return $query->first()?->transform();
         } else {
             return $query->get()
-                ->map(fn($item) => $item->transform());
+                ->map(fn ($item) => $item->transform());
         }
     }
 }
