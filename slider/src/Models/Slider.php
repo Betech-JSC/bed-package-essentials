@@ -91,8 +91,14 @@ class Slider extends BaseModel
             'description' => $this->description,
             'link' => $this->link,
             'target' => $this->target,
-            'image' => $this->image,
-            'image_mobile' => $this->image_mobile,
+            'image' => [
+                'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
+                'alt' => $this->image['alt'] ?? $this->title,
+            ],
+            'image_mobile' => [
+                'url' => isset($this->image_mobile['path']) ? static_url($this->image_mobile['path']) : null,
+                'alt' => $this->image_mobile['alt'] ?? $this->title,
+            ]
         ];
     }
 

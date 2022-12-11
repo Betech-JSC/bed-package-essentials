@@ -20,6 +20,8 @@
                 "JamstackVietnam\\Blog\\ServiceProvider",
                 "JamstackVietnam\\Slider\\ServiceProvider",
                 "JamstackVietnam\\Contact\\ServiceProvider",
+                "JamstackVietnam\\Policy\\ServiceProvider",
+                "JamstackVietnam\\Agency\\ServiceProvider",
                 "JamstackVietnam\\Translation\\ServiceProvider",
                 "JamstackVietnam\\Sitemap\\SitemapServiceProvider",
                 "Tightenco\\Ziggy\\ZiggyServiceProvider",

@@ -81,10 +81,19 @@ export default {
             fieldConfig: this.field,
         };
     },
+    watch: {
+        field() {
+            this.fieldConfig.options = this.field.options;
+        },
+    },
     created() {
         if (this.field.source) {
             this.fieldConfig.loading = true;
             this.fetchSource();
+        }
+
+        if (this.field.options) {
+        this.fieldConfig.options = this.transformOptions(this.field.options);
         }
 
         this.fieldConfig.label = this.fieldLabel;
@@ -94,13 +103,19 @@ export default {
             this.$axios
                 .post(this.route("admin.helper.model-data"), this.field.source)
                 .then((res) => {
-                    const keyBy = this.field.keyBy || "id";
-                    this.fieldConfig.options = res.data.map((item) => {
-                        item[keyBy] = item[keyBy].toString();
-                        return item;
-                    });
+                    this.fieldConfig.options = this.transformOptions(res.data);
                     this.fieldConfig.loading = false;
                 });
+        },
+        transformOptions(options) {
+            if(!options) {
+                return options;
+            }
+            const keyBy = this.field.keyBy || "id";
+            return options.map((item) => {
+                item[keyBy] = item[keyBy].toString();
+                return item;
+            });
         },
     },
 };

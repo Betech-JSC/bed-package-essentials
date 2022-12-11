@@ -167,6 +167,9 @@ export default {
 .ghost {
     @apply opacity-50 border-t;
 }
+.tree-view-list {
+    @apply flex-col;
+}
 .tree-view-item {
     &.is-selected {
         @apply bg-gray-100 text-primary;

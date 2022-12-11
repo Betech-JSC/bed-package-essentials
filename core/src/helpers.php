@@ -145,3 +145,15 @@ if (!function_exists('current_locale')) {
         return $lang;
     }
 }
+
+if (!function_exists('notification_to')) {
+    function notification_to()
+    {
+        if(!is_localhost()) {
+            return settings()->group('notification')->get('notification_production_to', null);
+        }
+        else {
+            return settings()->group('notification')->get('notification_staging_to', null);
+        }
+    }
+}
