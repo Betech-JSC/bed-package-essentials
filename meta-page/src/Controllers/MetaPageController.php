@@ -25,7 +25,7 @@ class MetaPageController extends Controller
         $routes = collect(Sitemap::create()->addStaticRoutes()->tags)
             ->transform(
                 fn ($item) =>
-                str_replace(env('APP_URL'), '', $item['url']) ?: '/'
+                str_replace(env('APP_URL'), '', $item['url'])
             );
 
         $diff = $routes->diff($storedRoutes);
