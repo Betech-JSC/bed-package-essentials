@@ -23,6 +23,6 @@ class MetaPage extends Model
     ];
 
     public $rules = [
-        'url' => 'nullable',
+        'url' => 'required',
     ];
 }
