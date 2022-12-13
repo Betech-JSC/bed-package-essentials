@@ -27,6 +27,7 @@ class Post extends BaseModel
         'published_at',
         'is_home',
         'is_featured',
+        'is_hot',
         'view_count',
         'image',
 

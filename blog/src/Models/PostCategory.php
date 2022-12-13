@@ -25,6 +25,7 @@ class PostCategory extends BaseModel
     protected $appends = ['url'];
 
     public $fillable = [
+        'parent_id',
         'status',
         'position',
         'view_count'
@@ -59,12 +60,10 @@ class PostCategory extends BaseModel
         ],
     ];
 
-    public function modelRules(): array
+    public function rules(): array
     {
         return [
-            'all' => [
-                'title' => 'required|string|max:255',
-            ],
+            'title' => 'required|string|max:255',
         ];
     }
 
@@ -76,9 +75,85 @@ class PostCategory extends BaseModel
         });
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id', 'id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
+
+    public static function getRoot()
+    {
+        return static::orderBy('position', 'desc')
+            ->with(['nodes'])
+            ->orderBy('parent_id')
+            ->where(function ($query) {
+                $query->whereNull('parent_id')->orWhere('parent_id', 0);
+            })
+            ->get();
+    }
+
+    public static function getParentNodes()
+    {
+        return static::whereNull('parent_id')->orWhere('parent_id', 0)->get();
+    }
+
+    public static function getNav()
+    {
+        return static::query()
+            ->active()
+            ->with('children.children')
+            ->where('parent_id', 0)
+            ->get();
+    }
+
+    public function nodes()
+    {
+        return $this->children()
+            ->with('nodes')
+            ->orderBy('parent_id')
+            ->orderBy('id', 'desc');
+    }
+
+    public function parentNode()
+    {
+        return $this->parent()->with('parentNode');
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public static function transformAsBreadcrumb($category)
+    {
+        if ($category) {
+            return collect(self::flatAncestors($category))
+                ->map(function ($item) {
+                    return [
+                        'id' => $item->id,
+                        'title' => $item->title,
+                        'slug' => $item->seo_slug ?? $item->slug,
+                    ];
+                })
+                ->reverse()->values();
+        }
+        return collect([]);
+    }
+
+    public static function flatAncestors($model): array
+    {
+        if (!$model) return [];
+
+        $result[] = $model;
+        if (!empty($model->parentNode)) {
+            $result = array_merge($result, self::flatAncestors($model->parentNode));
+        }
+
+        return $result;
     }
 
     public function getUrlAttribute(): array
@@ -94,12 +169,72 @@ class PostCategory extends BaseModel
         return $urls;
     }
 
-    public function transform()
+    public function posts()
+    {
+        return $this->belongsToMany(
+            Post::class,
+            'post_ref_categories',
+            'post_category_id',
+            'post_id'
+        );
+    }
+
+    public function transformNav($level = 1, $conditions = ['show_active' => false, 'categories' => []]): array
+    {
+        $data = [
+            'id' => $this->id,
+            'title' => $this->title,
+            'slug' => $this->seo_slug ?? $this->slug,
+        ];
+
+        if(isset($conditions['show_active']) && $conditions['show_active']) {
+            if(isset($conditions['categories'])) {
+                $category = $conditions['categories']->where('id', $this->id)->values()->first();
+
+                $data['is_active'] = $category ? true : false;
+                if ($level <= 2) {
+                    $data['nodes'] = $this->nodes->map(fn ($item) => $item->transformNav($level + 1, ['show_active' => true, 'categories' => $conditions['categories']]));
+                }
+            }
+            else {
+                $data['is_active'] = false;
+            }
+        }
+        else if ($level <= 2) {
+            $data['nodes'] = $this->nodes->map(fn ($item) => $item->transformNav($level + 1));
+        }
+
+        return $data;
+    }
+
+    public function transform($conditions = ['post_count' => 0])
+    {
+        $data = [
+            'id' => $this->id,
+            'title' => $this->title,
+            'slug' => $this->seo_slug ?? $this->slug,
+        ];
+
+        if(isset($conditions['post_count']) && $conditions['post_count'] > 0) {
+            $data['posts'] = $this->posts
+                ->where('status', Post::STATUS_ACTIVE)
+                ->sortBy([['is_featured', 'desc'], ['id', 'desc']])
+                ->values()
+                ->take($conditions['post_count'])
+                ->map(fn ($item) => $item->transform());
+
+        }
+
+        return $data;
+    }
+
+    public function transformDetails()
     {
         return [
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
+            'breadcrumbs' => self::transformAsBreadcrumb($this),
         ];
     }
 

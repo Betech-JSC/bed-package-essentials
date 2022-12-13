@@ -16,6 +16,7 @@ class CreatePostCategoriesTable extends Migration
     {
         Schema::create('post_categories', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('parent_id')->nullable()->default(0);
 
             $table->integer('position')->nullable();
             $table->string('status', 30)->default(PostCategory::STATUS_ACTIVE);
@@ -23,6 +24,8 @@ class CreatePostCategoriesTable extends Migration
             $table->integer('view_count')->default(0);
             $table->addInjectCode();
             $table->addTimestamps();
+
+            $table->index('parent_id', 'parent_id');
         });
     }
 
