@@ -42,11 +42,13 @@ class Agency extends BaseModel
         'info'
     ];
 
-    public function modelRules()
+    public function rules()
     {
         return [
             'title' => 'required|string|max:255',
             'location' => 'required',
+            'longitude' => 'nullable|numeric|min:-180|max:180',
+            'latitude' => 'nullable|numeric|min:-90|max:90',
         ];
     }
 

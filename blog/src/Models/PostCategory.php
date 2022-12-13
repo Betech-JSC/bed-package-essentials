@@ -59,12 +59,10 @@ class PostCategory extends BaseModel
         ],
     ];
 
-    public function modelRules(): array
+    public function rules(): array
     {
         return [
-            'all' => [
-                'title' => 'required|string|max:255',
-            ],
+            'title' => 'required|string|max:255',
         ];
     }
 

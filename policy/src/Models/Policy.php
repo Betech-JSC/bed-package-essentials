@@ -44,7 +44,7 @@ class Policy extends BaseModel
         'seo_schemas',
     ];
 
-    public function modelRules()
+    public function rules()
     {
         return [
             'title' => 'required|string|max:255',
