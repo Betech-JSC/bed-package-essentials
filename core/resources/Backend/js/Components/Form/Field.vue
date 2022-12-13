@@ -83,7 +83,7 @@ export default {
     },
     watch: {
         field() {
-            this.fieldConfig.options = this.field.options;
+            this.fieldConfig.options = this.field.options || this.fieldConfig.options;
         },
     },
     created() {
