@@ -83,7 +83,9 @@ export default {
     },
     watch: {
         field() {
-            this.fieldConfig.options = this.field.options;
+            if (this.field.options) {
+                this.fieldConfig.options = this.transformOptions(this.field.options);
+            }
         },
     },
     created() {
@@ -93,7 +95,7 @@ export default {
         }
 
         if (this.field.options) {
-        this.fieldConfig.options = this.transformOptions(this.field.options);
+            this.fieldConfig.options = this.transformOptions(this.field.options);
         }
 
         this.fieldConfig.label = this.fieldLabel;
