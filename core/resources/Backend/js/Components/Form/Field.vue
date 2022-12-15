@@ -83,13 +83,9 @@ export default {
     },
     watch: {
         field() {
-<<<<<<< HEAD
-            this.fieldConfig.options = this.field.options || this.fieldConfig.options;
-=======
             if (this.field.options) {
                 this.fieldConfig.options = this.transformOptions(this.field.options);
             }
->>>>>>> 657bd3e0e57473987d237ece271838e7e2825d91
         },
     },
     created() {
