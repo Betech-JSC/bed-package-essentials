@@ -181,8 +181,7 @@ class Post extends BaseModel
 
     public function scopeActive($query)
     {
-        return $query
-            ->where('status', self::STATUS_ACTIVE)
+        return $query->where('status', self::STATUS_ACTIVE)
             ->where('published_at', '<=', now());
     }
 
