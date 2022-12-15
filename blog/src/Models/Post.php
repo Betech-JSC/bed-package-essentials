@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
+use \Illuminate\Support\Facades\Route;
 
 class Post extends BaseModel
 {
@@ -135,12 +136,33 @@ class Post extends BaseModel
     public function getUrlAttribute(): array
     {
         $urls = [];
+        $default_locale = config('app.locale');
+
         if ($this->is_active) {
-            foreach ($this->translations as $translation) {
-                $urls[strtoupper($translation->locale)] = route("$translation->locale.posts.show", [
-                    'slug' => $translation->seo_slug ?? $translation->slug,
-                    'id' => $this->id,
-                ]);
+            if (Route::has($default_locale . ".posts.show")) {
+                foreach ($this->translations as $translation) {
+                    $urls[strtoupper($translation->locale)] = route("$translation->locale.posts.show", [
+                        'slug' => $translation->seo_slug ?? $translation->slug,
+                        'id' => $this->id,
+                    ]);
+                }
+            } else if (Route::has($default_locale . ".nested_posts.show")) {
+                $category = $this->categories
+                    ->where('status', PostCategory::STATUS_ACTIVE)
+                    ->values()
+                    ->first();
+
+                if ($category) {
+                    foreach ($this->translations as $translation) {
+                        $categoryTranslation = $category->translations->where('locale', $translation->locale)
+                            ->orWhere('locale', $default_locale)->first();
+
+                        $urls[strtoupper($translation->locale)] = route("$translation->locale.nested_posts.show", [
+                            'nested' => $categoryTranslation->seo_slug ?? $categoryTranslation->slug,
+                            'slug' => $translation->seo_slug ?? $translation->slug,
+                        ]);
+                    }
+                }
             }
         }
         return $urls;
@@ -148,13 +170,16 @@ class Post extends BaseModel
 
     public function getCategoryAttribute()
     {
-        return $this->categories->first()?->transform();
+        return $this->categories
+            ->where('status', PostCategory::STATUS_ACTIVE)
+            ->sortBy([['parent_id', 'desc']])
+            ->values()
+            ->first()?->transform();
     }
 
     public function scopeActive($query)
     {
-        return $query
-            ->where('status', self::STATUS_ACTIVE)
+        return $query->where('status', self::STATUS_ACTIVE)
             ->where('published_at', '<=', now());
     }
 
@@ -193,6 +218,7 @@ class Post extends BaseModel
             'content' => $this->content,
             'category' => $this->category,
             'categories' => $this->categories->map(fn ($item) => $item->transform()),
+            'breadcrumbs' => $this->getBreadcrumbsAttribute(),
             'image' => [
                 'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
                 'alt' => $this->image['alt'] ?? $this->title,
@@ -203,6 +229,17 @@ class Post extends BaseModel
     public function transformSeo()
     {
         return transform_seo($this);
+    }
+
+    public function getBreadcrumbsAttribute()
+    {
+        $category = $this->categories
+            ->where('status', PostCategory::STATUS_ACTIVE)
+            ->sortBy([['parent_id', 'desc']])
+            ->values()
+            ->first();
+
+        return PostCategory::transformAsBreadcrumb($category);
     }
 
     public function related($limit = 8)
