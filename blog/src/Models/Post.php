@@ -139,15 +139,14 @@ class Post extends BaseModel
         $default_locale = config('app.locale');
 
         if ($this->is_active) {
-            if(Route::has($default_locale . ".posts.show")) {
+            if (Route::has($default_locale . ".posts.show")) {
                 foreach ($this->translations as $translation) {
                     $urls[strtoupper($translation->locale)] = route("$translation->locale.posts.show", [
                         'slug' => $translation->seo_slug ?? $translation->slug,
                         'id' => $this->id,
                     ]);
                 }
-            }
-            else if(Route::has($default_locale . ".nested_posts.show")) {
+            } else if (Route::has($default_locale . ".nested_posts.show")) {
                 $category = $this->categories
                     ->where('status', PostCategory::STATUS_ACTIVE)
                     ->values()
@@ -155,8 +154,8 @@ class Post extends BaseModel
 
                 if ($category) {
                     foreach ($this->translations as $translation) {
-                        $categoryTranslation = $category->translations->where('locale', $translation->locale)->first() ??
-                            $category->translations->where('locale', $default_locale)->first();
+                        $categoryTranslation = $category->translations->where('locale', $translation->locale)
+                            ->orWhere('locale', $default_locale)->first();
 
                         $urls[strtoupper($translation->locale)] = route("$translation->locale.nested_posts.show", [
                             'nested' => $categoryTranslation->seo_slug ?? $categoryTranslation->slug,
