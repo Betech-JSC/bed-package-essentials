@@ -147,7 +147,6 @@ class Post extends BaseModel
                     ]);
                 }
             }
-
             else if(Route::has($default_locale . ".nested_posts.show")) {
                 $category = $this->categories
                     ->where('status', PostCategory::STATUS_ACTIVE)
