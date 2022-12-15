@@ -159,7 +159,7 @@ class Post extends BaseModel
                             $category->translations->where('locale', $default_locale)->first();
 
                         $urls[strtoupper($translation->locale)] = route("$translation->locale.nested_posts.show", [
-                            'nested' => $categoryTranslation->custom_slug ?? $categoryTranslation->slug,
+                            'nested' => $categoryTranslation->seo_slug ?? $categoryTranslation->slug,
                             'slug' => $translation->seo_slug ?? $translation->slug,
                         ]);
                     }
