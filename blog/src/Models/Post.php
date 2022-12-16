@@ -154,9 +154,9 @@ class Post extends BaseModel
 
                 if ($category) {
                     foreach ($this->translations as $translation) {
-                        $categoryTranslation = $category->translations->filter(function ($item) use ($translation, $default_locale) {
+                        $categoryTranslation = $category->translations->firstWhere(function ($item) use ($translation, $default_locale) {
                             return $item->locale === $translation->locale || $item->locale === $default_locale;
-                        })?->first();
+                        });
 
                         $urls[strtoupper($translation->locale)] = route("$translation->locale.nested_posts.show", [
                             'nested' => $categoryTranslation->seo_slug ?? $categoryTranslation->slug,
