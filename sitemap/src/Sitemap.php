@@ -23,17 +23,18 @@ class Sitemap
         foreach (Route::getRoutes() as $route) {
             if ($route->getName() === 'dynamic-redirect') continue;
 
-            if ($middleware = $route->getAction()['middleware'] ?? false) {
-                $arr[] = $middleware;
+            if (isset($route->getAction()['middleware']) && $route->methods()[0] == 'GET') {
+                $middleware = $route->getAction()['middleware'];
                 $uri = $route->uri;
                 if (is_array($middleware)) {
                     if (
                         in_array('frontend', $middleware) &&
-                        !str_contains($uri, '{') &&
-                        !str_contains($uri, '}') &&
-                        $uri !== 'sitemap.xml'
+                        !contains($uri, '{') &&
+                        !contains($uri, '}') &&
+                        $uri !== 'sitemap.xml' &&
+                        $uri !== '/'
                     ) {
-                        $this->add(url($uri), $route->getName());
+                        $this->add(url($uri));
                     }
                 }
             }
