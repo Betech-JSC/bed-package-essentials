@@ -17,6 +17,7 @@ class PostTranslation extends BaseModel
         'slug',
         'locale',
         'title',
+        'author',
         'description',
         'content',
 
