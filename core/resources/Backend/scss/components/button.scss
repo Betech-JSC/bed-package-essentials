@@ -2,8 +2,12 @@
     @extend .btn;
 }
 
+.p-button[type="submit"] {
+    @extend .btn-primary;
+}
+
 .btn {
-    @apply inline-flex items-center justify-center space-x-2 font-medium transition rounded cursor-pointer disabled:opacity-25 outline-transparent outline outline-offset-2 shadow-sm;
+    @apply inline-flex items-center justify-center space-x-2 font-medium transition rounded cursor-pointer disabled:opacity-25 outline-transparent outline outline-offset-2 shadow-sm uppercase;
     @media (prefers-reduced-motion: reduce) {
         @apply transition-none;
     }
