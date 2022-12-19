@@ -3,7 +3,7 @@
 }
 
 .p-button[type="submit"] {
-    @extend .is-primary;
+    @extend .btn-primary;
 }
 
 .btn {
@@ -14,45 +14,49 @@
 }
 
 .btn {
-    &.is-primary {
+    &.btn-primary {
         @apply text-white bg-primary hover:bg-primary-dark active:bg-primary-darker;
         @apply focus:outline-primary;
     }
-    &.is-secondary {
+    &.btn-outline-primary {
+        @apply bg-transparent bg-white text-primary hover:bg-primary active:bg-primary border border-primary hover:text-white;
+        @apply focus:outline-primary;
+    }
+    &.btn-secondary {
         @apply border border-gray-200 bg-gray-100 hover:bg-gray-200;
         @apply focus:outline-gray-100;
     }
-    &.is-success {
+    &.btn-success {
         @apply border bg-green-600 hover:bg-green-700 text-white;
         @apply focus:outline-green-600;
     }
-    &.is-warning {
+    &.btn-warning {
         @apply border border-yellow-500 bg-yellow-100 hover:bg-yellow-200 text-yellow-500;
         @apply focus:outline-green-500;
     }
-    &.is-danger {
+    &.btn-danger {
         @apply border border-orange-600 bg-orange-100 hover:bg-orange-200 text-orange-600;
         @apply focus:outline-orange-600;
     }
 
-    &:not(.is-primary, .is-secondary, .is-success, .is-warning, .is-danger) {
+    &:not(.btn-primary, .btn-secondary, .btn-success, .btn-warning, .btn-danger) {
         @apply bg-white border hover:border-gray-400;
     }
 }
 
 .btn {
-    &.is-sm {
+    &.btn-sm {
         @apply text-sm h-8 px-4;
     }
-    &.is-lg {
+    &.btn-lg {
         @apply text-lg h-10 px-4;
     }
 
-    &:not(.is-sm, .is-lg) {
+    &:not(.btn-sm, .btn-lg) {
         @apply text-sm h-9 px-4;
     }
 
-    &:not(.btn-sm, .is-icon) {
+    &:not(.btn-sm, .btn-icon) {
         @apply min-w-[6rem];
     }
 }
