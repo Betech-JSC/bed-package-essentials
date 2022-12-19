@@ -45,6 +45,7 @@ class Post extends BaseModel
         'slug',
         'locale',
         'title',
+        'author',
         'description',
         'content',
 
@@ -196,8 +197,7 @@ class Post extends BaseModel
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
-            'updated_at' => $this->formatted_updated_at,
-            'formatted_created_at' => $this->formatted_created_at,
+            'published_at' => $this->published_at,
             'description' => $this->description,
             'category' => $this->category,
             'image' => [
@@ -213,8 +213,8 @@ class Post extends BaseModel
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
-            'updated_at' => $this->formatted_updated_at,
-            'formatted_created_at' => $this->formatted_created_at,
+            'author' => $this->author,
+            'published_at' => $this->published_at,
             'description' => $this->description,
             'content' => $this->content,
             'category' => $this->category,

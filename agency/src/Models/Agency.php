@@ -31,6 +31,7 @@ class Agency extends BaseModel
         'longitude',
         'latitude',
         'region',
+        'image',
     ];
 
     public $translatedAttributes = [
@@ -40,6 +41,10 @@ class Agency extends BaseModel
         'description',
         'phones',
         'info'
+    ];
+
+    protected $casts = [
+        'image' => 'array'
     ];
 
     public function rules()
@@ -90,7 +95,11 @@ class Agency extends BaseModel
             'phones' => $this->phones,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
-            'link_google_map' => $this->link_google_map
+            'link_google_map' => $this->link_google_map,
+            'image' => [
+                'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
+                'alt' => $this->image['alt'] ?? $this->title,
+            ]
         ];
     }
 
@@ -105,7 +114,11 @@ class Agency extends BaseModel
             'link_google_map' => $this->link_google_map,
             'description' => $this->description,
             'info' => $this->info,
-            'region' => $this->region
+            'region' => $this->region,
+            'image' => [
+                'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
+                'alt' => $this->image['alt'] ?? $this->title,
+            ]
         ];
     }
 }
