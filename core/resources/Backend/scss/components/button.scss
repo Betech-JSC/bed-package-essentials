@@ -19,7 +19,7 @@
         @apply focus:outline-primary;
     }
     &.btn-outline-primary {
-        @apply bg-transparent bg-white text-primary hover:bg-primary active:bg-primary border border-primary hover:text-white;
+        @apply bg-transparent text-primary hover:bg-primary active:bg-primary border border-primary hover:text-white;
         @apply focus:outline-primary;
     }
     &.btn-secondary {
@@ -39,7 +39,13 @@
         @apply focus:outline-orange-600;
     }
 
-    &:not(.btn-primary, .btn-secondary, .btn-success, .btn-warning, .btn-danger) {
+    &:not(
+            .btn-primary,
+            .btn-secondary,
+            .btn-success,
+            .btn-warning,
+            .btn-danger
+        ) {
         @apply bg-white border hover:border-gray-400;
     }
 }
