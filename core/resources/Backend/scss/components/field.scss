@@ -27,7 +27,7 @@
         @apply py-0;
     }
 
-    &:not([disabled]):not(.p-invalid) {
+    &:not([disabled]):not(.p-invalid):not(.p-dropdown-label)) {
         @apply focus:border-blue-400 focus:ring-1 focus:ring-blue-400;
     }
 
