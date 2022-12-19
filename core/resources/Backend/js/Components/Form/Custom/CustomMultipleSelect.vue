@@ -43,7 +43,9 @@ export default {
                     [this.labelBy]: option[this.labelBy].toString(),
                 });
             });
-            return options;
+            return options.filter((x) =>
+                this.pluck(this.options).includes(x.id)
+            );
         },
     },
 
