@@ -46,7 +46,7 @@
                     @click="showMediaManager = true"
                 >
                     <div class="flex items-center justify-center h-full">
-                        <ph-plus-circle-light class="w-8 h-8"/>
+                        <ph-plus class="w-8 h-8"/>
                     </div>
                 </div>
             </div>
