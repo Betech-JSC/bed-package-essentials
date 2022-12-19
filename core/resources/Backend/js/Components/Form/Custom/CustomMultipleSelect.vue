@@ -7,6 +7,7 @@
         :placeholder="placeholder"
         :optionLabel="labelBy"
         display="chip"
+        :filter="field.filter || true"
     />
 </template>
 
