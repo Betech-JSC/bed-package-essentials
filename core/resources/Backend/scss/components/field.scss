@@ -20,7 +20,7 @@
 
 .p-inputtext,
 .p-treeselect {
-    @apply outline-0 block w-full shadow-sm sm:text-sm border-gray-300 rounded;
+    @apply outline-0 block w-full shadow-sm border-gray-300 rounded;
     @apply block py-[0.7em] px-[0.8em] w-full border appearance-none bg-white;
 
     .p-inputnumber-buttons-horizontal > & {
