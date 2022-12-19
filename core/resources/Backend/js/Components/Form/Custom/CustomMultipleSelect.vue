@@ -44,7 +44,7 @@ export default {
                 });
             });
             return options.filter((x) =>
-                this.pluck(this.options).includes(x.id)
+                this.pluck(this.options, this.keyBy).includes(x[this.keyBy])
             );
         },
     },
