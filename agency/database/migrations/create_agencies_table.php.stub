@@ -24,6 +24,7 @@ class CreateAgenciesTable extends Migration
             $table->boolean('is_headquarter')->nullable()->default(0);
             $table->boolean('is_featured')->nullable()->default(0);
             $table->integer('position')->nullable();
+            $table->json('image')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
