@@ -2,6 +2,10 @@
     @extend .btn;
 }
 
+.p-button[type="submit"] {
+    @extend .is-primary;
+}
+
 .btn {
     @apply inline-flex items-center justify-center space-x-2 font-medium transition rounded cursor-pointer disabled:opacity-25 outline-transparent outline outline-offset-2 shadow-sm;
     @media (prefers-reduced-motion: reduce) {
