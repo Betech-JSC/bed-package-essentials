@@ -3,58 +3,52 @@
 }
 
 .btn {
-    // Button base
-    @apply inline-flex items-center justify-center space-x-2 font-medium tracking-wider uppercase transition rounded cursor-pointer disabled:opacity-25 outline-transparent outline outline-offset-2;
+    @apply inline-flex items-center justify-center space-x-2 font-medium transition rounded cursor-pointer disabled:opacity-25 outline-transparent outline outline-offset-2 shadow-sm;
     @media (prefers-reduced-motion: reduce) {
         @apply transition-none;
     }
+}
 
-    @apply text-sm h-[2.5rem] px-4;
-
-    &.btn-sm,
-    .btn-sm & {
-        @apply text-xs h-[1.75rem] px-3;
+.btn {
+    &.is-primary {
+        @apply text-white bg-primary hover:bg-primary-dark active:bg-primary-darker;
+        @apply focus:outline-primary;
+    }
+    &.is-secondary {
+        @apply border border-gray-200 bg-gray-100 hover:bg-gray-200;
+        @apply focus:outline-gray-100;
+    }
+    &.is-success {
+        @apply border bg-green-600 hover:bg-green-700 text-white;
+        @apply focus:outline-green-600;
+    }
+    &.is-warning {
+        @apply border border-yellow-500 bg-yellow-100 hover:bg-yellow-200 text-yellow-500;
+        @apply focus:outline-green-500;
+    }
+    &.is-danger {
+        @apply border border-orange-600 bg-orange-100 hover:bg-orange-200 text-orange-600;
+        @apply focus:outline-orange-600;
     }
 
-    &:not(.btn-sm) {
+    &:not(.is-primary, .is-secondary, .is-success, .is-warning, .is-danger) {
+        @apply bg-white border hover:border-gray-400;
+    }
+}
+
+.btn {
+    &.is-sm {
+        @apply text-sm h-8 px-4;
+    }
+    &.is-lg {
+        @apply text-lg h-10 px-4;
+    }
+
+    &:not(.is-sm, .is-lg) {
+        @apply text-sm h-9 px-4;
+    }
+
+    &:not(.btn-sm, .is-icon) {
         @apply min-w-[6rem];
     }
-
-    .p-buttonset > & {
-        @apply flex-grow;
-    }
-}
-
-.btn-primary,
-.p-button[type="submit"] {
-    @apply text-white bg-primary hover:bg-primary-dark active:bg-primary-darker;
-    @apply focus:outline-primary;
-}
-
-.btn-danger-link {
-    @apply bg-transparent text-red-600 hover:underline;
-}
-
-.btn-outline-primary {
-    @apply text-primary hover:bg-primary border border-primary hover:text-white;
-}
-
-.btn-danger {
-    @apply text-white bg-red-600 hover:bg-red-800 active:bg-red-900;
-}
-
-.btn-success {
-    @apply text-white bg-green-600 hover:bg-green-700 active:bg-green-800;
-}
-
-.btn-warning {
-    @apply text-white bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700;
-}
-
-.btn-info {
-    @apply text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700;
-}
-
-.btn-white {
-    @apply bg-white text-gray-700 border border-gray-300 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-200;
 }
