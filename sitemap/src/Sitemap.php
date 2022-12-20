@@ -29,8 +29,8 @@ class Sitemap
                 if (is_array($middleware)) {
                     if (
                         in_array('frontend', $middleware) &&
-                        !contains($uri, '{') &&
-                        !contains($uri, '}') &&
+                        !str_contains($uri, '{') &&
+                        !str_contains($uri, '}') &&
                         $uri !== 'sitemap.xml' &&
                         $uri !== '/'
                     ) {
