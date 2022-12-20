@@ -591,15 +591,6 @@
         box-shadow 0.2s;
     border-radius: 3px;
 }
-.p-dropdown:not(.p-disabled):hover {
-    border-color: var(--primary);
-}
-.p-dropdown:not(.p-disabled).p-focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: 0 0 0 0.2rem var(--primary);
-    border-color: var(--primary);
-}
 .p-dropdown.p-dropdown-clearable .p-dropdown-label {
     padding-right: 1.5rem;
 }
@@ -1134,15 +1125,6 @@
     transition: background-color 0.2s, color 0.2s, border-color 0.2s,
         box-shadow 0.2s;
     border-radius: 3px;
-}
-.p-multiselect:not(.p-disabled):hover {
-    border-color: var(--primary);
-}
-.p-multiselect:not(.p-disabled).p-focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: 0 0 0 0.2rem var(--primary);
-    border-color: var(--primary);
 }
 .p-multiselect .p-multiselect-label {
     padding: 0.5rem 0.5rem;
