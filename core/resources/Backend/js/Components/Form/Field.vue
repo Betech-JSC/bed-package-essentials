@@ -115,7 +115,7 @@ export default {
             }
             const keyBy = this.field.keyBy || "id";
             return options.map((item) => {
-                item[keyBy] = item[keyBy].toString();
+                item[keyBy] = item[keyBy]?.toString();
                 return item;
             });
         },

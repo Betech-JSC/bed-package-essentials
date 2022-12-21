@@ -203,6 +203,13 @@ export default {
         },
     },
 
+    watch: {
+        modelValue() {
+            this.files = [];
+            this.initFiles();
+        },
+    },
+
     created() {
         this.initFiles();
     },
