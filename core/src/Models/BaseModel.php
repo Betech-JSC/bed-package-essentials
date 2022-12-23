@@ -24,16 +24,4 @@ class BaseModel extends Model
     {
         return to_date($this->attributes['created_at'], 'd/m/Y');
     }
-
-    public function scopeOrderByPosition($query)
-    {
-        return $query->orderByRaw('ISNULL(position) OR position = 0, position ASC')
-            ->orderByDesc('id');
-    }
-
-    public function scopeOrderByFeatured($query)
-    {
-        return $query->orderBy('is_featured', 'desc')
-            ->orderByDesc('id');
-    }
 }
