@@ -116,46 +116,51 @@ class File
 
     public function findOrFail($options = [])
     {
-        $filePath = $this->storage->get($this->path);
-        $mimeType = $this->storage->mimeType($this->path);
+        try {
+            $filePath = $this->storage->get($this->path);
+            $mimeType = $this->storage->mimeType($this->path);
 
-        if (str_contains($mimeType, 'image/') && $mimeType !== 'image/heic') {
-            if (isset($options['cache'])) {
-                $image = Image::cache(function ($image) use ($filePath, $options) {
-                    $image->make($filePath);
-                    if ($width = $options['w']) {
-                        $image->resize($width, null, function ($constraint) {
-                            $constraint->aspectRatio();
-                        });
-                    }
-                });
-                return response()->make(
-                    $image,
-                    200,
-                    ['Content-Type' => $mimeType]
-                );
+            if (str_contains($mimeType, 'image/') && $mimeType !== 'image/heic') {
+                if (isset($options['cache'])) {
+                    $image = Image::cache(function ($image) use ($filePath, $options) {
+                        $image->make($filePath);
+                        if ($width = $options['w']) {
+                            $image->resize($width, null, function ($constraint) {
+                                $constraint->aspectRatio();
+                            });
+                        }
+                    });
+                    return response()->make(
+                        $image,
+                        200,
+                        ['Content-Type' => $mimeType]
+                    );
+                }
+
+                $image = Image::make($filePath);
+
+                $format = $options['fm'] ?? 'webp';
+
+                if (isset($options['w'])) {
+                    $image->resize($options['w'], null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                }
+
+                return $image
+                    ->encode($format)
+                    ->response();
             }
 
-            $image = Image::make($filePath);
-
-            $format = $options['fm'] ?? 'webp';
-
-            if (isset($options['w'])) {
-                $image->resize($options['w'], null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-            }
-
-            return $image
-                ->encode($format)
-                ->response();
+            return response()->make(
+                $filePath,
+                200,
+                ['Content-Type' => $mimeType]
+            );
+        } catch (\Exception $exception) {
+            logger()->info($exception->getMessage());
+            abort(404);
         }
-
-        return response()->make(
-            $filePath,
-            200,
-            ['Content-Type' => $mimeType]
-        );
     }
 
     public function store($files)
