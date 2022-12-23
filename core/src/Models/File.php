@@ -158,7 +158,7 @@ class File
                 ['Content-Type' => $mimeType]
             );
         } catch (\Exception $exception) {
-            logger()->info($exception->getMessage());
+            logger()->error($exception->getMessage());
             abort(404);
         }
     }
