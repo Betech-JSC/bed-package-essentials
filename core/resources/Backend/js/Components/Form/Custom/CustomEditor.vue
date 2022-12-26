@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import Tiny from "@tinymce/tinymce-vue";
 import templates from "@Core/templates";
+import Tiny from "@tinymce/tinymce-vue";
 const MAX_FILE_SIZE = 5;
 
 export default {
@@ -128,6 +128,9 @@ export default {
     max-width: 90vw !important;
     height: 90vh !important;
     max-height: 90vh !important;
+}
+.tox .tox-dialog__footer {
+    margin-bottom: 30px !important;
 }
 .tox:not(.tox-tinymce-inline) .tox-editor-header {
     box-shadow: none !important;

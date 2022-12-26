@@ -191,6 +191,13 @@ class Post extends BaseModel
             $this->published_at <= now();
     }
 
+    public function scopeActiveCategories($query)
+    {
+        return $query->whereHas('categories', function ($query) {
+            $query->active();
+        });
+    }
+
     public function transform()
     {
         return [
@@ -200,10 +207,7 @@ class Post extends BaseModel
             'published_at' => $this->published_at,
             'description' => $this->description,
             'category' => $this->category,
-            'image' => [
-                'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
-                'alt' => $this->image['alt'] ?? $this->title,
-            ]
+            'image' => $this->getImageDetail(),
         ];
     }
 
@@ -220,10 +224,15 @@ class Post extends BaseModel
             'category' => $this->category,
             'categories' => $this->categories->map(fn ($item) => $item->transform()),
             'breadcrumbs' => $this->getBreadcrumbsAttribute(),
-            'image' => [
-                'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
-                'alt' => $this->image['alt'] ?? $this->title,
-            ]
+            'image' => $this->getImageDetail(),
+        ];
+    }
+
+    public function getImageDetail()
+    {
+        return [
+            'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
+            'alt' => $this->image['alt'] ?? $this->title,
         ];
     }
 
@@ -243,11 +252,22 @@ class Post extends BaseModel
         return PostCategory::transformAsBreadcrumb($category);
     }
 
-    public function related($limit = 8)
+    public function related($condition = [])
     {
+        $limit = empty($condition['limit']) ? 8 : $condition['limit'];
+
         $relatedPosts = $this->relatedPosts
-            ->where('status', self::STATUS_ACTIVE)->values()
-            ->take($limit);
+            ->where('status', self::STATUS_ACTIVE);
+
+        if (!empty($condition['has_category'])) {
+            $relatedPosts = $relatedPosts->where(function ($collection) {
+                return $collection->categories
+                    ->where('status', self::STATUS_ACTIVE)
+                    ->count() > 0;
+            });
+        }
+
+        $relatedPosts = $relatedPosts->values()->take($limit);
 
         $relatedPostIds = [];
 
