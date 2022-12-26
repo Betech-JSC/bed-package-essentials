@@ -159,7 +159,9 @@ class File
             );
         } catch (\Exception $exception) {
             logger()->error($exception->getMessage());
-            abort(404);
+
+            return response($exception->getMessage(), 404)
+                ->header('Content-Type', 'text/plain');
         }
     }
 
