@@ -31,6 +31,7 @@ class Post extends BaseModel
         'position',
         'view_count',
         'image',
+        'image_content',
 
         'inject_head',
         'inject_body_start',
@@ -60,7 +61,8 @@ class Post extends BaseModel
     ];
 
     protected $casts = [
-        'image' => 'array'
+        'image' => 'array',
+        'image_content' => 'array',
     ];
 
     public function rules()
@@ -191,6 +193,13 @@ class Post extends BaseModel
             $this->published_at <= now();
     }
 
+    public function scopeActiveCategories($query)
+    {
+        return $query->whereHas('categories', function ($query) {
+            $query->active();
+        });
+    }
+
     public function transform()
     {
         return [
@@ -200,10 +209,7 @@ class Post extends BaseModel
             'published_at' => $this->published_at,
             'description' => $this->description,
             'category' => $this->category,
-            'image' => [
-                'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
-                'alt' => $this->image['alt'] ?? $this->title,
-            ]
+            'image' => $this->getImageDetail($this->image),
         ];
     }
 
@@ -220,10 +226,16 @@ class Post extends BaseModel
             'category' => $this->category,
             'categories' => $this->categories->map(fn ($item) => $item->transform()),
             'breadcrumbs' => $this->getBreadcrumbsAttribute(),
-            'image' => [
-                'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
-                'alt' => $this->image['alt'] ?? $this->title,
-            ]
+            'image' => $this->getImageDetail($this->image),
+            'image_content' => $this->getImageDetail($this->image_content),
+        ];
+    }
+
+    public function getImageDetail($image)
+    {
+        return [
+            'url' => isset($image['path']) ? static_url($image['path']) : null,
+            'alt' => $image['alt'] ?? $this->title,
         ];
     }
 
