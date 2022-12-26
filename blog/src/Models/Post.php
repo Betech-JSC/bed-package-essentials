@@ -259,7 +259,7 @@ class Post extends BaseModel
         $relatedPosts = $this->relatedPosts
             ->where('status', self::STATUS_ACTIVE);
 
-        if(empty($condition['has_category'])) {
+        if (!empty($condition['has_category'])) {
             $relatedPosts = $relatedPosts->where(function ($collection) {
                 return $collection->categories
                     ->where('status', self::STATUS_ACTIVE)
