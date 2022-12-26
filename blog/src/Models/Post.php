@@ -31,7 +31,6 @@ class Post extends BaseModel
         'position',
         'view_count',
         'image',
-        'image_content',
 
         'inject_head',
         'inject_body_start',
@@ -61,8 +60,7 @@ class Post extends BaseModel
     ];
 
     protected $casts = [
-        'image' => 'array',
-        'image_content' => 'array',
+        'image' => 'array'
     ];
 
     public function rules()
