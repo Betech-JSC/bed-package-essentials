@@ -31,6 +31,7 @@ class Post extends BaseModel
         'position',
         'view_count',
         'image',
+        'image_content',
 
         'inject_head',
         'inject_body_start',
@@ -61,6 +62,7 @@ class Post extends BaseModel
 
     protected $casts = [
         'image' => 'array',
+        'image_content' => 'array',
     ];
 
     public function rules()
@@ -231,7 +233,7 @@ class Post extends BaseModel
     public function getImageDetail($image)
     {
         return [
-            'url' => isset($image['path']) ? static_url($image['path']) : null,
+            'url' => isset($this->path) ? static_url($this->path) : null,
             'alt' => $image['alt'] ?? $this->title,
         ];
     }
@@ -252,49 +254,20 @@ class Post extends BaseModel
         return PostCategory::transformAsBreadcrumb($category);
     }
 
-    public function related($limit = 8)
+    public function related($limit = 8, $hasCategory = false)
     {
         $relatedPosts = $this->relatedPosts
-            ->where('status', self::STATUS_ACTIVE)->values()
-            ->take($limit);
+            ->where('status', self::STATUS_ACTIVE);
 
-        $relatedPostIds = [];
-
-        if ($relatedPosts->count() > 0) {
-            $relatedPostIds = $relatedPosts->pluck('id');
-        }
-
-        if (count($relatedPosts) < $limit) {
-            $addPosts = self::query()
-                ->active()
-                ->when($this->category['id'] ?? false, function ($query) {
-                    $query->whereHas('categories', function ($query) {
-                        $query->where('post_categories.id', $this->category['id']);
-                    });
-                })
-                ->where('id', '<>', $this->id)
-                ->whereNotIn('id', $relatedPostIds)
-                ->take($limit - count($relatedPosts))
-                ->get();
-
-            if (count($addPosts) > 0) {
-                $relatedPosts = $relatedPosts->concat($addPosts);
-            }
-        }
-
-        return $relatedPosts->map(fn ($item) => $item->transform());
-    }
-
-    public function relatedHasCategories($limit = 8)
-    {
-        $relatedPosts = $this->relatedPosts
-            ->where('status', self::STATUS_ACTIVE)
-            ->where(function ($collection) {
+        if($hasCategory) {
+            $relatedPosts = $relatedPosts->where(function ($collection) {
                 return $collection->categories
                     ->where('status', self::STATUS_ACTIVE)
                     ->count() > 0;
-            })->values()
-            ->take($limit);
+            });
+        }
+
+        $relatedPosts = $relatedPosts->values()->take($limit);
 
         $relatedPostIds = [];
 
