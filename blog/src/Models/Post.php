@@ -275,4 +275,42 @@ class Post extends BaseModel
 
         return $relatedPosts->map(fn ($item) => $item->transform());
     }
+
+    public function relatedHasCategories($limit = 8)
+    {
+        $relatedPosts = $this->relatedPosts
+            ->where('status', self::STATUS_ACTIVE)
+            ->where(function ($collection) {
+                return $collection->categories
+                    ->where('status', self::STATUS_ACTIVE)
+                    ->count() > 0;
+            })->values()
+            ->take($limit);
+
+        $relatedPostIds = [];
+
+        if ($relatedPosts->count() > 0) {
+            $relatedPostIds = $relatedPosts->pluck('id');
+        }
+
+        if (count($relatedPosts) < $limit) {
+            $addPosts = self::query()
+                ->active()
+                ->when($this->category['id'] ?? false, function ($query) {
+                    $query->whereHas('categories', function ($query) {
+                        $query->where('post_categories.id', $this->category['id']);
+                    });
+                })
+                ->where('id', '<>', $this->id)
+                ->whereNotIn('id', $relatedPostIds)
+                ->take($limit - count($relatedPosts))
+                ->get();
+
+            if (count($addPosts) > 0) {
+                $relatedPosts = $relatedPosts->concat($addPosts);
+            }
+        }
+
+        return $relatedPosts->map(fn ($item) => $item->transform());
+    }
 }

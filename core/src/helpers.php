@@ -138,6 +138,10 @@ if (!function_exists('current_locale')) {
             }
         }
 
+        if(request()->has('locale')) {
+            $lang = request()->input('locale');
+        }
+
         if (!in_array($lang, config('app.locales'))) {
             return config('app.locale');
         }
