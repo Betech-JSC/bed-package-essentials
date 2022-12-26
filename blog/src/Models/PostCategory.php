@@ -239,6 +239,7 @@ class PostCategory extends BaseModel
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
             'breadcrumbs' => self::transformAsBreadcrumb($this),
+            'image' => $this->getImageDetail(),
         ];
     }
 
