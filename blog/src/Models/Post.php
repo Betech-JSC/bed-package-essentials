@@ -31,7 +31,6 @@ class Post extends BaseModel
         'position',
         'view_count',
         'image',
-        'image_content',
 
         'inject_head',
         'inject_body_start',
@@ -62,7 +61,6 @@ class Post extends BaseModel
 
     protected $casts = [
         'image' => 'array',
-        'image_content' => 'array',
     ];
 
     public function rules()
@@ -227,7 +225,6 @@ class Post extends BaseModel
             'categories' => $this->categories->map(fn ($item) => $item->transform()),
             'breadcrumbs' => $this->getBreadcrumbsAttribute(),
             'image' => $this->getImageDetail($this->image),
-            'image_content' => $this->getImageDetail($this->image_content),
         ];
     }
 
