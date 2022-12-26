@@ -207,7 +207,7 @@ class Post extends BaseModel
             'published_at' => $this->published_at,
             'description' => $this->description,
             'category' => $this->category,
-            'image' => $this->getImageDetail($this->image),
+            'image' => $this->getImageDetail(),
         ];
     }
 
@@ -224,15 +224,15 @@ class Post extends BaseModel
             'category' => $this->category,
             'categories' => $this->categories->map(fn ($item) => $item->transform()),
             'breadcrumbs' => $this->getBreadcrumbsAttribute(),
-            'image' => $this->getImageDetail($this->image),
+            'image' => $this->getImageDetail(),
         ];
     }
 
-    public function getImageDetail($image)
+    public function getImageDetail()
     {
         return [
-            'url' => isset($this->path) ? static_url($this->path) : null,
-            'alt' => $image['alt'] ?? $this->title,
+            'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
+            'alt' => $this->image['alt'] ?? $this->title,
         ];
     }
 
