@@ -152,11 +152,8 @@ class File
                     ->response();
             }
 
-            return response()->make(
-                $filePath,
-                200,
-                ['Content-Type' => $mimeType]
-            );
+            return response()->make($filePath, 200)
+                ->header('Content-Type', $mimeType);
         } catch (\Exception $exception) {
             logger()->error($exception->getMessage());
 
