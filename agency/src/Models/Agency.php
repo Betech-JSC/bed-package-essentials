@@ -39,7 +39,6 @@ class Agency extends BaseModel
         'title',
         'location',
         'description',
-        'open_time',
         'phones',
         'info'
     ];
@@ -114,7 +113,6 @@ class Agency extends BaseModel
             'latitude' => $this->latitude,
             'link_google_map' => $this->link_google_map,
             'description' => $this->description,
-            'open_time' => $this->open_time,
             'info' => $this->info,
             'region' => $this->region,
             'image' => [
