@@ -252,12 +252,14 @@ class Post extends BaseModel
         return PostCategory::transformAsBreadcrumb($category);
     }
 
-    public function related($limit = 8, $hasCategory = false)
+    public function related($condition = [])
     {
+        $limit = empty($condition['limit']) ? 8 : $condition['limit'];
+
         $relatedPosts = $this->relatedPosts
             ->where('status', self::STATUS_ACTIVE);
 
-        if($hasCategory) {
+        if(empty($condition['has_category'])) {
             $relatedPosts = $relatedPosts->where(function ($collection) {
                 return $collection->categories
                     ->where('status', self::STATUS_ACTIVE)
