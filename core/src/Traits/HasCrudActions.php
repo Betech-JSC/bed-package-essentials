@@ -136,8 +136,7 @@ trait HasCrudActions
             //   'name' => trans('models.actions.create') . ' ' . trans('models.table_list.' . $this->getTable()),
             // ];
         } else {
-            $item = $emptyFields;
-            $item = $this->afterForm($item);
+            $item = $this->afterForm($emptyFields);
             // $breadcrumbs[] = [
             //   'url' => url()->current(),
             //   'name' => trans('models.actions.create') . ' ' . trans('models.table_list.' . $this->getTable()),
