@@ -193,7 +193,7 @@ class Generator
      *                          These will override the automatically generated rules
      * @return array  An associative array of columns and delimited string of rules
      */
-    public function getTableRules($table, $rules = null)
+    public function getTableRules($table, $rules = [])
     {
         $tableRules = $this->getTableRuleArray($table);
 
