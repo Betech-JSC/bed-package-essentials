@@ -28,7 +28,9 @@ class PostCategory extends BaseModel
         'parent_id',
         'status',
         'position',
-        'view_count'
+        'view_count',
+        'image',
+        'icon'
     ];
 
     public $translatedAttributes = [
@@ -213,6 +215,8 @@ class PostCategory extends BaseModel
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
+            'image' => $this->getImageDetail(),
+            'icon' => $this->icon
         ];
 
         if(isset($conditions['post_count']) && $conditions['post_count'] > 0) {
@@ -235,11 +239,28 @@ class PostCategory extends BaseModel
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
             'breadcrumbs' => self::transformAsBreadcrumb($this),
+            'image' => $this->getImageDetail(),
         ];
     }
 
     public function transformSeo()
     {
         return transform_seo($this);
+    }
+
+    public function getImageDetail()
+    {
+        return [
+            'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
+            'alt' => $this->image['alt'] ?? $this->title,
+        ];
+    }
+
+    public function scopeWithPosts($query, $limit)
+    {
+        return $query->with('posts')
+            ->whereHas('posts', function ($query) use ($limit) {
+                $query->active()->limit($limit);
+            });
     }
 }
