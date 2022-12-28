@@ -44,7 +44,6 @@ export default {
     data() {
         return {
             initConfig: {
-                selector: "textarea#open-source-plugins",
                 plugins:
                     "template importcss searchreplace autolink autosave save image link media table lists wordcount charmap quickbars code fullscreen codesample code",
                 quickbars_insert_toolbar: "filemanager quicktable",
