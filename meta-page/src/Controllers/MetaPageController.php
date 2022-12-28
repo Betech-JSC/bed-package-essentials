@@ -48,7 +48,7 @@ class MetaPageController extends Controller
 
     public function beforeIndex($query)
     {
-        if(config('meta-page.can_created')) {
+        if (config('meta-page.can_created')) {
             $storedRoutes = MetaPage::pluck('url');
             $routes = collect(Sitemap::create()->addStaticRoutes()->tags)
                 ->transform(
