@@ -47,6 +47,7 @@ class Slider extends BaseModel
         'target',
         'image_mobile',
         'image',
+        'custom_fields'
     ];
 
     public function rules()
@@ -91,15 +92,24 @@ class Slider extends BaseModel
             'description' => $this->description,
             'link' => $this->link,
             'target' => $this->target,
-            'image' => [
-                'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
-                'alt' => $this->image['alt'] ?? $this->title,
-            ],
-            'image_mobile' => [
-                'url' => isset($this->image_mobile['path']) ? static_url($this->image_mobile['path']) : null,
-                'alt' => $this->image_mobile['alt'] ?? $this->title,
-            ]
+            'custom_fields' => $this->custom_fields,
+            'image' => $this->imageDetail($this->image),
+            'image_mobile' => $this->imageDetail($this->image_mobile),
         ];
+    }
+
+    public function imageDetail($image)
+    {
+        return [
+            'url' => isset($image['path']) ? static_url($image['path']) : null,
+            'alt' => $image['alt'] ?? $this->title,
+        ];
+    }
+
+    public function scopeSortByPosition($query)
+    {
+        return $query->orderByRaw('ISNULL(position_sort) OR position_sort = 0, position_sort ASC')
+            ->orderBy('id', 'desc');
     }
 
     public static function getByPosition($positionDisplay)
