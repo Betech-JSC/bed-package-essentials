@@ -137,7 +137,7 @@
 </template>
 
 <script>
-import { FilterMatchMode } from "primevue/api";
+import { FilterMatchMode, FilterOperator } from "primevue/api";
 export default {
     props: {
         schema: {
@@ -206,8 +206,7 @@ export default {
                 .filter((x) => x.display)
                 .filter(
                     (x) =>
-                        (x.type !== "text" ||
-                            (x.type === "text" && x.transform)) &&
+                        x.type !== "text" &&
                         x.field !== "slug" &&
                         x.field !== "locale" &&
                         !x.field.includes("seo_")

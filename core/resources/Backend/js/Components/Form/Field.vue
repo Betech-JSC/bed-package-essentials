@@ -104,7 +104,7 @@ export default {
         fetchSource() {
             const locale = this.getCurrentLocale();
             this.$axios
-                .post(this.route("admin.helper.model-data", { use_locale: locale }), this.field.source)
+                .post(this.route("admin.helper.model-data", { locale }), this.field.source)
                 .then((res) => {
                     this.fieldConfig.options = this.transformOptions(res.data);
                     this.fieldConfig.loading = false;
