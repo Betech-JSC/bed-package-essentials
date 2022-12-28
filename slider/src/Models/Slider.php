@@ -47,7 +47,7 @@ class Slider extends BaseModel
         'target',
         'image_mobile',
         'image',
-        'customize'
+        'custom_fields'
     ];
 
     public function rules()
@@ -92,7 +92,7 @@ class Slider extends BaseModel
             'description' => $this->description,
             'link' => $this->link,
             'target' => $this->target,
-            'customize' => $this->customize,
+            'custom_fields' => $this->custom_fields,
             'image' => $this->imageDetail($this->image),
             'image_mobile' => $this->imageDetail($this->image_mobile),
         ];
