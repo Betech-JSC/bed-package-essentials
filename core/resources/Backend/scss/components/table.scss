@@ -45,5 +45,5 @@
 }
 
 .p-datatable .p-datatable-loading-overlay {
-    @apply !hidden;
+    display: none !important;
 }
