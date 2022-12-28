@@ -4,7 +4,7 @@
             :schema="schema"
             :config="{
                 resource: 'settings.meta-pages',
-                hideHeader: true,
+                hideHeader: !can_created,
             }"
             :columns="['url', 'seo_meta_title', 'seo_meta_description']"
         />
@@ -15,6 +15,6 @@
 import WrapSetting from "@Core/Components/WrapSetting.vue";
 export default {
     components: { WrapSetting },
-    props: ["schema"],
+    props: ["schema", "can_created"],
 };
 </script>

@@ -2,6 +2,14 @@
     <div class="card">
         <div class="card-body">
             <Field
+                v-if="modelValue.can_created"
+                v-model="modelValue.url"
+                :field="{
+                    name: 'url',
+                    label: 'URL',
+                }"
+            />
+            <Field
                 v-model="modelValue.seo_meta_title"
                 :field="{
                     name: 'seo_meta_title',
@@ -96,7 +104,6 @@
 </template>
 
 <script>
-import cloneDeep from "lodash/cloneDeep";
 
 export default {
     props: {

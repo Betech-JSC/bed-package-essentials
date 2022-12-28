@@ -4,7 +4,7 @@
             v-model="formData"
             :config="{
                 resource: 'settings.meta-pages',
-                canDestroy: false,
+                canDestroy: item.can_created,
                 addGrid: false,
             }"
         >
