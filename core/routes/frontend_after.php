@@ -18,6 +18,4 @@ if (!app()->environment('production')) {
     })->name('routes');
 }
 
-Route::localized(function () {
-    Route::get('/{path}', fn () => abort(404))->where('path', '^(?!admin).*$');
-});
+Route::get('/{path}', fn () => abort(404))->where('path', '^(?!admin).*$');
