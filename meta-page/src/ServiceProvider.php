@@ -37,7 +37,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->publishMigrations();
 
         $this->publishes([
-            __DIR__ . '/../config/meta-page.php' => config_path('meta-page.php')
+            __DIR__.'/../config/meta-page.php' => config_path('meta-page.php')
         ], 'config');
     }
 
@@ -51,7 +51,7 @@ class ServiceProvider extends BaseServiceProvider
             $migration = database_path("migrations/{$timestamp}_create_meta_pages_table.php");
 
             $this->publishes([
-                __DIR__ . '/../database/migrations/create_meta_pages_table.php.stub' => $migration,
+                __DIR__.'/../database/migrations/create_meta_pages_table.php.stub' => $migration,
             ], 'migrations');
         }
     }
