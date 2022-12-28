@@ -77,7 +77,7 @@
             </div>
         </template>
         <template #empty> Không tìm thấy dữ liệu. </template>
-        <template #loading>Đang tải dữ liệu...</template>
+        <!-- <template #loading>Đang tải dữ liệu...</template> -->
 
         <Column
             selectionMode="multiple"
