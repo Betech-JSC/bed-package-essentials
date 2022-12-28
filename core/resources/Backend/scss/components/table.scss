@@ -44,8 +44,6 @@
     }
 }
 
-.p-datatable {
-    .p-component-overlay {
-        @apply hidden;
-    }
+.p-datatable .p-datatable-loading-overlay {
+    @apply !hidden;
 }
