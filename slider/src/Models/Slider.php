@@ -106,6 +106,12 @@ class Slider extends BaseModel
         ];
     }
 
+    public function scopeSortByPosition($query)
+    {
+        return $query->orderByRaw('ISNULL(position_sort) OR position_sort = 0, position_sort ASC')
+            ->orderBy('id', 'desc');
+    }
+
     public static function getByPosition($positionDisplay)
     {
         $query = self::query()
