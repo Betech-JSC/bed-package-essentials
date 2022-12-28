@@ -46,7 +46,7 @@ export default {
             initConfig: {
                 selector: "textarea#open-source-plugins",
                 plugins:
-                    "template importcss searchreplace autolink autosave save image link media table lists wordcount charmap quickbars code fullscreen",
+                    "template importcss searchreplace autolink autosave save image link media table lists wordcount charmap quickbars code fullscreen codesample code",
                 quickbars_insert_toolbar: "filemanager quicktable",
                 menubar: "file edit view insert format tools table",
                 toolbar:
@@ -109,6 +109,18 @@ export default {
                     //         }),
                     // });
                 },
+                codesample_languages: [
+                    { text: "HTML/XML", value: "markup" },
+                    { text: "JavaScript", value: "javascript" },
+                    { text: "CSS", value: "css" },
+                    { text: "PHP", value: "php" },
+                    { text: "Ruby", value: "ruby" },
+                    { text: "Python", value: "python" },
+                    { text: "Java", value: "java" },
+                    { text: "C", value: "c" },
+                    { text: "C#", value: "csharp" },
+                    { text: "C++", value: "cpp" },
+                ],
             },
         };
     },
