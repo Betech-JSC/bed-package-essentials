@@ -18,6 +18,8 @@ class CreatePostCategoriesTable extends Migration
             $table->id();
             $table->bigInteger('parent_id')->nullable()->default(0);
 
+            $table->json('image')->nullable();
+            $table->text('icon')->nullable();
             $table->integer('position')->nullable();
             $table->string('status', 30)->default(PostCategory::STATUS_ACTIVE);
 
