@@ -43,3 +43,9 @@
         }
     }
 }
+
+.p-datatable {
+    .p-component-overlay {
+        @apply hidden;
+    }
+}
