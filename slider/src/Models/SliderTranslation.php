@@ -18,11 +18,13 @@ class SliderTranslation extends BaseModel
         'target',
         'image',
         'image_mobile',
+        'customize'
     ];
 
     public $casts = [
         'image_mobile' => 'array',
         'image' => 'array',
+        'customize' => 'array'
     ];
 
     public function slider()

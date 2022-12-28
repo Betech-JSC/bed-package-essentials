@@ -47,6 +47,7 @@ class Slider extends BaseModel
         'target',
         'image_mobile',
         'image',
+        'customize'
     ];
 
     public function rules()
@@ -91,14 +92,17 @@ class Slider extends BaseModel
             'description' => $this->description,
             'link' => $this->link,
             'target' => $this->target,
-            'image' => [
-                'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
-                'alt' => $this->image['alt'] ?? $this->title,
-            ],
-            'image_mobile' => [
-                'url' => isset($this->image_mobile['path']) ? static_url($this->image_mobile['path']) : null,
-                'alt' => $this->image_mobile['alt'] ?? $this->title,
-            ]
+            'customize' => $this->customize,
+            'image' => $this->imageDetail($this->image),
+            'image_mobile' => $this->imageDetail($this->image_mobile),
+        ];
+    }
+
+    public function imageDetail($image)
+    {
+        return [
+            'url' => isset($image['path']) ? static_url($image['path']) : null,
+            'alt' => $image['alt'] ?? $this->title,
         ];
     }
 

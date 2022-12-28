@@ -102,4 +102,10 @@ class Policy extends BaseModel
     {
         return transform_seo($this);
     }
+
+    public function scopeSortByPosition($query)
+    {
+        return $query->orderByRaw('ISNULL(position) OR position = 0, position ASC')
+            ->orderBy('id', 'desc');
+    }
 }
