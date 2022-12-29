@@ -14,6 +14,7 @@
                     @update:modelValue="form = $event"
                     :config="{
                         hiddenFields: ['seo_slug'],
+                        metaPage: true
                     }"
                 />
             </template>

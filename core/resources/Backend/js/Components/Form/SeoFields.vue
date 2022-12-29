@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <Field
-                v-if="modelValue.can_created"
+                v-if="config.metaPage"
                 v-model="modelValue.url"
                 :field="{
                     name: 'url',
@@ -113,7 +113,7 @@ export default {
         },
         config: {
             type: Object,
-            default: () => ({ hiddenFields: [] }),
+            default: () => ({ hiddenFields: [], metaPage: false }),
         },
     },
     emits: ["update:modelValue"],
