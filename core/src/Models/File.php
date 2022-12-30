@@ -199,8 +199,8 @@ class File
 
             $filePath = Str::slug(urldecode(pathinfo($url)['filename'])) . '.' . $extension;
 
-            if($this->path != '/') {
-                $filePath = $this->path . '/' .$filePath;
+            if ($this->path != '/') {
+                $filePath = $this->path . '/' . $filePath;
             }
 
             $this->storage->put($filePath, $file);
