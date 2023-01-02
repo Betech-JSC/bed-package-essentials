@@ -73,9 +73,6 @@ export default {
         },
     },
     computed: {
-        admin() {
-            return this.bouncer(this.$page.props.admin);
-        },
         showActions() {
             return this.config?.showActions ?? true;
         },

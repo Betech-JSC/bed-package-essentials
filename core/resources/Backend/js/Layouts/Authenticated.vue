@@ -40,9 +40,9 @@
 </template>
 
 <script>
+import Breadcrumbs from "@Core/Components/Breadcrumbs.vue";
 import SidebarDesktop from "@Core/Components/Sidebar/SidebarDesktop.vue";
 import SidebarMobile from "@Core/Components/Sidebar/SidebarMobile.vue";
-import Breadcrumbs from "@Core/Components/Breadcrumbs.vue";
 
 export default {
     props: ["admin"],
@@ -55,12 +55,6 @@ export default {
         return {
             visibleLeft: true,
         };
-    },
-
-    computed: {
-        adminAbilities() {
-            return this.bouncer(this.$page.props.admin);
-        },
     },
 
     methods: {

@@ -171,9 +171,6 @@ export default {
         };
     },
     computed: {
-        admin() {
-            return this.bouncer(this.$page.props.admin);
-        },
         currentResource() {
             return this.config.resource ?? this.getResource();
         },
@@ -218,7 +215,7 @@ export default {
         canCreate() {
             return (
                 this.config.canCreate ??
-                this.admin.can("create", this.currentResource)
+                this.can("create", this.currentResource)
             );
         },
         canExport() {
@@ -227,7 +224,7 @@ export default {
                     this.currentResource + ".export"
                 ) &&
                 (this.config.canExport ??
-                    this.admin.can("export", this.currentResource))
+                    this.can("export", this.currentResource))
             );
         },
     },

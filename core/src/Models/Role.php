@@ -3,14 +3,12 @@
 namespace JamstackVietnam\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Silber\Bouncer\Database\Concerns\IsRole;
+use Spatie\Permission\Models\Role as SpatieRole;
 
-class Role extends Model
+class Role extends SpatieRole
 {
-    use IsRole;
     use HasFactory;
 
     public $fillable = [
