@@ -213,7 +213,7 @@ export default {
         canCreate() {
             return (
                 this.config.canCreate ??
-                this.can("admin." + this.currentResource + ".create")
+                this.can("admin." + this.currentResource + ".form")
             );
         },
         canExport() {
