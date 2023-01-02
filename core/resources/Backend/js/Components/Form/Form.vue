@@ -61,7 +61,7 @@ export default {
     emits: ["update:modelValue"],
     data() {
         return {
-            form: this.$inertia.form(this.modelValue)
+            form: this.$inertia.form(this.modelValue),
         };
     },
     watch: {
@@ -81,14 +81,11 @@ export default {
         },
         canDestroyResource() {
             const canDestroy = this.config.canDestroy ?? true;
-            return (
-                canDestroy && this.admin.can("destroy", this.currentResource)
-            );
+            return canDestroy && this.can("destroy", this.currentResource);
         },
         canStore() {
             return (
-                this.config.canStore ??
-                this.admin.can("store", this.currentResource)
+                this.config.canStore ?? this.can("store", this.currentResource)
             );
         },
         hasFlash() {
@@ -129,12 +126,13 @@ export default {
                 this.route(`admin.${this.currentResource}.store`, {
                     id: this.form?.id,
                 }),
-                this.form, {
+                this.form,
+                {
                     onSuccess: () => {
                         this.form = this.$inertia.form(this.modelValue);
                     },
                 }
-            )
+            );
         },
 
         destroy() {
