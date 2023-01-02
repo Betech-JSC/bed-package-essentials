@@ -3,7 +3,6 @@
 namespace JamstackVietnam\Core\Models;
 
 use Laravel\Sanctum\HasApiTokens;
-use Silber\Bouncer\BouncerFacade;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -70,8 +69,9 @@ class Admin extends Authenticatable
 
         static::saved(function ($model) {
             if (request()->route()?->getName() !== 'admin.admins.store') return;
-            $role = request()->input('role');
-            BouncerFacade::sync($model)->roles([$role]);
+
+            $role = Role::find(request()->input('role_id'));
+            $model->syncRoles([$role]);
         });
     }
 

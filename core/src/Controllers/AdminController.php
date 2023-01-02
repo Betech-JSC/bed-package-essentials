@@ -29,7 +29,7 @@ class AdminController extends Controller
     {
         if (!$request->input('id')) {
             $request->validate([
-                'role' => 'required',
+                'role_id' => 'required',
                 'password' => 'required|min:8|max:255|confirmed',
             ]);
         }
