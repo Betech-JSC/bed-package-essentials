@@ -38,6 +38,7 @@
         "spiritix/lada-cache": "*",
         "stechstudio/laravel-ssh-tunnel": "*",
         "appstract/laravel-opcache": "*",
-        "codezero/laravel-localized-routes": "*"
+        "codezero/laravel-localized-routes": "*",
+        "intervention/imagecache": "*"
     }
 }

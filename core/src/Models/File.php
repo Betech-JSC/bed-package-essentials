@@ -120,37 +120,20 @@ class File
             $filePath = $this->storage->get($this->path);
             $mimeType = $this->storage->mimeType($this->path);
 
-            // if (str_contains($mimeType, 'image/') && $mimeType !== 'image/heic') {
-            //     if (isset($options['cache'])) {
-            //         $image = Image::cache(function ($image) use ($filePath, $options) {
-            //             $image->make($filePath);
-            //             if ($width = $options['w']) {
-            //                 $image->resize($width, null, function ($constraint) {
-            //                     $constraint->aspectRatio();
-            //                 });
-            //             }
-            //         });
-            //         return response()->make(
-            //             $image,
-            //             200,
-            //             ['Content-Type' => $mimeType]
-            //         );
-            //     }
+            if (str_contains($mimeType, 'image/') && $mimeType !== 'image/heic') {
+                $image = Image::cache(function ($image) use ($filePath, $options) {
+                    $image->make($filePath);
+                    if ($width = $options['w'] ?? false) {
+                        $image->resize($width, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        });
+                    }
+                }, 1440, true);
 
-            //     $image = Image::make($filePath);
+                $format = $options['fm'] ?? 'webp';
 
-            //     $format = $options['fm'] ?? 'webp';
-
-            //     if (isset($options['w'])) {
-            //         $image->resize($options['w'], null, function ($constraint) {
-            //             $constraint->aspectRatio();
-            //         });
-            //     }
-
-            //     return $image
-            //         ->encode($format)
-            //         ->response();
-            // }
+                return $image->encode($format)->response();
+            }
 
             return response()->make($filePath, 200)
                 ->header('Content-Type', $mimeType);
