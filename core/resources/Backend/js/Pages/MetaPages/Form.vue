@@ -13,6 +13,7 @@
                     <div class="card-body">
                         <Field
                             v-model="form.url"
+                            :disabled="!item.can_created"
                             :field="{
                                 name: 'url',
                                 label: 'URL',
