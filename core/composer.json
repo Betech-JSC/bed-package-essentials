@@ -12,7 +12,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "JamstackVietnam\\Core\\": "src/"
+            "JamstackVietnam\\Core\\": "src/",
+            "JamstackVietnam\\Core\\Database\\Seeders\\": "database/seeders/"
         },
         "files": [
             "src/helpers.php"

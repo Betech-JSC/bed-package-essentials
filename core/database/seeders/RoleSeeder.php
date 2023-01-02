@@ -33,11 +33,12 @@ class RoleSeeder extends Seeder
             ['email' => 'admin@gmail.com'],
             [
                 'status' => 1,
-                'name' => 'admin',
+                'name' => 'Admin',
                 'password' => Hash::make('admin@gmail.com')
             ]
         );
     }
+
 
     public static function createPermissions()
     {
