@@ -58,7 +58,7 @@ class AdminController extends Controller
         return $query;
     }
 
-    public function updateInformation(Request $request)
+    public function changePassword(Request $request)
     {
         $request->validate([
             'password' => 'nullable|min:8|max:255|confirmed',

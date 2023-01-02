@@ -108,7 +108,7 @@ export default {
     methods: {
         submitAdminForm() {
             this.$axios
-                .put(this.route(`admin.admins.updateInformation`), this.adminForm)
+                .put(this.route(`admin.admins.changePassword`), this.adminForm)
                 .then((res) => {
                     this.adminForm.reset();
                     this.showAdminForm = false;
