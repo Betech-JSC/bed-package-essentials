@@ -444,8 +444,8 @@ trait HasCrudActions
         $locale = config('app.locale');
         $routeName = str_replace($locale . '.', '', request()->route()->getName());
 
-        // if (!BouncerFacade::can($routeName)) {
-        //     abort(403);
-        // }
+        if (!current_admin()->hasPermissionTo($routeName)) {
+            return abort(403);
+        }
     }
 }
