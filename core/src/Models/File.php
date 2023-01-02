@@ -180,10 +180,15 @@ class File
                 return false;
             }
 
-            $filename = Str::slug(urldecode(pathinfo($url)['filename'])) . '.' . $extension;
+            $filePath = Str::slug(urldecode(pathinfo($url)['filename'])) . '.' . $extension;
 
-            $this->storage->put($filename, $file);
-            return parse_url($this->storage->url($filename))['path'];
+            if ($this->path != '/') {
+                $filePath = $this->path . '/' . $filePath;
+            }
+
+            $this->storage->put($filePath, $file);
+
+            return $filePath;
         } catch (\Throwable $th) {
             logger()->error('Can not store image: ' . $url);
             logger()->error($th->getMessage());

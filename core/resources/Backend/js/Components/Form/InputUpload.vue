@@ -14,8 +14,8 @@
                     class="flex items-center justify-center overflow-hidden transition-colors duration-200 bg-gray-100 border border-gray-100 rounded select-none aspect-[1/1]"
                 >
                     <img
-                        v-if="isImage(file.static_url)"
-                        :src="`${file.static_url}?w=200`"
+                        v-if="isImage(file.path)"
+                        :src="`${staticUrl(file.path)}?w=200`"
                         class="object-contain w-full"
                     />
                     <div v-else class="flex items-center p-4 text-xs break-all">
@@ -74,8 +74,8 @@
                     </div>
                 </div>
                 <img
-                    v-if="isImage(files[0].static_url)"
-                    :src="`${files[0].static_url}?w=200`"
+                    v-if="isImage(files[0].path)"
+                    :src="`${staticUrl(files[0].path)}?w=200`"
                     class="object-contain w-full"
                 />
                 <div v-else class="flex items-center p-4 text-xs break-all">
