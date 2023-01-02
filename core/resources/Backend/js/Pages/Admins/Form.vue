@@ -32,41 +32,40 @@
 
                 <Field
                     class="w-full"
-                    v-model="form.role"
+                    v-model="form.role_id"
                     :field="{
                         name: 'role',
                         type: 'radio_list',
                         label: 'Vai trò',
-                        labelBy: 'roles',
-                        keyBy: 'name',
-                        labelBy: 'title',
+                        keyBy: 'id',
+                        labelBy: 'name',
                         source: {
                             model: 'Role',
                             method: 'getRoles',
-                            only: ['name', 'title'],
+                            only: ['name', 'id'],
                         },
                     }"
                 />
             </div>
         </div>
         <div class="card">
-            <div class="card-header">Đổi mật khẩu</div>
+            <div class="card-header">Đặt mật khẩu</div>
             <div class="card-body">
                 <div class="field-row">
                     <Field
-                        v-model="form.new_password"
+                        v-model="form.password"
                         :field="{
                             type: 'password',
-                            name: 'new_password',
-                            label: 'Mật khẩu mới',
+                            name: 'password',
+                            label: 'Mật khẩu',
                         }"
                     />
                     <Field
-                        v-model="form.new_password_confirmation"
+                        v-model="form.password_confirmation"
                         :field="{
                             type: 'password',
-                            name: 'new_password_confirmation',
-                            label: 'Xác nhận mật khẩu mới',
+                            name: 'password_confirmation',
+                            label: 'Xác nhận mật khẩu',
                         }"
                     />
                 </div>

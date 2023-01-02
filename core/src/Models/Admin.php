@@ -36,7 +36,7 @@ class Admin extends Authenticatable
     ];
 
     protected $appends = [
-        'verified', 'role_names'
+        'verified', 'role_names', 'role_id'
     ];
 
     protected $hidden = [
@@ -78,6 +78,11 @@ class Admin extends Authenticatable
     public function getRoleNamesAttribute()
     {
         return $this->getRoleNames();
+    }
+
+    public function getRoleIdAttribute()
+    {
+        return $this->roles->first()?->id;
     }
 
     public function getVerifiedAttribute()
