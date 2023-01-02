@@ -33,7 +33,6 @@
         "nicolaslopezj/searchable": "*",
         "qcod/laravel-settings": "*",
         "rap2hpoutre/fast-excel": "*",
-        "silber/bouncer": "*",
         "spatie/laravel-permission": "*",
         "spiritix/lada-cache": "*",
         "stechstudio/laravel-ssh-tunnel": "*",

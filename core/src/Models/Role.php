@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Silber\Bouncer\BouncerFacade;
+use Silber\Bouncer\Database\Concerns\IsRole;
 
 class Role extends Model
 {
+    use IsRole;
     use HasFactory;
 
     public $fillable = [
@@ -50,7 +51,7 @@ class Role extends Model
                 $tables = explode('.', $fullAction)[1];
                 $action = str_replace("admin.", "", $fullAction);
 
-                $actions[$tables][$fullAction] = BouncerFacade::can($fullAction);
+                $actions[$tables][$fullAction] = current_admin()->can($fullAction);
             }
         }
         return $actions;

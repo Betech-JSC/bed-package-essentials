@@ -21,6 +21,31 @@ class RoleController extends Controller
 
     private function afterForm($item)
     {
+        $actions = [];
+        $locale = config('app.locale');
+        $abilities = $item->getAbilities();
+        dd($abilities);
+
+        foreach (Route::getRoutes()->getRoutes() as $route) {
+            $action = $route->getAction();
+            $name = $route->getName();
+
+            if (
+                $name && isset($action['controller']) &&
+                (Str::startsWith($name, 'admin.') ||
+                    Str::startsWith($name, "$locale.admin.")) &&
+                !Str::startsWith($name, 'admin.helper') &&
+                !str_contains($action['controller'], 'Controllers\Auth')
+            ) {
+                $fullAction = str_replace("$locale.admin.", "admin.", $name);
+
+                $tables = explode('.', $fullAction)[1];
+                $action = str_replace("admin.", "", $fullAction);
+
+                $actions[$tables][$fullAction] = $abilities->can($fullAction);
+            }
+        }
+
         return [
             ...$item->toArray(),
             'permissions' => Role::getActions()
