@@ -201,7 +201,7 @@ export default {
     },
     methods: {
         validateAsync(name) {
-            if (this.$parent.$parent.validateAsync) {
+            if (name && this.$parent.$parent.validateAsync) {
                 if (name.includes("password")) {
                     return this.$parent.$parent.validateAsync(
                         "password",
