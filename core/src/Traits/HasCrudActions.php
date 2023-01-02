@@ -5,7 +5,6 @@ namespace JamstackVietnam\Core\Traits;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Silber\Bouncer\BouncerFacade;
 use Illuminate\Support\Facades\DB;
 use JamstackVietnam\QueryBuilder\EloquentBuilderTrait;
 use JamstackVietnam\RuleGenerator\Facades\RuleGenerator;
