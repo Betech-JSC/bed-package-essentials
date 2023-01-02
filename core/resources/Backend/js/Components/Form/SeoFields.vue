@@ -2,14 +2,6 @@
     <div class="card">
         <div class="card-body">
             <Field
-                v-if="config.metaPage"
-                v-model="modelValue.url"
-                :field="{
-                    name: 'url',
-                    label: 'URL',
-                }"
-            />
-            <Field
                 v-model="modelValue.seo_meta_title"
                 :field="{
                     name: 'seo_meta_title',
@@ -113,7 +105,7 @@ export default {
         },
         config: {
             type: Object,
-            default: () => ({ hiddenFields: [], metaPage: false }),
+            default: () => ({ hiddenFields: [] }),
         },
     },
     emits: ["update:modelValue"],

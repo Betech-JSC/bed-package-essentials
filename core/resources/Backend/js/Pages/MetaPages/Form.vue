@@ -9,6 +9,17 @@
             }"
         >
             <template #default="{ form }">
+                <div class="pt-6 card">
+                    <div class="card-body">
+                        <Field
+                            v-model="form.url"
+                            :field="{
+                                name: 'url',
+                                label: 'URL',
+                            }"
+                        />
+                    </div>
+                </div>
                 <SeoFields
                     :modelValue="form"
                     @update:modelValue="form = $event"
