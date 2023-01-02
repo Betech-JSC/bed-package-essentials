@@ -78,7 +78,9 @@
                 @blur="validateAsync(field.name)"
                 v-model:disabled="disabled"
             />
-            <label :for="fieldId" class="label">{{ field.label }}</label>
+            <label v-if="field.label" :for="fieldId" class="label">{{
+                field.label
+            }}</label>
         </div>
     </template>
     <template v-else-if="field.type === 'select_button'">
@@ -157,16 +159,16 @@
 
 <script>
 import CustomDropdown from "@Core/Components/Form/Custom/CustomDropdown.vue";
-import CustomSelectDate from "@Core/Components/Form/Custom/CustomSelectDate.vue";
+import CustomEditor from "@Core/Components/Form/Custom/CustomEditor.vue";
 import CustomMultipleSelect from "@Core/Components/Form/Custom/CustomMultipleSelect.vue";
 import CustomRadioList from "@Core/Components/Form/Custom/CustomRadioList.vue";
 import CustomSelectButton from "@Core/Components/Form/Custom/CustomSelectButton.vue";
-import CustomTreeSelect from "@Core/Components/Form/Custom/CustomTreeSelect.vue";
-import CustomEditor from "@Core/Components/Form/Custom/CustomEditor.vue";
+import CustomSelectDate from "@Core/Components/Form/Custom/CustomSelectDate.vue";
 import CustomTags from "@Core/Components/Form/Custom/CustomTags.vue";
+import CustomTreeSelect from "@Core/Components/Form/Custom/CustomTreeSelect.vue";
 
-import TreeViewItem from "@Core/Components/TreeViewItem.vue";
 import InputUpload from "@Core/Components/Form/InputUpload.vue";
+import TreeViewItem from "@Core/Components/TreeViewItem.vue";
 
 export default {
     props: ["field", "modelValue", "disabled"],
