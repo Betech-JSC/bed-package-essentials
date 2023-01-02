@@ -6,7 +6,7 @@
                 :name="option[labelBy]"
                 :value="option[keyBy]"
                 v-model="radioValue"
-                :model-value="modelValue"
+                :model-value="modelValue?.toString()"
                 :disabled="disabled"
             />
             <label :for="`${fieldId}_${index}`" class="cursor-pointer">
