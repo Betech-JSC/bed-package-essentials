@@ -81,11 +81,15 @@ export default {
         },
         canDestroyResource() {
             const canDestroy = this.config.canDestroy ?? true;
-            return canDestroy && this.can("destroy", this.currentResource);
+            return (
+                canDestroy &&
+                this.can("admin." + this.currentResource + ".destroy")
+            );
         },
         canStore() {
             return (
-                this.config.canStore ?? this.can("store", this.currentResource)
+                this.config.canStore ??
+                this.can("admin." + this.currentResource + ".store")
             );
         },
         hasFlash() {
