@@ -96,7 +96,6 @@
 </template>
 
 <script>
-import cloneDeep from "lodash/cloneDeep";
 
 export default {
     props: {

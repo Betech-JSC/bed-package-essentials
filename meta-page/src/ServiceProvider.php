@@ -35,6 +35,10 @@ class ServiceProvider extends BaseServiceProvider
         $this->router = $router;
 
         $this->publishMigrations();
+
+        $this->publishes([
+            __DIR__.'/../config/meta-page.php' => config_path('meta-page.php')
+        ], 'config');
     }
 
     /**
