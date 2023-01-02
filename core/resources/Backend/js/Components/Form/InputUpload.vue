@@ -15,7 +15,7 @@
                 >
                     <img
                         v-if="isImage(file.path)"
-                        :src="`${staticUrl(file.path)}?w=200`"
+                        :src="`${staticUrl(file.path)}?w=500`"
                         class="object-contain w-full"
                     />
                     <div v-else class="flex items-center p-4 text-xs break-all">
@@ -75,7 +75,7 @@
                 </div>
                 <img
                     v-if="isImage(files[0].path)"
-                    :src="`${staticUrl(files[0].path)}?w=200`"
+                    :src="`${staticUrl(files[0].path)}?w=500`"
                     class="object-contain w-full"
                 />
                 <div v-else class="flex items-center p-4 text-xs break-all">
