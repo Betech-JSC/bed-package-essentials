@@ -17,7 +17,7 @@ trait HasCrudActions
 
     public function index()
     {
-        $this->checkAuthorize(__FUNCTION__);
+        $this->checkAuthorize();
 
         if (request()->wantsJson()) {
             return $this->table();
@@ -104,7 +104,7 @@ trait HasCrudActions
 
     public function form($id = null)
     {
-        $this->checkAuthorize($id ? 'edit' : 'create');
+        $this->checkAuthorize();
 
         $item = $this->model();
 
@@ -157,7 +157,7 @@ trait HasCrudActions
     public function store(Request $request, $id = null)
     {
         $request['locale'] = current_locale();
-        $this->checkAuthorize($id ? 'update' : 'store');
+        $this->checkAuthorize();
 
         $rules = $this->getModelRules(__FUNCTION__, $id);
 
@@ -210,7 +210,7 @@ trait HasCrudActions
 
     public function destroy($id)
     {
-        $this->checkAuthorize(__FUNCTION__);
+        $this->checkAuthorize();
 
         try {
             DB::beginTransaction();
@@ -231,7 +231,7 @@ trait HasCrudActions
 
     public function restore($id)
     {
-        $this->checkAuthorize(__FUNCTION__);
+        $this->checkAuthorize();
 
         $resource = $this->model::withTrashed()->findOrFail($id);
         $resource->restore();
@@ -439,9 +439,12 @@ trait HasCrudActions
         return $item;
     }
 
-    private function checkAuthorize($action)
+    private function checkAuthorize()
     {
-        if (!BouncerFacade::can($action, $this->model())) {
+        $locale = config('app.locale');
+        $routeName = str_replace($locale . '.', '', request()->route()->getName());
+
+        if (!BouncerFacade::can($routeName)) {
             abort(403);
         }
     }

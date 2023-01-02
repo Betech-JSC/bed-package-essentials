@@ -125,8 +125,8 @@ export default {
                 if (this.field.options !== undefined) {
                     this.items = this.field.options;
                 } else {
-                    axios
-                        .post(route("helper.model-data"), this.field.source)
+                    this.$axios
+                        .post(route("admin.helper.model-data"), this.field.source)
                         .then((res) => {
                             this.items = res.data;
                         });

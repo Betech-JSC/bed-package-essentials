@@ -26,7 +26,7 @@
         <SidebarMain />
         <hr />
         <Link
-            v-if="adminAbilities.can('index', 'files')"
+            v-if="adminAbilities.can('admin.files.index')"
             :href="route('admin.files.index')"
             :class="{ active: isUrl('admin.files.*') }"
             class="item"
@@ -35,7 +35,7 @@
             <span>{{ tt("models.table_list.files") }}</span>
         </Link>
         <Link
-            v-if="adminAbilities.can('index', 'admins')"
+            v-if="adminAbilities.can('admin.admins.index')"
             :href="route('admin.admins.index')"
             :class="{ active: isUrl('admin.admins.*') }"
             class="item"
@@ -44,7 +44,7 @@
             <span>{{ tt("models.table_list.admins") }}</span>
         </Link>
         <Link
-            v-if="adminAbilities.can('index', 'roles')"
+            v-if="adminAbilities.can('admin.roles.index')"
             :href="route('admin.roles.index')"
             :class="{ active: isUrl('admin.roles.*') }"
             class="item"
@@ -53,7 +53,7 @@
             <span>{{ tt("models.table_list.roles") }}</span>
         </Link>
         <Link
-            v-if="adminAbilities.can('index', 'translations')"
+            v-if="adminAbilities.can('admin.translations.index')"
             :href="route('admin.translations.index')"
             :class="{ active: isUrl('admin.translations.*') }"
             class="item"
@@ -62,7 +62,7 @@
             <span>{{ tt("models.table_list.translations") }}</span>
         </Link>
         <Link
-            v-if="adminAbilities.can('index', 'settings')"
+            v-if="adminAbilities.can('admin.settings.index')"
             :href="route('admin.settings.form', { id: 'general' })"
             :class="{ active: isUrl('admin.settings.*') }"
             class="item"
