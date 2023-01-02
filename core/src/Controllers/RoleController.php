@@ -23,7 +23,7 @@ class RoleController extends Controller
     {
         return [
             ...$item->toArray(),
-            'permissions' => Role::getPermissionByAdminId($item->id)
+            'permissions' => Role::getPermissions($item)
         ];
     }
 

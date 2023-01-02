@@ -28,11 +28,10 @@ class Role extends SpatieRole
         return $query->get();
     }
 
-    public static function getPermissionByAdminId($id)
+    public static function getPermissions($admin)
     {
-        $actions = [];
+        $permissions = [];
         $locale = config('app.locale');
-        $admin = Admin::find($id);
 
         foreach (Route::getRoutes()->getRoutes() as $route) {
             $action = $route->getAction();
@@ -46,13 +45,11 @@ class Role extends SpatieRole
                 !str_contains($action['controller'], 'Controllers\Auth')
             ) {
                 $fullAction = str_replace("$locale.admin.", "admin.", $name);
-
                 $tables = explode('.', $fullAction)[1];
-                $action = str_replace("admin.", "", $fullAction);
 
-                $actions[$tables][$fullAction] = $admin->can($fullAction);
+                $permissions[$tables][$fullAction] = $admin->can($fullAction);
             }
         }
-        return $actions;
+        return $permissions;
     }
 }
