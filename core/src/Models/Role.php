@@ -22,8 +22,8 @@ class Role extends SpatieRole
     public static function getRoles()
     {
         $query = self::query();
-        if (auth('admin')->user()->isNotAn('admin')) {
-            $query->whereNot('name', 'admin');
+        if (!current_admin()->hasRole('admin')) {
+            $query->whereNot('name', 'Super Admin');
         }
         return $query->get();
     }
