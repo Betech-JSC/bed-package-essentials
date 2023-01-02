@@ -16,8 +16,8 @@ class AdminController extends Controller
     public $model = Admin::class;
 
     public $appends = [
-        'index' => ['role_names'],
-        'form' => ['role']
+        'index' => [],
+        'form' => []
     ];
 
     private function folder()
@@ -39,7 +39,7 @@ class AdminController extends Controller
 
     private function afterForm($item)
     {
-        if (!current_admin()->hasRole('admin') && $item->hasRole('admin')) {
+        if (!current_admin()->hasRole('Super Admin') && $item->hasRole('Super Admin')) {
             abort(403);
         }
 
@@ -50,7 +50,7 @@ class AdminController extends Controller
     {
         $query->orderBy('id', 'DESC');
 
-        if (current_admin()->hasRole('admin')) {
+        if (current_admin()->hasRole('Super Admin')) {
             $query->whereHas('roles', function ($query) {
                 $query->whereNot('name', 'admin');
             });

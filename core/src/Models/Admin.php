@@ -36,7 +36,7 @@ class Admin extends Authenticatable
     ];
 
     protected $appends = [
-        'verified',
+        'verified', 'role_names'
     ];
 
     protected $hidden = [
