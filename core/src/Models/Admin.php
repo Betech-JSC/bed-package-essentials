@@ -6,14 +6,14 @@ use Laravel\Sanctum\HasApiTokens;
 use Silber\Bouncer\BouncerFacade;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
-use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use HasRolesAndAbilities;
+    use HasRoles;
 
     public const STATUS_ACTIVE = 'ACTIVE';
     public const STATUS_INACTIVE = 'INACTIVE';
@@ -78,11 +78,6 @@ class Admin extends Authenticatable
     public function getVerifiedAttribute()
     {
         return $this->google2fa_ts !== 0;
-    }
-
-    public function getRoleAttribute()
-    {
-        return $this->getRoles()->first();
     }
 
     public function scopeVerified($query)
