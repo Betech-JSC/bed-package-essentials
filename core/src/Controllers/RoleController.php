@@ -21,50 +21,21 @@ class RoleController extends Controller
 
     private function afterForm($item)
     {
-        $actions = [];
-        $locale = config('app.locale');
-        $rolePermissions = $item->permissions->pluck('name')->toArray();
-
-        foreach (Route::getRoutes()->getRoutes() as $route) {
-            $action = $route->getAction();
-            $name = $route->getName();
-
-            if (
-                $name && isset($action['controller']) &&
-                (Str::startsWith($name, 'admin.') ||
-                    Str::startsWith($name, "$locale.admin.")) &&
-                !Str::startsWith($name, 'admin.helper') &&
-                !str_contains($action['controller'], 'Controllers\Auth')
-            ) {
-                $fullAction = str_replace("$locale.admin.", "admin.", $name);
-
-                $tables = explode('.', $fullAction)[1];
-                $action = str_replace("admin.", "", $fullAction);
-
-                $actions[$tables][$fullAction] = in_array($fullAction, $rolePermissions);
-            }
-        }
-
         return [
             ...$item->toArray(),
-            'permissions' => Role::getActions()
+            'permissions' => Role::getPermissionByAdminId($item->id)
         ];
     }
 
     private function afterStore($request, $item)
     {
+        $permissions = [];
         foreach ($request->input('permissions') as $actions) {
-            dd($actions);
-            // $role->syncPermissions($permissions);
-            // foreach ($actions as $action => $actionKey) {
-            //     if ($actionKey) {
-            //         $item->revokePermissionTo($action);
-            //         // BouncerFacade::allow($item->name)->to($action);
-            //     } else {
-            //         $item->revokePermissionTo($action);
-            //         // BouncerFacade::disallow($item->name)->to($action);
-            //     }
-            // }
+            $permissions = array_merge(
+                $permissions,
+                collect($actions)->filter(fn ($action) => $action)->keys()->toArray()
+            );
         }
+        $item->syncPermissions($permissions);
     }
 }

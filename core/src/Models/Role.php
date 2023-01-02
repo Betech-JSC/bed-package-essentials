@@ -12,11 +12,11 @@ class Role extends SpatieRole
     use HasFactory;
 
     public $fillable = [
-        'title'
+        'name'
     ];
 
     public $rules = [
-        'title' => 'required|max:255',
+        'name' => 'required|max:255',
     ];
 
     public static function getRoles()
@@ -28,10 +28,11 @@ class Role extends SpatieRole
         return $query->get();
     }
 
-    public static function getActions()
+    public static function getPermissionByAdminId($id)
     {
         $actions = [];
         $locale = config('app.locale');
+        $admin = Admin::find($id);
 
         foreach (Route::getRoutes()->getRoutes() as $route) {
             $action = $route->getAction();
@@ -49,7 +50,7 @@ class Role extends SpatieRole
                 $tables = explode('.', $fullAction)[1];
                 $action = str_replace("admin.", "", $fullAction);
 
-                $actions[$tables][$fullAction] = current_admin()->can($fullAction);
+                $actions[$tables][$fullAction] = $admin->can($fullAction);
             }
         }
         return $actions;
