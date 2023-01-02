@@ -20,7 +20,7 @@ Route::middleware(['auth:admin'])->name('admin.')->group(function () {
     })->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::module(AdminController::class);
-    Route::put('admins', [AdminController::class, 'updateInformation'])->name('updateInformation');
+    Route::put('admins', [AdminController::class, 'updateInformation'])->name('admins.updateInformation');
     Route::module(RoleController::class);
     Route::module(SettingController::class);
     Route::prefix('settings')->name('settings.')->group(function () {
