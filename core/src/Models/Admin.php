@@ -75,6 +75,11 @@ class Admin extends Authenticatable
         });
     }
 
+    public function getRoleNamesAttribute()
+    {
+        return $this->getRoleNames();
+    }
+
     public function getVerifiedAttribute()
     {
         return $this->google2fa_ts !== 0;
