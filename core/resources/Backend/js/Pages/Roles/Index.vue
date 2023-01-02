@@ -1,7 +1,7 @@
 <template layout>
     <Table
         :schema="schema"
-        :columns="['id', 'title', 'created_at']"
+        :columns="['id', 'name', 'created_at']"
     />
 </template>
 <script>
