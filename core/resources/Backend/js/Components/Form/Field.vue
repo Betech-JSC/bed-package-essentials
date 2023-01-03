@@ -53,7 +53,7 @@ export default {
             return this.$parent.form?.errors[this.field.name];
         },
         fieldId() {
-            return Math.random().toString(36).substr(2, 9);
+            return "ID" + Math.random().toString(36).substr(2, 9).toUpperCase();
         },
         fieldLabel() {
             if (this.field.label === false) return false;
@@ -84,7 +84,9 @@ export default {
     watch: {
         field() {
             if (this.field.options) {
-                this.fieldConfig.options = this.transformOptions(this.field.options);
+                this.fieldConfig.options = this.transformOptions(
+                    this.field.options
+                );
             }
         },
     },
@@ -95,7 +97,9 @@ export default {
         }
 
         if (this.field.options) {
-            this.fieldConfig.options = this.transformOptions(this.field.options);
+            this.fieldConfig.options = this.transformOptions(
+                this.field.options
+            );
         }
 
         this.fieldConfig.label = this.fieldLabel;
@@ -104,14 +108,19 @@ export default {
         fetchSource() {
             const locale = this.getCurrentLocale();
             this.$axios
-                .post(this.route("admin.helper.model-data", { use_locale: locale }), this.field.source)
+                .post(
+                    this.route("admin.helper.model-data", {
+                        use_locale: locale,
+                    }),
+                    this.field.source
+                )
                 .then((res) => {
                     this.fieldConfig.options = this.transformOptions(res.data);
                     this.fieldConfig.loading = false;
                 });
         },
         transformOptions(options) {
-            if(!options) {
+            if (!options) {
                 return options;
             }
             const keyBy = this.field.keyBy || "id";

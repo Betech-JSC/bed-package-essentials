@@ -187,7 +187,7 @@ export default {
     },
     computed: {
         fieldId() {
-            return Math.random().toString(36).substr(2, 9);
+            return "ID" + Math.random().toString(36).substr(2, 9).toUpperCase();
         },
     },
 

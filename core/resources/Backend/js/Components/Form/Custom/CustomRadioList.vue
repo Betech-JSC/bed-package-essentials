@@ -36,7 +36,9 @@ export default {
         },
         fieldId() {
             return (
-                this.field.name + "_" + Math.random().toString(36).substr(2, 9)
+                this.field.name +
+                "_" +
+                Math.random().toString(36).substr(2, 9).toUpperCase()
             );
         },
     },
