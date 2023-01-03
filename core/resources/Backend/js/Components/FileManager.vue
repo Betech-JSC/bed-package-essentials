@@ -1,9 +1,18 @@
 <template>
     <div
-        class="fixed top-0 bottom-0 right-0 z-50 overflow-hidden bg-white left-from-sidebar"
+        class="fixed top-0 bottom-0 right-0 z-50 overflow-hidden bg-white"
         v-show="show"
+        :class="embed ? 'left-0 overflow-auto' : 'left-from-sidebar'"
     >
-        <div class="topbar">
+        <input
+            type="file"
+            class="hidden"
+            accept="image/png, image/gif, image/jpeg, image/svg+xml, application/pdf ,image/webp"
+            multiple="true"
+            ref="file"
+            @change="fileChange"
+        />
+        <div class="topbar" v-if="!embed">
             <h1 class="flex items-center font-semibold text-gray-700">
                 <div
                     class="p-4 -ml-4 cursor-pointer hover:text-gray-900"
@@ -30,20 +39,12 @@
                 </Button>
                 <Button @click.prevent="browse" class="space-x-2 btn-primary">
                     <ph:upload-simple />
-                    <span> Upload </span>
+                    <span> Chọn Tệp </span>
                 </Button>
-                <input
-                    type="file"
-                    class="hidden"
-                    accept="image/png, image/gif, image/jpeg, image/svg+xml, application/pdf ,image/webp"
-                    multiple="true"
-                    ref="file"
-                    @change="fileChange"
-                />
             </div>
         </div>
         <div
-            class="flex items-stretch flex-1 overflow-hidden"
+            class="flex items-stretch flex-1 h-full overflow-hidden"
             @dragover.prevent="isDragging = true"
         >
             <div
@@ -63,6 +64,16 @@
             <aside
                 class="hidden p-8 pb-16 overflow-y-auto bg-white border-l border-r border-gray-200 w-80 lg:block"
             >
+                <template v-if="embed">
+                    <Button
+                        @click.prevent="browse"
+                        class="w-full space-x-2 btn-primary"
+                    >
+                        <ph:upload-simple />
+                        <span> Chọn Tệp </span>
+                    </Button>
+                    <hr class="my-2" />
+                </template>
                 <Field
                     v-if="tree && tree.length"
                     :field="{
@@ -79,8 +90,21 @@
                     }"
                 />
             </aside>
-            <main class="flex-1 overflow-y-auto">
+            <main
+                class="overflow-y-auto grow"
+                :class="
+                    !Object.keys(searchFiles).length
+                        ? 'flex items-center justify-center'
+                        : 'flex-1'
+                "
+            >
+                <h1 v-if="!Object.keys(searchFiles).length" class="text-xl">
+                    Kéo thả hoặc
+                    <a @click="browse" class="link">click vào đây</a> để chọn
+                    tệp
+                </h1>
                 <div
+                    v-if="Object.keys(searchFiles).length"
                     class="px-4 pt-8 pb-16 mx-auto space-y-4 max-w-7xl sm:px-6 lg:px-8"
                 >
                     <ul
@@ -179,9 +203,9 @@
     </div>
 </template>
 <script>
-import { onMounted, onUnmounted } from "vue";
-import Thumbnail from "@Core/Components/Thumbnail.vue";
 import Pagination from "@Core/Components/Pagination.vue";
+import Thumbnail from "@Core/Components/Thumbnail.vue";
+import { onMounted, onUnmounted } from "vue";
 
 const MAX_SIZE_OF_IMAGE = 5;
 const MAX_SIZE_OF_VIDEO = 10;
@@ -235,6 +259,7 @@ export default {
                 name: null,
             },
             search: null,
+            embed: this.$page.props.route.query.embed,
         };
     },
 

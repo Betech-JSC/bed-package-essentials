@@ -96,17 +96,17 @@ export default {
                 },
 
                 setup: function (editor) {
-                    // editor.ui.registry.addButton("filemanager", {
-                    //     icon: "gallery",
-                    //     tooltip: "File Manager",
-                    //     onAction: () =>
-                    //         editor.windowManager.openUrl({
-                    //             title: "File Manager",
-                    //             url: `/admin/medias/embed`,
-                    //             height: 640,
-                    //             width: 1000,
-                    //         }),
-                    // });
+                    editor.ui.registry.addButton("filemanager", {
+                        icon: "gallery",
+                        tooltip: "File Manager",
+                        onAction: () =>
+                            editor.windowManager.openUrl({
+                                title: "File Manager",
+                                url: `/admin/files?embed=true`,
+                                height: 640,
+                                width: 1000,
+                            }),
+                    });
                 },
                 codesample_languages: [
                     { text: "HTML/XML", value: "markup" },
