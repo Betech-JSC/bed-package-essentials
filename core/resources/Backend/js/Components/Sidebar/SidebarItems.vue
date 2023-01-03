@@ -24,7 +24,6 @@
         </ul>
         <hr />
         <Link
-            v-if="can('admin.dashboard.index')"
             :href="route('admin.dashboard.index')"
             :class="{ active: isUrl('admin.dashboard.index') }"
             class="item"
