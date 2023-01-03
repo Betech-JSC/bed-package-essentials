@@ -195,11 +195,8 @@ export default {
         maxItems() {
             return this.field.max || 99;
         },
-        expected() {
-            return this.field.expected ?? "object";
-        },
         expectedUrl() {
-            return true;
+            return this.field.expected ?? false;
         },
     },
 

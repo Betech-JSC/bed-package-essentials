@@ -28,34 +28,41 @@
                     type: 'textarea',
                 }"
             />
-            <Field
-                v-model="modelValue.seo_meta_keywords"
-                :field="{
-                    name: 'seo_meta_keywords',
-                    label: 'Meta Keywords',
-                }"
-            />
-            <Field
-                v-model="modelValue.seo_meta_robots"
-                :field="{
-                    name: 'seo_meta_robots',
-                    label: 'Meta Robots',
-                }"
-            />
-            <Field
-                v-model="modelValue.seo_canonical"
-                :field="{
-                    name: 'seo_canonical',
-                    label: 'Meta Canonical',
-                }"
-            />
-            <Field
-                v-model="modelValue.seo_image"
-                :field="{
-                    name: 'seo_image',
-                    label: 'Meta Image',
-                }"
-            />
+            <details>
+                <summary>
+                    <span class="select-none link">Cấu hình nâng cao</span>
+                </summary>
+                <div class="p-3 mt-4 space-y-4 bg-gray-100 rounded-sm">
+                    <Field
+                        v-model="modelValue.seo_meta_keywords"
+                        :field="{
+                            name: 'seo_meta_keywords',
+                            label: 'Meta Keywords',
+                        }"
+                    />
+                    <Field
+                        v-model="modelValue.seo_meta_robots"
+                        :field="{
+                            name: 'seo_meta_robots',
+                            label: 'Meta Robots',
+                        }"
+                    />
+                    <Field
+                        v-model="modelValue.seo_canonical"
+                        :field="{
+                            name: 'seo_canonical',
+                            label: 'Canonical Link',
+                        }"
+                    />
+                    <Field
+                        v-model="modelValue.seo_image"
+                        :field="{
+                            name: 'seo_image',
+                            label: 'Meta Image',
+                        }"
+                    />
+                </div>
+            </details>
         </div>
     </div>
     <div
@@ -96,7 +103,6 @@
 </template>
 
 <script>
-
 export default {
     props: {
         modelValue: {
@@ -105,7 +111,13 @@ export default {
         },
         config: {
             type: Object,
-            default: () => ({ hiddenFields: [] }),
+            default: () => ({
+                hiddenFields: [
+                    "inject_head",
+                    "inject_body_start",
+                    "inject_body_end",
+                ],
+            }),
         },
     },
     emits: ["update:modelValue"],
