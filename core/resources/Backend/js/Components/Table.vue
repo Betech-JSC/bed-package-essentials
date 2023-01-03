@@ -97,7 +97,7 @@
                 <template #body="{ data }">
                     <Image
                         v-if="isImageCell(data, column)"
-                        :src="data[column.field]?.static_url"
+                        :src="staticUrl(data[column.field]?.path)"
                         width="80"
                         preview
                     />
@@ -426,7 +426,7 @@ export default {
             return value;
         },
         isImageCell(data, column) {
-            return column.type === "json" && data[column.field]?.static_url;
+            return this.isImage(data[column.field]?.path);
         },
         capitalize(string) {
             return string?.charAt(0).toUpperCase() + string.slice(1);
