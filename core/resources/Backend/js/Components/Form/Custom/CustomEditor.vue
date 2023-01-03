@@ -34,8 +34,8 @@ export default {
     computed: {
         size() {
             return {
-                sm: 300,
-                md: 600,
+                sm: 260,
+                md: 400,
                 lg: 1000,
             }[this.field?.size ?? "md"];
         },
