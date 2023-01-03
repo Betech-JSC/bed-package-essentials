@@ -12,12 +12,12 @@ use JamstackVietnam\Translation\Controllers\TranslationController;
 
 Route::middleware(['auth:admin'])->name('admin.')->group(function () {
     Route::get('/', function () {
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.dashboard.index');
     });
 
     Route::get('/dashboard', function () {
         return inertia('Dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard.index');
 
     Route::module(AdminController::class);
     Route::put('admins', [AdminController::class, 'changePassword'])->name('admins.changePassword');
