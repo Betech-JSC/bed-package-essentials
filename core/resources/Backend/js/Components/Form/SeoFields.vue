@@ -9,18 +9,6 @@
                 }"
             />
             <Field
-                v-if="!hideField('seo_slug')"
-                :modelValue="modelValue.seo_slug"
-                @update:modelValue="
-                    modelValue.seo_slug = slugify($event);
-                    $emit('update:modelValue', modelValue);
-                "
-                :field="{
-                    name: 'seo_slug',
-                    label: 'Custom Slug',
-                }"
-            />
-            <Field
                 v-model="modelValue.seo_meta_description"
                 :field="{
                     name: 'seo_meta_description',
@@ -33,6 +21,18 @@
                     <span class="select-none link">Cấu hình nâng cao</span>
                 </summary>
                 <div class="p-3 mt-4 space-y-4 bg-gray-100 rounded-sm">
+                    <Field
+                        v-if="!hideField('seo_slug')"
+                        :modelValue="modelValue.seo_slug"
+                        @update:modelValue="
+                            modelValue.seo_slug = slugify($event);
+                            $emit('update:modelValue', modelValue);
+                        "
+                        :field="{
+                            name: 'seo_slug',
+                            label: 'Custom Slug',
+                        }"
+                    />
                     <Field
                         v-model="modelValue.seo_meta_keywords"
                         :field="{
