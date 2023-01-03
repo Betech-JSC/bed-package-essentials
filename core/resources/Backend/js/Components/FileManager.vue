@@ -320,11 +320,23 @@ export default {
         async copyUrl(file) {
             try {
                 await navigator.clipboard.writeText(
-                    this.staticUrl(file.image_url)
+                    this.staticUrl(file.static_url)
                 );
             } catch ($e) {}
         },
         onSelect(file) {
+            if (this.embed) {
+                const src = (new URL(file.static_url)).pathname
+                window.parent.postMessage({
+                    mceAction: "insertContent",
+                    content: `<img src="${src}">`,
+                });
+                window.parent.postMessage({
+                    mceAction: "close",
+                });
+                return;
+            }
+
             if (!this.selectable) return;
 
             if (!this.multiple) {
