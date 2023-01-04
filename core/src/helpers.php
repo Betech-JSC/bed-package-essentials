@@ -166,7 +166,6 @@ if (!function_exists('replace_layout')) {
     {
         preg_match_all('/(?<=Embed)[^><]+?(?=])/', $content, $matches);
         foreach ($matches[0] as $match) {
-
             $content = str_replace("[Embed$match]", "<Embed$match />", $content);
         }
         return $content;
