@@ -160,3 +160,15 @@ if (!function_exists('notification_to')) {
         }
     }
 }
+
+if (!function_exists('replace_layout')) {
+    function replace_layout($content)
+    {
+        preg_match_all('/(?<=Embed)[^><]+?(?=])/', $content, $matches);
+        foreach ($matches[0] as $match) {
+
+            $content = str_replace("[Embed$match]", "<Embed$match />", $content);
+        }
+        return $content;
+    }
+}
