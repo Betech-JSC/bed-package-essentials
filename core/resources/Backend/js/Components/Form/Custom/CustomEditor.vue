@@ -67,7 +67,7 @@ export default {
                 toolbar_mode: "sliding",
                 contextmenu: "link image imagetools table",
                 skin: "oxide",
-                content_css: 'default',
+                content_css: "default",
                 // content_css:
                 //     "https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css",
                 importcss_append: true,
