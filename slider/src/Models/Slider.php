@@ -102,7 +102,7 @@ class Slider extends BaseModel
     {
         return [
             'url' => isset($image['path']) ? static_url($image['path']) : null,
-            'alt' => $image['alt'] ?? $this->title,
+            'alt' => $image['alt'] ?? strip_tags($this->title),
         ];
     }
 
