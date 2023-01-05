@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Model;
+use JamstackVietnam\Core\Controllers\FileController;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -29,7 +30,6 @@ class RouteServiceProvider extends ServiceProvider
             //     ->middleware('api')
             //     ->namespace($this->namespace)
             //     ->group(base_path('routes/api.php'));
-
             Route::domain(config('app.api_url'))
                 ->middleware('api')
                 ->namespace($this->namespace)
@@ -46,9 +46,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(package_path('core/routes/backend.php'));
 
-            Route::domain(config('app.static_url'))
-                ->namespace($this->namespace)
-                ->group(base_path('routes/static.php'));
+            Route::namespace($this->namespace)
+                ->group(package_path('core/routes/static.php'));
         });
     }
 }
