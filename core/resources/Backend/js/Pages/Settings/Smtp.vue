@@ -35,7 +35,7 @@
                     <Field
                         v-model="form.mail_password"
                         :field="{
-                            type: 'text',
+                            type: 'password',
                             name: 'mail_password',
                             label: 'Mail Password',
                         }"
