@@ -12,13 +12,15 @@ if (!function_exists('static_url')) {
     {
         if (!$path || str_contains($path, 'http')) return $path;
         if (!empty($parameters)) {
-            $url = config('app.static_url') . '/' . $path . '?' . http_build_query($parameters);
+            $url = route('files.show') . '/' . $path . '?' . http_build_query($parameters);
         } else {
-            $url = config('app.static_url') . '/' . $path;
+            $url = route('files.show') . '/' . $path;
         }
         if (!$absolute) {
             $url = collect(parse_url($url))->only('path', 'query')->join(',');
         }
+
+        $url = str_replace(' ', '%20', $url);
 
         return $url;
     }
