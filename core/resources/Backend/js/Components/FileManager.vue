@@ -326,7 +326,7 @@ export default {
         },
         onSelect(file) {
             if (this.embed) {
-                const src = (new URL(file.static_url)).pathname
+                const src = "/static/" + new URL(file.static_url).pathname;
                 window.parent.postMessage({
                     mceAction: "insertContent",
                     content: `<img src="${src}">`,
