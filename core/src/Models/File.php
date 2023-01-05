@@ -135,6 +135,33 @@ class File
             //     return $image->encode($format)->response();
             // }
 
+            //             cache-control: no-cache, private
+            // content-type: video/mp4
+            // date: Thu, 05 Jan 2023 04:09:23 GMT
+            // server: nginx
+            // x-content-type-options: nosniff
+            // x-frame-options: SAMEORIGIN
+            // x-xss-protection: 1; mode=block
+
+
+
+            // accept-ranges: bytes
+            // content-length: 4820140
+            // content-type: video/mp4
+            // date: Thu, 05 Jan 2023 04:08:46 GMT
+            // etag: "63b55862-498cac"
+            // last-modified: Wed, 04 Jan 2023 10:43:46 GMT
+            // server: nginx
+            // x-content-type-options: nosniff
+            // x-frame-options: SAMEORIGIN
+            // x-xss-protection: 1; mode=block
+            if (str_contains($filePath, '.mp4')) {
+                return response()->make($filePath, 200)
+                    ->header('accept-ranges', 'bytes')
+                    ->header('content-length', '4820140')
+                    ->header('Content-Type', $mimeType);
+            }
+
             return response()->make($filePath, 200)
                 ->header('Content-Type', $mimeType);
         } catch (\Exception $exception) {
