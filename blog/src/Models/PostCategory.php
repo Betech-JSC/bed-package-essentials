@@ -7,6 +7,7 @@ use JamstackVietnam\Core\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
+use Illuminate\Database\Eloquent\Builder;
 
 class PostCategory extends BaseModel
 {
@@ -161,7 +162,7 @@ class PostCategory extends BaseModel
     public function getUrlAttribute(): array
     {
         $urls = [];
-        if($this->status == self::STATUS_ACTIVE) {
+        if ($this->status == self::STATUS_ACTIVE) {
             foreach ($this->translations as $translation) {
                 $urls[strtoupper($translation->locale)] = route("$translation->locale.posts.category", [
                     'slug' => $translation->seo_slug ?? $translation->slug,
@@ -189,20 +190,18 @@ class PostCategory extends BaseModel
             'slug' => $this->seo_slug ?? $this->slug,
         ];
 
-        if(isset($conditions['show_active']) && $conditions['show_active']) {
-            if(isset($conditions['categories'])) {
+        if (isset($conditions['show_active']) && $conditions['show_active']) {
+            if (isset($conditions['categories'])) {
                 $category = $conditions['categories']->where('id', $this->id)->values()->first();
 
                 $data['is_active'] = $category ? true : false;
                 if ($level <= 2) {
                     $data['nodes'] = $this->nodes->map(fn ($item) => $item->transformNav($level + 1, ['show_active' => true, 'categories' => $conditions['categories']]));
                 }
-            }
-            else {
+            } else {
                 $data['is_active'] = false;
             }
-        }
-        else if ($level <= 2) {
+        } else if ($level <= 2) {
             $data['nodes'] = $this->nodes->map(fn ($item) => $item->transformNav($level + 1));
         }
 
@@ -219,14 +218,13 @@ class PostCategory extends BaseModel
             'icon' => $this->icon
         ];
 
-        if(isset($conditions['post_count']) && $conditions['post_count'] > 0) {
+        if (isset($conditions['post_count']) && $conditions['post_count'] > 0) {
             $data['posts'] = $this->posts
                 ->where('status', Post::STATUS_ACTIVE)
                 ->sortBy([['is_featured', 'desc'], ['id', 'desc']])
                 ->values()
                 ->take($conditions['post_count'])
                 ->map(fn ($item) => $item->transform());
-
         }
 
         return $data;
@@ -262,5 +260,24 @@ class PostCategory extends BaseModel
             ->whereHas('posts', function ($query) use ($limit) {
                 $query->active()->limit($limit);
             });
+    }
+
+    public function scopeOrderByPossition($query)
+    {
+        return $query->orderByRaw('ISNULL(position) OR position = 0, position ASC');
+    }
+
+    public function scopeFilter(Builder $query, array $filters = []): Builder
+    {
+        $query->orderByPossition()
+            ->orderBy('id', 'desc');
+
+        $query->orderBy('id', 'desc');
+
+        $query->when($filters['limit'] ?? false, function (Builder $query, $value) {
+            $query->take($value);
+        });
+
+        return $query;
     }
 }
