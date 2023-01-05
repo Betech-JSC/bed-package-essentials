@@ -25,7 +25,12 @@ class RouteServiceProvider extends ServiceProvider
         View::addNamespace('backend', resource_path('Backend/views'));
 
         $this->routes(function () {
-            Route::prefix('api')
+            // Route::prefix('api')
+            //     ->middleware('api')
+            //     ->namespace($this->namespace)
+            //     ->group(base_path('routes/api.php'));
+
+            Route::domain(env('app.api_url'))
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
