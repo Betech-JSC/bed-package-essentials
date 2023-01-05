@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
+use \Illuminate\Support\Facades\Route;
 
 class Policy extends BaseModel
 {
@@ -68,11 +69,14 @@ class Policy extends BaseModel
     public function getUrlAttribute()
     {
         $urls = [];
+        $default_locale = config('app.locale');
         if ($this->is_active) {
-            foreach ($this->translations as $translation) {
-                $urls[strtoupper($translation->locale)] = route("$translation->locale.policies.show", [
-                    'slug' => $translation->seo_slug ?? $translation->slug
-                ]);
+            if (Route::has($default_locale . ".policies.show")) {
+                foreach ($this->translations as $translation) {
+                    $urls[strtoupper($translation->locale)] = route("$translation->locale.policies.show", [
+                        'slug' => $translation->seo_slug ?? $translation->slug
+                    ]);
+                }
             }
         }
         return $urls;
