@@ -120,45 +120,11 @@ class File
             $filePath = $this->storage->get($this->path);
             $mimeType = $this->storage->mimeType($this->path);
 
-            // if (str_contains($mimeType, 'image/') && $mimeType !== 'image/heic') {
-            //     $image = Image::cache(function ($image) use ($filePath, $options) {
-            //         $image->make($filePath);
-            //         if ($width = $options['w'] ?? false) {
-            //             $image->resize($width, null, function ($constraint) {
-            //                 $constraint->aspectRatio();
-            //             });
-            //         }
-            //     }, 1440, true);
-
-            //     $format = $options['fm'] ?? 'webp';
-
-            //     return $image->encode($format)->response();
-            // }
-
-            //             cache-control: no-cache, private
-            // content-type: video/mp4
-            // date: Thu, 05 Jan 2023 04:09:23 GMT
-            // server: nginx
-            // x-content-type-options: nosniff
-            // x-frame-options: SAMEORIGIN
-            // x-xss-protection: 1; mode=block
-
-
-
-            // accept-ranges: bytes
-            // content-length: 4820140
-            // content-type: video/mp4
-            // date: Thu, 05 Jan 2023 04:08:46 GMT
-            // etag: "63b55862-498cac"
-            // last-modified: Wed, 04 Jan 2023 10:43:46 GMT
-            // server: nginx
-            // x-content-type-options: nosniff
-            // x-frame-options: SAMEORIGIN
-            // x-xss-protection: 1; mode=block
             if (str_contains($this->path, '.mp4')) {
+                $size = $this->storage->size($this->path);
                 return response()->make($filePath, 200)
-                    ->header('accept-ranges', 'bytes')
-                    ->header('content-length', '4820140')
+                    ->header('Accept-Ranges', 'bytes')
+                    ->header('Content-Length', $size)
                     ->header('Content-Type', $mimeType);
             }
 
