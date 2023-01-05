@@ -30,23 +30,23 @@ class RouteServiceProvider extends ServiceProvider
             //     ->namespace($this->namespace)
             //     ->group(base_path('routes/api.php'));
 
-            Route::domain(env('app.api_url'))
+            Route::domain(config('app.api_url'))
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-            Route::domain(env('app.frontend_url'))
+            Route::domain(config('app.frontend_url'))
                 ->middleware(['web', 'frontend'])
                 ->namespace($this->namespace)
                 ->group(package_path('core/routes/frontend.php'));
 
-            Route::domain(env('app.url'))
+            Route::domain(config('app.url'))
                 ->prefix('admin')
                 ->middleware(['web', 'backend'])
                 ->namespace($this->namespace)
                 ->group(package_path('core/routes/backend.php'));
 
-            Route::domain(env('app.static_url'))
+            Route::domain(config('app.static_url'))
                 ->namespace($this->namespace)
                 ->group(base_path('routes/static.php'));
         });
