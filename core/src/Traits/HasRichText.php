@@ -62,7 +62,7 @@ trait HasRichText
                         $newUrl = (new File)->storeFromUrl($url);
 
                         if ($newUrl) {
-                            $content = str_replace($url, $newUrl, $content);
+                            $content = str_replace($url, '/static/' . $newUrl, $content);
                         }
                     } catch (\Exception$exception) {
                         logger()->error('Can not store image: ' . $url);
