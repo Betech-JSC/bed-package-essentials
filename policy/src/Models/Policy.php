@@ -97,7 +97,7 @@ class Policy extends BaseModel
         return [
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
-            'content' => $this->content,
+            'content' => transform_richtext($this->content),
             'icon' => $this->icon,
         ];
     }
