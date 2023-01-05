@@ -20,8 +20,6 @@ if (!function_exists('static_url')) {
             $url = collect(parse_url($url))->only('path', 'query')->join(',');
         }
 
-        $url = str_replace(' ', '%20', $url);
-
         return $url;
     }
 }
