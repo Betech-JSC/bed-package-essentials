@@ -171,3 +171,44 @@ if (!function_exists('replace_layout')) {
         return $content;
     }
 }
+
+if (!function_exists('transform_richtext')) {
+    function transform_richtext($content)
+    {
+        // add_responsive_iframe
+        $content = replace_layout($content);
+
+        // replace_image_url
+        if (empty($content)) {
+            return $content;
+        }
+
+        preg_match_all(
+            '/src\s*=\s*"(.+?)"/m',
+            $content,
+            $matches,
+            PREG_SET_ORDER,
+            0
+        );
+
+        if (empty($matches)) {
+            return $content;
+        }
+
+        foreach ($matches as $match) {
+            $url = $match[1];
+            if (str_contains($url, 'http')) continue;
+
+            $newUrl = static_url(str_replace('/static/', '', $url));
+            try {
+                $content = str_replace($url, $newUrl, $content);
+            } catch (\Exception $exception) {
+                logger('transform_richtext');
+                logger($exception->getMessage());
+                logger($url);
+                logger('-------------------');
+            }
+        }
+        return $content;
+    }
+}
