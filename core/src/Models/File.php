@@ -155,7 +155,7 @@ class File
             // x-content-type-options: nosniff
             // x-frame-options: SAMEORIGIN
             // x-xss-protection: 1; mode=block
-            if (str_contains($filePath, '.mp4')) {
+            if (str_contains($this->path, '.mp4')) {
                 return response()->make($filePath, 200)
                     ->header('accept-ranges', 'bytes')
                     ->header('content-length', '4820140')
