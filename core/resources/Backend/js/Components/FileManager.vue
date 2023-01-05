@@ -208,7 +208,7 @@ import Thumbnail from "@Core/Components/Thumbnail.vue";
 import { onMounted, onUnmounted } from "vue";
 
 const MAX_SIZE_OF_IMAGE = 5;
-const MAX_SIZE_OF_VIDEO = 10;
+const MAX_SIZE_OF_VIDEO = 50;
 
 export default {
     components: { Thumbnail, Pagination },
