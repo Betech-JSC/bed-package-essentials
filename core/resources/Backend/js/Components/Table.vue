@@ -404,8 +404,6 @@ export default {
                     };
                 });
 
-            //console.log(filters);
-
             return filters;
         },
         getStyles(data, column) {
