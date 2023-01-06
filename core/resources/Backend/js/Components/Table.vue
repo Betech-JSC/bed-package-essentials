@@ -63,6 +63,9 @@
                             />
                         </div>
                     </span>
+                    <div class="ml-auto mr-2" v-if="$slots.filter">
+                        <slot name="filter" :filters="filters"></slot>
+                    </div>
                     <div class="p-input-icon-left w-[20rem]">
                         <heroicons-outline:search
                             class="absolute transform -translate-y-1/2 top-1/2 left-2"
@@ -230,6 +233,12 @@ export default {
         selectedItems(value) {
             this.$emit("on-select", value);
         },
+        filters:{
+            handler() {
+                this.pushToUrl();
+            },
+            deep: true
+        }
     },
     mounted() {
         this.loading = true;
@@ -239,12 +248,21 @@ export default {
             rows: this.$refs["data-table"].rows,
             sortField: null,
             sortOrder: null,
-            filters: this.filters,
+            filters: this.getFilters(),
         };
 
         this.loadLazyData();
     },
     methods: {
+        pushToUrl(){
+            let params = {
+                ...route().params,
+                ...this.filters,
+            }
+            const newUrl = this.route(`admin.${this.currentResource}.index`, params);
+            history.pushState({}, null, newUrl);
+            this.loadLazyData();
+        },
         loadLazyData() {
             this.loading = true;
             if (this.filter_begin_time) {
@@ -253,6 +271,9 @@ export default {
             if (this.filter_end_time) {
                 this.lazyParams.filter_end_time = this.filter_end_time;
             }
+
+            this.lazyParams.filters = this.getFilters();
+
             this.$axios
                 .get(
                     this.route(`admin.${this.currentResource}.index`, {
@@ -361,7 +382,10 @@ export default {
         },
 
         getFilters() {
-            let filters = {};
+            let filters = {
+                ...route().params,
+            };
+
             filters.global = {
                 value: null,
                 matchMode: FilterMatchMode.CONTAINS,
@@ -379,6 +403,8 @@ export default {
                         matchMode: FilterMatchMode.CONTAINS,
                     };
                 });
+
+            //console.log(filters);
 
             return filters;
         },
