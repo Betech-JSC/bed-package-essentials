@@ -39,6 +39,7 @@
         "stechstudio/laravel-ssh-tunnel": "*",
         "appstract/laravel-opcache": "*",
         "codezero/laravel-localized-routes": "*",
-        "intervention/imagecache": "*"
+        "intervention/imagecache": "*",
+        "imanghafoori/laravel-video": "*"
     }
 }
