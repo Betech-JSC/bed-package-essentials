@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\Storage;
+use Iman\Streamer\VideoStreamer;
 
 class File
 {
@@ -122,6 +123,11 @@ class File
 
             if (str_contains($this->path, '.mp4')) {
                 $size = $this->storage->size($this->path);
+
+                if (request()->input('stream')) {
+                    return VideoStreamer::streamFile($filePath);
+                }
+
                 return response()->make($filePath, 200)
                     ->header('Accept-Ranges', 'bytes')
                     ->header('Content-Length', $size)
