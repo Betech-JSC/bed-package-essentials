@@ -118,7 +118,7 @@ class File
     public function findOrFail($options = [])
     {
         try {
-            if (request()->input('stream')) {
+            if (request()->input('stream') !== 'false') {
                 return VideoStreamer::streamFile($this->storage->path($this->path));
             }
 
