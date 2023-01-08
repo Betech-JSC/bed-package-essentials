@@ -118,15 +118,15 @@ class File
     public function findOrFail($options = [])
     {
         try {
+            if (request()->input('stream')) {
+                return VideoStreamer::streamFile($this->storage->path($this->path));
+            }
+
             $filePath = $this->storage->get($this->path);
             $mimeType = $this->storage->mimeType($this->path);
 
             if (str_contains($this->path, '.mp4')) {
                 $size = $this->storage->size($this->path);
-
-                if (request()->input('stream')) {
-                    return VideoStreamer::streamFile($filePath);
-                }
 
                 return response()->make($filePath, 200)
                     ->header('Accept-Ranges', 'bytes')
