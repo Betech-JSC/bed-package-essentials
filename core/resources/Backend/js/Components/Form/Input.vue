@@ -78,7 +78,7 @@
                 @blur="validateAsync(field.name)"
                 v-model:disabled="disabled"
             />
-            <label v-if="field.label" :for="fieldId" class="label">{{
+            <label v-if="field.label" :for="fieldId" class="cursor-pointer label">{{
                 field.label
             }}</label>
         </div>

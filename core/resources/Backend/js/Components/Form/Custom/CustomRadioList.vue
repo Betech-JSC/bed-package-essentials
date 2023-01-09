@@ -9,7 +9,7 @@
                 :model-value="modelValue?.toString()"
                 :disabled="disabled"
             />
-            <label :for="`${fieldId}_${index}`" class="cursor-pointer">
+            <label :for="`${fieldId}_${index}`" class="cursor-pointer label">
                 {{ option[labelBy] }}
             </label>
         </div>
