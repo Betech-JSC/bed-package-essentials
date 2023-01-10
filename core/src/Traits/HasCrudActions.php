@@ -440,8 +440,7 @@ trait HasCrudActions
 
     private function checkAuthorize()
     {
-        $locale = config('app.locale');
-        $routeName = str_replace($locale . '.', '', request()->route()->getName());
+        $routeName = str_replace(current_locale() . '.', '', request()->route()->getName());
 
         if (!current_admin()->hasPermissionTo($routeName)) {
             return abort(403);

@@ -10,7 +10,6 @@ use Amirami\Localizator\Services\FileFinder;
 use Amirami\Localizator\Services\Localizator;
 use JamstackVietnam\Core\Traits\HasCrudActions;
 use JamstackVietnam\Translation\Models\Translation;
-use Illuminate\Support\Facades\Artisan;
 
 class TranslationController extends Controller
 {
@@ -87,7 +86,7 @@ class TranslationController extends Controller
         if ($diff->count()) {
             Translation::insert(
                 $diff->transform(fn ($item) => [
-                    'key' => $item,
+                    'key' => trim($item),
                     'value' => $item,
                     'locale' => $locale
                 ])->toArray()
@@ -121,8 +120,7 @@ class TranslationController extends Controller
 
     public function buildFrontendAssets()
     {
-        // shell_exec('yarn build');
-        Artisan::call('vue-i18n:generate');
+        // Artisan::call('route');
     }
 
     protected function getLocales(): array
