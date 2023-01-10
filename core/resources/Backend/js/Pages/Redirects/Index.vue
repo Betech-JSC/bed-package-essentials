@@ -5,7 +5,7 @@
             :config="{
                 resource: 'settings.redirects',
             }"
-            :columns="['old_url', 'new_url', 'status', 'is_active']"
+            :columns="['old_url', 'new_url', 'status_code', 'is_active']"
         />
     </WrapSetting>
 </template>
