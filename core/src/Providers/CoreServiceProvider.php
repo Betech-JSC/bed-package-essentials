@@ -13,7 +13,7 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/config.php', 'core');
+        $this->mergeConfigFrom(__DIR__ . '/../config.php', 'core');
     }
 
     /**
@@ -23,6 +23,6 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([__DIR__ . '/config.php' => config_path('core.php')], 'core');
+        $this->publishes([__DIR__ . '/../config.php' => config_path('core.php')], 'core');
     }
 }
