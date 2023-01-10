@@ -27,7 +27,10 @@ Route::middleware(['auth:admin'])->name('admin.')->group(function () {
         Route::module(MetaPageController::class);
         Route::module(RedirectController::class);
     });
-    Route::module(TranslationController::class);
+
+    if (config('core.translation.enable')) {
+        Route::module(TranslationController::class);
+    }
 
     Route::module(FileController::class, ['only' => ['index', 'form', 'store', 'destroy']]);
     Route::post('folders/create', [FileController::class, 'folderCreate'])->name('files.folders.create');
