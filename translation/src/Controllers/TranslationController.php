@@ -121,7 +121,7 @@ class TranslationController extends Controller
 
     public function buildFrontendAssets()
     {
-        Artisan::call('vue-i18n:generate');
+        shell_exec('yarn frontend:build');
     }
 
     protected function getLocales(): array
