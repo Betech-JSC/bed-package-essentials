@@ -121,6 +121,7 @@ export default {
                     { text: "C#", value: "csharp" },
                     { text: "C++", value: "cpp" },
                 ],
+                codesample_global_prismjs: true,
             },
         };
     },
