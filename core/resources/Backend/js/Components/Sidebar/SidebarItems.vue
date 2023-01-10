@@ -62,7 +62,7 @@
             <span>{{ tt("models.table_list.roles") }}</span>
         </Link>
         <Link
-            v-if="can('admin.translations.index')"
+            v-if="can('admin.translations.index') && !!$page.props.config?.translation?.enable"
             :href="route('admin.translations.index')"
             :class="{ active: isUrl('admin.translations.*') }"
             class="item"
