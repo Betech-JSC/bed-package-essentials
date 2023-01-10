@@ -412,7 +412,7 @@ export default {
             ) {
                 value = this.toNumber(value);
             } else if (column.type === "boolean") {
-                value = `<div class="w-3 h-3 ${
+                value = `<div class="flex m-auto w-3 h-3 ${
                     value ? "bg-green-500" : "bg-orange-300"
                 } rounded-full"></div>`;
             } else if (
