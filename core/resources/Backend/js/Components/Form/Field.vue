@@ -2,8 +2,7 @@
     <div
         class="mt-3 field"
         :class="{
-            group: field.type !== 'file_upload',
-            '!mt-3': field.type === 'checkbox',
+            group: field.type !== 'file_upload'
         }"
     >
         <label
