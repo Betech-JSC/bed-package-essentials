@@ -1,5 +1,11 @@
 <template>
-    <div class="field">
+    <div
+        class="mt-3 field"
+        :class="{
+            group: field.type !== 'file_upload',
+            '!mt-3': field.type === 'checkbox',
+        }"
+    >
         <label
             v-if="fieldConfig.label && field.type !== 'checkbox'"
             :for="fieldId"
