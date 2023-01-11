@@ -1,5 +1,5 @@
 <template>
-    <div class="field group">
+    <div class="field">
         <label
             v-if="fieldConfig.label && field.type !== 'checkbox'"
             :for="fieldId"

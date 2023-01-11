@@ -46,7 +46,7 @@
                     @click="showMediaManager = true"
                 >
                     <div class="flex items-center justify-center h-full">
-                        <ph-plus class="w-8 h-8"/>
+                        <ph-plus class="w-8 h-8" />
                     </div>
                 </div>
             </div>
@@ -245,8 +245,17 @@ export default {
             }
         },
         onSelect(files) {
-            this.files = files;
+            if (this.multiple) {
+                const selectedFiles = this.pluck(this.files, "path");
+                const diffFiles = files.filter(
+                    (x) => !selectedFiles.includes(x.path)
+                );
 
+                this.files = this.files.concat(diffFiles);
+                this.files = this.files.slice(0, this.maxItems);
+            } else {
+                this.files = files;
+            }
             if (this.urlOnly) {
                 if (this.multiple) {
                     this.$emit("change", pluck(this.files, "static_url"));
