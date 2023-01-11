@@ -14,7 +14,7 @@
         <template #item="{ element }">
             <li class="flex-col w-full select-none tree-view-item-wrapper">
                 <div
-                    class="flex items-center w-full mt-1 space-x-1 rounded cursor-pointer group handle tree-view-item"
+                    class="flex items-center w-full px-2 mt-1 space-x-1 rounded cursor-pointer group handle tree-view-item"
                     :class="{
                         'text-blue-500':
                             selectable &&
@@ -22,11 +22,12 @@
                             modelValue.some((x) => x[keyBy] === element[keyBy]),
                     }"
                 >
-                    <div @click="onClickIcon(element)" class="p-2">
-                        <ph-folder-notch-fill
-                            v-if="!elementIsActive(element)"
-                        />
-                        <ph-folder-notch-open-fill v-else />
+                    <div
+                        @click="onClickIcon(element)"
+                        class="p-1 rounded-sm hover:bg-gray-200"
+                    >
+                        <ph:caret-right-fill v-if="!elementIsActive(element)" />
+                        <ph:caret-down-fill v-else />
                     </div>
                     <label
                         class="flex-1 py-2"
@@ -126,7 +127,10 @@ export default {
                     this.items = this.field.options;
                 } else {
                     this.$axios
-                        .post(route("admin.helper.model-data"), this.field.source)
+                        .post(
+                            route("admin.helper.model-data"),
+                            this.field.source
+                        )
                         .then((res) => {
                             this.items = res.data;
                         });
