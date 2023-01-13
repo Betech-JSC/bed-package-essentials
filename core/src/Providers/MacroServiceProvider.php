@@ -98,7 +98,6 @@ class MacroServiceProvider extends BaseServiceProvider
 
         Router::macro('dynamicRedirect', function () {
             if (Schema::hasTable('redirects')) {
-
                 Route::name('dynamic-redirect')->group(function () {
                     $redirects = Redirect::active()->get();
                     foreach ($redirects as $redirect) {
