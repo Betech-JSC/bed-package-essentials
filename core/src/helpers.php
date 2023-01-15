@@ -24,6 +24,13 @@ if (!function_exists('static_url')) {
     }
 }
 
+if (!function_exists('to_domain')) {
+    function to_domain($url)
+    {
+        return parse_url($url, PHP_URL_HOST);
+    }
+}
+
 if (!function_exists('transform_seo')) {
     function transform_seo($model)
     {

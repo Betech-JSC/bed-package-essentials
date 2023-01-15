@@ -28,12 +28,12 @@ class RouteServiceProvider extends ServiceProvider
             Route::namespace($this->namespace)
                 ->group(package_path('core/routes/static.php'));
 
-            Route::domain(config('app.api_url'))
+            Route::domain(to_domain(config('app.api_url')))
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-            Route::domain(config('app.frontend_url'))
+            Route::domain(to_domain(config('app.frontend_url')))
                 ->middleware(['web', 'frontend'])
                 ->namespace($this->namespace)
                 ->group(package_path('core/routes/frontend.php'));
