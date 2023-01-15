@@ -27,7 +27,7 @@ if (!function_exists('static_url')) {
 if (!function_exists('to_domain')) {
     function to_domain($url)
     {
-        return parse_url($url, PHP_URL_HOST);
+        return parse_url($url, PHP_URL_SCHEME) . '://' . parse_url($url, PHP_URL_HOST);
     }
 }
 
