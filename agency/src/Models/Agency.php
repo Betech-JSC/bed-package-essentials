@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
+use Illuminate\Database\Eloquent\Builder;
 
 class Agency extends BaseModel
 {
@@ -32,12 +33,17 @@ class Agency extends BaseModel
         'latitude',
         'region',
         'image',
+        'province_id',
+        'district_id',
+        'ward_id',
+        'code',
     ];
 
     public $translatedAttributes = [
         'locale',
         'title',
         'location',
+        'full_address',
         'description',
         'phones',
         'info'
@@ -73,7 +79,7 @@ class Agency extends BaseModel
         static::saved(function (self $model) {
             if (request()->route() === null) return;
 
-            if($model->status == self::STATUS_ACTIVE && $model->is_headquarter) {
+            if ($model->status == self::STATUS_ACTIVE && $model->is_headquarter) {
                 self::active()
                     ->where('is_headquarter', true)
                     ->where('id', '<>', $model->id)
@@ -94,8 +100,13 @@ class Agency extends BaseModel
             'location' => $this->location,
             'phones' => $this->phones,
             'longitude' => $this->longitude,
+            'full_address' => $this->full_address,
             'latitude' => $this->latitude,
             'link_google_map' => $this->link_google_map,
+            'province_id' => $this->province_id,
+            'district_id' => $this->district_id,
+            'ward_id' => $this->ward_id,
+            'code' => $this->code,
             'image' => [
                 'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
                 'alt' => $this->image['alt'] ?? $this->title,
@@ -108,6 +119,7 @@ class Agency extends BaseModel
         return [
             'title' => $this->title,
             'location' => $this->location,
+            'full_address' => $this->full_address,
             'phones' => $this->phones,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
@@ -115,10 +127,45 @@ class Agency extends BaseModel
             'description' => $this->description,
             'info' => $this->info,
             'region' => $this->region,
+            'province_id' => $this->province_id,
+            'district_id' => $this->district_id,
+            'ward_id' => $this->ward_id,
+            'code' => $this->code,
             'image' => [
                 'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
                 'alt' => $this->image['alt'] ?? $this->title,
             ]
         ];
+    }
+
+    public function scopeSortByPosition($query)
+    {
+        return $query->orderByRaw('ISNULL(position) OR position = 0, position ASC')
+            ->orderBy('id', 'desc');
+    }
+
+    public function scopeFilter(Builder $query, array $filters = []): Builder
+    {
+        $query->when($filters['province_id'] ?? false, function (Builder $query, $value) {
+            $query->where('province_id', $value);
+        });
+
+        $query->when($filters['district_id'] ?? false, function (Builder $query, $value) {
+            $query->where('district_id', $value);
+        });
+
+        $query->when($filters['ward_id'] ?? false, function (Builder $query, $value) {
+            $query->where('ward_id', $value);
+        });
+
+        $query->when($filters['keyword'] ?? false, function (Builder $query, $keyword) {
+            $query->search($keyword);
+        });
+
+        $query->when($filters['limit'] ?? false, function (Builder $query, $value) {
+            $query->take($value);
+        });
+
+        return $query;
     }
 }
