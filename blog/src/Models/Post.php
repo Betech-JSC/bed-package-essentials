@@ -8,6 +8,7 @@ use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
 use \Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Builder;
 
 class Post extends BaseModel
 {
@@ -198,9 +199,9 @@ class Post extends BaseModel
         });
     }
 
-    public function transform()
+    public function transform($conditions = ['categories' => false])
     {
-        return [
+        $data = [
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
@@ -209,10 +210,23 @@ class Post extends BaseModel
             'category' => $this->category,
             'image' => $this->getImageDetail(),
         ];
+
+        if (isset($conditions['categories']) && $conditions['categories']) {
+            $data['categories'] = $this->categories
+                ->where('status', self::STATUS_ACTIVE)
+                ->values()
+                ->map(fn ($item) => $item->transform());
+        }
+        return $data;
     }
 
     public function transformDetails()
     {
+        $categories = $this->categories
+            ->where('status', self::STATUS_ACTIVE)
+            ->values()
+            ->map(fn ($item) => $item->transform());
+
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -222,7 +236,7 @@ class Post extends BaseModel
             'description' => $this->description,
             'content' => $this->content,
             'category' => $this->category,
-            'categories' => $this->categories->map(fn ($item) => $item->transform()),
+            'categories' => $categories,
             'breadcrumbs' => $this->getBreadcrumbsAttribute(),
             'image' => $this->getImageDetail(),
         ];
@@ -243,10 +257,10 @@ class Post extends BaseModel
 
     public function getBreadcrumbsAttribute()
     {
-        $category = $this->categories
+        $category = $this->categories()
+            ->with('parentNode')
             ->where('status', PostCategory::STATUS_ACTIVE)
-            ->sortBy([['parent_id', 'desc']])
-            ->values()
+            ->orderBy('parent_id', 'desc')
             ->first();
 
         return PostCategory::transformAsBreadcrumb($category);
@@ -294,5 +308,48 @@ class Post extends BaseModel
         }
 
         return $relatedPosts->map(fn ($item) => $item->transform());
+    }
+
+    public function scopeOrderByPossition($query)
+    {
+        return $query->orderByRaw('ISNULL(position) OR position = 0, position ASC');
+    }
+
+    public function scopeFilter(Builder $query, array $filters = []): Builder
+    {
+        $query->when($filters['tag'] ?? false, function (Builder $query, $value) {
+            $query->whereHas('categories', function ($query) use ($value) {
+                $query->whereHas('translations', function ($query) use ($value) {
+                    $query->whereSlug($value);
+                });
+            });
+        });
+
+        $query->when($filters['sort'] ?? 'default', function (Builder $query, $value) {
+            switch ($value) {
+                case 'position':
+                    $query->orderByPossition();
+                    break;
+                default:
+                    $query->orderBy('published_at', 'desc');
+                    break;
+            }
+        });
+
+        $query->orderBy('id', 'desc');
+
+        $query->when($filters['keyword'] ?? false, function (Builder $query, $keyword) {
+            $query->search($keyword);
+        });
+
+        $query->when($filters['limit'] ?? false, function (Builder $query, $value) {
+            $query->take($value);
+        });
+
+        $query->when($filters['limit'] ?? false && !$filters['paginate'] ?? true, function (Builder $query, $value) {
+            $query->take($value);
+        });
+
+        return $query;
     }
 }
