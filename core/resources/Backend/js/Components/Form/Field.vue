@@ -1,8 +1,8 @@
 <template>
     <div
-        class="mt-3 field"
+        class="field"
         :class="{
-            group: field.type !== 'file_upload'
+            group: field.type !== 'file_upload',
         }"
     >
         <label
