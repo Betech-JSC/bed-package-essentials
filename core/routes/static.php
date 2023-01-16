@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use JamstackVietnam\Core\Controllers\FileController;
 
 if (!str_contains(config('app.static_url'), config('app.url')) && config('app.url') !== config('app.frontend_url')) {
+
+    Route::get('/', function () {
+        abort(404);
+    });
+
     Route::get('static/{path?}', [FileController::class, 'show'])
         ->where('path', '(.*)');
 
