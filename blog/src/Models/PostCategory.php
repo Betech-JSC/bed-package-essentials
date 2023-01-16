@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use \Illuminate\Support\Facades\Route;
 
 class PostCategory extends BaseModel
 {
@@ -162,11 +163,15 @@ class PostCategory extends BaseModel
     public function getUrlAttribute(): array
     {
         $urls = [];
+        $default_locale = config('app.locale');
+
         if ($this->status == self::STATUS_ACTIVE) {
-            foreach ($this->translations as $translation) {
-                $urls[strtoupper($translation->locale)] = route("$translation->locale.posts.category", [
-                    'slug' => $translation->seo_slug ?? $translation->slug,
-                ]);
+            if (Route::has($default_locale . ".posts.category")) {
+                foreach ($this->translations as $translation) {
+                    $urls[strtoupper($translation->locale)] = route("$translation->locale.posts.category", [
+                        'slug' => $translation->seo_slug ?? $translation->slug,
+                    ]);
+                }
             }
         }
         return $urls;
