@@ -46,12 +46,22 @@ class ServiceProvider extends BaseServiceProvider
             && empty(File::glob(database_path('migrations/*_agency_translations_table.php')))
         ) {
             $timestamp = date('Y_m_d_His', time());
-            $agency = database_path("migrations/{$timestamp}_create_agencies_table.php");
-            $agencyTranslation = database_path("migrations/{$timestamp}_create_agency_translations_table.php");
+            $agency = database_path("migrations/{$timestamp}01_create_agencies_table.php");
+            $agencyTranslation = database_path("migrations/{$timestamp}02_create_agency_translations_table.php");
 
             $this->publishes([
                 __DIR__.'/../database/migrations/create_agencies_table.php.stub' => $agency,
                 __DIR__.'/../database/migrations/create_agency_translations_table.php.stub' => $agencyTranslation,
+            ], 'migrations');
+        }
+
+        if (empty(File::glob(database_path('migrations/*_add_region_to_agencies_table.php.php')))
+        ) {
+            $timestamp = date('Y_m_d_His', time());
+            $updateAgency = database_path("migrations/{$timestamp}03_add_region_to_agencies_table.php");
+
+            $this->publishes([
+                __DIR__.'/../database/migrations/add_region_to_agencies_table.php.stub' => $updateAgency,
             ], 'migrations');
         }
     }

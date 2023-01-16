@@ -15,6 +15,7 @@ class AgencyTranslation extends BaseModel
         'locale',
         'title',
         'location',
+        'full_address',
         'description',
         'phones',
         'info'
