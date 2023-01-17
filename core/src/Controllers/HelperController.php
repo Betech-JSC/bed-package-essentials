@@ -13,7 +13,7 @@ class HelperController extends Controller
             return response(file_get_contents(storage_path('logs/' . $file)))
                 ->header('Content-Type', 'text/plain');
         } else {
-            $files = glob(storage_path('logs/laravel-*.log'));
+            $files = glob(storage_path('logs/*.log'));
             $files = collect($files)->map(function ($file) {
                 return [
                     'file' => basename($file),
