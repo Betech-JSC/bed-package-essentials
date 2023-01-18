@@ -12,7 +12,7 @@
     >
         <InputText
             :type="field.type ?? 'text'"
-            v-model="modelValue"
+            :model-value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             @blur="validateAsync(field.name)"
             v-model:disabled="disabled"
@@ -25,7 +25,7 @@
             :min="0"
             :minFractionDigits="0"
             :maxFractionDigits="2"
-            :modelValue="parseFloat(modelValue)"
+            :model-value="parseFloat(modelValue)"
             @blur="validateAsync(field.name)"
             @input="$emit('update:modelValue', $event.value || 0)"
             v-model:disabled="disabled"
@@ -33,7 +33,7 @@
     </template>
     <template v-else-if="field.type === 'textarea'">
         <Textarea
-            :modelValue="modelValue"
+            :model-value="modelValue"
             v-model:disabled="disabled"
             @input="$emit('update:modelValue', $event.target.value)"
             :rows="field.rows || 3"
@@ -41,7 +41,7 @@
     </template>
     <template v-else-if="field.type === 'richtext'">
         <CustomEditor
-            :modelValue="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
             :field="field"
         />
@@ -51,7 +51,7 @@
             class="w-full"
             :min="0"
             :prefix="field.prefix || 'ATN '"
-            :modelValue="parseFloat(modelValue)"
+            :model-value="parseFloat(modelValue)"
             @input="$emit('update:modelValue', $event.value || 0)"
             @blur="validateAsync(field.name)"
             v-model:disabled="disabled"
@@ -60,7 +60,7 @@
     <template v-else-if="field.type === 'password'">
         <Password
             class="w-full"
-            v-model="modelValue"
+            :model-value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             @blur="validateAsync(field.name)"
             :feedback="field.feedback || false"
@@ -73,14 +73,17 @@
             <Checkbox
                 :binary="true"
                 :inputId="fieldId"
-                :modelValue="Boolean(Number(modelValue))"
+                :model-value="Boolean(Number(modelValue))"
                 @input="$emit('update:modelValue', Boolean($event))"
                 @blur="validateAsync(field.name)"
                 v-model:disabled="disabled"
             />
-            <label v-if="field.label" :for="fieldId" class="cursor-pointer label">{{
-                field.label
-            }}</label>
+            <label
+                v-if="field.label"
+                :for="fieldId"
+                class="cursor-pointer label"
+                >{{ field.label }}</label
+            >
         </div>
     </template>
     <template v-else-if="field.type === 'select_button'">
