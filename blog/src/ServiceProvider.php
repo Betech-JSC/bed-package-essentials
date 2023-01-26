@@ -67,5 +67,14 @@ class ServiceProvider extends BaseServiceProvider
                 __DIR__.'/../database/migrations/blog/create_related_posts_table.php.stub' => $relatedPost,
             ], 'migrations');
         }
+
+        if (empty(File::glob(database_path('migrations/blog/*_add_banner_to_posts_table.php')))) {
+            $timestamp = date('Y_m_d_Hi', time());
+            $update = database_path("migrations/blog/{$timestamp}07_add_banner_to_posts_table.php");
+
+            $this->publishes([
+                __DIR__.'/../database/migrations/blog/add_banner_to_posts_table.php.stub' => $update,
+            ], 'migrations');
+        }
     }
 }

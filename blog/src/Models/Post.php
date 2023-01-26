@@ -32,6 +32,8 @@ class Post extends BaseModel
         'position',
         'view_count',
         'image',
+        'banner',
+        'banner_mobile',
 
         'inject_head',
         'inject_body_start',
@@ -61,7 +63,9 @@ class Post extends BaseModel
     ];
 
     protected $casts = [
-        'image' => 'array'
+        'image' => 'array',
+        'banner' => 'array',
+        'banner_mobile' => 'array'
     ];
 
     public function rules()
@@ -208,7 +212,7 @@ class Post extends BaseModel
             'published_at' => $this->published_at,
             'description' => $this->description,
             'category' => $this->category,
-            'image' => $this->getImageDetail(),
+            'image' => $this->getImageDetail($this->image),
         ];
 
         if (isset($conditions['categories']) && $conditions['categories']) {
@@ -238,15 +242,17 @@ class Post extends BaseModel
             'category' => $this->category,
             'categories' => $categories,
             'breadcrumbs' => $this->getBreadcrumbsAttribute(),
-            'image' => $this->getImageDetail(),
+            'image' => $this->getImageDetail($this->image),
+            'banner' => $this->getImageDetail($this->banner),
+            'banner_mobile' => $this->getImageDetail($this->banner_mobile),
         ];
     }
 
-    public function getImageDetail()
+    public function getImageDetail($image)
     {
         return [
-            'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
-            'alt' => $this->image['alt'] ?? $this->title,
+            'url' => isset($image['path']) ? static_url($image['path']) : null,
+            'alt' => $image['alt'] ?? $this->title,
         ];
     }
 
