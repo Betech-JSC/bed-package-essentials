@@ -51,10 +51,8 @@ class MetaPageController extends Controller
         if (!config('meta-page.can_created')) {
             $storedRoutes = MetaPage::pluck('url');
             $routes = collect(Sitemap::create()->addStaticRoutes()->tags)
-                ->transform(
-                    fn ($item) =>
-                    str_replace(env('APP_URL'), '', $item['url']) ?: '/'
-                );
+                ->transform(fn ($item) => str_replace(env('APP_URL'), '', $item['url']) ?: '/')
+                ->prepend('/');
 
             $diff = $routes->diff($storedRoutes);
 
