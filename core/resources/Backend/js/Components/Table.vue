@@ -392,8 +392,6 @@ export default {
                 matchMode: FilterMatchMode.CONTAINS,
             };
 
-            console.log(filters);
-
             const columns = this.mergeColumns;
 
             Object.keys(columns)
