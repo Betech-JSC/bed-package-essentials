@@ -382,7 +382,7 @@ export default {
         },
 
         getFilters() {
-            let keyword = route().params.global.value;
+            let keyword = route().params.global?.value;
             let filters = {
                 ...route().params,
             };
