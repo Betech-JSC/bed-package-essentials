@@ -220,10 +220,9 @@ export default {
             );
         },
         canExport() {
+            let routeName = this.getCurrentLocale() + ".admin." + this.currentResource + ".export";
             return (
-                Object.keys(this.route().t.routes).includes(
-                    this.currentResource + ".export"
-                ) &&
+                Object.keys(this.route().t.routes).includes(routeName) &&
                 (this.config.canExport ??
                     this.can("admin." + this.currentResource + ".export"))
             );
