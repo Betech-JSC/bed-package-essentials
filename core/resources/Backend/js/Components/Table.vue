@@ -248,7 +248,7 @@ export default {
             rows: this.$refs["data-table"].rows,
             sortField: null,
             sortOrder: null,
-            filters: this.getFilters(),
+            filters: this.getFilters()
         };
 
         this.loadLazyData();
@@ -382,12 +382,13 @@ export default {
         },
 
         getFilters() {
+            let keyword = route().params.global.value;
             let filters = {
                 ...route().params,
             };
 
             filters.global = {
-                value: null,
+                value: keyword,
                 matchMode: FilterMatchMode.CONTAINS,
             };
 
