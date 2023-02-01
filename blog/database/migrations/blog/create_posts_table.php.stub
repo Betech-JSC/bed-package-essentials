@@ -18,11 +18,14 @@ class CreatePostsTable extends Migration
             $table->id();
 
             $table->json('image')->nullable();
+            $table->json('banner')->nullable();
+            $table->json('banner_mobile')->nullable();
             $table->date('published_at')->nullable();
 
             $table->boolean('is_home')->nullable()->default(0);
             $table->boolean('is_featured')->nullable()->default(0);
             $table->integer('position')->nullable();
+            $table->integer('home_position')->nullable();
 
             $table->string('status', 30)->default(Post::STATUS_ACTIVE);
 

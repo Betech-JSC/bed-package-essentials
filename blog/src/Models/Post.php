@@ -30,8 +30,11 @@ class Post extends BaseModel
         'is_home',
         'is_featured',
         'position',
+        'home_position',
         'view_count',
         'image',
+        'banner',
+        'banner_mobile',
 
         'inject_head',
         'inject_body_start',
@@ -61,7 +64,9 @@ class Post extends BaseModel
     ];
 
     protected $casts = [
-        'image' => 'array'
+        'image' => 'array',
+        'banner' => 'array',
+        'banner_mobile' => 'array'
     ];
 
     public function rules()
@@ -201,6 +206,11 @@ class Post extends BaseModel
 
     public function transform($conditions = ['categories' => false])
     {
+        $categories = $this->categories
+            ->where('status', self::STATUS_ACTIVE)
+            ->values()
+            ->map(fn ($item) => $item->transform());
+
         $data = [
             'id' => $this->id,
             'title' => $this->title,
@@ -208,7 +218,8 @@ class Post extends BaseModel
             'published_at' => $this->published_at,
             'description' => $this->description,
             'category' => $this->category,
-            'image' => $this->getImageDetail(),
+            'categories' => $categories,
+            'image' => $this->getImageDetail($this->image),
         ];
 
         if (isset($conditions['categories']) && $conditions['categories']) {
@@ -238,15 +249,17 @@ class Post extends BaseModel
             'category' => $this->category,
             'categories' => $categories,
             'breadcrumbs' => $this->getBreadcrumbsAttribute(),
-            'image' => $this->getImageDetail(),
+            'image' => $this->getImageDetail($this->image),
+            'banner' => $this->getImageDetail($this->banner),
+            'banner_mobile' => $this->getImageDetail($this->banner_mobile),
         ];
     }
 
-    public function getImageDetail()
+    public function getImageDetail($image)
     {
         return [
-            'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
-            'alt' => $this->image['alt'] ?? $this->title,
+            'url' => isset($image['path']) ? static_url($image['path']) : null,
+            'alt' => $image['alt'] ?? $this->title,
         ];
     }
 
@@ -315,6 +328,11 @@ class Post extends BaseModel
         return $query->orderByRaw('ISNULL(position) OR position = 0, position ASC');
     }
 
+    public function scopeOrderByHomePossition($query)
+    {
+        return $query->orderByRaw('ISNULL(home_position) OR home_position = 0, home_position ASC');
+    }
+
     public function scopeFilter(Builder $query, array $filters = []): Builder
     {
         $query->when($filters['tag'] ?? false, function (Builder $query, $value) {
@@ -329,6 +347,9 @@ class Post extends BaseModel
             switch ($value) {
                 case 'position':
                     $query->orderByPossition();
+                    break;
+                case 'home_position':
+                    $query->orderByHomePossition();
                     break;
                 default:
                     $query->orderBy('published_at', 'desc');
