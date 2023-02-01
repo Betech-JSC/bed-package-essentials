@@ -328,6 +328,11 @@ class Post extends BaseModel
         return $query->orderByRaw('ISNULL(position) OR position = 0, position ASC');
     }
 
+    public function scopeOrderByHomePossition($query)
+    {
+        return $query->orderByRaw('ISNULL(home_position) OR home_position = 0, home_position ASC');
+    }
+
     public function scopeFilter(Builder $query, array $filters = []): Builder
     {
         $query->when($filters['tag'] ?? false, function (Builder $query, $value) {
@@ -342,6 +347,9 @@ class Post extends BaseModel
             switch ($value) {
                 case 'position':
                     $query->orderByPossition();
+                    break;
+                case 'home_position':
+                    $query->orderByHomePossition();
                     break;
                 default:
                     $query->orderBy('published_at', 'desc');
