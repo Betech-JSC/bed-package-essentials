@@ -205,6 +205,11 @@ class Post extends BaseModel
 
     public function transform($conditions = ['categories' => false])
     {
+        $categories = $this->categories
+            ->where('status', self::STATUS_ACTIVE)
+            ->values()
+            ->map(fn ($item) => $item->transform());
+
         $data = [
             'id' => $this->id,
             'title' => $this->title,
@@ -212,6 +217,7 @@ class Post extends BaseModel
             'published_at' => $this->published_at,
             'description' => $this->description,
             'category' => $this->category,
+            'categories' => $categories,
             'image' => $this->getImageDetail($this->image),
         ];
 
