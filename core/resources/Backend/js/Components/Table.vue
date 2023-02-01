@@ -220,10 +220,9 @@ export default {
             );
         },
         canExport() {
+            let routeName = this.getCurrentLocale() + ".admin." + this.currentResource + ".export";
             return (
-                Object.keys(this.route().t.routes).includes(
-                    this.currentResource + ".export"
-                ) &&
+                Object.keys(this.route().t.routes).includes(routeName) &&
                 (this.config.canExport ??
                     this.can("admin." + this.currentResource + ".export"))
             );
@@ -248,7 +247,7 @@ export default {
             rows: this.$refs["data-table"].rows,
             sortField: null,
             sortOrder: null,
-            filters: this.getFilters(),
+            filters: this.getFilters()
         };
 
         this.loadLazyData();
@@ -382,12 +381,13 @@ export default {
         },
 
         getFilters() {
+            let keyword = route().params.global?.value;
             let filters = {
                 ...route().params,
             };
 
             filters.global = {
-                value: null,
+                value: keyword,
                 matchMode: FilterMatchMode.CONTAINS,
             };
 
