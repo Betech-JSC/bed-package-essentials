@@ -30,6 +30,7 @@ class Post extends BaseModel
         'is_home',
         'is_featured',
         'position',
+        'home_position',
         'view_count',
         'image',
         'banner',
