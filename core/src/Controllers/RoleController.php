@@ -21,6 +21,10 @@ class RoleController extends Controller
 
     private function afterForm($item)
     {
+        if (empty($item->id)) {
+            $item = new Role();
+        }
+
         return [
             ...$item->toArray(),
             'permissions' => Role::getPermissions($item)
