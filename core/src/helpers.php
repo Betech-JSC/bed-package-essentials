@@ -204,13 +204,11 @@ if (!function_exists('transform_richtext')) {
             return $content;
         }
 
-        $hasMatch = [];
+        $matches = collect($matches)->unique();
 
         foreach ($matches as $match) {
             $url = $match[1];
-            if (str_contains($url, 'http') || in_array($url, $hasMatch)) continue;
-
-            $hasMatch[] = $url;
+            if (str_contains($url, 'http')) continue;
 
             $newUrl = static_url(str_replace('/static/', '', $url));
             try {
