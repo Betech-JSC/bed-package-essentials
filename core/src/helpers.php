@@ -204,6 +204,8 @@ if (!function_exists('transform_richtext')) {
             return $content;
         }
 
+        $matches = collect($matches)->unique();
+
         foreach ($matches as $match) {
             $url = $match[1];
             if (str_contains($url, 'http')) continue;
