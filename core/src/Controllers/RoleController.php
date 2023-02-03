@@ -23,7 +23,6 @@ class RoleController extends Controller
     {
         if (empty($item->id)) {
             $item = new Role();
-            $item->guard_name = 'admin';
         }
 
         return [
