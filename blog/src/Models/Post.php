@@ -245,7 +245,7 @@ class Post extends BaseModel
             'author' => $this->author,
             'published_at' => $this->published_at,
             'description' => $this->description,
-            'content' => $this->content,
+            'content' => transform_richtext($this->content),
             'category' => $this->category,
             'categories' => $categories,
             'breadcrumbs' => $this->getBreadcrumbsAttribute(),

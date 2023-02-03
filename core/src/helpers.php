@@ -204,9 +204,13 @@ if (!function_exists('transform_richtext')) {
             return $content;
         }
 
+        $hasMatch = [];
+
         foreach ($matches as $match) {
             $url = $match[1];
-            if (str_contains($url, 'http')) continue;
+            if (str_contains($url, 'http') || in_array($url, $hasMatch)) continue;
+
+            $hasMatch[] = $url;
 
             $newUrl = static_url(str_replace('/static/', '', $url));
             try {
