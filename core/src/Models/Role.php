@@ -12,7 +12,8 @@ class Role extends SpatieRole
     use HasFactory;
 
     public $fillable = [
-        'name'
+        'name',
+        'guard_name'
     ];
 
     public $rules = [
