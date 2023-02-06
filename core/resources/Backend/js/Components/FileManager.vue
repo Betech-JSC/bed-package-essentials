@@ -426,7 +426,7 @@ export default {
                 });
         },
         fileCheck(file) {
-            const maxSize = this.isImage(file.filename)
+            const maxSize = this.isImage(file.name)
                 ? MAX_SIZE_OF_IMAGE
                 : MAX_SIZE_OF_VIDEO;
             const fileSize = file.size / 1024 / 1024;
