@@ -460,9 +460,10 @@ export default {
                     path: this.currentPath
                 })
                 )
-                .then((res) => {
-                this.tree = res.data;
-                });
+                .then((res) => {});
+
+            this.currentPath = "/";
+            this.getFiles();
             this.isDeleteFolder = false;
         },
         createFolder(name) {
