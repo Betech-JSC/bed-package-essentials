@@ -18,8 +18,6 @@
         @select-all-change="onSelectAllChange"
         @row-select="onRowSelect"
         @row-unselect="onRowUnselect"
-        stateStorage="session"
-        :stateKey="`data-table-state-${currentResource}`"
         :rowHover="true"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[10, 20, 50, 100]"
