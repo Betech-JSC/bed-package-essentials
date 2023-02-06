@@ -327,6 +327,19 @@ export default {
                     }
                 });
         },
+        loadTreeList() {
+            this.$axios
+                .get(
+                    this.route("admin.files.index", {
+                        page: 1,
+                        search: null,
+                        path: this.currentPath,
+                    })
+                )
+                .then((res) => {
+                    this.tree = res.data.tree;
+                });
+        },
         async copyUrl(file) {
             try {
                 await navigator.clipboard.writeText(
@@ -463,7 +476,7 @@ export default {
                 .then((res) => {});
 
             this.currentPath = "/";
-            this.getFiles();
+            this.loadTreeList();
             this.isDeleteFolder = false;
         },
         createFolder(name) {
@@ -475,6 +488,9 @@ export default {
                 .then((res) => {
                     this.tree = res.data;
                 });
+
+            this.currentPath = "/";
+            this.loadTreeList();
         },
     },
 };
