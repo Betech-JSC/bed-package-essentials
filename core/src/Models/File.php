@@ -37,8 +37,9 @@ class File
         $tree = $this->tree();
         $directories = $this->directories();
         $files = $this->files();
+        $isDeleteFolder = $this->contents->count() > 0 ? false : true;
 
-        return compact('tree', 'directories', 'files');
+        return compact('tree', 'directories', 'files', 'isDeleteFolder');
     }
 
     public function tree()
@@ -223,6 +224,15 @@ class File
         }
 
         return (bool) $this->storage->makeDirectory($name);
+    }
+
+    public function folderDelete()
+    {
+        if (collect($this->storage->listContents($this->path))->count() > 0) {
+            return false;
+        }
+
+        return (bool) Storage::disk('uploads')->deleteDirectory($this->path);
     }
 
     private function formatBytes($size)

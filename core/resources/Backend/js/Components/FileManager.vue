@@ -37,6 +37,14 @@
                     <ph-plus-circle-light />
                     <span> Tạo Folder </span>
                 </Button>
+                <Button
+                    v-if="isDeleteFolder"
+                    @click="deleteFolder"
+                    class="space-x-2 btn-outline-primary"
+                >
+                    <carbon:subtract-alt />
+                    <span> Xóa Folder </span>
+                </Button>
                 <Button @click.prevent="browse" class="space-x-2 btn-primary">
                     <ph:upload-simple />
                     <span> Chọn Tệp </span>
@@ -260,6 +268,7 @@ export default {
             },
             search: null,
             embed: this.$page.props.route.query.embed,
+            isDeleteFolder: false
         };
     },
 
@@ -299,6 +308,7 @@ export default {
         selectedItem(item) {
             this.currentPath = item.path;
             this.getFiles();
+            this.isDeleteFolder = this.data.isDeleteFolder;
         },
         getFiles(params = {}) {
             this.$axios
@@ -426,7 +436,7 @@ export default {
                 });
         },
         fileCheck(file) {
-            const maxSize = this.isImage(file.name)
+            const maxSize = this.isImage(file.filename)
                 ? MAX_SIZE_OF_IMAGE
                 : MAX_SIZE_OF_VIDEO;
             const fileSize = file.size / 1024 / 1024;
@@ -442,6 +452,18 @@ export default {
             this.timer = setTimeout(() => {
                 this.search = event.target.value;
             }, 150);
+        },
+        deleteFolder() {
+            this.$axios
+                .post(
+                this.route("admin.files.folders.delete", {
+                    path: this.currentPath
+                })
+                )
+                .then((res) => {
+                this.tree = res.data;
+                });
+            this.isDeleteFolder = false;
         },
         createFolder(name) {
             this.$axios
