@@ -42,7 +42,6 @@ Route::middleware(['auth:admin'])->name('admin.')->group(function () {
 
     Route::module(FileController::class, ['only' => ['index', 'form', 'store', 'destroy']]);
     Route::post('folders/create', [FileController::class, 'folderCreate'])->name('files.folders.create');
-    Route::post('folders/delete', [FileController::class, 'folderDelete'])->name('files.folders.delete');
 
     Route::post('model-data', [HelperController::class, 'getModelData'])->name('helper.model-data');
 
