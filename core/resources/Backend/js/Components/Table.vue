@@ -218,7 +218,11 @@ export default {
             );
         },
         canExport() {
-            let routeName = this.getCurrentLocale() + ".admin." + this.currentResource + ".export";
+            let routeName =
+                this.getCurrentLocale() +
+                ".admin." +
+                this.currentResource +
+                ".export";
             return (
                 Object.keys(this.route().t.routes).includes(routeName) &&
                 (this.config.canExport ??
@@ -230,12 +234,12 @@ export default {
         selectedItems(value) {
             this.$emit("on-select", value);
         },
-        filters:{
+        filters: {
             handler() {
                 this.pushToUrl();
             },
-            deep: true
-        }
+            deep: true,
+        },
     },
     mounted() {
         this.loading = true;
@@ -245,20 +249,22 @@ export default {
             rows: this.$refs["data-table"].rows,
             sortField: null,
             sortOrder: null,
-            filters: this.getFilters()
+            filters: this.getFilters(),
         };
 
         this.loadLazyData();
     },
     methods: {
-        pushToUrl(){
+        pushToUrl() {
             let params = {
                 ...route().params,
                 ...this.filters,
-            }
-            const newUrl = this.route(`admin.${this.currentResource}.index`, params);
+            };
+            const newUrl = this.route(
+                `admin.${this.currentResource}.index`,
+                params
+            );
             history.pushState({}, null, newUrl);
-            this.loadLazyData();
         },
         loadLazyData() {
             this.loading = true;
@@ -294,7 +300,7 @@ export default {
 
             this.timer = setTimeout(() => {
                 this.loadLazyData();
-            }, 200);
+            }, 150);
         },
         onPage(event) {
             this.lazyParams = event;
