@@ -292,6 +292,9 @@ export default {
                 this.getFiles();
             }
         },
+        data() {
+            this.isDeleteFolder = this.data.isDeleteFolder;
+        }
     },
 
     computed: {
@@ -308,7 +311,7 @@ export default {
         selectedItem(item) {
             this.currentPath = item.path;
             this.getFiles();
-            this.isDeleteFolder = this.data.isDeleteFolder;
+            console.log(this.data);
         },
         getFiles(params = {}) {
             this.$axios
@@ -325,19 +328,6 @@ export default {
                     if (!this.tree) {
                         this.tree = res.data.tree;
                     }
-                });
-        },
-        loadTreeList() {
-            this.$axios
-                .get(
-                    this.route("admin.files.index", {
-                        page: 1,
-                        search: null,
-                        path: this.currentPath,
-                    })
-                )
-                .then((res) => {
-                    this.tree = res.data.tree;
                 });
         },
         async copyUrl(file) {
@@ -476,7 +466,7 @@ export default {
                 .then((res) => {});
 
             this.currentPath = "/";
-            this.loadTreeList();
+            this.getFiles();
             this.isDeleteFolder = false;
         },
         createFolder(name) {
@@ -490,7 +480,7 @@ export default {
                 });
 
             this.currentPath = "/";
-            this.loadTreeList();
+            this.getFiles();
         },
     },
 };
