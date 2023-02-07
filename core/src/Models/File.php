@@ -122,13 +122,14 @@ class File
                 return VideoStreamer::streamFile($this->storage->path($this->path));
             }
 
-            $filePath = $this->storage->get($this->path);
+            $fileData = $this->storage->get($this->path);
+            $filePath = $this->storage->path($this->path);
             $mimeType = $this->storage->mimeType($this->path);
 
             if (str_contains($this->path, '.mp4')) {
                 $size = $this->storage->size($this->path);
 
-                return response()->make($filePath, 200)
+                return response()->make($fileData, 200)
                     ->header('Accept-Ranges', 'bytes')
                     ->header('Content-Length', $size)
                     ->header('Content-Type', $mimeType);
@@ -139,10 +140,10 @@ class File
                 isset($options['download'])
             ) {
                 return response()
-                    ->download($filePath, basename($filePath), [], 'inline');
+                    ->download($filePath, basename($filePath));
             }
 
-            return response()->make($filePath, 200)
+            return response()->make($fileData, 200)
                 ->header('Content-Type', $mimeType);
         } catch (\Exception $exception) {
             logger()->error($exception->getMessage());
