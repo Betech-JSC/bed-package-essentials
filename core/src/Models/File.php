@@ -134,6 +134,14 @@ class File
                     ->header('Content-Type', $mimeType);
             }
 
+            if (
+                str_contains($this->path, '.pdf') &&
+                isset($options['download'])
+            ) {
+                return response()
+                    ->download($filePath, basename($filePath), [], 'inline');
+            }
+
             return response()->make($filePath, 200)
                 ->header('Content-Type', $mimeType);
         } catch (\Exception $exception) {
