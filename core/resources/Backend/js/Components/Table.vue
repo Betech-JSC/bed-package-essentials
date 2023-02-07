@@ -300,7 +300,7 @@ export default {
 
             this.timer = setTimeout(() => {
                 this.loadLazyData();
-            }, 150);
+            }, 200);
         },
         onPage(event) {
             this.lazyParams = event;
