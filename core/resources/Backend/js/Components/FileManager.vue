@@ -312,7 +312,6 @@ export default {
         selectedItem(item) {
             this.currentPath = item.path;
             this.getFiles();
-            console.log(this.data);
         },
         getFiles(params = {}) {
             this.$axios
