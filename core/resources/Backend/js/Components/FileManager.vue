@@ -294,6 +294,7 @@ export default {
         },
         data() {
             this.isDeleteFolder = this.data.isDeleteFolder;
+            this.tree = this.data.tree;
         }
     },
 
