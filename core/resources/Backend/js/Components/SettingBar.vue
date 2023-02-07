@@ -8,6 +8,7 @@
                 >
                     <AccordionTab header="Cài đặt thông tin">
                         <Link
+                            v-if="configs.general"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -23,6 +24,7 @@
                             Thông tin chung
                         </Link>
                         <Link
+                            v-if="!!route().t.routes['admin.settings.meta-pages.index']"
                             :href="route('admin.settings.meta-pages.index')"
                             class="item"
                             :class="{
@@ -32,6 +34,7 @@
                             Meta
                         </Link>
                         <Link
+                            v-if="configs.robots_txt"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -47,6 +50,7 @@
                             Robots.txt
                         </Link>
                         <Link
+                            v-if="!!route().t.routes['admin.settings.redirects.index']"
                             :href="route('admin.settings.redirects.index')"
                             class="item"
                             :class="{
@@ -58,6 +62,7 @@
                     </AccordionTab>
                     <AccordionTab header="Email">
                         <Link
+                            v-if="configs.smtp"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -73,6 +78,7 @@
                             Cấu hình SMTP
                         </Link>
                         <Link
+                            v-if="configs.notification"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -93,3 +99,8 @@
         </div>
     </div>
 </template>
+<script>
+export default {
+    props: ["configs"],
+};
+</script>

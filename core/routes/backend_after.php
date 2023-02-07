@@ -22,11 +22,19 @@ Route::middleware(['auth:admin'])->name('admin.')->group(function () {
     Route::module(AdminController::class);
     Route::put('admins', [AdminController::class, 'changePassword'])->name('admins.changePassword');
     Route::module(RoleController::class);
-    Route::module(SettingController::class);
-    Route::prefix('settings')->name('settings.')->group(function () {
-        Route::module(MetaPageController::class);
-        Route::module(RedirectController::class);
-    });
+
+    if (config('core.setting.enable')) {
+        Route::module(SettingController::class);
+
+        Route::prefix('settings')->name('settings.')->group(function () {
+            if (config('core.setting.meta_page.enable')) {
+                Route::module(MetaPageController::class);
+            }
+            if (config('core.setting.redirect.enable')) {
+                Route::module(RedirectController::class);
+            }
+        });
+    }
 
     if (config('core.translation.enable')) {
         Route::module(TranslationController::class);
@@ -34,6 +42,7 @@ Route::middleware(['auth:admin'])->name('admin.')->group(function () {
 
     Route::module(FileController::class, ['only' => ['index', 'form', 'store', 'destroy']]);
     Route::post('folders/create', [FileController::class, 'folderCreate'])->name('files.folders.create');
+    Route::post('folders/delete', [FileController::class, 'folderDelete'])->name('files.folders.delete');
 
     Route::post('model-data', [HelperController::class, 'getModelData'])->name('helper.model-data');
 

@@ -1,5 +1,5 @@
 <template layout>
-    <WrapSetting>
+    <WrapSetting :configs="configs">
         <Table
             :schema="schema"
             :config="{
@@ -13,6 +13,6 @@
 import WrapSetting from "@Core/Components/WrapSetting.vue";
 export default {
     components: { WrapSetting },
-    props: ["schema"],
+    props: ["schema", "configs"],
 };
 </script>

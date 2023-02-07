@@ -24,6 +24,14 @@ class SettingController extends Controller
     {
         $this->checkAuthorize($id ? 'edit' : 'create');
 
+        if (!!config('core.setting.form.' . $id . '.disable')) {
+            foreach(config('core.setting.form') as $key => $value) {
+                if (!$value['disable']) {
+                    $id = $key;
+                }
+            }
+        }
+
         $settingName =  Str::studly($id);
 
         $breadcrumbs = [
@@ -47,6 +55,7 @@ class SettingController extends Controller
             'item' => $item,
             'breadcrumbs' => $breadcrumbs,
             'schema' => $this->getSchema(),
+            'configs' => setting_bar()
         ]);
     }
 
