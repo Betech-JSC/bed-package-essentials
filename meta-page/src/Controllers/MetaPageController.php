@@ -37,7 +37,7 @@ class MetaPageController extends Controller
             ],
             'schema' => $this->getSchema(),
             'can_created' => config('meta-page.can_created'),
-            'configs' => setting_bar()
+            'setting_bar' => setting_bar()
         ]);
     }
 

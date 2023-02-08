@@ -35,7 +35,7 @@ class RedirectController extends Controller
                 ]
             ],
             'schema' => $this->getSchema(),
-            'configs' => setting_bar()
+            'setting_bar' => setting_bar()
         ]);
     }
 }

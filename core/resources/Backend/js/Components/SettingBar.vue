@@ -8,7 +8,7 @@
                 >
                     <AccordionTab header="Cài đặt thông tin">
                         <Link
-                            v-if="configs.general"
+                            v-if="settingBar.general"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -34,7 +34,7 @@
                             Meta
                         </Link>
                         <Link
-                            v-if="configs.robots_txt"
+                            v-if="settingBar.robots_txt"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -62,7 +62,7 @@
                     </AccordionTab>
                     <AccordionTab header="Email">
                         <Link
-                            v-if="configs.smtp"
+                            v-if="settingBar.smtp"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -78,7 +78,7 @@
                             Cấu hình SMTP
                         </Link>
                         <Link
-                            v-if="configs.notification"
+                            v-if="settingBar.notification"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -101,6 +101,10 @@
 </template>
 <script>
 export default {
-    props: ["configs"],
+    data(){
+        return {
+            settingBar: this.$page.props.setting_bar
+        }
+    }
 };
 </script>

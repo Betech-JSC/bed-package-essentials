@@ -55,7 +55,7 @@ class SettingController extends Controller
             'item' => $item,
             'breadcrumbs' => $breadcrumbs,
             'schema' => $this->getSchema(),
-            'configs' => setting_bar()
+            'setting_bar' => setting_bar()
         ]);
     }
 
