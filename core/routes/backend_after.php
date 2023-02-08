@@ -23,20 +23,20 @@ Route::middleware(['auth:admin'])->name('admin.')->group(function () {
     Route::put('admins', [AdminController::class, 'changePassword'])->name('admins.changePassword');
     Route::module(RoleController::class);
 
-    if (config('core.setting.enable')) {
+    if (config('core.setting.enable', true)) {
         Route::module(SettingController::class);
 
         Route::prefix('settings')->name('settings.')->group(function () {
-            if (config('core.setting.meta_page.enable')) {
+            if (config('core.setting.meta_page.enable', true)) {
                 Route::module(MetaPageController::class);
             }
-            if (config('core.setting.redirect.enable')) {
+            if (config('core.setting.redirect.enable', true)) {
                 Route::module(RedirectController::class);
             }
         });
     }
 
-    if (config('core.translation.enable')) {
+    if (config('core.translation.enable', true)) {
         Route::module(TranslationController::class);
     }
 
