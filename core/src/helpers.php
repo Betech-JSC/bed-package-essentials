@@ -228,10 +228,10 @@ if (!function_exists('setting_bar')) {
     function setting_bar()
     {
         return [
-            'general' => !config('core.setting.form.general.disable'),
-            'robots_txt' => !config('core.setting.form.robots_txt.disable'),
-            'notification' => !config('core.setting.form.notification.disable'),
-            'smtp' => !config('core.setting.form.smtp.disable'),
+            'general' => config('core.setting.form.general.enable', true),
+            'robots_txt' => config('core.setting.form.robots_txt.enable', true),
+            'notification' => config('core.setting.form.notification.enable', true),
+            'smtp' => config('core.setting.form.smtp.enable', true),
         ];
     }
 }
