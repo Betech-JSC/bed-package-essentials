@@ -18,7 +18,7 @@
                             :class="{
                                 active: isUrl('admin.settings.form', {
                                     id: 'general',
-                                }) || isAcctive('general'),
+                                }),
                             }"
                         >
                             Thông tin chung
@@ -44,7 +44,7 @@
                             :class="{
                                 active: isUrl('admin.settings.form', {
                                     id: 'robots_txt',
-                                }) || isAcctive('robots_txt'),
+                                }),
                             }"
                         >
                             Robots.txt
@@ -72,7 +72,7 @@
                             :class="{
                                 active: isUrl('admin.settings.form', {
                                     id: 'smtp',
-                                }) || isAcctive('smtp'),
+                                }),
                             }"
                         >
                             Cấu hình SMTP
@@ -88,7 +88,7 @@
                             :class="{
                                 active: isUrl('admin.settings.form', {
                                     id: 'notification',
-                                }) || isAcctive('notification'),
+                                }),
                             }"
                         >
                             Thông báo
@@ -106,10 +106,5 @@ export default {
             settingBar: this.$page.props.setting_bar
         }
     },
-    methods: {
-        isAcctive(id) {
-            return id === this.settingBar.id_default && this.isUrl('admin.settings.form', {id: 'general'});
-        }
-    }
 };
 </script>

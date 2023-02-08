@@ -25,7 +25,14 @@ class SettingController extends Controller
         $this->checkAuthorize($id ? 'edit' : 'create');
 
         if (!config('core.setting.form.' . $id . '.enable', true)) {
-            $id = config('core.setting.id_default', 'general');
+            $id = config('core.setting.id_default', null);
+
+            if (!empty($id)) {
+                return redirect()->route('admin.settings.form', ['id' =>  $id]);
+            }
+            else {
+                return redirect()->route(config('core.setting.route_default', 'admin.dashboard.index'));
+            }
         }
 
         $settingName =  Str::studly($id);
