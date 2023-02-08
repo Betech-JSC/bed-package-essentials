@@ -233,8 +233,7 @@ if (!function_exists('setting_bar')) {
             'notification' => config('core.setting.form.notification.enable', true),
             'smtp' => config('core.setting.form.smtp.enable', true),
             'info' => config('core.setting.info.enable', true),
-            'email' => config('core.setting.email.enable', true),
-            'id_default' => config('core.setting.id_default', 'general')
+            'email' => config('core.setting.email.enable', true)
         ];
     }
 }

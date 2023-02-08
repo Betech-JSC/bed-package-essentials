@@ -105,6 +105,6 @@ export default {
         return {
             settingBar: this.$page.props.setting_bar
         }
-    },
+    }
 };
 </script>
