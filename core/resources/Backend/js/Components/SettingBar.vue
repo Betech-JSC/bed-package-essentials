@@ -18,7 +18,7 @@
                             :class="{
                                 active: isUrl('admin.settings.form', {
                                     id: 'general',
-                                }),
+                                }) || isAcctive('general'),
                             }"
                         >
                             Thông tin chung
@@ -44,7 +44,7 @@
                             :class="{
                                 active: isUrl('admin.settings.form', {
                                     id: 'robots_txt',
-                                }),
+                                }) || isAcctive('robots_txt'),
                             }"
                         >
                             Robots.txt
@@ -88,7 +88,7 @@
                             :class="{
                                 active: isUrl('admin.settings.form', {
                                     id: 'notification',
-                                }),
+                                }) || isAcctive('notification'),
                             }"
                         >
                             Thông báo
