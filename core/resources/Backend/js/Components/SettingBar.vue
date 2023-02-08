@@ -6,7 +6,7 @@
                     :activeIndex="Array.from(Array(20).keys())"
                     :multiple="true"
                 >
-                    <AccordionTab header="Cài đặt thông tin">
+                    <AccordionTab v-if="settingBar.info" header="Cài đặt thông tin">
                         <Link
                             v-if="settingBar.general"
                             class="item"
@@ -60,7 +60,7 @@
                             Redirects
                         </Link>
                     </AccordionTab>
-                    <AccordionTab header="Email">
+                    <AccordionTab v-if="settingBar.email" header="Email">
                         <Link
                             v-if="settingBar.smtp"
                             class="item"
@@ -72,7 +72,7 @@
                             :class="{
                                 active: isUrl('admin.settings.form', {
                                     id: 'smtp',
-                                }),
+                                }) || isAcctive('smtp'),
                             }"
                         >
                             Cấu hình SMTP
@@ -104,6 +104,11 @@ export default {
     data(){
         return {
             settingBar: this.$page.props.setting_bar
+        }
+    },
+    methods: {
+        isAcctive(id) {
+            return id === this.settingBar.id_default && this.isUrl('admin.settings.form', {id: 'general'});
         }
     }
 };

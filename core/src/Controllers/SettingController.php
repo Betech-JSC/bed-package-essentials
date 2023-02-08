@@ -24,12 +24,8 @@ class SettingController extends Controller
     {
         $this->checkAuthorize($id ? 'edit' : 'create');
 
-        if (!!config('core.setting.form.' . $id . '.disable')) {
-            foreach(config('core.setting.form') as $key => $value) {
-                if (!$value['disable']) {
-                    $id = $key;
-                }
-            }
+        if (!config('core.setting.form.' . $id . '.enable', true)) {
+            $id = config('core.setting.id_default', 'general');
         }
 
         $settingName =  Str::studly($id);
