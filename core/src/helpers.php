@@ -37,7 +37,7 @@ if (!function_exists('transform_seo')) {
     function transform_seo($model)
     {
         return [
-            'seo_meta_title' => $model->seo_meta_title ?? $model->title,
+            'seo_meta_title' => $model->seo_meta_title ?? $model->title ?? env('APP_NAME'),
             'seo_slug' => $model->seo_slug ?? $model->slug,
             'seo_meta_description' => $model->seo_meta_description ?? $model->description,
             'seo_meta_keywords' => $model->seo_meta_keywords,
