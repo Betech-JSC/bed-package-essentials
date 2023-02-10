@@ -6,7 +6,7 @@
                     :activeIndex="Array.from(Array(20).keys())"
                     :multiple="true"
                 >
-                    <AccordionTab header="Cài đặt thông tin">
+                    <AccordionTab v-if="settingBar.info" header="Cài đặt thông tin">
                         <Link
                             v-if="settingBar.general"
                             class="item"
@@ -60,7 +60,7 @@
                             Redirects
                         </Link>
                     </AccordionTab>
-                    <AccordionTab header="Email">
+                    <AccordionTab v-if="settingBar.email" header="Email">
                         <Link
                             v-if="settingBar.smtp"
                             class="item"

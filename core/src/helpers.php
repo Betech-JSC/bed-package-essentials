@@ -232,6 +232,8 @@ if (!function_exists('setting_bar')) {
             'robots_txt' => config('core.setting.form.robots_txt.enable', true),
             'notification' => config('core.setting.form.notification.enable', true),
             'smtp' => config('core.setting.form.smtp.enable', true),
+            'info' => config('core.setting.info.enable', true),
+            'email' => config('core.setting.email.enable', true)
         ];
     }
 }
