@@ -200,7 +200,7 @@
                                     "
                                     :field="{
                                         type: 'checkbox',
-                                        label: permission.replace('admin.', ''),
+                                        name: permission,
                                     }"
                                 />
                             </td>
