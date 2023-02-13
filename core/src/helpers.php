@@ -11,13 +11,19 @@ if (!function_exists('static_url')) {
     function static_url($path, $parameters = [], $absolute = true)
     {
         if (!$path || str_contains($path, 'http')) return $path;
+
         if (!empty($parameters)) {
-            $url = route('files.show') . '/' . $path . '?' . http_build_query($parameters);
+            $url = route('files.show', $path) . '/' . '?' . http_build_query($parameters);
         } else {
-            $url = route('files.show') . '/' . $path;
+            $url = route('files.show', $path);
         }
+
         if (!$absolute) {
             $url = collect(parse_url($url))->only('path', 'query')->join(',');
+        }
+
+        if (config('app.static_url') && !isset(config('app.static_url')['port'])) {
+            $url = preg_replace("/static:[0-9]+/", "static", $url);
         }
 
         return $url;
