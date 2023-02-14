@@ -59,11 +59,9 @@ class HelperController extends Controller
         return $items;
     }
 
-    // Private
-
-    private function modelNamespace()
+    public function modelNamespace($model = null)
     {
-        $model = request()->input('model');
+        $model = $model ?: request()->input('model');
         if (class_exists("\App\Models\\$model")) {
             return "\App\Models\\$model";
         } else if (class_exists("\JamstackVietnam\\Core\\Models\\$model")) {
@@ -72,6 +70,8 @@ class HelperController extends Controller
             return $model;
         }
     }
+
+    // Private
 
     private function onlyFields($items)
     {

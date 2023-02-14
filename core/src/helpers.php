@@ -111,9 +111,9 @@ if (!function_exists('to_number')) {
 }
 
 if (!function_exists('to_money')) {
-    function to_money($number)
+    function to_money($number, $symbol = '₫')
     {
-        return to_number($number) . ' ATN';
+        return to_number($number) . ' ' . $symbol;
     }
 }
 
