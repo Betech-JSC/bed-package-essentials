@@ -387,6 +387,13 @@ export default {
 }
 </script>
 
+<style>
+.p-datatable td .p-image {
+    @apply flex items-center justify-center -m-2;
+    min-height: 60px;
+}
+</style>
+
 <style lang="scss" scoped>
 ::v-deep(.p-paginator) {
     .p-paginator-current {
