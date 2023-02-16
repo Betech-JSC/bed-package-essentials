@@ -88,7 +88,7 @@
                         width="80"
                         preview
                     />
-                    <!-- <Link
+                    <Link
                         v-else
                         :href="
                             route(`admin.${currentResource}.form`, {
@@ -104,8 +104,8 @@
                             {{ transformCell(data, column) }}
                         </span>
                         <span v-else v-html="transformCell(data, column)"> </span>
-                    </Link> -->
-                    <a
+                    </Link>
+                    <!-- <a
                         v-else
                         :href="
                             route(`admin.${currentResource}.form`, {
@@ -121,7 +121,7 @@
                             {{ transformCell(data, column) }}
                         </span>
                         <span v-else v-html="transformCell(data, column)"> </span>
-                    </a>
+                    </a> -->
                 </template>
                 <template #filter="{ filterCallback }" v-if="lazyParams.filters[column.field]">
                     <InputText
