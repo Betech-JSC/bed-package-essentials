@@ -119,6 +119,7 @@
 
 <script>
 import { FilterMatchMode } from 'primevue/api'
+
 export default {
     props: {
         schema: {
@@ -305,15 +306,16 @@ export default {
         },
 
         getParams() {
+            const params = route().params
             return {
-                page: this.$page.props.route?.query.page || 1,
+                page: params.page || 1,
                 // rows: this.$refs['data-table'].rows,
                 rows: 20,
                 sortField: null,
                 sortOrder: null,
                 filters: {
                     global: {
-                        value: this.$page.props.route?.query.filters?.global?.value,
+                        value: params.filters?.global?.value,
                         matchMode: FilterMatchMode.CONTAINS,
                     },
                 },
