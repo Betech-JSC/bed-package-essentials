@@ -4,6 +4,7 @@
         :lazy="true"
         :paginator="true"
         :rows="rows"
+        :first="lazyParams.page"
         v-model:filters="lazyParams.filters"
         ref="data-table"
         dataKey="id"
@@ -61,7 +62,7 @@
                     </div>
                     <div class="p-input-icon-left w-[20rem]">
                         <heroicons-outline:search class="absolute transform -translate-y-1/2 top-1/2 left-2" />
-                        <InputText v-model="lazyParams.filters['global'].value" placeholder="Tìm kiếm.." />
+                        <InputText v-model="lazyParams.filters.global.value" placeholder="Tìm kiếm.." />
                     </div>
                 </div>
             </div>
@@ -93,7 +94,6 @@
                         "
                         :preserve-state="true"
                     >
-                        <!-- :data="{ lazyParams }" -->
                         <span
                             v-if="getStyles(data, column)"
                             class="px-2 py-1 text-xs font-medium uppercase whitespace-pre rounded-sm"
@@ -147,15 +147,7 @@ export default {
             mergedColumns: this.mergeColumns(),
             filter_begin_time: null,
             filter_end_time: null,
-
-            lazyParams: {
-                page: 1,
-                // rows: this.$refs['data-table'].rows,
-                rows: 20,
-                sortField: null,
-                sortOrder: null,
-                filters: this.getFilters(),
-            },
+            lazyParams: this.getParams(),
         }
     },
     computed: {
@@ -310,6 +302,22 @@ export default {
             schemaColumns['id'].order = 0
 
             return schemaColumns
+        },
+
+        getParams() {
+            return {
+                page: this.$page.props.route?.query.page || 1,
+                // rows: this.$refs['data-table'].rows,
+                rows: 20,
+                sortField: null,
+                sortOrder: null,
+                filters: {
+                    global: {
+                        value: this.$page.props.route?.query.filters?.global?.value,
+                        matchMode: FilterMatchMode.CONTAINS,
+                    },
+                },
+            }
         },
 
         getFilters() {
