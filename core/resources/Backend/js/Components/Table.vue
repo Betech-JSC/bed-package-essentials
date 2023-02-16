@@ -4,7 +4,7 @@
         :lazy="true"
         :paginator="true"
         :rows="rows"
-        :first="lazyParams.page"
+        :first="parseInt(lazyParams.page) * rows - 1"
         v-model:filters="lazyParams.filters"
         ref="data-table"
         dataKey="id"
