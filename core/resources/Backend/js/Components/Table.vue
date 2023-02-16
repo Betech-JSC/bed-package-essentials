@@ -61,11 +61,7 @@
                     </div>
                     <div class="p-input-icon-left w-[20rem]">
                         <heroicons-outline:search class="absolute transform -translate-y-1/2 top-1/2 left-2" />
-                        <InputText
-                            v-model="lazyParams.filters['global'].value"
-                            placeholder="Tìm kiếm.."
-                            @change="setNewParams"
-                        />
+                        <InputText v-model="lazyParams.filters['global'].value" placeholder="Tìm kiếm.." />
                     </div>
                 </div>
             </div>
@@ -95,7 +91,9 @@
                                 id: data.id,
                             })
                         "
+                        :preserve-state="true"
                     >
+                        <!-- :data="{ lazyParams }" -->
                         <span
                             v-if="getStyles(data, column)"
                             class="px-2 py-1 text-xs font-medium uppercase whitespace-pre rounded-sm"
@@ -105,23 +103,6 @@
                         </span>
                         <span v-else v-html="transformCell(data, column)"> </span>
                     </Link>
-                    <!-- <a
-                        v-else
-                        :href="
-                            route(`admin.${currentResource}.form`, {
-                                id: data.id,
-                            })
-                        "
-                    >
-                        <span
-                            v-if="getStyles(data, column)"
-                            class="px-2 py-1 text-xs font-medium uppercase whitespace-pre rounded-sm"
-                            :style="getStyles(data, column)"
-                        >
-                            {{ transformCell(data, column) }}
-                        </span>
-                        <span v-else v-html="transformCell(data, column)"> </span>
-                    </a> -->
                 </template>
                 <template #filter="{ filterCallback }" v-if="lazyParams.filters[column.field]">
                     <InputText
@@ -137,7 +118,6 @@
 </template>
 
 <script>
-import cloneDeep from 'lodash.clonedeep'
 import { FilterMatchMode } from 'primevue/api'
 export default {
     props: {
@@ -241,7 +221,9 @@ export default {
 
             this.timer = setTimeout(() => {
                 const newUrl = this.route(`admin.${this.currentResource}.index`, this.lazyParams)
-                history.pushState(cloneDeep(this.lazyParams), null, newUrl)
+
+                this.$inertia.page.url = newUrl
+                this.$inertia.pushState(this.$inertia.page)
 
                 this.loadLazyData()
             }, 200)
