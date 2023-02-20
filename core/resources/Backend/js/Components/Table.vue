@@ -39,7 +39,7 @@
                         <div
                             v-if="canImport"
                             label="Thêm mới"
-                            class="flex space-x-2 cursor-pointer p-button btn-outline-primary"
+                            class="btn btn-outline-primary"
                             @click.prevent="$refs.importBtn.click()"
                         >
                             <span>Nhập file</span>
