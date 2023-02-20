@@ -37,6 +37,7 @@
                             :href="route(`admin.${currentResource}.export`)"
                         />
                         <div
+                            v-if="canImport"
                             label="Thêm mới"
                             class="flex space-x-2 cursor-pointer p-button btn-outline-primary"
                             @click.prevent="$refs.importBtn.click()"
@@ -208,6 +209,13 @@ export default {
             return (
                 Object.keys(this.route().t.routes).includes(routeName) &&
                 (this.config.canExport ?? this.can('admin.' + this.currentResource + '.export'))
+            )
+        },
+        canImport() {
+            let routeName = this.getCurrentLocale() + '.admin.' + this.currentResource + '.import'
+            return (
+                Object.keys(this.route().t.routes).includes(routeName) &&
+                (this.config.canImport ?? this.can('admin.' + this.currentResource + '.import'))
             )
         },
     },
