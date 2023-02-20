@@ -83,7 +83,7 @@ class Sitemap
 
         return response()
             ->view('sitemap::sitemap', ['items' => $items])
-            ->header('Content-Type', 'text/xml');;
+            ->header('Content-Type', 'text/xml');
     }
 
     private function transformUrl($item)
