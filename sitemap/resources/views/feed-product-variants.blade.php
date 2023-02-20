@@ -13,7 +13,7 @@
         <title>Sản phẩm</title>
         <link>{{ $appUrl }}</link>
         <description>{{ $description }}</description>
-        @foreach ($products as $product)
+        @foreach ($items as $product)
             @foreach ($product['variants'] as $variant)
                 <item>
                     <g:id>{{ $variant['sku'] }}</g:id>
