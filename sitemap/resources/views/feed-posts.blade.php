@@ -2,11 +2,10 @@
     $appUrl = env('APP_URL');
     $appName = env('APP_NAME');
     $url = url()->current();
-    $posts = Post::active()->get()->map->transform();
     $metaPage = cache_response('/', fn() => MetaPage::where('url', '/')->first(), 'meta_pages');
 
-    $title = $metaPage?->seo_meta_title ?? $title;
-    $description = $metaPage?->seo_meta_description ?? $description;
+    $title = $metaPage?->seo_meta_title ?? $appName;
+    $description = $metaPage?->seo_meta_description ?? $appName;
 @endphp
 
 <?xml version="1.0" encoding="UTF-8"?>
