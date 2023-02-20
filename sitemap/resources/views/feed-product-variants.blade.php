@@ -21,7 +21,7 @@
                     <g:description>
                         {{ strip_tags(html_entity_decode($product['description'])) }}
                     </g:description>
-                    <g:link>{{ $product['url'] . '?id=' . $variant['id'] }}</g:link>
+                    <g:link>{{ head($product['url']) . '?id=' . $variant['id'] }}</g:link>
                     <g:image_link>{{ $variant['image']['url'] ?? $product['image']['url'] ?? null }}</g:image_link>
                     <g:availability>còn hàng</g:availability>
                     <g:price>{{ $variant['price'] }} VND</g:price>
