@@ -33,9 +33,30 @@
                         <a
                             v-if="canExport"
                             class="p-button btn-outline-primary"
-                            text="Xuất Excel"
+                            text="Xuất File"
                             :href="route(`admin.${currentResource}.export`)"
                         />
+                        <div
+                            label="Thêm mới"
+                            class="flex space-x-2 cursor-pointe"
+                            @click.prevent="$refs.importBtn.click()"
+                            >
+                            <span>Nhập file</span>
+                            </div>
+                            <input
+                            type="file"
+                            class="hidden"
+                            accept=".xlsx, .xls, .csv"
+                            ref="importBtn"
+                            @input="
+                                $inertia.post(
+                                this.route(`admin.${currentResource}.import`),
+                                { file: $event.target.files[0] },
+                                { forceFormData: true }
+                                )
+                            "
+                            />
+                        </div>
                     </div>
                     <span v-if="sortByDate" class="w-1/2">
                         <div class="field-row">
