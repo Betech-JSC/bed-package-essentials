@@ -40,9 +40,9 @@
                             label="Thêm mới"
                             class="flex space-x-2 cursor-pointe"
                             @click.prevent="$refs.importBtn.click()"
-                            >
+                        >
                             <span>Nhập file</span>
-                            </div>
+                        </div>
                             <input
                             type="file"
                             class="hidden"
@@ -56,7 +56,6 @@
                                 )
                             "
                             />
-                        </div>
                     </div>
                     <span v-if="sortByDate" class="w-1/2">
                         <div class="field-row">
