@@ -39,7 +39,7 @@
             </div>
             <div
                 class="relative col-span-1 group"
-                v-if="files.length < maxItems"
+                v-if="files.length < maxItems && canAddFile"
             >
                 <div
                     class="overflow-hidden text-gray-400 transition-colors duration-200 border border-gray-200 border-dashed rounded cursor-pointer select-none hover:border-gray-400 hover:text-gray-600 aspect-[1/1]"
@@ -197,6 +197,9 @@ export default {
         },
         expectedUrl() {
             return this.field.expected ?? false;
+        },
+        canAddFile() {
+            return this.field.canAddFile ?? true;
         },
     },
 
