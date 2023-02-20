@@ -251,5 +251,6 @@ if (!function_exists('clear_cache')) {
             Illuminate\Support\Facades\Cache::tags($tags)->flush();
             Illuminate\Support\Facades\Artisan::call('lada-cache:flush');
         }
+        return true;
     }
 }
