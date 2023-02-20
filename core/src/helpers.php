@@ -243,3 +243,13 @@ if (!function_exists('setting_bar')) {
         ];
     }
 }
+
+if (!function_exists('clear_cache')) {
+    function clear_cache($tags = [])
+    {
+        if (config('cache.default') === 'redis') {
+            Illuminate\Support\Facades\Cache::tags($tags)->flush();
+            Illuminate\Support\Facades\Artisan::call('lada-cache:flush');
+        }
+    }
+}
