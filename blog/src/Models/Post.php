@@ -100,7 +100,17 @@ class Post extends BaseModel
             if (request()->route() === null) return;
             $model->saveRelatedPosts($model);
             $model->saveCategories($model);
+
+            if (request()->has('tags')) {
+                $model->saveTags($model);
+            }
         });
+    }
+
+    public function saveTags($model)
+    {
+        $tags = array_column(request()->input('tags', []), 'id');
+        $model->tags()->sync($tags, 'id');
     }
 
     public function saveCategories($model)
@@ -122,6 +132,16 @@ class Post extends BaseModel
             'post_ref_categories',
             'post_id',
             'post_category_id'
+        );
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(
+            PostTag::class,
+            'post_ref_tags',
+            'post_id',
+            'post_tag_id'
         );
     }
 
@@ -204,7 +224,7 @@ class Post extends BaseModel
         });
     }
 
-    public function transform($conditions = ['categories' => false])
+    public function transform($conditions = ['categories' => false, 'tags' => false])
     {
         $categories = $this->categories
             ->where('status', self::STATUS_ACTIVE)
@@ -228,17 +248,21 @@ class Post extends BaseModel
                 ->values()
                 ->map(fn ($item) => $item->transform());
         }
+
+        if (isset($conditions['tags']) && $conditions['tags']) {
+            $data['tags'] = $this->getTags();
+        }
         return $data;
     }
 
-    public function transformDetails()
+    public function transformDetails($conditions = ['tags' => false])
     {
         $categories = $this->categories
             ->where('status', self::STATUS_ACTIVE)
             ->values()
             ->map(fn ($item) => $item->transform());
 
-        return [
+        $data = [
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
@@ -253,6 +277,11 @@ class Post extends BaseModel
             'banner' => $this->getImageDetail($this->banner),
             'banner_mobile' => $this->getImageDetail($this->banner_mobile),
         ];
+
+        if (isset($conditions['tags']) && $conditions['tags']) {
+            $data['tags'] = $this->getTags();
+        }
+        return $data;
     }
 
     public function getImageDetail($image)
@@ -277,6 +306,14 @@ class Post extends BaseModel
             ->first();
 
         return PostCategory::transformAsBreadcrumb($category);
+    }
+
+    public function getTags()
+    {
+        return $this->tags
+            ->where('status', self::STATUS_ACTIVE)
+            ->values()
+            ->map(fn ($item) => $item->transform());
     }
 
     public function related($condition = [])
