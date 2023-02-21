@@ -99,7 +99,7 @@
     >
         <CustomDropdown
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
             :disabled="disabled"
         />
@@ -108,7 +108,7 @@
         <CustomMultipleSelect
             class="w-full"
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
             :disabled="disabled"
         />
@@ -116,19 +116,23 @@
     <template v-else-if="field.type === 'select_tree'">
         <CustomTreeSelect
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
             :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'tree'">
-        <TreeViewItem v-model="modelValue" :field="field" />
+        <TreeViewItem
+            :model-value="modelValue"
+            @update:modelValue="$emit('update:modelValue', $event)"
+            :field="field"
+        />
     </template>
     <template v-else-if="field.type === 'radio_list'">
         <CustomRadioList
             class="mt-2"
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
             :disabled="disabled"
         />
@@ -136,7 +140,7 @@
     <template v-else-if="field.type === 'select_date'">
         <CustomSelectDate
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
             :disabled="disabled"
         />
@@ -144,7 +148,7 @@
     <template v-else-if="field.type === 'file_upload'">
         <InputUpload
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
             :disabled="disabled"
         />
