@@ -15,7 +15,7 @@
             :model-value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             @blur="validateAsync(field.name)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
             :placeholder="field.placeholder || ''"
         />
     </template>
@@ -28,13 +28,13 @@
             :model-value="parseFloat(modelValue)"
             @blur="validateAsync(field.name)"
             @input="$emit('update:modelValue', $event.value || 0)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'textarea'">
         <Textarea
             :model-value="modelValue"
-            v-model:disabled="disabled"
+            :disabled="disabled"
             @input="$emit('update:modelValue', $event.target.value)"
             :rows="field.rows || 3"
         />
@@ -54,7 +54,7 @@
             :model-value="parseFloat(modelValue)"
             @input="$emit('update:modelValue', $event.value || 0)"
             @blur="validateAsync(field.name)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'password'">
@@ -64,7 +64,7 @@
             @input="$emit('update:modelValue', $event.target.value)"
             @blur="validateAsync(field.name)"
             :feedback="field.feedback || false"
-            v-model:disabled="disabled"
+            :disabled="disabled"
             toggleMask
         ></Password>
     </template>
@@ -76,7 +76,7 @@
                 :model-value="Boolean(Number(modelValue))"
                 @input="$emit('update:modelValue', Boolean($event))"
                 @blur="validateAsync(field.name)"
-                v-model:disabled="disabled"
+                :disabled="disabled"
             />
             <label
                 v-if="field.label"
@@ -91,7 +91,7 @@
             :field="field"
             :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template
@@ -101,7 +101,7 @@
             :field="field"
             v-model="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'select_multiple'">
@@ -110,7 +110,7 @@
             :field="field"
             v-model="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'select_tree'">
@@ -118,7 +118,7 @@
             :field="field"
             v-model="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'tree'">
@@ -130,7 +130,7 @@
             :field="field"
             v-model="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'select_date'">
@@ -138,7 +138,7 @@
             :field="field"
             v-model="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'file_upload'">
@@ -146,7 +146,7 @@
             :field="field"
             v-model="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
 
@@ -155,7 +155,7 @@
             :field="field"
             :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
 </template>
