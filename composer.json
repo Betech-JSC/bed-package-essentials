@@ -22,6 +22,7 @@
                 "JamstackVietnam\\Slider\\ServiceProvider",
                 "JamstackVietnam\\Contact\\ServiceProvider",
                 "JamstackVietnam\\Policy\\ServiceProvider",
+                "JamstackVietnam\\Job\\ServiceProvider",
                 "JamstackVietnam\\Agency\\ServiceProvider",
                 "JamstackVietnam\\Translation\\ServiceProvider",
                 "JamstackVietnam\\Sitemap\\SitemapServiceProvider",
