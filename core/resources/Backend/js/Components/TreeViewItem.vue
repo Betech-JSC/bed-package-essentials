@@ -50,7 +50,8 @@
                     ]"
                     :active="!elementIsActive(element)"
                     :field="field"
-                    v-model="modelValue"
+                    :model-value="modelValue"
+                    @update:modelValue="$emit('update:modelValue', $event)"
                     v-model:options="element[childrenBy]"
                 />
             </li>
