@@ -27,6 +27,7 @@ class Job extends BaseModel
         'position',
         'expected_time',
         'published_at',
+        'quantity',
         'status',
     ];
 
@@ -37,8 +38,8 @@ class Job extends BaseModel
         'description',
         'content',
         'working_position',
-        'workplace',
-        'working_form',
+        'work_address',
+        'working_time',
 
         'seo_meta_title',
         'seo_slug',
@@ -132,10 +133,10 @@ class Job extends BaseModel
             'slug' => $this->seo_slug ?? $this->slug,
             'description' => $this->description,
             'working_position' => $this->working_position,
-            'workplace' => $this->workplace,
-            'working_form' => $this->working_form,
+            'work_address' => $this->work_address,
+            'working_time' => $this->working_time,
             'expected_time' => $this->expected_time,
-            'count' => $this->count,
+            'quantity' => $this->quantity,
         ];
     }
 
@@ -147,11 +148,11 @@ class Job extends BaseModel
             'description' => $this->description,
             'content' => transform_richtext($this->content),
             'working_position' => $this->working_position,
-            'workplace' => $this->workplace,
-            'working_form' => $this->working_form,
+            'work_address' => $this->work_address,
+            'working_time' => $this->working_time,
             'expected_time' => $this->expected_time,
             'published_at' => $this->published_at,
-            'count' => $this->count,
+            'quantity' => $this->quantity,
         ];
     }
 

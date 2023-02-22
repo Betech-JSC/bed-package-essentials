@@ -20,8 +20,8 @@ class JobTranslation extends BaseModel
         'description',
         'content',
         'working_position',
-        'workplace',
-        'working_form',
+        'work_address',
+        'working_time',
 
         'seo_meta_title',
         'seo_slug',
