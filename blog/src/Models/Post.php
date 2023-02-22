@@ -35,6 +35,7 @@ class Post extends BaseModel
         'image',
         'banner',
         'banner_mobile',
+        'show_table_of_contents',
 
         'inject_head',
         'inject_body_start',
@@ -276,6 +277,7 @@ class Post extends BaseModel
             'image' => $this->getImageDetail($this->image),
             'banner' => $this->getImageDetail($this->banner),
             'banner_mobile' => $this->getImageDetail($this->banner_mobile),
+            'show_table_of_contents' => $this->show_table_of_contents,
         ];
 
         if (isset($conditions['tags']) && $conditions['tags']) {
