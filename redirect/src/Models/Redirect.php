@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Redirect\Contracts\RedirectModelContract;
 use JamstackVietnam\Core\Traits\Searchable;
-use Illuminate\Support\Facades\Artisan;
+use JamstackVietnam\Redirect\Jobs\ReloadOctane;
 
 class Redirect extends BaseModel implements RedirectModelContract
 {
@@ -36,11 +36,9 @@ class Redirect extends BaseModel implements RedirectModelContract
     protected static function booted()
     {
         static::saved(function (self $model) {
-            if (request()->route() === null) return;
             $model->reloadOctane();
         });
         static::deleted(function (self $model) {
-            if (request()->route() === null) return;
             $model->reloadOctane();
         });
     }
@@ -48,10 +46,7 @@ class Redirect extends BaseModel implements RedirectModelContract
     protected function reloadOctane()
     {
         if ((bool) config('octane')) {
-            try {
-                Artisan::call('octane:reload');
-            } catch (\Exception $e) {
-            }
+            ReloadOctane::dispatch()->delay(now()->addMinutes(1));
         }
     }
 
