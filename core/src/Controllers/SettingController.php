@@ -73,7 +73,7 @@ class SettingController extends Controller
         settings()->group($id)->set($validated);
 
         if (in_array($id, ['smtp', 'notification'])) {
-            shell_exec('php artisan queue:clear');
+            shell_exec('php artisan queue:restart');
         }
 
         return $this->redirectBack('Lưu đối tượng thành công.');
