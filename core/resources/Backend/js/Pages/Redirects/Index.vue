@@ -21,7 +21,7 @@ export default {
             this.octaneReloading = true
             this.$axios
                 .get(this.route("admin.helper.reload-octane"))
-                .then(() => this.octaneReloading = false);
+                .finally(() => this.octaneReloading = false);
         }
     }
 };
