@@ -46,6 +46,7 @@ Route::middleware(['auth:admin'])->name('admin.')->group(function () {
     Route::post('model-data', [HelperController::class, 'getModelData'])->name('helper.model-data');
 
     Route::get('logs', [HelperController::class, 'getLogs'])->name('helper.logs');
+    Route::get('reload-octain', [HelperController::class, 'reloadOctane'])->name('helper.reload-octain');
 });
 
 require __DIR__ . '/auth.php';

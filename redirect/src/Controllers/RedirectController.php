@@ -35,7 +35,8 @@ class RedirectController extends Controller
                 ]
             ],
             'schema' => $this->getSchema(),
-            'setting_bar' => setting_bar()
+            'setting_bar' => setting_bar(),
+            'reload_octane' => (bool) config('octane')
         ]);
     }
 

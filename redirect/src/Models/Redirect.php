@@ -46,7 +46,7 @@ class Redirect extends BaseModel implements RedirectModelContract
     protected function reloadOctane()
     {
         if ((bool) config('octane')) {
-            ReloadOctane::dispatch()->delay(now()->addMinutes(1));
+            shell_exec('ulimit -t 30 && php artisan octane:reload');
         }
     }
 

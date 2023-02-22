@@ -59,6 +59,12 @@ class HelperController extends Controller
         return $items;
     }
 
+    public function reloadOctane()
+    {
+        shell_exec('php artisan octane:reload');
+        return response()->json('Success');
+    }
+
     public function modelNamespace($model = null)
     {
         $model = $model ?: request()->input('model');
