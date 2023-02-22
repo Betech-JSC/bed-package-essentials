@@ -50,7 +50,7 @@ class Redirect extends BaseModel implements RedirectModelContract
         if ((bool) config('octane')) {
             try {
                 logger('redirect reload');
-                Artisan::call('octane:reload');
+                shell_exec('php artisan octane:reload');
             } catch (\Exception $e) {
                 logger('redirect Exception');
                 logger($e);
