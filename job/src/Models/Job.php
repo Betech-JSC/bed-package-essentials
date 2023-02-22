@@ -71,6 +71,33 @@ class Job extends BaseModel
 
     protected $appends = ['url'];
 
+    protected static function booted()
+    {
+        static::saved(function (self $model) {
+            if (request()->route() === null) return;
+
+            if (request()->has('related_jobs')) {
+                $model->saveRelateJobs($model);
+            }
+        });
+    }
+
+    public function saveRelateJobs($model)
+    {
+        $relatedJobs = array_column(request()->input('related_jobs', []), 'id');
+        $model->relatedJobs()->sync($relatedJobs, 'id');
+    }
+
+    public function relatedJobs()
+    {
+        return $this->belongsToMany(
+            self::class,
+            'related_jobs',
+            'job_id',
+            'related_job_id'
+        );
+    }
+
     public function getUrlAttribute()
     {
         $urls = [];
