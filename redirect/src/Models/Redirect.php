@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Redirect\Contracts\RedirectModelContract;
 use JamstackVietnam\Core\Traits\Searchable;
-use JamstackVietnam\Redirect\Jobs;
+use JamstackVietnam\Redirect\Jobs\ReloadOctane;
 
 class Redirect extends BaseModel implements RedirectModelContract
 {
