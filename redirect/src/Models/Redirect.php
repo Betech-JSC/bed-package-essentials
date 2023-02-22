@@ -35,7 +35,9 @@ class Redirect extends BaseModel implements RedirectModelContract
 
     protected static function booted()
     {
+        logger('redirect booted');
         static::saved(function (self $model) {
+            logger('redirect saved');
             $model->reloadOctane();
         });
         static::deleted(function (self $model) {
@@ -47,8 +49,11 @@ class Redirect extends BaseModel implements RedirectModelContract
     {
         if ((bool) config('octane')) {
             try {
+                logger('redirect reload');
                 Artisan::call('octane:reload');
             } catch (\Exception $e) {
+                logger('redirect Exception');
+                logger($e);
             }
         }
     }
