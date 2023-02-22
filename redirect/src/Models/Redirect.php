@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Builder;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Redirect\Contracts\RedirectModelContract;
 use JamstackVietnam\Core\Traits\Searchable;
-use Illuminate\Support\Facades\Artisan;
 
 class Redirect extends BaseModel implements RedirectModelContract
 {
