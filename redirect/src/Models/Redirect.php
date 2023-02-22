@@ -34,25 +34,20 @@ class Redirect extends BaseModel implements RedirectModelContract
 
     protected static function booted()
     {
-        logger('redirect booted');
-        static::saved(function (self $model) {
-            logger('redirect saved');
-            $model->reloadOctane();
-        });
-        static::deleted(function (self $model) {
-            $model->reloadOctane();
-        });
+        // static::saved(function (self $model) {
+        //     $model->reloadOctane();
+        // });
+        // static::deleted(function (self $model) {
+        //     $model->reloadOctane();
+        // });
     }
 
     protected function reloadOctane()
     {
         if ((bool) config('octane')) {
             try {
-                logger('redirect reload');
                 shell_exec('php artisan octane:reload');
             } catch (\Exception $e) {
-                logger('redirect Exception');
-                logger($e);
             }
         }
     }
