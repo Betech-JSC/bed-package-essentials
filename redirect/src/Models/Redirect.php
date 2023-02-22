@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Builder;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Redirect\Contracts\RedirectModelContract;
 use JamstackVietnam\Core\Traits\Searchable;
-use JamstackVietnam\Redirect\Jobs\ReloadOctane;
 
 class Redirect extends BaseModel implements RedirectModelContract
 {
@@ -32,23 +31,6 @@ class Redirect extends BaseModel implements RedirectModelContract
         'old_url' => 'required',
         'new_url' => 'required|different:old_url',
     ];
-
-    protected static function booted()
-    {
-        static::saved(function (self $model) {
-            $model->reloadOctane();
-        });
-        static::deleted(function (self $model) {
-            $model->reloadOctane();
-        });
-    }
-
-    protected function reloadOctane()
-    {
-        if ((bool) config('octane')) {
-            shell_exec('ulimit -t 30 && php artisan octane:reload');
-        }
-    }
 
     public function scopeActive($query)
     {
