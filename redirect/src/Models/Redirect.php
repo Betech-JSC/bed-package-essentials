@@ -32,6 +32,18 @@ class Redirect extends BaseModel implements RedirectModelContract
         'new_url' => 'required|different:old_url',
     ];
 
+    protected static function booted()
+    {
+        static::saved(function () {
+            if ((bool) config('octane')) {
+                try {
+                    Artisan::call('octane:reload');
+                } catch (\Exception $e) {
+                }
+            }
+        });
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
