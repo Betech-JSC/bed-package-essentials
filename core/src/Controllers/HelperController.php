@@ -62,7 +62,9 @@ class HelperController extends Controller
     public function reloadOctane()
     {
         shell_exec('php artisan octane:reload');
-        return response()->json('Success');
+        return response()->json([
+            'success' => true,
+        ], 200);
     }
 
     public function modelNamespace($model = null)
