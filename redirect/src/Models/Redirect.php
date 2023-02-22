@@ -34,14 +34,24 @@ class Redirect extends BaseModel implements RedirectModelContract
 
     protected static function booted()
     {
-        static::saved(function () {
-            if ((bool) config('octane')) {
-                try {
-                    Artisan::call('octane:reload');
-                } catch (\Exception $e) {
-                }
-            }
+        static::saved(function (self $model) {
+            if (request()->route() === null) return;
+            $model->reloadOctane();
         });
+        static::deleted(function (self $model) {
+            if (request()->route() === null) return;
+            $model->reloadOctane();
+        });
+    }
+
+    public function reloadOctane()
+    {
+        if ((bool) config('octane')) {
+            try {
+                Artisan::call('octane:reload');
+            } catch (\Exception $e) {
+            }
+        }
     }
 
     public function scopeActive($query)
