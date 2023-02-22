@@ -44,7 +44,7 @@ class Redirect extends BaseModel implements RedirectModelContract
         });
     }
 
-    public function reloadOctane()
+    protected function reloadOctane()
     {
         if ((bool) config('octane')) {
             try {
