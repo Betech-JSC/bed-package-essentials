@@ -3,11 +3,11 @@
 namespace JamstackVietnam\Redirect\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
+use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Redirect\Contracts\RedirectModelContract;
 use JamstackVietnam\Core\Traits\Searchable;
 
-class Redirect extends Model implements RedirectModelContract
+class Redirect extends BaseModel implements RedirectModelContract
 {
     use Searchable;
 

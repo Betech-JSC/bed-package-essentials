@@ -38,4 +38,49 @@ class RedirectController extends Controller
             'setting_bar' => setting_bar()
         ]);
     }
+
+    public function form($id = null)
+    {
+        $this->checkAuthorize();
+
+        $item = $this->model();
+
+        $emptyFields = $this->getEmptyFields();
+
+        $breadcrumbs = [[
+            'url' => route($this->getResource() . '.index'),
+            'name' => 'models.table_list.' . $this->getTable(),
+        ]];
+
+        if (!empty($id)) {
+            $item = $this->loadRelations($item);
+
+            if (!is_null($item->getMacro('withTrashed'))) {
+                $item = $item->withTrashed();
+            }
+
+            $item = $item->findOrFail($id);
+            $item = $this->setAppends($item);
+            $item = $this->afterForm($item);
+
+            if (!is_array($item)) {
+                $item = $item->toArray();
+            }
+
+            $item = array_merge($emptyFields, $item);
+        } else {
+            $item = $this->afterForm($emptyFields);
+        }
+
+        if (request()->wantsJson()) {
+            return response()->json($item);
+        }
+
+        return Inertia::render($this->folder() . '/Form', [
+            'item' => $item,
+            'breadcrumbs' => $breadcrumbs,
+            'schema' => $this->getSchema(),
+            'setting_bar' => setting_bar()
+        ]);
+    }
 }
