@@ -20,7 +20,7 @@ class CreateJobsTable extends Migration
             $table->integer('position')->nullable();
             $table->date('expected_time')->nullable();
             $table->date('published_at')->nullable();
-            $table->integer('count')->nullable();
+            $table->integer('quantity')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

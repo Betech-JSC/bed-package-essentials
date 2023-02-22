@@ -22,8 +22,8 @@ class CreateJobTranslationsTable extends Migration
             $table->string('locale');
 
             $table->string('working_position');
-            $table->string('workplace');
-            $table->string('working_form');
+            $table->string('work_address');
+            $table->string('working_time');
             $table->text('description')->nullable();
             $table->longText('content')->nullable();
 
