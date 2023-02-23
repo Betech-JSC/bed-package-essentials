@@ -3,7 +3,7 @@
         <Form
             v-model="formData"
             v-slot="{ form }"
-            :config="{ canDestroy: false, addGrid: false, reloadOctane: reload_octane }"
+            :config="{ canDestroy: false, addGrid: false }"
         >
             <div class="card">
                 <div class="card-header">Thông tin chung</div>
@@ -82,7 +82,7 @@
 import WrapSetting from "@Core/Components/WrapSetting.vue";
 export default {
     components: { WrapSetting },
-    props: ["item", "schema", "reload_octane"],
+    props: ["item", "schema"],
     data() {
         return {
             formData: this.item,
