@@ -64,7 +64,7 @@ class Setting extends Model
         }, 'settings');
 
         if (!is_null($publicOnly)) {
-            $settings = $settings->filter(fn ($item) => $item['is_public'] ?? true === $publicOnly);
+            $settings = $settings->where('is_public', $publicOnly);
         }
 
         $settings = $settings->pluck('value', 'key')->toArray();
