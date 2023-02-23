@@ -73,7 +73,7 @@
                                 }),
                             }"
                         >
-                            Custom vars
+                            Tùy chỉnh biến môi trường
                         </Link>
                     </AccordionTab>
                     <AccordionTab v-if="settingBar.email" header="Email">

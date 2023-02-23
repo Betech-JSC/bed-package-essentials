@@ -1,71 +1,52 @@
 <template layout>
     <WrapSetting>
-        <Form
-            v-model="formData"
-            v-slot="{ form }"
-            :config="{ canDestroy: false, addGrid: false }"
-        >
+        <Form v-model="formData" v-slot="{ form }" :config="{ canDestroy: false, addGrid: false }">
             <div class="card">
                 <div class="card-header">Danh sách</div>
                 <div class="card-body">
-                    <div>
-                        <div
-                            v-for="(item, index) in form.custom_vars"
-                            :key="index"
-                            class="my-2 space-y-2 bg-white rounded-md"
-                        >
+                    <div class="space-y-4">
+                        <div v-for="(item, index) in form.custom_vars" :key="index">
                             <div class="flex">
                                 <div class="ml-auto">
-                                    <div
-                                        @click="confirmRemoveItem(index)"
-                                        class="ml-auto border rounded cursor-pointer text-gray500 hover:text-gray-700 hover:bg-gray-100"
-                                    >
+                                    <div @click="confirmRemoveItem(index)"
+                                        class="p-1 ml-auto border rounded cursor-pointer text-gray500 hover:text-gray-700 hover:bg-gray-100">
                                         <material-symbols:delete-outline-sharp />
                                     </div>
                                 </div>
                             </div>
                             <div class="space-y-3">
+                                <Field v-model="item.key" :field="{
+                                    type: 'text',
+                                    name: 'key',
+                                    label: 'Key',
+                                }" />
+                                <Field v-model="item.value" :field="{
+                                    type: 'textarea',
+                                    name: 'value',
+                                    label: 'Value',
+                                }" />
                                 <Field
-                                    v-model="item.key"
+                                    v-model="item.is_public"
                                     :field="{
-                                        type: 'text',
-                                        name: 'key',
-                                        label: 'Key',
-                                    }"
-                                />
-                                <Field
-                                    v-model="item.value"
-                                    :field="{
-                                        type: 'textarea',
-                                        name: 'value',
-                                        label: 'Value',
+                                        type: 'checkbox',
+                                        label: 'Biến Public',
                                     }"
                                 />
                             </div>
                         </div>
-
-                        <div class="mt-4 mb-6">
-                            <Button
-                                label="Thêm"
-                                variant="white"
-                                @click="
-                                    this.formData.custom_vars.push({
-                                        key: null,
-                                        value: null,
-                                    })
-                                "
-                            />
-                        </div>
+                    </div>
+                    <div>
+                        <Button label="Thêm" variant="white" @click="
+                            this.formData.custom_vars.push({
+                                key: null,
+                                value: null,
+                            })
+                        " />
                     </div>
                 </div>
             </div>
 
-            <Field
-                class="hidden"
-                disabled
-                v-model="form.id"
-                :field="{ default: 'custom_vars' }"
-            />
+            <Field class="hidden" disabled v-model="form.id" :field="{ default: 'custom_vars' }" />
         </Form>
     </WrapSetting>
 </template>
