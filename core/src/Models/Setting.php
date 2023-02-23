@@ -54,7 +54,7 @@ class Setting extends Model
         ][$id] ?? [];
     }
 
-    public static function customVariables($isPublic = null)
+    public static function customVariables($publicOnly = null)
     {
         $settings = cache_response('custom_vars', function () {
             $settings = settings()->group('custom_vars')->all()->first();
@@ -63,8 +63,8 @@ class Setting extends Model
             return $settings;
         }, 'settings');
 
-        if (!is_null($isPublic)) {
-            $settings = $settings->filter(fn ($item) => $item['is_public'] ?? true === $isPublic);
+        if (!is_null($publicOnly)) {
+            $settings = $settings->filter(fn ($item) => $item['is_public'] ?? true === $publicOnly);
         }
 
         $settings = $settings->pluck('value', 'key')->toArray();
