@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use JamstackVietnam\Core\Models\Setting;
 use JamstackVietnam\Core\Traits\HasCrudActions;
+use Illuminate\Support\Facades\Artisan;
 
 class SettingController extends Controller
 {
@@ -58,7 +59,7 @@ class SettingController extends Controller
             'item' => $item,
             'breadcrumbs' => $breadcrumbs,
             'schema' => $this->getSchema(),
-            'setting_bar' => setting_bar()
+            'setting_bar' => setting_bar(),
         ]);
     }
 
@@ -71,6 +72,10 @@ class SettingController extends Controller
         $validated = $request->validate($rules);
 
         settings()->group($id)->set($validated);
+
+        if (in_array($id, ['smtp', 'notification'])) {
+            Artisan::call('queue:restart');
+        }
 
         return $this->redirectBack('Lưu đối tượng thành công.');
     }

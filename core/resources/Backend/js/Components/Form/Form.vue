@@ -25,6 +25,7 @@
                     class="btn-danger-link"
                     @click="destroy"
                 />
+                <Button v-if="reloadOctane" label="Xóa cache" class="btn-primary" @click="reloadOctane" :loading="octaneReloading"/>
                 <Button
                     v-if="canStore"
                     label="Lưu"
@@ -62,6 +63,7 @@ export default {
     data() {
         return {
             form: this.$inertia.form(this.modelValue),
+            octaneReloading: false
         };
     },
     watch: {
@@ -91,6 +93,9 @@ export default {
                 this.config.canStore ??
                 this.can("admin." + this.currentResource + ".store")
             );
+        },
+        reloadOctane() {
+            return this.config.reloadOctane ?? false;
         },
         hasFlash() {
             const { errors, flash } = this.$page.props;
@@ -158,6 +163,13 @@ export default {
                 );
             }
         },
+
+        reloadOctane() {
+            this.octaneReloading = true
+            this.$axios
+                .get(this.route("admin.helper.reload-octane"))
+                .finally(() => this.octaneReloading = false);
+        }
     },
 };
 </script>
