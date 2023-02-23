@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div>
                         <div
-                            v-for="(item, index) in form.key_custom"
+                            v-for="(item, index) in form.custom_vars"
                             :key="index"
                             class="my-2 space-y-2 bg-white rounded-md"
                         >
@@ -29,7 +29,7 @@
                                     v-model="item.key"
                                     :field="{
                                         type: 'text',
-                                        name: 'phone',
+                                        name: 'key',
                                         label: 'Key',
                                     }"
                                 />
@@ -49,7 +49,7 @@
                                 label="Thêm"
                                 variant="white"
                                 @click="
-                                    this.formData.key_custom.push({
+                                    this.formData.custom_vars.push({
                                         key: null,
                                         value: null,
                                     })
@@ -64,7 +64,7 @@
                 class="hidden"
                 disabled
                 v-model="form.id"
-                :field="{ default: 'key_custom' }"
+                :field="{ default: 'custom_vars' }"
             />
         </Form>
     </WrapSetting>
@@ -78,14 +78,14 @@ export default {
         return {
             formData: {
                 ...this.item,
-                key_custom: this.item.key_custom ? JSON.parse(this.item.key_custom) : [],
+                custom_vars: this.item.custom_vars ? JSON.parse(this.item.custom_vars) : [],
             },
         };
     },
     methods: {
         confirmRemoveItem(index) {
             if (confirm("Bạn có thực sự muốn xoá đối tượng này?")) {
-                this.formData.key_custom.splice(index, 1);
+                this.formData.custom_vars.splice(index, 1);
             }
         },
     },

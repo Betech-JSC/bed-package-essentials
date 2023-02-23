@@ -48,8 +48,8 @@ class Setting extends Model
             'robots_txt' => [
                 'robots_txt'  => 'required',
             ],
-            'key_custom' => [
-                'key_custom'  => 'nullable',
+            'custom_vars' => [
+                'custom_vars'  => 'nullable',
             ]
         ][$id] ?? [];
     }
