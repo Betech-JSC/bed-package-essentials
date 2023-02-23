@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use JamstackVietnam\Core\Models\Setting;
 use JamstackVietnam\Core\Traits\HasCrudActions;
+use Illuminate\Support\Facades\Artisan;
 
 class SettingController extends Controller
 {
@@ -73,7 +74,7 @@ class SettingController extends Controller
         settings()->group($id)->set($validated);
 
         if (in_array($id, ['smtp', 'notification'])) {
-            shell_exec('php artisan queue:restart');
+            Artisan::call('queue:clear');
         }
 
         return $this->redirectBack('Lưu đối tượng thành công.');
