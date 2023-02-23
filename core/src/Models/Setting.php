@@ -47,6 +47,9 @@ class Setting extends Model
             ],
             'robots_txt' => [
                 'robots_txt'  => 'required',
+            ],
+            'key_custom' => [
+                'key_custom'  => 'nullable',
             ]
         ][$id] ?? [];
     }
