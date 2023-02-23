@@ -64,7 +64,7 @@ class Setting extends Model
         }, 'settings');
 
         $setting = $setting
-            ->filter(fn ($item) => $item['is_public'] === $isPublic)
+            ->filter(fn ($item) => $item['is_public'] ?? true === $isPublic)
             ->pluck('value', 'key')->toArray();
 
         return $setting;
