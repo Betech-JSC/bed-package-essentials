@@ -58,13 +58,14 @@ class Setting extends Model
     {
         $setting = cache_response('public_custom_vars', function () use ($isPublic) {
             $settings = settings()->group('custom_vars')->all()->first();
-            $settings = collect(json_decode($settings, true))->filter(fn ($item) => $item
-            ['is_public'] === $isPublic);
+            $settings = collect(json_decode($settings, true));
 
             return $settings;
         }, 'settings');
 
-        $setting = $setting->pluck('value', 'key')->toArray();
+        $setting = $setting
+            ->filter(fn ($item) => $item['is_public'] === $isPublic)
+            ->pluck('value', 'key')->toArray();
 
         return $setting;
     }
