@@ -56,7 +56,7 @@ class Setting extends Model
 
     public static function customVariables($isPublic = null)
     {
-        $settings = cache_response('public_custom_vars', function () {
+        $settings = cache_response('custom_vars', function () {
             $settings = settings()->group('custom_vars')->all()->first();
             $settings = collect(json_decode($settings, true));
 
