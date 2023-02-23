@@ -59,7 +59,8 @@ class SettingController extends Controller
             'item' => $item,
             'breadcrumbs' => $breadcrumbs,
             'schema' => $this->getSchema(),
-            'setting_bar' => setting_bar()
+            'setting_bar' => setting_bar(),
+            'reload_octane' => (bool) config('octane')
         ]);
     }
 
@@ -74,7 +75,7 @@ class SettingController extends Controller
         settings()->group($id)->set($validated);
 
         if (in_array($id, ['smtp', 'notification'])) {
-            Artisan::call('queue:clear');
+            Artisan::call('queue:restart');
         }
 
         return $this->redirectBack('Lưu đối tượng thành công.');
