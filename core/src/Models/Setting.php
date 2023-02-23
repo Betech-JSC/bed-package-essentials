@@ -63,7 +63,7 @@ class Setting extends Model
             return $settings;
         }, 'settings');
 
-        if (!is_null($settings)) {
+        if (!is_null($isPublic)) {
             $settings = $settings->filter(fn ($item) => $item['is_public'] ?? true === $isPublic);
         }
 
