@@ -59,6 +59,22 @@
                         >
                             Redirects
                         </Link>
+                        <Link
+                            v-if="settingBar.custom_vars"
+                            class="item"
+                            :href="
+                                route('admin.settings.form', {
+                                    id: 'custom_vars',
+                                })
+                            "
+                            :class="{
+                                active: isUrl('admin.settings.form', {
+                                    id: 'custom_vars',
+                                }),
+                            }"
+                        >
+                            Custom vars
+                        </Link>
                     </AccordionTab>
                     <AccordionTab v-if="settingBar.email" header="Email">
                         <Link

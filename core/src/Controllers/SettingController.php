@@ -71,6 +71,12 @@ class SettingController extends Controller
 
         $validated = $request->validate($rules);
 
+        foreach($validated as $key => $data) {
+            if (is_array($data)) {
+                $validated[$key] = json_encode($data);
+            }
+        }
+
         settings()->group($id)->set($validated);
 
         if (in_array($id, ['smtp', 'notification'])) {
