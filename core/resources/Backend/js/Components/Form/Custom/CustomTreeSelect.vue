@@ -3,16 +3,16 @@
         :model-value="selectedOptions"
         @change="selectChange($event)"
         :options="options"
-        :display="!field.mode || field.mode === 'single' ? 'comma' : 'chip'"
+        :display="mode"
         :selectionMode="field.mode || 'single'"
         :placeholder="placeholder"
         :loading="field.loading"
         :metaKeySelection="false"
     >
-        <template #value="{value, placeholder}">
+        <template #value="{value, placeholder}" v-if="mode === 'chip'">
             <div v-for="node of value" :key="node.key" class="p-treeselect-token">
                 <span class="p-treeselect-token-label">{{ node.label }}</span>
-                <span class="p-multiselect-token-icon pi pi-times-circle" @click.stop="removeOption($event, node)"></span>
+                <span class="p-multiselect-token-icon pi pi-times-circle" @click.stop="removeOption(node)"></span>
             </div>
             <template v-if="value.length === 0">
                 {{ placeholder || 'empty' }}
@@ -39,6 +39,9 @@ export default {
         options() {
             return this.field.options?.map((option) => this.transformOption(option));
         },
+        mode(){
+            return !this.field.mode || this.field.mode === 'single' ? 'comma' : 'chip'
+        },
         selectedOptions() {
             let options = [];
             this.modelValue?.forEach((option) => {
@@ -61,9 +64,9 @@ export default {
             }
             return newOption;
         },
-        removeOption(event, optionValue) {
+        removeOption(optionValue) {
             const itemIdToRemove = optionValue[this.keyBy];
-            const index = this.modelValue?.findIndex(item => item === itemIdToRemove);
+            const index = this.modelValue?.findIndex(item => item.toString() === itemIdToRemove.toString());
 
             if (index !== -1) {
                 let newIds = this.modelValue
