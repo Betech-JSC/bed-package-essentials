@@ -8,6 +8,10 @@
 }
 
 .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-label {
-    max-width: calc(100% - 1rem);
     @apply overflow-hidden;
+}
+
+.p-treeselect-token .p-multiselect-token-icon,
+.p-multiselect-token .p-multiselect-token-icon {
+    margin-left: 0.5rem;
 }
