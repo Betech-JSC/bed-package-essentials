@@ -24,6 +24,7 @@
                                     type: 'textarea',
                                     name: 'value',
                                     label: 'Value',
+                                    rows: 1
                                 }" />
                                 <Field
                                     v-model="item.is_public"
