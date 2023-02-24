@@ -2,7 +2,6 @@
 
 namespace JamstackVietnam\Core\Models;
 
-use Image;
 use Illuminate\Support\Str;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
