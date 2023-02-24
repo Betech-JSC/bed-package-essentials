@@ -111,7 +111,7 @@ class File
             ->values()
             ->map(fn ($item) => $this->transformFile($item))
             ->reject(fn ($item) => $this->firstCharIs($item['filename'], '.'))
-            ->sortBy('search_name')
+            ->sortByDesc('last_modified')
             ->keyBy('path');
     }
 
