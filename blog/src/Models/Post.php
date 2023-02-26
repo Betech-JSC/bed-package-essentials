@@ -362,12 +362,12 @@ class Post extends BaseModel
         return $relatedPosts->map(fn ($item) => $item->transform());
     }
 
-    public function scopeOrderByPossition($query)
+    public function scopeOrderByPosition($query)
     {
         return $query->orderByRaw('ISNULL(position) OR position = 0, position ASC');
     }
 
-    public function scopeOrderByHomePossition($query)
+    public function scopeOrderByHomePosition($query)
     {
         return $query->orderByRaw('ISNULL(home_position) OR home_position = 0, home_position ASC');
     }
@@ -385,10 +385,10 @@ class Post extends BaseModel
         $query->when($filters['sort'] ?? 'default', function (Builder $query, $value) {
             switch ($value) {
                 case 'position':
-                    $query->orderByPossition();
+                    $query->orderByPosition();
                     break;
                 case 'home_position':
-                    $query->orderByHomePossition();
+                    $query->orderByHomePosition();
                     break;
                 default:
                     $query->orderBy('published_at', 'desc');
