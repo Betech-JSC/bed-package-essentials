@@ -53,6 +53,7 @@ class Post extends BaseModel
         'author',
         'description',
         'content',
+        'sliders',
 
         'seo_meta_title',
         'seo_slug',

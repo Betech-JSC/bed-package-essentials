@@ -21,6 +21,7 @@ class CreatePostCategoriesTable extends Migration
             $table->json('image')->nullable();
             $table->text('icon')->nullable();
             $table->integer('position')->nullable();
+            $table->integer('menu_position')->nullable();
             $table->string('status', 30)->default(PostCategory::STATUS_ACTIVE);
 
             $table->integer('view_count')->default(0);

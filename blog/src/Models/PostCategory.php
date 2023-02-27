@@ -30,6 +30,7 @@ class PostCategory extends BaseModel
         'parent_id',
         'status',
         'position',
+        'menu_position',
         'view_count',
         'image',
         'icon'
