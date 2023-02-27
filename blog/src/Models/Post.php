@@ -412,4 +412,9 @@ class Post extends BaseModel
 
         return $query;
     }
+
+    public function getImageUrlAttribute()
+    {
+        return isset($this->image['path']) ? static_url($this->image['path']) : null;
+    }
 }
