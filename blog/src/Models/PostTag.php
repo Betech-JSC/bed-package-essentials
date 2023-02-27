@@ -23,6 +23,8 @@ class PostTag extends BaseModel
 
     public $with = ['translations'];
 
+    protected $appends = ['url'];
+
     public $fillable = [
         'status',
         'position',
