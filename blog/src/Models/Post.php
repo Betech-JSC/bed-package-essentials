@@ -242,7 +242,7 @@ class Post extends BaseModel
             'category' => $this->category,
             'categories' => $categories,
             'image' => $this->getImageDetail($this->image),
-            'url' => get_current_url($this->url)
+            'url' => get_current_url_attribute($this->url)
         ];
 
         if (isset($conditions['categories']) && $conditions['categories']) {
@@ -280,7 +280,7 @@ class Post extends BaseModel
             'banner' => $this->getImageDetail($this->banner),
             'banner_mobile' => $this->getImageDetail($this->banner_mobile),
             'show_table_of_contents' => $this->show_table_of_contents,
-            'url' => get_current_url($this->url)
+            'url' => get_current_url_attribute($this->url)
         ];
 
         if (isset($conditions['tags']) && $conditions['tags']) {
