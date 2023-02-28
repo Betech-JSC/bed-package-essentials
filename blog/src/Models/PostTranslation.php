@@ -20,6 +20,7 @@ class PostTranslation extends BaseModel
         'author',
         'description',
         'content',
+        'sliders',
 
         'seo_meta_title',
         'seo_slug',
@@ -29,6 +30,10 @@ class PostTranslation extends BaseModel
         'seo_canonical',
         'seo_image',
         'seo_schemas',
+    ];
+
+    protected $casts = [
+        'sliders' => 'array',
     ];
 
     public function post()

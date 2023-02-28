@@ -53,6 +53,7 @@ class Post extends BaseModel
         'author',
         'description',
         'content',
+        'sliders',
 
         'seo_meta_title',
         'seo_slug',
@@ -411,5 +412,10 @@ class Post extends BaseModel
         });
 
         return $query;
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return isset($this->image['path']) ? static_url($this->image['path']) : null;
     }
 }

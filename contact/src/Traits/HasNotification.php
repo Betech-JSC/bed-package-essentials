@@ -10,7 +10,7 @@ trait HasNotification
     public static function bootHasNotification()
     {
         static::created(function ($model) {
-            if (request()->route() === null) return;
+            if (request()->route() === null || !config('contact.send_email_default', true)) return;
 
             $emails = explode(',', notification_to());
             $data['mail_title'] = config('contact.message.new_contact');

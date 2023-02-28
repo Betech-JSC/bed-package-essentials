@@ -30,6 +30,7 @@ class PostCategory extends BaseModel
         'parent_id',
         'status',
         'position',
+        'menu_position',
         'view_count',
         'image',
         'icon'
@@ -267,14 +268,14 @@ class PostCategory extends BaseModel
             });
     }
 
-    public function scopeOrderByPossition($query)
+    public function scopeOrderByPosition($query)
     {
         return $query->orderByRaw('ISNULL(position) OR position = 0, position ASC');
     }
 
     public function scopeFilter(Builder $query, array $filters = []): Builder
     {
-        $query->orderByPossition()
+        $query->orderByPosition()
             ->orderBy('id', 'desc');
 
         $query->orderBy('id', 'desc');
