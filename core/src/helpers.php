@@ -262,10 +262,3 @@ if (!function_exists('utf8_for_xml')) {
         return preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $string);
     }
 }
-
-if (!function_exists('get_current_url_attribute')) {
-    function get_current_url_attribute($urls)
-    {
-        return $urls[strtoupper(current_locale())] ?? null;
-    }
-}

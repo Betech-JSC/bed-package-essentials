@@ -177,7 +177,6 @@ class PostCategory extends BaseModel
         }
         return $urls;
     }
-
     public function posts()
     {
         return $this->belongsToMany(
@@ -222,7 +221,7 @@ class PostCategory extends BaseModel
             'slug' => $this->seo_slug ?? $this->slug,
             'image' => $this->getImageDetail(),
             'icon' => $this->icon,
-            'url' => get_current_url_attribute($this->url)
+            'url' => $this->current_url
         ];
 
         if (isset($conditions['post_count']) && $conditions['post_count'] > 0) {
@@ -245,7 +244,7 @@ class PostCategory extends BaseModel
             'slug' => $this->seo_slug ?? $this->slug,
             'breadcrumbs' => self::transformAsBreadcrumb($this),
             'image' => $this->getImageDetail(),
-            'url' => get_current_url_attribute($this->url)
+            'url' => $this->current_url
         ];
     }
 
