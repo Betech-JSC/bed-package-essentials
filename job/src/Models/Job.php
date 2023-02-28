@@ -8,6 +8,7 @@ use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
 use \Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
 
 class Job extends BaseModel
 {
@@ -29,6 +30,7 @@ class Job extends BaseModel
         'published_at',
         'quantity',
         'status',
+        'view_count'
     ];
 
     public $translatedAttributes = [
@@ -74,6 +76,11 @@ class Job extends BaseModel
 
     protected static function booted()
     {
+        static::saving(function (self $model) {
+            if (request()->route() === null) return;
+            $model->published_at = request()->input('published_at') ?? now();
+        });
+
         static::saved(function (self $model) {
             if (request()->route() === null) return;
 
@@ -118,12 +125,18 @@ class Job extends BaseModel
     public function scopeActive($query)
     {
         return $query->where('status', self::STATUS_ACTIVE)
-            ->where('published_at', '<=', now());
+            ->where('published_at', '<=', now())
+            ->where(function ($query) {
+                $query->whereNull('expected_time')
+                    ->orWhereDate('expected_time', '>=', Carbon::today());
+            });
     }
 
     public function getIsActiveAttribute()
     {
-        return $this->status === self::STATUS_ACTIVE && $this->published_at <= now();
+        return $this->status === self::STATUS_ACTIVE
+            && $this->published_at <= now()
+            && ($this->expected_time == null || $this->expected_time >= Carbon::today());
     }
 
     public function transform()

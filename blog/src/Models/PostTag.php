@@ -29,7 +29,8 @@ class PostTag extends BaseModel
         'status',
         'position',
         'color',
-        'icon'
+        'icon',
+        'view_count'
     ];
 
     public $translatedAttributes = [

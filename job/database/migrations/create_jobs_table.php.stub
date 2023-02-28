@@ -17,6 +17,7 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->string('status', 30)->default(Job::STATUS_ACTIVE);
+            $table->integer('view_count')->default(0);
             $table->integer('position')->nullable();
             $table->date('expected_time')->nullable();
             $table->date('published_at')->nullable();
