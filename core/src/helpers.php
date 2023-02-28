@@ -263,9 +263,9 @@ if (!function_exists('utf8_for_xml')) {
     }
 }
 
-if (!function_exists('get_current_url')) {
-    function get_current_url($urls)
+if (!function_exists('get_current_url_attribute')) {
+    function get_current_url_attribute($urls)
     {
-        return empty($urls[strtoupper(current_locale())]) ? null : $urls[strtoupper(current_locale())];
+        return $urls[strtoupper(current_locale())] ?? null;
     }
 }
