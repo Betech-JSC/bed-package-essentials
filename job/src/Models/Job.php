@@ -150,6 +150,7 @@ class Job extends BaseModel
             'working_time' => $this->working_time,
             'expected_time' => $this->expected_time,
             'quantity' => $this->quantity,
+            'url' => get_current_url($this->url)
         ];
     }
 
@@ -166,6 +167,7 @@ class Job extends BaseModel
             'expected_time' => $this->expected_time,
             'published_at' => $this->published_at,
             'quantity' => $this->quantity,
+            'url' => get_current_url($this->url)
         ];
     }
 

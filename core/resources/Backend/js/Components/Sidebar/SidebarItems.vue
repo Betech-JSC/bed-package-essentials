@@ -6,7 +6,7 @@
     </div>
     <nav class="flex-1 px-2 pb-4 space-y-1 navs">
         <ul
-            class="flex px-4 py-5 space-x-2 !uppercase overflow-y-auto btn-group"
+            class="flex px-4 py-5 space-x-2 !uppercase btn-group"
             v-if="$page.props.locale.list.length > 1"
         >
             <Button

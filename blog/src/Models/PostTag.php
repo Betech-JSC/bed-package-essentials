@@ -70,6 +70,7 @@ class PostTag extends BaseModel
             'title' => $this->title,
             'icon' => $this->icon,
             'code' => $this->code,
+            'url' => get_current_url($this->url)
         ];
     }
 
@@ -81,7 +82,8 @@ class PostTag extends BaseModel
             'title' => $this->title,
             'icon' => $this->icon,
             'code' => $this->code,
-            'description' => $this->description
+            'description' => $this->description,
+            'url' => get_current_url($this->url)
         ];
     }
 

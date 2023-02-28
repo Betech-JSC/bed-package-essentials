@@ -221,7 +221,8 @@ class PostCategory extends BaseModel
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
             'image' => $this->getImageDetail(),
-            'icon' => $this->icon
+            'icon' => $this->icon,
+            'url' => get_current_url($this->url)
         ];
 
         if (isset($conditions['post_count']) && $conditions['post_count'] > 0) {
@@ -244,6 +245,7 @@ class PostCategory extends BaseModel
             'slug' => $this->seo_slug ?? $this->slug,
             'breadcrumbs' => self::transformAsBreadcrumb($this),
             'image' => $this->getImageDetail(),
+            'url' => get_current_url($this->url)
         ];
     }
 
