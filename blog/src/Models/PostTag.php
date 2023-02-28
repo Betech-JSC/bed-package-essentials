@@ -29,7 +29,8 @@ class PostTag extends BaseModel
         'status',
         'position',
         'color',
-        'icon'
+        'icon',
+        'view_count'
     ];
 
     public $translatedAttributes = [
@@ -69,6 +70,7 @@ class PostTag extends BaseModel
             'title' => $this->title,
             'icon' => $this->icon,
             'code' => $this->code,
+            'url' => $this->current_url
         ];
     }
 
@@ -80,7 +82,8 @@ class PostTag extends BaseModel
             'title' => $this->title,
             'icon' => $this->icon,
             'code' => $this->code,
-            'description' => $this->description
+            'description' => $this->description,
+            'url' => $this->current_url
         ];
     }
 

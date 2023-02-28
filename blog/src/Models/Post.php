@@ -242,6 +242,7 @@ class Post extends BaseModel
             'category' => $this->category,
             'categories' => $categories,
             'image' => $this->getImageDetail($this->image),
+            'url' => $this->current_url
         ];
 
         if (isset($conditions['categories']) && $conditions['categories']) {
@@ -279,6 +280,7 @@ class Post extends BaseModel
             'banner' => $this->getImageDetail($this->banner),
             'banner_mobile' => $this->getImageDetail($this->banner_mobile),
             'show_table_of_contents' => $this->show_table_of_contents,
+            'url' => $this->current_url
         ];
 
         if (isset($conditions['tags']) && $conditions['tags']) {
