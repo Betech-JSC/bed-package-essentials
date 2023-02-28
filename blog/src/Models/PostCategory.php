@@ -51,6 +51,10 @@ class PostCategory extends BaseModel
         'seo_schemas',
     ];
 
+    protected $casts = [
+        'image' => 'array',
+    ];
+
     protected $searchable = [
         'columns' => [
             'post_category_translations.title' => 10,
@@ -286,5 +290,10 @@ class PostCategory extends BaseModel
         });
 
         return $query;
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return isset($this->image['path']) ? static_url($this->image['path']) : null;
     }
 }
