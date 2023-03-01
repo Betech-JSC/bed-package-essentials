@@ -99,6 +99,7 @@ class Policy extends BaseModel
             'slug' => $this->seo_slug ?? $this->slug,
             'content' => transform_richtext($this->content),
             'icon' => $this->icon,
+            'url' => $this->current_url
         ];
     }
 

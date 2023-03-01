@@ -1,12 +1,12 @@
 <?php
 
-namespace JamstackVietnam\Blog\Models;
+namespace JamstackVietnam\Job\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Sluggable;
 
-class PostTranslation extends BaseModel
+class JobTranslation extends BaseModel
 {
     use HasFactory, Sluggable;
 
@@ -17,10 +17,11 @@ class PostTranslation extends BaseModel
         'slug',
         'locale',
         'title',
-        'author',
         'description',
         'content',
-        'sliders',
+        'working_position',
+        'work_address',
+        'working_time',
 
         'seo_meta_title',
         'seo_slug',
@@ -32,12 +33,8 @@ class PostTranslation extends BaseModel
         'seo_schemas',
     ];
 
-    protected $casts = [
-        'sliders' => 'array',
-    ];
-
-    public function post()
+    public function job()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Job::class);
     }
 }

@@ -24,4 +24,9 @@ class BaseModel extends Model
     {
         return to_date($this->attributes['created_at'], 'd/m/Y');
     }
+
+    public function getCurrentUrlAttribute()
+    {
+        return $this->url[strtoupper(current_locale())] ?? null;
+    }
 }
