@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use JamstackVietnam\Contact\Models\Contact;
-use JamstackVietnam\Support\Models\File;
+use JamstackVietnam\Core\Models\File;
 
 class ContactController extends Controller
 {
@@ -23,7 +23,7 @@ class ContactController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors());
         }
-        
+
         if (isset($requestData['data']['File CV'])) {
             $files = $requestData['data']['File CV'];
             $file = new File($request->input('path', '/'));
@@ -36,7 +36,7 @@ class ContactController extends Controller
 
             if(isset($fileUploaded['successFiles'])) {
                 foreach ($fileUploaded['successFiles'] as $item) {
-                    $requestData['data']['File CV'][] = static_url($item);
+                    $requestData['data']['File CV'][] = env('APP_URL') . $item;
                 }
             }
         }

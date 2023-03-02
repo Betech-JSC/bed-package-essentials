@@ -142,6 +142,7 @@ class Job extends BaseModel
     public function transform()
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
             'description' => $this->description,
@@ -157,6 +158,7 @@ class Job extends BaseModel
     public function transformDetails()
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
             'description' => $this->description,
