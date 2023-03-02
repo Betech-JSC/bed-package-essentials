@@ -1,16 +1,16 @@
 <template>
     <div class="flex items-center">
-        <vue-plyr v-if="isVideo(file.static_url)">
+        <vue-plyr v-if="isVideo(staticUrl(file.path))">
             <div>
                 <video muted playsinline onmouseover="this.play()" onmouseout="this.pause()">
-                    <source :src="file.static_url" type="video/mp4" />
+                    <source :src="staticUrl(file.path)" type="video/mp4" />
                 </video>
             </div>
         </vue-plyr>
-        <v-lazy-image v-else :src="`${file.static_url}?w=200`" />
+        <v-lazy-image v-else :src="`${staticUrl(file.path)}?w=200`" />
         <a
             class="absolute top-0 right-0 invisible space-x-1 text-white uppercase bg-black group-hover:visible w-[20px] h-[20px] flex items-center justify-center rounded-sm"
-            :href="file.static_url"
+            :href="staticUrl(file.path)"
             target="_blank"
         >
             <ph:arrow-square-up-right />
