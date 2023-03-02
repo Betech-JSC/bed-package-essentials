@@ -12,8 +12,6 @@ class Region extends BaseModel
     use HasFactory, Searchable;
     public $timestamps = false;
 
-    public const SHIPPING_PRICE = "50000.00";
-
     public $fillable = [
         'country_id',
         'level',
@@ -160,7 +158,7 @@ class Region extends BaseModel
     {
         $request = request()->all();
 
-        $shippingPrice = self::SHIPPING_PRICE;
+        $shippingPrice = config('region.default_shipping_price', 50000);
 
         $ward = self::with('parent.parent')
             ->where('code', $request['params']['code'])->first();
