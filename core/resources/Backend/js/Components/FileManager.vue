@@ -81,7 +81,7 @@
                         label: false,
                         type: 'tree',
                         maxLevel: 10,
-                        expandDefaultLevel: 2,
+                        expandDefaultLevel: 3,
                         keyBy: 'slug',
                         labelBy: 'name',
                         childrenBy: 'children',
@@ -470,9 +470,9 @@ export default {
                     })
                     )
                     .then((res) => {
-                        this.currentPath = "/";
                         this.tree = res.data;
                         this.getFiles();
+                        this.currentPath = "/";
                         this.isDeleteFolder = false;
                     });
             }
@@ -484,9 +484,8 @@ export default {
                     path: this.currentPath,
                 })
                 .then((res) => {
-                    this.tree = res.data;
-                    this.currentPath = "/";
                     this.getFiles();
+                    this.tree = res.data;
                 });
         },
     },
