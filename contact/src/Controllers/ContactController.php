@@ -36,7 +36,7 @@ class ContactController extends Controller
 
             if(isset($fileUploaded['successFiles'])) {
                 foreach ($fileUploaded['successFiles'] as $item) {
-                    $requestData['data']['File CV'][] = env('APP_URL') . $item;
+                    $requestData['data']['File CV'][] = $item;
                 }
             }
         }
