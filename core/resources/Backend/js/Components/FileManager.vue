@@ -37,14 +37,6 @@
                     <ph-plus-circle-light />
                     <span> Tạo Folder </span>
                 </Button>
-                <Button
-                    v-if="isDeleteFolder"
-                    @click="deleteFolder"
-                    class="space-x-2 btn-outline-primary"
-                >
-                    <carbon:subtract-alt />
-                    <span> Xóa Folder </span>
-                </Button>
                 <Button @click.prevent="browse" class="space-x-2 btn-primary">
                     <ph:upload-simple />
                     <span> Chọn Tệp </span>
@@ -102,15 +94,27 @@
                 class="overflow-y-auto grow"
                 :class="
                     !Object.keys(searchFiles).length
-                        ? 'flex items-center justify-center'
+                        ? 'flex items-center flex-col justify-center'
                         : 'flex-1'
                 "
             >
+            <div>
                 <h1 v-if="!Object.keys(searchFiles).length" class="text-xl">
                     Kéo thả hoặc
                     <a @click="browse" class="link">click vào đây</a> để chọn
                     tệp
                 </h1>
+            </div>
+            <div class="mt-6">
+                <Button
+                    v-if="isDeleteFolder"
+                    @click="deleteFolder"
+                    class="space-x-2 btn-outline-primary"
+                >
+                    <carbon:subtract-alt />
+                    <span> Xóa Folder </span>
+                </Button>
+            </div>
                 <div
                     v-if="Object.keys(searchFiles).length"
                     class="px-4 pt-8 pb-16 mx-auto space-y-4 max-w-7xl sm:px-6 lg:px-8"
@@ -293,6 +297,7 @@ export default {
             }
         },
         data() {
+            this.getFiles();
             this.isDeleteFolder = this.data.isDeleteFolder;
             this.tree = this.data.tree;
         }
@@ -339,7 +344,9 @@ export default {
         },
         onSelect(file) {
             if (this.embed) {
-                const src = "/static/" + new URL(file.static_url).pathname;
+                let src = '/static' + new URL(file.static_url).pathname;
+                src = src.replace('/static/static/', '/static/');
+
                 window.parent.postMessage({
                     mceAction: "insertContent",
                     content: `<img src="${src}">`,
@@ -457,17 +464,18 @@ export default {
             }, 150);
         },
         deleteFolder() {
-            this.$axios
-                .post(
-                this.route("admin.files.folders.delete", {
-                    path: this.currentPath
-                })
-                )
-                .then((res) => {});
-
-            this.currentPath = "/";
-            this.getFiles();
-            this.isDeleteFolder = false;
+            if (confirm("Bạn chắc chắn xóa thư mục này!") == true) {
+                this.$axios
+                    .post(
+                    this.route("admin.files.folders.delete", {
+                        path: this.currentPath
+                    })
+                    )
+                    .then((res) => {});
+                this.currentPath = "/";
+                this.getFiles();
+                this.isDeleteFolder = false;
+            }
         },
         createFolder(name) {
             this.$axios
