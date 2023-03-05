@@ -297,7 +297,7 @@ export default {
         },
         data() {
             let isEmptyFile = this.data.files.length == 0;
-            let isEmptyFolder = this.isEmaptyFolder(this.currentPath, this.tree);
+            let isEmptyFolder = this.isEmptyFolder(this.currentPath, this.tree);
 
             this.isDeleteFolder = isEmptyFile && isEmptyFolder;
             this.tree = this.data.tree;
@@ -321,7 +321,6 @@ export default {
             this.getFiles();
         },
         getFiles(params = {}) {
-            let data = null;
             this.$axios
                 .get(
                     this.route("admin.files.index", {
@@ -481,7 +480,6 @@ export default {
             }
         },
         createFolder(name) {
-            console.log(this.currentPath);
             this.$axios
                 .post(this.route("admin.files.folders.create"), {
                     name: name,
@@ -492,7 +490,7 @@ export default {
                     this.tree = res.data.tree;
                 });
         },
-        isEmaptyFolder(curentPath, folders)
+        isEmptyFolder(curentPath, folders)
         {
             let folder = this.getFolderByPath(folders, curentPath);
             return folder && folder.children.length == 0;
