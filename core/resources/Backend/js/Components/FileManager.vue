@@ -85,7 +85,7 @@
                         keyBy: 'slug',
                         labelBy: 'name',
                         childrenBy: 'children',
-                        options: tree,
+                        options: data.tree,
                         draggable: false,
                     }"
                 />
@@ -93,28 +93,27 @@
             <main
                 class="overflow-y-auto grow"
                 :class="
-                    !Object.keys(searchFiles).length
+                    isDeleteFolder
                         ? 'flex items-center flex-col justify-center'
                         : 'flex-1'
                 "
             >
-            <div>
-                <h1 v-if="!Object.keys(searchFiles).length" class="text-xl">
-                    Kéo thả hoặc
-                    <a @click="browse" class="link">click vào đây</a> để chọn
-                    tệp
-                </h1>
-            </div>
-            <div class="mt-6">
-                <Button
-                    v-if="isDeleteFolder"
-                    @click="deleteFolder"
-                    class="space-x-2 btn-outline-primary"
-                >
-                    <carbon:subtract-alt />
-                    <span> Xóa Folder </span>
-                </Button>
-            </div>
+                <div v-if="isDeleteFolder" >
+                    <h1 class="text-xl">
+                        Kéo thả hoặc
+                        <a @click="browse" class="link">click vào đây</a> để chọn
+                        tệp
+                    </h1>
+                </div>
+                <div v-if="isDeleteFolder" class="mt-6">
+                    <Button
+                        @click="deleteFolder"
+                        class="space-x-2 btn-outline-primary"
+                    >
+                        <carbon:subtract-alt />
+                        <span> Xóa Folder </span>
+                    </Button>
+                </div>
                 <div
                     v-if="Object.keys(searchFiles).length"
                     class="px-4 pt-8 pb-16 mx-auto space-y-4 max-w-7xl sm:px-6 lg:px-8"
@@ -297,7 +296,10 @@ export default {
             }
         },
         data() {
-            this.isDeleteFolder = this.data.isDeleteFolder;
+            let isEmptyFile = this.data.files.length == 0;
+            let isEmptyFolder = this.isEmaptyFolder(this.currentPath, this.tree);
+
+            this.isDeleteFolder = isEmptyFile && isEmptyFolder;
             this.tree = this.data.tree;
             this.folderForm.name = '';
         },
@@ -319,6 +321,7 @@ export default {
             this.getFiles();
         },
         getFiles(params = {}) {
+            let data = null;
             this.$axios
                 .get(
                     this.route("admin.files.index", {
@@ -342,8 +345,8 @@ export default {
         },
         onSelect(file) {
             if (this.embed) {
-                let src = '/static' + new URL(file.static_url).pathname;
-                src = src.replace('/static/static/', '/static/');
+                let path = new URL(file.static_url).pathname;
+                let src = path.includes('/static/') ? path : '/static' + path;
 
                 window.parent.postMessage({
                     mceAction: "insertContent",
@@ -470,14 +473,15 @@ export default {
                     })
                     )
                     .then((res) => {
-                        this.tree = res.data;
-                        this.getFiles();
                         this.currentPath = "/";
                         this.isDeleteFolder = false;
+                        this.getFiles();
+                        this.tree = res.data.tree;
                     });
             }
         },
         createFolder(name) {
+            console.log(this.currentPath);
             this.$axios
                 .post(this.route("admin.files.folders.create"), {
                     name: name,
@@ -485,9 +489,27 @@ export default {
                 })
                 .then((res) => {
                     this.getFiles();
-                    this.tree = res.data;
+                    this.tree = res.data.tree;
                 });
         },
+        isEmaptyFolder(curentPath, folders)
+        {
+            let folder = this.getFolderByPath(folders, curentPath);
+            return folder && folder.children.length == 0;
+        },
+        getFolderByPath(tree, path) {
+            for (var i = 0; i < tree.length; i++) {
+                if (tree[i].children && tree[i].children.length) {
+                    var result = this.getFolderByPath(tree[i].children, path);
+                if (result) {
+                    return result;
+                }
+                } else if (tree[i].path === path) {
+                    return tree[i];
+                }
+            }
+            return null;
+        }
     },
 };
 </script>

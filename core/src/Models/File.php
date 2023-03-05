@@ -2,7 +2,6 @@
 
 namespace JamstackVietnam\Core\Models;
 
-use Image;
 use Illuminate\Support\Str;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
@@ -37,9 +36,8 @@ class File
         $tree = $this->tree();
         $directories = $this->directories();
         $files = $this->files();
-        $isDeleteFolder = $this->contents->count() > 0 ? false : true;
 
-        return compact('tree', 'directories', 'files', 'isDeleteFolder');
+        return compact('tree', 'directories', 'files');
     }
 
     public function tree()
@@ -112,7 +110,7 @@ class File
             ->values()
             ->map(fn ($item) => $this->transformFile($item))
             ->reject(fn ($item) => $this->firstCharIs($item['filename'], '.'))
-            ->sortBy('search_name')
+            ->sortByDesc('last_modified')
             ->keyBy('path');
     }
 
@@ -123,19 +121,28 @@ class File
                 return VideoStreamer::streamFile($this->storage->path($this->path));
             }
 
-            $filePath = $this->storage->get($this->path);
+            $fileData = $this->storage->get($this->path);
+            $filePath = $this->storage->path($this->path);
             $mimeType = $this->storage->mimeType($this->path);
 
             if (str_contains($this->path, '.mp4')) {
                 $size = $this->storage->size($this->path);
 
-                return response()->make($filePath, 200)
+                return response()->make($fileData, 200)
                     ->header('Accept-Ranges', 'bytes')
                     ->header('Content-Length', $size)
                     ->header('Content-Type', $mimeType);
             }
 
-            return response()->make($filePath, 200)
+            if (
+                str_contains($this->path, '.pdf') &&
+                isset($options['download'])
+            ) {
+                return response()
+                    ->download($filePath, basename($filePath));
+            }
+
+            return response()->make($fileData, 200)
                 ->header('Content-Type', $mimeType);
         } catch (\Exception $exception) {
             logger()->error($exception->getMessage());
@@ -219,11 +226,13 @@ class File
 
     public function folderCreate($name)
     {
-        if ($this->storage->exists($name)) {
+        $pathName = $this->path != '/' ? $this->path . '/' . $name : $this->path .$name;
+
+        if ($this->storage->exists($pathName)) {
             return false;
         }
 
-        return (bool) $this->storage->makeDirectory($name);
+        return (bool) $this->storage->makeDirectory($pathName);
     }
 
     public function folderDelete()
@@ -232,7 +241,7 @@ class File
             return false;
         }
 
-        return (bool) Storage::disk('uploads')->deleteDirectory($this->path);
+        return (bool) $this->storage->deleteDirectory($this->path);
     }
 
     private function formatBytes($size)
