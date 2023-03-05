@@ -47,7 +47,28 @@ class Setting extends Model
             ],
             'robots_txt' => [
                 'robots_txt'  => 'required',
+            ],
+            'custom_vars' => [
+                'custom_vars'  => 'nullable',
             ]
         ][$id] ?? [];
+    }
+
+    public static function customVariables($publicOnly = null)
+    {
+        $settings = cache_response('custom_vars', function () {
+            $settings = settings()->group('custom_vars')->all()->first();
+            $settings = collect(json_decode($settings, true));
+
+            return $settings;
+        }, 'settings');
+
+        if (!is_null($publicOnly)) {
+            $settings = $settings->where('is_public', $publicOnly);
+        }
+
+        $settings = $settings->pluck('value', 'key')->toArray();
+
+        return $settings;
     }
 }

@@ -59,11 +59,17 @@ class HelperController extends Controller
         return $items;
     }
 
-    // Private
-
-    private function modelNamespace()
+    public function reloadOctane()
     {
-        $model = request()->input('model');
+        shell_exec('php artisan octane:reload');
+        return response()->json([
+            'success' => true,
+        ], 200);
+    }
+
+    public function modelNamespace($model = null)
+    {
+        $model = $model ?: request()->input('model');
         if (class_exists("\App\Models\\$model")) {
             return "\App\Models\\$model";
         } else if (class_exists("\JamstackVietnam\\Core\\Models\\$model")) {
@@ -72,6 +78,8 @@ class HelperController extends Controller
             return $model;
         }
     }
+
+    // Private
 
     private function onlyFields($items)
     {

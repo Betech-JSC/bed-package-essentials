@@ -6,8 +6,9 @@
                     :activeIndex="Array.from(Array(20).keys())"
                     :multiple="true"
                 >
-                    <AccordionTab header="Cài đặt thông tin">
+                    <AccordionTab v-if="settingBar.info" header="Cài đặt thông tin">
                         <Link
+                            v-if="settingBar.general"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -23,6 +24,7 @@
                             Thông tin chung
                         </Link>
                         <Link
+                            v-if="!!route().t.routes['admin.settings.meta-pages.index']"
                             :href="route('admin.settings.meta-pages.index')"
                             class="item"
                             :class="{
@@ -32,6 +34,7 @@
                             Meta
                         </Link>
                         <Link
+                            v-if="settingBar.robots_txt"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -47,6 +50,7 @@
                             Robots.txt
                         </Link>
                         <Link
+                            v-if="!!route().t.routes['admin.settings.redirects.index']"
                             :href="route('admin.settings.redirects.index')"
                             class="item"
                             :class="{
@@ -55,9 +59,26 @@
                         >
                             Redirects
                         </Link>
-                    </AccordionTab>
-                    <AccordionTab header="Email">
                         <Link
+                            v-if="settingBar.custom_vars"
+                            class="item"
+                            :href="
+                                route('admin.settings.form', {
+                                    id: 'custom_vars',
+                                })
+                            "
+                            :class="{
+                                active: isUrl('admin.settings.form', {
+                                    id: 'custom_vars',
+                                }),
+                            }"
+                        >
+                            Tùy chỉnh biến môi trường
+                        </Link>
+                    </AccordionTab>
+                    <AccordionTab v-if="settingBar.email" header="Email">
+                        <Link
+                            v-if="settingBar.smtp"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -73,6 +94,7 @@
                             Cấu hình SMTP
                         </Link>
                         <Link
+                            v-if="settingBar.notification"
                             class="item"
                             :href="
                                 route('admin.settings.form', {
@@ -93,3 +115,12 @@
         </div>
     </div>
 </template>
+<script>
+export default {
+    data(){
+        return {
+            settingBar: this.$page.props.setting_bar
+        }
+    }
+};
+</script>

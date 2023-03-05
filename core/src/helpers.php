@@ -11,13 +11,19 @@ if (!function_exists('static_url')) {
     function static_url($path, $parameters = [], $absolute = true)
     {
         if (!$path || str_contains($path, 'http')) return $path;
+
         if (!empty($parameters)) {
             $url = route('files.show') . '/' . $path . '?' . http_build_query($parameters);
         } else {
             $url = route('files.show') . '/' . $path;
         }
+
         if (!$absolute) {
             $url = collect(parse_url($url))->only('path', 'query')->join(',');
+        }
+
+        if (config('app.static_url') && !isset(config('app.static_url')['port'])) {
+            $url = preg_replace("/static:[0-9]+/", "static", $url);
         }
 
         return $url;
@@ -37,13 +43,13 @@ if (!function_exists('transform_seo')) {
     function transform_seo($model)
     {
         return [
-            'seo_meta_title' => $model->seo_meta_title ?? $model->title,
+            'seo_meta_title' => $model->seo_meta_title ?? $model->title ?? env('APP_NAME'),
             'seo_slug' => $model->seo_slug ?? $model->slug,
             'seo_meta_description' => $model->seo_meta_description ?? $model->description,
             'seo_meta_keywords' => $model->seo_meta_keywords,
             'seo_meta_robots' => $model->seo_meta_robots,
             'seo_canonical' => $model->seo_canonical,
-            'seo_image' => static_url($model->seo_image ?? $model->image_url),
+            'seo_image' => static_url($model->seo_image ?? $model->image_url ?? '/cover.jpg'),
             'seo_schemas' => $model->seo_schemas,
         ];
     }
@@ -105,9 +111,9 @@ if (!function_exists('to_number')) {
 }
 
 if (!function_exists('to_money')) {
-    function to_money($number)
+    function to_money($number, $symbol = '₫')
     {
-        return to_number($number) . ' ATN';
+        return to_number($number) . ' ' . $symbol;
     }
 }
 
@@ -221,5 +227,38 @@ if (!function_exists('transform_richtext')) {
             }
         }
         return $content;
+    }
+}
+
+if (!function_exists('setting_bar')) {
+    function setting_bar()
+    {
+        return [
+            'general' => config('core.setting.form.general.enable', true),
+            'robots_txt' => config('core.setting.form.robots_txt.enable', true),
+            'notification' => config('core.setting.form.notification.enable', true),
+            'smtp' => config('core.setting.form.smtp.enable', true),
+            'custom_vars' => config('core.setting.form.custom_vars.enable', true),
+            'info' => config('core.setting.info.enable', true),
+            'email' => config('core.setting.email.enable', true)
+        ];
+    }
+}
+
+if (!function_exists('clear_cache')) {
+    function clear_cache($tags = [])
+    {
+        if (config('cache.default') === 'redis') {
+            Illuminate\Support\Facades\Cache::tags($tags)->flush();
+            Illuminate\Support\Facades\Artisan::call('lada-cache:flush');
+        }
+        return true;
+    }
+}
+
+if (!function_exists('utf8_for_xml')) {
+    function utf8_for_xml($string)
+    {
+        return preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $string);
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use JamstackVietnam\Core\Models\Setting;
 use JamstackVietnam\Core\Traits\HasCrudActions;
+use Illuminate\Support\Facades\Artisan;
 
 class SettingController extends Controller
 {
@@ -23,6 +24,17 @@ class SettingController extends Controller
     public function form($id = null)
     {
         $this->checkAuthorize($id ? 'edit' : 'create');
+
+        if (!config('core.setting.form.' . $id . '.enable', true)) {
+            $id = config('core.setting.id_default', null);
+
+            if (!empty($id)) {
+                return redirect()->route('admin.settings.form', ['id' =>  $id]);
+            }
+            else {
+                return redirect()->route(config('core.setting.route_default', 'admin.dashboard.index'));
+            }
+        }
 
         $settingName =  Str::studly($id);
 
@@ -47,6 +59,7 @@ class SettingController extends Controller
             'item' => $item,
             'breadcrumbs' => $breadcrumbs,
             'schema' => $this->getSchema(),
+            'setting_bar' => setting_bar(),
         ]);
     }
 
@@ -58,7 +71,17 @@ class SettingController extends Controller
 
         $validated = $request->validate($rules);
 
+        foreach($validated as $key => $data) {
+            if (is_array($data)) {
+                $validated[$key] = json_encode($data);
+            }
+        }
+
         settings()->group($id)->set($validated);
+
+        if (in_array($id, ['smtp', 'notification'])) {
+            Artisan::call('queue:restart');
+        }
 
         return $this->redirectBack('Lưu đối tượng thành công.');
     }

@@ -4,4 +4,14 @@
 
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
     margin: 0.1rem !important;
+    max-width: 100%;
+}
+
+.p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-label {
+    @apply overflow-hidden;
+}
+
+.p-treeselect-token .p-multiselect-token-icon,
+.p-multiselect-token .p-multiselect-token-icon {
+    margin-left: 0.5rem;
 }

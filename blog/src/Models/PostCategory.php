@@ -30,6 +30,7 @@ class PostCategory extends BaseModel
         'parent_id',
         'status',
         'position',
+        'menu_position',
         'view_count',
         'image',
         'icon'
@@ -48,6 +49,10 @@ class PostCategory extends BaseModel
         'seo_canonical',
         'seo_image',
         'seo_schemas',
+    ];
+
+    protected $casts = [
+        'image' => 'array',
     ];
 
     protected $searchable = [
@@ -176,7 +181,6 @@ class PostCategory extends BaseModel
         }
         return $urls;
     }
-
     public function posts()
     {
         return $this->belongsToMany(
@@ -220,7 +224,8 @@ class PostCategory extends BaseModel
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
             'image' => $this->getImageDetail(),
-            'icon' => $this->icon
+            'icon' => $this->icon,
+            'url' => $this->current_url
         ];
 
         if (isset($conditions['post_count']) && $conditions['post_count'] > 0) {
@@ -243,6 +248,7 @@ class PostCategory extends BaseModel
             'slug' => $this->seo_slug ?? $this->slug,
             'breadcrumbs' => self::transformAsBreadcrumb($this),
             'image' => $this->getImageDetail(),
+            'url' => $this->current_url
         ];
     }
 
@@ -267,14 +273,14 @@ class PostCategory extends BaseModel
             });
     }
 
-    public function scopeOrderByPossition($query)
+    public function scopeOrderByPosition($query)
     {
         return $query->orderByRaw('ISNULL(position) OR position = 0, position ASC');
     }
 
     public function scopeFilter(Builder $query, array $filters = []): Builder
     {
-        $query->orderByPossition()
+        $query->orderByPosition()
             ->orderBy('id', 'desc');
 
         $query->orderBy('id', 'desc');
@@ -284,5 +290,10 @@ class PostCategory extends BaseModel
         });
 
         return $query;
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return isset($this->image['path']) ? static_url($this->image['path']) : null;
     }
 }

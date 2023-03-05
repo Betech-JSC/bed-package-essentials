@@ -1131,6 +1131,7 @@
     transition: background-color 0.2s, color 0.2s, border-color 0.2s,
         box-shadow 0.2s;
 }
+.p-treeselect .p-treeselect-label.p-placeholder,
 .p-multiselect .p-multiselect-label.p-placeholder {
     color: #6c757d;
 }
@@ -1140,11 +1141,6 @@
     background: #dee2e6;
     color: #495057;
     border-radius: 16px;
-}
-.p-multiselect.p-multiselect-chip
-    .p-multiselect-token
-    .p-multiselect-token-icon {
-    margin-left: 0.5rem;
 }
 .p-multiselect .p-multiselect-trigger {
     background: transparent;

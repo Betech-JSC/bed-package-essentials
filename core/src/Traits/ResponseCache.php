@@ -13,13 +13,12 @@ trait ResponseCache
     {
         if (config('cache.default') === 'redis') {
             static::saved(function ($model) {
-                Cache::tags($model->cacheKey($model))->flush();
+                clear_cache($model->cacheKey($model));
             });
-
             static::deleted(function ($model) {
-                Cache::tags($model->cacheKey($model))->flush();
+                clear_cache($model->cacheKey($model));
             });
-    }
+        }
     }
 
     private function cacheKey($model)

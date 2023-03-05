@@ -1,9 +1,16 @@
 <template>
-    <div>
-        <v-lazy-image :src="`${file.static_url}?w=200`" />
+    <div class="flex items-center">
+        <vue-plyr v-if="isVideo(staticUrl(file.path))">
+            <div>
+                <video muted playsinline onmouseover="this.play()" onmouseout="this.pause()">
+                    <source :src="staticUrl(file.path)" type="video/mp4" />
+                </video>
+            </div>
+        </vue-plyr>
+        <v-lazy-image v-else :src="`${staticUrl(file.path)}?w=200`" />
         <a
             class="absolute top-0 right-0 invisible space-x-1 text-white uppercase bg-black group-hover:visible w-[20px] h-[20px] flex items-center justify-center rounded-sm"
-            :href="file.static_url"
+            :href="staticUrl(file.path)"
             target="_blank"
         >
             <ph:arrow-square-up-right />
@@ -17,11 +24,26 @@
 </template>
 
 <script>
-import VLazyImage from "v-lazy-image";
+import VLazyImage from 'v-lazy-image'
+import VuePlyr from 'vue-plyr'
+import 'vue-plyr/dist/vue-plyr.css'
 export default {
-    components: { VLazyImage },
-    props: ["file"],
-};
+    components: { VLazyImage, VuePlyr },
+    props: ['file'],
+
+    methods: {
+        isVideo(url) {
+            return (
+                url.endsWith('.mp4') ||
+                url.endsWith('.avi') ||
+                url.endsWith('.mov') ||
+                url.endsWith('.wmv') ||
+                url.endsWith('.flv') ||
+                url.endsWith('.mkv')
+            )
+        },
+    },
+}
 </script>
 
 <style scoped>

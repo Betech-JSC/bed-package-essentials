@@ -2,7 +2,7 @@
     <template v-if="multiple">
         <div class="grid gap-3" :class="itemsPerRow">
             <div
-                class="relative col-span-1 group"
+                class="relative flex items-center col-span-1 overflow-hidden rounded-sm bg-gray-50 group"
                 v-for="(file, index) in files"
                 :key="index"
             >
@@ -10,36 +10,11 @@
                     class="absolute inset-0 transition-opacity duration-200 bg-white opacity-0 group-hover group-hover:opacity-50"
                 ></div>
 
-                <div
-                    class="flex items-center justify-center overflow-hidden transition-colors duration-200 bg-gray-100 border border-gray-100 rounded select-none aspect-[1/1]"
-                >
-                    <img
-                        v-if="isImage(file.path)"
-                        :src="`${staticUrl(file.path)}?w=500`"
-                        class="object-contain w-full"
-                    />
-                    <div v-else class="flex items-center p-4 text-xs break-all">
-                        {{ file.filename }}
-                    </div>
-                </div>
-                <div
-                    class="absolute flex invisible space-x-1 transition-all duration-200 opacity-0 right-2 bottom-2 group-hover:opacity-100 group-hover:visible"
-                >
-                    <Button
-                        @click="chosenImage(file)"
-                        label="Chọn"
-                        class="btn-sm btn-white"
-                    />
-                    <Button
-                        @click="removeSelectedFiles(index)"
-                        label="Xóa"
-                        class="btn-sm btn-white"
-                    />
-                </div>
+                <Thumbnail :file="file" @remove="removeSelectedFiles(index)" />
             </div>
             <div
                 class="relative col-span-1 group"
-                v-if="files.length < maxItems"
+                v-if="files.length < maxItems && canAddFile"
             >
                 <div
                     class="overflow-hidden text-gray-400 transition-colors duration-200 border border-gray-200 border-dashed rounded cursor-pointer select-none hover:border-gray-400 hover:text-gray-600 aspect-[1/1]"
@@ -55,43 +30,19 @@
     <template v-else>
         <template v-if="Array.isArray(files) && files.length > 0">
             <div
-                class="relative flex h-full max-w-xs bg-gray-200 border rounded-sm group"
+                class="relative flex items-center h-full max-w-xs overflow-hidden border rounded-sm bg-gray-50 group"
             >
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <div
-                        class="absolute inset-0 transition-opacity duration-200 bg-white opacity-0 group-hover group-hover:opacity-50"
-                        @click="showMediaManager = true"
-                    ></div>
-                    <div
-                        class="absolute flex invisible space-x-2 transition-all duration-200 opacity-0 right-2 bottom-2 group-hover:opacity-100 group-hover:visible"
-                    >
-                        <Button
-                            size="xs"
-                            @click="removeSelectedFiles"
-                            label="Xóa"
-                            class="btn-sm btn-white"
-                        />
-                    </div>
-                </div>
-                <img
-                    v-if="isImage(files[0].path)"
-                    :src="`${staticUrl(files[0].path)}?w=500`"
-                    class="object-contain w-full"
-                />
-                <div v-else class="flex items-center p-4 text-xs break-all">
-                    {{ files[0].filename }}
-                </div>
+                <Thumbnail :file="files[0]" @remove="removeSelectedFiles" />
             </div>
         </template>
         <template v-else>
             <div
-                class="relative w-full h-full max-w-xs p-3 text-gray-700 transition-colors duration-200 bg-gray-100 rounded-sm cursor-pointer select-none hover:bg-gray-200 hover:text-gray-900"
+                class="relative w-full h-full max-w-xs p-3 text-gray-700 transition-colors duration-200 rounded-sm cursor-pointer select-none bg-gray-50 hover:bg-gray-200 hover:text-gray-900"
                 @click="showMediaManager = true"
             >
                 <div
                     class="flex flex-col items-center justify-center w-full h-full py-4 space-y-2 text-xs font-medium text-center text-gray-600 border border-gray-400 border-dashed"
                 >
-                    <!-- <Icon name="image" v-if="field.icon ?? true" /> -->
                     <span>CLICK ĐỂ CHỌN</span>
                 </div>
             </div>
@@ -159,10 +110,12 @@
 
 <script>
 import FileManager from "@Core/Components/FileManager.vue";
+import Thumbnail from "@Core/Components/Thumbnail.vue";
 
 export default {
     components: {
         FileManager,
+        Thumbnail,
     },
 
     props: ["field", "modelValue"],
@@ -197,6 +150,9 @@ export default {
         },
         expectedUrl() {
             return this.field.expected ?? false;
+        },
+        canAddFile() {
+            return this.field.canAddFile ?? true;
         },
     },
 

@@ -15,7 +15,7 @@
             :model-value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             @blur="validateAsync(field.name)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
             :placeholder="field.placeholder || ''"
         />
     </template>
@@ -28,13 +28,13 @@
             :model-value="parseFloat(modelValue)"
             @blur="validateAsync(field.name)"
             @input="$emit('update:modelValue', $event.value || 0)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'textarea'">
         <Textarea
             :model-value="modelValue"
-            v-model:disabled="disabled"
+            :disabled="disabled"
             @input="$emit('update:modelValue', $event.target.value)"
             :rows="field.rows || 3"
         />
@@ -54,7 +54,7 @@
             :model-value="parseFloat(modelValue)"
             @input="$emit('update:modelValue', $event.value || 0)"
             @blur="validateAsync(field.name)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'password'">
@@ -64,7 +64,7 @@
             @input="$emit('update:modelValue', $event.target.value)"
             @blur="validateAsync(field.name)"
             :feedback="field.feedback || false"
-            v-model:disabled="disabled"
+            :disabled="disabled"
             toggleMask
         ></Password>
     </template>
@@ -76,7 +76,7 @@
                 :model-value="Boolean(Number(modelValue))"
                 @input="$emit('update:modelValue', Boolean($event))"
                 @blur="validateAsync(field.name)"
-                v-model:disabled="disabled"
+                :disabled="disabled"
             />
             <label
                 v-if="field.label"
@@ -91,7 +91,7 @@
             :field="field"
             :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template
@@ -99,54 +99,58 @@
     >
         <CustomDropdown
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'select_multiple'">
         <CustomMultipleSelect
             class="w-full"
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'select_tree'">
         <CustomTreeSelect
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'tree'">
-        <TreeViewItem v-model="modelValue" :field="field" />
+        <TreeViewItem
+            :model-value="modelValue"
+            @update:modelValue="$emit('update:modelValue', $event)"
+            :field="field"
+        />
     </template>
     <template v-else-if="field.type === 'radio_list'">
         <CustomRadioList
             class="mt-2"
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'select_date'">
         <CustomSelectDate
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
     <template v-else-if="field.type === 'file_upload'">
         <InputUpload
             :field="field"
-            v-model="modelValue"
+            :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
 
@@ -155,7 +159,7 @@
             :field="field"
             :model-value="modelValue"
             @change="$emit('update:modelValue', $event)"
-            v-model:disabled="disabled"
+            :disabled="disabled"
         />
     </template>
 </template>
