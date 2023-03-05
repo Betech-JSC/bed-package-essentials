@@ -35,7 +35,7 @@
                     class="space-x-2 btn-outline-primary"
                 >
                     <ph-plus-circle-light />
-                    <span> Tạo Folder </span>
+                    <span> Tạo Thư Mục </span>
                 </Button>
                 <Button @click.prevent="browse" class="space-x-2 btn-primary">
                     <ph:upload-simple />
@@ -85,7 +85,7 @@
                         keyBy: 'slug',
                         labelBy: 'name',
                         childrenBy: 'children',
-                        options: data.tree,
+                        options: tree,
                         draggable: false,
                     }"
                 />
@@ -111,7 +111,7 @@
                         class="space-x-2 btn-outline-primary"
                     >
                         <carbon:subtract-alt />
-                        <span> Xóa Folder </span>
+                        <span> Xóa Thư Mục </span>
                     </Button>
                 </div>
                 <div
@@ -191,7 +191,7 @@
                 v-model="folderForm.name"
                 :field="{
                     rules: 'required',
-                    label: 'Tên Folder',
+                    label: 'Tên Thư Mục',
                 }"
             />
             <template #footer>
@@ -300,7 +300,6 @@ export default {
             let isEmptyFolder = this.isEmptyFolder(this.currentPath, this.tree);
 
             this.isDeleteFolder = isEmptyFile && isEmptyFolder;
-            this.tree = this.data.tree;
             this.folderForm.name = '';
         },
     },
