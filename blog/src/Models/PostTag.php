@@ -19,7 +19,7 @@ class PostTag extends BaseModel
     public const TYPE_BLOG = 'BLOG';
     public const TYPE_VLOG = 'VLOG';
 
-    public const STATUS_LIST = [
+    public const TYPE_LIST = [
         self::TYPE_BLOG => 'Bài viết',
         self::TYPE_VLOG => 'Vlog',
     ];
