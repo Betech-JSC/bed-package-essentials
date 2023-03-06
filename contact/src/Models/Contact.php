@@ -176,6 +176,13 @@ class Contact extends BaseModel
 
                 $data[$column['column']] = route($routeLocale . '.' . $column['route']['name'], $params);
             }
+            else if ($column == 'File CV' && is_array($this->data[$column])) {
+                $files = [];
+                foreach($this->data[$column] as $index => $file) {
+                    $files['CV ' . $index + 1] = env('APP_URL') . $file;
+                }
+                $data[$column] = $files;
+            }
             else {
                 $data[$column] = $this->data[$column] ?? null;
             }
