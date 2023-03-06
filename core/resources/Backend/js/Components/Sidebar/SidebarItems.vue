@@ -10,7 +10,7 @@
             v-if="$page.props.locale.list.length > 1"
         >
             <Button
-                class="grow"
+                class="grow !min-w-fit"
                 v-for="(locale, index) in $page.props.locale.list"
                 :label="locale"
                 size="sm"
