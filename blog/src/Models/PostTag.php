@@ -16,12 +16,10 @@ class PostTag extends BaseModel
     public const STATUS_ACTIVE = 'ACTIVE';
     public const STATUS_INACTIVE = 'INACTIVE';
 
-    public const TYPE_ALL = 'ALL';
     public const TYPE_BLOG = 'BLOG';
     public const TYPE_VLOG = 'VLOG';
 
     public const STATUS_LIST = [
-        self::TYPE_ALL => 'Tất cả',
         self::TYPE_BLOG => 'Bài viết',
         self::TYPE_VLOG => 'Vlog',
     ];
