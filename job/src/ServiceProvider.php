@@ -45,16 +45,19 @@ class ServiceProvider extends BaseServiceProvider
         if (empty(File::glob(database_path('migrations/*_create_jobs_table.php')))
             && empty(File::glob(database_path('migrations/*_create_job_translations_table.php')))
             && empty(File::glob(database_path('migrations/*_create_related_jobs_table.php')))
+            && empty(File::glob(database_path('migrations/*_create_job_ref_tags_table.php')))
         ) {
             $timestamp = date('Y_m_d_His', time());
-            $job = database_path("migrations/{$timestamp}_create_jobs_table.php");
-            $jobTranslation = database_path("migrations/{$timestamp}_create_job_translations_table.php");
-            $related = database_path("migrations/{$timestamp}_create_related_jobs_table.php");
+            $job = database_path("migrations/{$timestamp}01_create_jobs_table.php");
+            $jobTranslation = database_path("migrations/{$timestamp}02_create_job_translations_table.php");
+            $related = database_path("migrations/{$timestamp}03_create_related_jobs_table.php");
+            $jobRefTag = database_path("migrations/{$timestamp}04_create_related_jobs_table.php");
 
             $this->publishes([
                 __DIR__.'/../database/migrations/create_jobs_table.php.stub' => $job,
                 __DIR__.'/../database/migrations/create_job_translations_table.php.stub' => $jobTranslation,
                 __DIR__.'/../database/migrations/create_related_jobs_table.php.stub' => $related,
+                __DIR__.'/../database/migrations/create_job_ref_tags_table.php.stub' => $jobRefTag,
             ], 'migrations');
         }
     }
