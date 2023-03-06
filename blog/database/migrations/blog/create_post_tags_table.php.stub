@@ -22,6 +22,7 @@ class CreatePostTagsTable extends Migration
             $table->integer('position')->nullable();
 
             $table->string('status', 30)->default(PostTag::STATUS_ACTIVE);
+            $table->string('type', 30)->default(PostTag::TYPE_ALL);
             $table->integer('view_count')->default(0);
             $table->addInjectCode();
             $table->addTimestamps();

@@ -16,6 +16,16 @@ class PostTag extends BaseModel
     public const STATUS_ACTIVE = 'ACTIVE';
     public const STATUS_INACTIVE = 'INACTIVE';
 
+    public const TYPE_ALL = 'ALL';
+    public const TYPE_BLOG = 'BLOG';
+    public const TYPE_VLOG = 'VLOG';
+
+    public const STATUS_LIST = [
+        self::TYPE_ALL => 'Tất cả',
+        self::TYPE_BLOG => 'Bài viết',
+        self::TYPE_VLOG => 'Vlog',
+    ];
+
     public const STATUS_LIST = [
         self::STATUS_ACTIVE => 'Kích hoạt',
         self::STATUS_INACTIVE => 'Tắt',
@@ -38,6 +48,7 @@ class PostTag extends BaseModel
         'title',
         'slug',
         'description',
+        'type'
     ];
 
     protected $searchable = [
@@ -61,6 +72,19 @@ class PostTag extends BaseModel
         ];
     }
 
+    public static function getBlogs()
+    {
+        return static::whereBlog()
+            ->sortByPosition()
+            ->get();
+    }
+
+    public static function getVlogs()
+    {
+        return static::whereVlog()
+            ->sortByPosition()
+            ->get();
+    }
 
     public function transform()
     {
@@ -70,6 +94,7 @@ class PostTag extends BaseModel
             'title' => $this->title,
             'icon' => $this->icon,
             'code' => $this->code,
+            'type' => $this->type,
             'url' => $this->current_url
         ];
     }
@@ -82,9 +107,20 @@ class PostTag extends BaseModel
             'title' => $this->title,
             'icon' => $this->icon,
             'code' => $this->code,
+            'type' => $this->type,
             'description' => $this->description,
             'url' => $this->current_url
         ];
+    }
+
+    public function scopeWhereBlog($query)
+    {
+        return $query->where('type', self::TYPE_BLOG);
+    }
+
+    public function scopeWhereVlog($query)
+    {
+        return $query->where('type', self::TYPE_VLOG);
     }
 
     public function scopeSortByPosition($query)
