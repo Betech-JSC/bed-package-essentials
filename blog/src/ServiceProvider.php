@@ -98,7 +98,6 @@ class ServiceProvider extends BaseServiceProvider
             $this->publishes([
                 __DIR__.'/../database/migrations/blog/create_vlogs_table.php.stub' => $vlog,
                 __DIR__.'/../database/migrations/blog/create_vlog_translations_table.php.stub' => $vlogTranslation,
-                __DIR__.'/../database/migrations/blog/create_post_categories_table.php.stub' => $postCategory,
                 __DIR__.'/../database/migrations/blog/create_vlog_ref_tags_table.php.stub' => $vlogRefTag,
             ], 'migrations');
         }
