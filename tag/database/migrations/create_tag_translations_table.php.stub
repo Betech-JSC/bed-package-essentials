@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostTagTranslationsTable extends Migration
+class CreateTagTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreatePostTagTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_tag_translations', function (Blueprint $table) {
+        Schema::create('tag_translations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('post_tag_id');
+            $table->unsignedBigInteger('tag_id');
 
             $table->string('title');
             $table->string('locale');
@@ -25,11 +25,11 @@ class CreatePostTagTranslationsTable extends Migration
 
             $table->addSeo();
 
-            $table->unique(['locale', 'post_tag_id']);
+            $table->unique(['locale', 'tag_id']);
             $table->unique(['locale', 'slug']);
-            $table->foreign('post_tag_id')
+            $table->foreign('tag_id')
                 ->references('id')
-                ->on('post_tags')
+                ->on('tags')
                 ->onDelete('cascade');
         });
     }
@@ -41,6 +41,6 @@ class CreatePostTagTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_tag_translations');
+        Schema::dropIfExists('tag_translations');
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace JamstackVietnam\Blog\Models;
+namespace JamstackVietnam\Tag\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Sluggable;
 
-class PostTagTranslation extends BaseModel
+class TagTranslation extends BaseModel
 {
     use HasFactory, Sluggable;
 
@@ -18,10 +18,19 @@ class PostTagTranslation extends BaseModel
         'title',
         'slug',
         'description',
+
+        'seo_meta_title',
+        'seo_slug',
+        'seo_meta_description',
+        'seo_meta_keywords',
+        'seo_meta_robots',
+        'seo_canonical',
+        'seo_image',
+        'seo_schemas',
     ];
 
     public function tag()
     {
-        return $this->belongsTo(PostTag::class);
+        return $this->belongsTo(Tag::class);
     }
 }

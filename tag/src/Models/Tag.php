@@ -1,6 +1,6 @@
 <?php
 
-namespace JamstackVietnam\Blog\Models;
+namespace JamstackVietnam\Tag\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,7 +9,7 @@ use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
 use \Illuminate\Support\Facades\Route;
 
-class PostTag extends BaseModel
+class Tag extends BaseModel
 {
     use HasFactory, Translatable, SoftDeletes, Searchable;
 
@@ -18,10 +18,14 @@ class PostTag extends BaseModel
 
     public const TYPE_BLOG = 'BLOG';
     public const TYPE_VLOG = 'VLOG';
+    public const TYPE_JOB = 'JOB';
+    public const TYPE_PRODUCT = 'PRODUCT';
 
-    public const STATUS_LIST = [
+    public const TYPE_LIST = [
         self::TYPE_BLOG => 'Bài viết',
         self::TYPE_VLOG => 'Vlog',
+        self::TYPE_JOB => 'Tuyển dụng',
+        self::TYPE_PRODUCT => 'Sản phẩm',
     ];
 
     public const STATUS_LIST = [
@@ -36,7 +40,9 @@ class PostTag extends BaseModel
     public $fillable = [
         'status',
         'position',
-        'color',
+        'text_color',
+        'background_color',
+        'type',
         'icon',
         'view_count'
     ];
@@ -46,16 +52,24 @@ class PostTag extends BaseModel
         'title',
         'slug',
         'description',
-        'type'
+
+        'seo_meta_title',
+        'seo_slug',
+        'seo_meta_description',
+        'seo_meta_keywords',
+        'seo_meta_robots',
+        'seo_canonical',
+        'seo_image',
+        'seo_schemas',
     ];
 
     protected $searchable = [
         'columns' => [
-            'post_tag_translations.title' => 10,
-            'post_tag_translations.id' => 5,
+            'tag_translations.title' => 10,
+            'tag_translations.id' => 5,
         ],
         'joins' => [
-            'post_tag_translations' => ['post_tag_translations.post_tag_id', 'post_tags.id'],
+            'tag_translations' => ['tag_translations.tag_id', 'tags.id'],
         ],
     ];
 
@@ -63,10 +77,14 @@ class PostTag extends BaseModel
     {
         return [
             'title' => 'required|string|max:255',
-            'color' => [
+            'text_color' => [
                 'nullable',
                 'regex:/^(#(?:[0-9a-f]{2}){2,4}|#[0-9a-f]{3}\((?:\d+%?(?:deg|rad|grad|turn)?(?:,|\s)+){2,3}[\s\/]*[\d\.]+%?\))$/i',
-            ]
+            ],
+            'background_color' => [
+                'nullable',
+                'regex:/^(#(?:[0-9a-f]{2}){2,4}|#[0-9a-f]{3}\((?:\d+%?(?:deg|rad|grad|turn)?(?:,|\s)+){2,3}[\s\/]*[\d\.]+%?\))$/i',
+            ],
         ];
     }
 
@@ -84,6 +102,20 @@ class PostTag extends BaseModel
             ->get();
     }
 
+    public static function getJobs()
+    {
+        return static::whereJob()
+            ->sortByPosition()
+            ->get();
+    }
+
+    public static function getProducts()
+    {
+        return static::whereProduct()
+            ->sortByPosition()
+            ->get();
+    }
+
     public function transform()
     {
         return [
@@ -91,7 +123,8 @@ class PostTag extends BaseModel
             'slug' => $this->slug,
             'title' => $this->title,
             'icon' => $this->icon,
-            'code' => $this->code,
+            'text_color' => $this->text_color,
+            'background_color' => $this->background_color,
             'type' => $this->type,
             'url' => $this->current_url
         ];
@@ -104,7 +137,8 @@ class PostTag extends BaseModel
             'slug' => $this->slug,
             'title' => $this->title,
             'icon' => $this->icon,
-            'code' => $this->code,
+            'text_color' => $this->text_color,
+            'background_color' => $this->background_color,
             'type' => $this->type,
             'description' => $this->description,
             'url' => $this->current_url
@@ -119,6 +153,21 @@ class PostTag extends BaseModel
     public function scopeWhereVlog($query)
     {
         return $query->where('type', self::TYPE_VLOG);
+    }
+
+    public function scopeWhereJob($query)
+    {
+        return $query->where('type', self::TYPE_JOB);
+    }
+
+    public function scopeWhereProduct($query)
+    {
+        return $query->where('type', self::TYPE_PRODUCT);
+    }
+
+    public function scopeWhereInTypes($query, $types)
+    {
+        return $query->whereIn('type', $types);
     }
 
     public function scopeSortByPosition($query)
@@ -138,7 +187,7 @@ class PostTag extends BaseModel
         $default_locale = config('app.locale');
 
         if ($this->is_active) {
-            if (Route::has($default_locale . ".post_tags.show")) {
+            if (Route::has($default_locale . ".post_tags.show") && $this->type == self::TYPE_BLOG) {
                 foreach ($this->translations as $translation) {
                     $urls[strtoupper($translation->locale)] = route("$translation->locale.post_tags.show", [
                         'slug' => $translation->seo_slug ?? $translation->slug,

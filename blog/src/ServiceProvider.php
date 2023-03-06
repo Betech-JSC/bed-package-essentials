@@ -69,18 +69,12 @@ class ServiceProvider extends BaseServiceProvider
         }
 
         if (
-            empty(File::glob(database_path('migrations/blog/*_create_post_tags_table.php'))) &&
-            empty(File::glob(database_path('migrations/blog/*_create_post_tag_translations_table.php'))) &&
             empty(File::glob(database_path('migrations/blog/*_create_post_ref_tags_table.php')))
         ) {
             $timestamp = date('Y_m_d_Hi', time());
-            $postTag = database_path("migrations/blog/{$timestamp}01_create_post_tags_table.php");
-            $postTagTranslation = database_path("migrations/blog/{$timestamp}02_create_post_tag_translations_table.php");
             $postRefTag = database_path("migrations/blog/{$timestamp}03_create_post_ref_tags_table.php");
 
             $this->publishes([
-                __DIR__.'/../database/migrations/blog/create_post_tags_table.php.stub' => $postTag,
-                __DIR__.'/../database/migrations/blog/create_post_tag_translations_table.php.stub' => $postTagTranslation,
                 __DIR__.'/../database/migrations/blog/create_post_ref_tags_table.php.stub' => $postRefTag,
             ], 'migrations');
         }
