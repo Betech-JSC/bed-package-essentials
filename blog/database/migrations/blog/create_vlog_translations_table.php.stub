@@ -21,9 +21,9 @@ class CreateVlogTranslationsTable extends Migration
             $table->string('locale');
             $table->string('slug');
 
-            $table->string('video_url')->nullable();
             $table->text('description')->nullable();
             $table->json('video')->nullable();
+            $table->string('video_url')->nullable();
 
             $table->addSeo();
 
