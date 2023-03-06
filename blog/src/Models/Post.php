@@ -9,6 +9,7 @@ use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
 use \Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\Builder;
+use JamstackVietnam\Tag\Models\Tag;
 
 class Post extends BaseModel
 {
@@ -140,10 +141,10 @@ class Post extends BaseModel
     public function tags()
     {
         return $this->belongsToMany(
-            PostTag::class,
+            Tag::class,
             'post_ref_tags',
             'post_id',
-            'post_tag_id'
+            'tag_id'
         );
     }
 

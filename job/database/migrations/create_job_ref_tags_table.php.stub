@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVlogRefTagsTable extends Migration
+class CreateJobRefTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateVlogRefTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vlog_ref_tags', function (Blueprint $table) {
-            $table->unsignedBigInteger('vlog_id')->index();
+        Schema::create('job_ref_tags', function (Blueprint $table) {
+            $table->unsignedBigInteger('job_id')->index();
             $table->unsignedBigInteger('tag_id')->index();
 
-            $table->primary(['vlog_id', 'tag_id']);
-            $table->foreign('vlog_id')->references('id')->on('vlogs')->onDelete('cascade');
+            $table->primary(['job_id', 'tag_id']);
+            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
@@ -30,6 +30,6 @@ class CreateVlogRefTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vlog_ref_tags');
+        Schema::dropIfExists('job_ref_tags');
     }
 }
