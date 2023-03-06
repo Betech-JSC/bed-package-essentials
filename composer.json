@@ -26,6 +26,8 @@
                 "JamstackVietnam\\Agency\\ServiceProvider",
                 "JamstackVietnam\\Translation\\ServiceProvider",
                 "JamstackVietnam\\Sitemap\\SitemapServiceProvider",
+                "JamstackVietnam\\Region\\ServiceProvider",
+                "JamstackVietnam\\Option\\ServiceProvider",
                 "Tightenco\\Ziggy\\ZiggyServiceProvider",
                 "Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider",
                 "MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider",

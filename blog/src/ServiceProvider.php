@@ -84,5 +84,22 @@ class ServiceProvider extends BaseServiceProvider
                 __DIR__.'/../database/migrations/blog/create_post_ref_tags_table.php.stub' => $postRefTag,
             ], 'migrations');
         }
+
+        if (
+            empty(File::glob(database_path('migrations/blog/*_create_vlogs_table.php'))) &&
+            empty(File::glob(database_path('migrations/blog/*_create_vlog_translations_table.php'))) &&
+            empty(File::glob(database_path('migrations/blog/*_create_vlog_ref_tags_table.php')))
+        ) {
+            $timestamp = date('Y_m_d_Hi', time());
+            $vlog = database_path("migrations/blog/{$timestamp}01_create_vlogs_table.php");
+            $vlogTranslation = database_path("migrations/blog/{$timestamp}02_create_vlog_translations_table.php");
+            $vlogRefTag = database_path("migrations/blog/{$timestamp}03_create_vlog_ref_tags_table.php");
+
+            $this->publishes([
+                __DIR__.'/../database/migrations/blog/create_vlogs_table.php.stub' => $vlog,
+                __DIR__.'/../database/migrations/blog/create_vlog_translations_table.php.stub' => $vlogTranslation,
+                __DIR__.'/../database/migrations/blog/create_vlog_ref_tags_table.php.stub' => $vlogRefTag,
+            ], 'migrations');
+        }
     }
 }
