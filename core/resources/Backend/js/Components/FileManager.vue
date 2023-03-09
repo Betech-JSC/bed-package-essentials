@@ -452,7 +452,9 @@ export default {
                     path: this.currentPath,
                 })
                 .then((res) => {
-                    this.tree = res.data;
+                    this.getFiles();
+                    this.tree = res.data.tree;
+                    this.folderForm.name = null;
                 });
         },
     },

@@ -226,11 +226,13 @@ class File
 
     public function folderCreate($name)
     {
-        if ($this->storage->exists($name)) {
+        $pathName = rtrim($this->path, '/') . '/' . ltrim($name, '/');
+
+        if ($this->storage->exists($pathName)) {
             return false;
         }
 
-        return (bool) $this->storage->makeDirectory($name);
+        return (bool) $this->storage->makeDirectory($pathName);
     }
 
     private function formatBytes($size)
