@@ -283,9 +283,6 @@ export default {
                 this.getFiles();
             }
         },
-        data() {
-            this.folderForm.name = '';
-        },
     },
 
     computed: {
@@ -457,6 +454,7 @@ export default {
                 .then((res) => {
                     this.getFiles();
                     this.tree = res.data.tree;
+                    this.folderForm.name = '';
                 });
         },
     },
