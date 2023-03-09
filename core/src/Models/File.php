@@ -226,7 +226,7 @@ class File
 
     public function folderCreate($name)
     {
-        $pathName = $this->path != '/' ? $this->path . '/' . $name : $this->path . $name;
+        $pathName = rtrim($this->path, '/') . '/' . ltrim($name, '/');
 
         if ($this->storage->exists($pathName)) {
             return false;
