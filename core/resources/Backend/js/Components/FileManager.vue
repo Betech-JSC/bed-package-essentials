@@ -315,7 +315,9 @@ export default {
                 )
                 .then((res) => {
                     this.data = res.data;
-                    this.tree = res.data.tree;
+                    if (!this.tree) {
+                        this.tree = res.data.tree;
+                    }
                 });
         },
         async copyUrl(file) {
