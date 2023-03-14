@@ -214,9 +214,9 @@ export default {
             }
             if (this.urlOnly) {
                 if (this.multiple) {
-                    this.$emit("change", pluck(this.files, "path"));
+                    this.$emit("change", pluck(this.files, "static_url"));
                 } else {
-                    this.$emit("change", this.files[0]?.path);
+                    this.$emit("change", this.files[0]?.static_url);
                 }
             } else {
                 if (this.multiple) {
