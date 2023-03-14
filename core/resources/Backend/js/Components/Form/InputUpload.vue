@@ -176,7 +176,7 @@ export default {
                 if (this.multiple) {
                     this.files = this.modelValue?.map(function (url) {
                         return {
-                            static_url: url,
+                            path: url,
                         };
                     });
                 } else if (
@@ -185,7 +185,7 @@ export default {
                     this.modelValue !== undefined &&
                     Object.keys(this.modelValue).length
                 ) {
-                    this.files = [{ static_url: this.modelValue }];
+                    this.files = [{ path: this.modelValue }];
                 }
             } else {
                 if (this.multiple) {
@@ -214,9 +214,9 @@ export default {
             }
             if (this.urlOnly) {
                 if (this.multiple) {
-                    this.$emit("change", pluck(this.files, "static_url"));
+                    this.$emit("change", pluck(this.files, "path"));
                 } else {
-                    this.$emit("change", this.files[0]?.static_url);
+                    this.$emit("change", this.files[0]?.path);
                 }
             } else {
                 if (this.multiple) {
