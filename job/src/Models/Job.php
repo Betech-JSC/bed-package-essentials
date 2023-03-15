@@ -8,6 +8,7 @@ use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
 use \Illuminate\Support\Facades\Route;
+use JamstackVietnam\Tag\Models\Tag;
 use Carbon\Carbon;
 
 class Job extends BaseModel
@@ -87,7 +88,27 @@ class Job extends BaseModel
             if (request()->has('related_jobs')) {
                 $model->saveRelateJobs($model);
             }
+
+            if (request()->has('tags')) {
+                $model->saveTags($model);
+            }
         });
+    }
+
+    public function saveTags($model)
+    {
+        $tags = array_column(request()->input('tags', []), 'id');
+        $model->tags()->sync($tags, 'id');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(
+            Tag::class,
+            'job_ref_tags',
+            'job_id',
+            'tag_id'
+        );
     }
 
     public function saveRelateJobs($model)
@@ -139,9 +160,10 @@ class Job extends BaseModel
             && ($this->expected_time == null || $this->expected_time >= Carbon::today());
     }
 
-    public function transform()
+    public function transform($conditions = ['tags' => false])
     {
-        return [
+        $data = [
+            'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
             'description' => $this->description,
@@ -152,11 +174,17 @@ class Job extends BaseModel
             'quantity' => $this->quantity,
             'url' => $this->current_url
         ];
+
+        if (isset($conditions['tags']) && $conditions['tags']) {
+            $data['tags'] = $this->getTags();
+        }
+        return $data;
     }
 
-    public function transformDetails()
+    public function transformDetails($conditions = ['tags' => false])
     {
-        return [
+        $data = [
+            'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
             'description' => $this->description,
@@ -169,6 +197,19 @@ class Job extends BaseModel
             'quantity' => $this->quantity,
             'url' => $this->current_url
         ];
+
+        if (isset($conditions['tags']) && $conditions['tags']) {
+            $data['tags'] = $this->getTags();
+        }
+        return $data;
+    }
+
+    public function getTags()
+    {
+        return $this->tags
+            ->where('status', self::STATUS_ACTIVE)
+            ->values()
+            ->map(fn ($item) => $item->transform());
     }
 
     public function transformSeo()
