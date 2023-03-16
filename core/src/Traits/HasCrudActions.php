@@ -71,7 +71,7 @@ trait HasCrudActions
         $query = $this->beforeIndex($query);
 
         if (request()->has('paginate') && !request()->input('paginate')) {
-            $items = $query->limit(request()->input('limit', 20))->get();
+            $items = $query->limit(request()->input('per_page', 20))->get();
 
             if (isset($this->appends['index'])) {
                 $appendAttributes = $this->appends['index'];
