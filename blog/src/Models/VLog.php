@@ -135,6 +135,7 @@ class Vlog extends BaseModel
 
     public function scopeActive($query)
     {
+        $query->activeLocale();
         return $query->where('status', self::STATUS_ACTIVE)
             ->where('published_at', '<=', now());
     }
