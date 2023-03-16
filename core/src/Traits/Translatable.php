@@ -26,7 +26,7 @@ trait Translatable
     public function scopeActive($query)
     {
         $query = $query->where('status', 'ACTIVE')
-            ->activeLocale();
+            ->whereLocaleActive();
 
         return $query;
     }
@@ -38,7 +38,7 @@ trait Translatable
         });
     }
 
-    public function scopeActiveLocale($query)
+    public function scopeWhereLocaleActive($query)
     {
         if (!empty(request()->route()->getName())) {
             $locale = current_locale();

@@ -84,7 +84,7 @@ class Policy extends BaseModel
 
     public function scopeActive($query)
     {
-        return $query->where('status', self::STATUS_ACTIVE);
+        return $query->whereLocaleActive()->where('status', self::STATUS_ACTIVE);
     }
 
     public function getIsActiveAttribute()
