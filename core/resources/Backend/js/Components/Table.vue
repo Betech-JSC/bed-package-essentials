@@ -4,7 +4,8 @@
         :lazy="true"
         :paginator="true"
         :rows="parseInt(lazyParams.per_page || 20)"
-        :first="parseInt(lazyParams.page) * parseInt(lazyParams.per_page) - 1"
+        :first="first_data"
+        :last="last_data"
         v-model:filters="lazyParams.filters"
         ref="data-table"
         dataKey="id"
@@ -188,6 +189,8 @@ export default {
             totalItems: 0,
             loading: false,
             timer: null,
+            first_data: 1,
+            last_data: 20,
 
             selectedItems: null,
             selectAll: false,
@@ -317,6 +320,9 @@ export default {
                     this.loading = false;
                     this.items = data.data;
                     this.totalItems = data.total;
+
+                    this.first_data = data.form;
+                    this.last_data = data.to;
                 });
         },
         onPage(event) {
