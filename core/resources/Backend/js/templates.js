@@ -38,7 +38,7 @@ export default [
     {
         title: '7. Template 2 images',
         description: '',
-        content: <div class="flex space-x-1 md:space-x-3 xl:space-x-6 my-[16px] md:my-[24px] xl:my-[32px]">
+        content: `<div class="flex space-x-1 md:space-x-3 xl:space-x-6 my-[16px] md:my-[24px] xl:my-[32px]">
                     <div class="flex-1">
                         <img src="/static/720x400.png"
                         style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
@@ -46,12 +46,12 @@ export default [
                     <div class="flex-1">
                         <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
                     </div>
-                </div>,
+                </div>`,
     },
     {
         title: '8. Template 3 images',
         description: '',
-        content: <div class="flex space-x-1 md:space-x-3 xl:space-x-6 my-[16px] md:my-[24px] xl:my-[32px]">
+        content: `<div class="flex space-x-1 md:space-x-3 xl:space-x-6 my-[16px] md:my-[24px] xl:my-[32px]">
         <div class="flex-1">
             <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
         </div>
@@ -61,6 +61,6 @@ export default [
         <div class="flex-1">
             <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
         </div>
-        </div>,
+        </div>,`
     }
 ];
