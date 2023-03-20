@@ -160,7 +160,7 @@ class Project extends BaseModel
         ];
     }
 
-    public function transformDetail()
+    public function transformDetails()
     {
         return [
             'title' => $this->title,

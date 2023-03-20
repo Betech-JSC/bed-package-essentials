@@ -267,6 +267,10 @@ class Job extends BaseModel
         if (isset($conditions['tags']) && $conditions['tags']) {
             $data['tags'] = $this->getTags();
         }
+
+        if (isset($conditions['options']) && $conditions['options']) {
+            $data['options'] = $this->getOptions();
+        }
         return $data;
     }
 
