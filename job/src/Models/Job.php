@@ -10,6 +10,7 @@ use JamstackVietnam\Core\Traits\Translatable;
 use \Illuminate\Support\Facades\Route;
 use JamstackVietnam\Tag\Models\Tag;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 
 class Job extends BaseModel
 {
@@ -92,6 +93,10 @@ class Job extends BaseModel
             if (request()->has('tags')) {
                 $model->saveTags($model);
             }
+
+            if (request()->has('list_option_cover')) {
+                $model->saveOptions($model);
+            }
         });
     }
 
@@ -111,6 +116,19 @@ class Job extends BaseModel
         );
     }
 
+    public function options()
+    {
+        return $this->belongsToMany(
+            JobOption::class,
+            'job_ref_options',
+            'job_id',
+            'option_id',
+        )
+            ->withPivot('position', 'is_required')
+            ->orderBy('is_required', 'DESC')
+            ->orderBy('position', 'DESC');
+    }
+
     public function saveRelateJobs($model)
     {
         $relatedJobs = array_column(request()->input('related_jobs', []), 'id');
@@ -125,6 +143,76 @@ class Job extends BaseModel
             'job_id',
             'related_job_id'
         );
+    }
+
+    private function saveOptions($model)
+    {
+        $parents = collect(request()->input('list_option_cover', []))
+            ->filter(fn ($item) => !empty($item['id']) && !empty($item['nodes']));
+        $children = $parents->pluck('nodes')->flatten(1);
+
+        $refs = JobRefOption::query()
+            ->where('job_id', $model->id)
+            ->pluck('option_id');
+
+        $ids = $refs->diff($children->pluck('id'));
+
+        if ($ids->isNotEmpty()) {
+            JobRefOption::query()
+                ->where('job_id', $model->id)
+                ->whereIn('option_id', $ids->toArray())
+                ->delete();
+        }
+
+        self::withoutEvents(function () use ($model, $parents, $children) {
+            foreach ($parents as $parent) {
+                JobRefOption::create([
+                    'option_id' => $parent['id'],
+                    'job_id' => $model->id,
+                    'position' => $parent['position'] ?? 0,
+                    'is_required' => $parent['is_required'] ?? false
+                ]);
+            }
+            foreach ($children as $child) {
+                JobRefOption::firstOrCreate([
+                    'option_id' => $child['id'],
+                    'job_id' => $model->id
+                ]);
+            }
+        });
+    }
+
+    public function jobOptions()
+    {
+        return $this->options()->where('job_options.parent_id', 0);
+    }
+
+    public function childrenOptions()
+    {
+        return $this->options()->where('job_options.parent_id', '!=', 0);
+    }
+
+    public function getListOptionCoverAttribute()
+    {
+        $listOptions = JobOption::transformNested($this->jobOptions, $this->childrenOptions);
+
+        $listOptions = $listOptions->map(function ($item) {
+            $option = $this->jobOptions
+                ->where('id', $item['id'])
+                ->first();
+
+            $item['id'] = strval($item['id']);
+            $item['is_required'] = $option['pivot']['is_required'] ?? false;
+            $item['position'] = $option['pivot']['position'] ?? 0;
+            $item['nodes'] = collect($item['nodes'])->map(function ($value) {
+                $value['id'] = strval($value['id']);
+                return $value;
+            });
+
+            return $item;
+        });
+
+        return $listOptions;
     }
 
     public function getUrlAttribute()
@@ -161,7 +249,7 @@ class Job extends BaseModel
             && ($this->expected_time == null || $this->expected_time >= Carbon::today());
     }
 
-    public function transform($conditions = ['tags' => false])
+    public function transform($conditions = ['tags' => false, 'options' => false])
     {
         $data = [
             'id' => $this->id,
@@ -182,7 +270,7 @@ class Job extends BaseModel
         return $data;
     }
 
-    public function transformDetails($conditions = ['tags' => false])
+    public function transformDetails($conditions = ['tags' => false, 'options' => false])
     {
         $data = [
             'id' => $this->id,
@@ -202,7 +290,43 @@ class Job extends BaseModel
         if (isset($conditions['tags']) && $conditions['tags']) {
             $data['tags'] = $this->getTags();
         }
+
+        if (isset($conditions['options']) && $conditions['options']) {
+            $data['options'] = $this->getOptions();
+        }
+
         return $data;
+    }
+
+    public function getOptions()
+    {
+        $childrenOptions = $this->options
+            ->where('parent_id', '!=', 0)
+            ->where('status', JobOption::STATUS_ACTIVE)
+            ->values();
+
+        $options = $this->options
+            ->where('parent_id', 0)
+            ->where('is_filter', true)
+            ->where('status', JobOption::STATUS_ACTIVE)
+            ->sortBy(
+                fn ($item)
+                => $item['position'] === NULL || $item['position'] === 0
+                    ? PHP_INT_MAX
+                    : $item['position']
+            )
+            ->values()
+            ->map(function ($item) use ($childrenOptions) {
+                $item = $item->transform();
+                $item['nodes'] = $childrenOptions->where('parent_id', $item['id'])
+                    ->values()
+                    ->map(fn ($node) => $node->transform());
+                $item['value'] = $item['nodes']->pluck('title')->join('/ ');
+
+                return $item;
+            });
+
+        return $options;
     }
 
     public function getTags()
@@ -222,5 +346,36 @@ class Job extends BaseModel
     {
         return $query->orderByRaw('ISNULL(position) OR position = 0, position ASC')
             ->orderBy('id', 'desc');
+    }
+
+    public function scopeFilter(Builder $query, array $filters = []): Builder
+    {
+        foreach($filters as $key => $value)
+        {
+            $jobOption = JobOption::query()
+                ->active()
+                ->with('children')
+                ->whereHas('translations', function ($query) use ($key) {
+                    $query->where('slug', $key);
+                })
+                ->first();
+
+            if ($jobOption->id && $jobOption->children) {
+                $options = explode(',', $value);
+
+                $ids = $jobOption->children
+                    ->where('status', JobOption::STATUS_ACTIVE)
+                    ->whereIn('slug', $options)
+                    ->values()
+                    ->pluck('id')
+                    ->toArray();
+
+                $query->whereHas('options', function ($query) use ($ids) {
+                    $query->whereIn('id', $ids);
+                });
+            }
+        }
+
+        return $query;
     }
 }
