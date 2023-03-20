@@ -376,6 +376,33 @@ class Job extends BaseModel
             }
         }
 
+        $query->when($filters['options'] ?? false, function (Builder $query, $options) {
+            $ids = explode(',', $options);
+
+            $options = JobOption::query()
+                ->with('childrenRange')
+                ->whereIn('id', $ids)
+                ->get()
+                ->groupBy('parent_id')
+                ->values();
+
+            foreach ($options as $group) {
+                $ids = $group->pluck('id')->toArray();
+                $query->whereHas('options', function ($query) use ($ids) {
+                    $query->whereIn('id', $ids);
+                });
+
+                foreach ($group as $option) {
+                    $optionIds[] = $option->id;
+                    $optionIds = array_merge($optionIds, $option->childrenRange->pluck('id')->toArray());
+                }
+
+                $query->whereHas('options', function ($query) use ($optionIds) {
+                    $query->whereIn('id', $optionIds);
+                });
+            }
+        });
+
         return $query;
     }
 }
