@@ -1,5 +1,4 @@
 <?php
-
 namespace JamstackVietnam\Blog\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
