@@ -94,14 +94,26 @@
                 class="overflow-y-auto grow"
                 :class="
                     canDeleteFolder
-                        ? 'flex items-center justify-center'
+                        ? 'flex items-center flex-col justify-center'
                         : 'flex-1'
                 "
             >
-                <h1 v-if="!Object.keys(searchFiles).length" class="text-xl">
-                    Kéo thả hoặc
-                    <a @click="browse" class="link">click vào đây</a> để chọn tệp
-                </h1>
+                <div v-if="canDeleteFolder" >
+                    <h1 class="text-xl">
+                        Kéo thả hoặc
+                        <a @click="browse" class="link">click vào đây</a> để chọn
+                        tệp
+                    </h1>
+                </div>
+                <div v-if="canDeleteFolder" class="mt-6">
+                    <Button
+                        @click="deleteFolder"
+                        class="space-x-2 btn-outline-primary"
+                    >
+                        <carbon:subtract-alt />
+                        <span> Xóa Thư Mục </span>
+                    </Button>
+                </div>
                 <div
                     v-if="!canDeleteFolder"
                     class="px-4 pt-8 pb-16 mx-auto space-y-4 max-w-7xl sm:px-6 lg:px-8"
@@ -311,10 +323,7 @@ export default {
                     })
                 )
                 .then((res) => {
-                    this.data = {
-                        ...res.data,
-                        directories: res.data.directories ?? []
-                    };
+                    this.data = res.data;
                     this.canDeleteFolder = this.data.files.length === 0 && this.data.directories.length === 0;
                     if (!this.tree) {
                         this.tree = res.data.tree;
@@ -462,6 +471,22 @@ export default {
                     this.tree = res.data.tree;
                     this.folderForm.name = null;
                 });
+        },
+        deleteFolder() {
+            if (confirm("Bạn chắc chắn xóa thư mục này!") == true) {
+                this.$axios
+                    .post(
+                    this.route("admin.files.folders.delete", {
+                        path: this.currentPath
+                    })
+                    )
+                    .then((res) => {
+                        this.currentPath = "/";
+                        this.isDeleteFolder = false;
+                        this.getFiles();
+                        this.tree = res.data.tree;
+                    });
+            }
         },
     },
 };

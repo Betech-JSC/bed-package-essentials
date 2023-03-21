@@ -59,12 +59,4 @@ class FileController extends Controller
 
         return $file->tree();
     }
-
-    public function folderDelete(Request $request)
-    {
-        $file = new File($request->input('path', '/'));
-        $file->folderDelete();
-
-        return $file->tree();
-    }
 }
