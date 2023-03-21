@@ -21,12 +21,12 @@
                 >
                     <ph-caret-left />
                 </div>
-                {{ tt('models.files.file_manager') }}
+                File Manager
             </h1>
             <div class="flex ml-auto space-x-3">
                 <input
                     type="text"
-                    :placeholder="tt('models.files.input_file')"
+                    placeholder="Nhập tên tệp..."
                     class="flex-inline w-[400px] py-[0.5rem] px-[1rem] border border-gray-300 focus:border-solid focus:outline-none focus:ring-0 rounded hover:border-gray-400 focus:border-gray-500"
                     @input="onChange"
                 />
@@ -35,11 +35,11 @@
                     class="space-x-2 btn-outline-primary"
                 >
                     <ph-plus-circle-light />
-                    <span> {{ tt('models.files.add_folder') }} </span>
+                    <span> Tạo Folder </span>
                 </Button>
                 <Button @click.prevent="browse" class="space-x-2 btn-primary">
                     <ph:upload-simple />
-                    <span> {{ tt('models.files.select_file') }} </span>
+                    <span> Chọn Tệp </span>
                 </Button>
             </div>
         </div>
@@ -70,7 +70,7 @@
                         class="w-full space-x-2 btn-primary"
                     >
                         <ph:upload-simple />
-                        <span> {{ tt('models.files.select_file') }} </span>
+                        <span> Chọn Tệp </span>
                     </Button>
                     <hr class="my-2" />
                 </template>
@@ -98,9 +98,9 @@
                         : 'flex-1'
                 "
             >
-                <h1 v-if="canDeleteFolder" class="text-xl">
-                    {{ tt('models.files.empty_content_1') }}
-                    <a @click="browse" class="link">{{ tt('models.files.empty_content_2').toLowerCase() }}</a> {{ tt('models.files.empty_content_3').toLowerCase() }}
+                <h1 v-if="!Object.keys(searchFiles).length" class="text-xl">
+                    Kéo thả hoặc
+                    <a @click="browse" class="link">click vào đây</a> để chọn tệp
                 </h1>
                 <div
                     v-if="!canDeleteFolder"
