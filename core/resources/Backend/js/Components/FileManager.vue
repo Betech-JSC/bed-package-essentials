@@ -482,7 +482,6 @@ export default {
                     )
                     .then((res) => {
                         this.currentPath = "/";
-                        this.isDeleteFolder = false;
                         this.getFiles();
                         this.tree = res.data.tree;
                     });
