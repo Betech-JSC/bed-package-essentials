@@ -18,7 +18,7 @@
             />
             <details>
                 <summary>
-                    <span class="select-none link">Cấu hình nâng cao</span>
+                    <span class="select-none link">{{ tt('models.form.meta_summary') }}</span>
                 </summary>
                 <div class="p-3 mt-4 space-y-4 bg-gray-100 rounded-sm">
                     <Field
@@ -79,7 +79,7 @@
                 :field="{
                     rows: 10,
                     type: 'textarea',
-                    label: 'Thêm code trước thẻ đóng Head',
+                    name: 'inject_head',
                 }"
             />
             <Field
@@ -87,7 +87,7 @@
                 :field="{
                     rows: 10,
                     type: 'textarea',
-                    label: 'Thêm code sau thẻ mở Body',
+                    name: 'inject_body_start',
                 }"
             />
             <Field
@@ -95,7 +95,7 @@
                 :field="{
                     rows: 10,
                     type: 'textarea',
-                    label: 'Thêm code trước thẻ đóng Body',
+                    name: 'inject_body_end',
                 }"
             />
         </div>

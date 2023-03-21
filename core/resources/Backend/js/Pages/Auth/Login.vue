@@ -10,28 +10,28 @@
         <Field
             v-model="form.email"
             :field="{
-                label: 'Email',
+                name: 'emall',
             }"
         />
         <Field
             v-model="form.password"
             :field="{
-                label: 'Mật khẩu',
                 type: 'password',
+                name: 'password',
             }"
         />
         <Field
             v-model="form.remember"
             :field="{
                 type: 'checkbox',
-                label: 'Ghi nhớ tôi',
+                name: 'remember',
             }"
         />
         <div class="space-y-2">
             <Button
                 type="submit"
                 :loading="form.processing"
-                label="Đăng nhập"
+                :label="tt('models.auth.login')"
                 class="w-full"
             />
 
@@ -40,7 +40,7 @@
                 :href="route('admin.password.request')"
                 class="block w-full text-center underline"
             >
-                Quên mật khẩu?
+                {{ tt('models.auth.forgot_password') }}
             </Link>
         </div>
 
@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import Guest from "@Core/Layouts/Guest.vue";
 import FlashMessages from "@Core/Components/FlashMessages.vue";
+import Guest from "@Core/Layouts/Guest.vue";
 
 import { Head, Link } from "@inertiajs/inertia-vue3";
 export default {

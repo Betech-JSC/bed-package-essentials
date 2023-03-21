@@ -201,9 +201,9 @@ trait HasCrudActions
         }
 
         if ($is_update || (isset($this->redirectBack) && $this->redirectBack)) {
-            return $this->redirectBack('Lưu đối tượng thành công.');
+            return $this->redirectBack(__('models.has_crud_action.save_successfully'));
         } else {
-            return $this->redirectToForm($resource->id, 'Lưu đối tượng thành công.');
+            return $this->redirectToForm($resource->id, __('models.has_crud_action.save_successfully'));
         }
     }
 
@@ -218,7 +218,7 @@ trait HasCrudActions
             DB::commit();
 
             if (!is_null($resource->getMacro('withTrashed'))) {
-                return $this->redirectBack('Xoá thành công.');
+                return $this->redirectBack( __('models.has_crud_action.delete_successfully'));
             } else {
                 return $this->redirectToIndex();
             }
@@ -235,7 +235,7 @@ trait HasCrudActions
         $resource = $this->model::withTrashed()->findOrFail($id);
         $resource->restore();
 
-        return $this->redirectBack('Khôi phục thành công.');
+        return $this->redirectBack(__('models.has_crud_action.successful_recovery'));
     }
 
     // Private

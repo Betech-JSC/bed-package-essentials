@@ -24,7 +24,7 @@
         :rowHover="true"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[10, 20, 50, 100]"
-        currentPageReportTemplate="Từ {first} đến {last} trên tổng {totalRecords}"
+        :currentPageReportTemplate="reportPageValue"
         :globalFilterFields="displayColumns.map((x) => x.field)"
     >
         <template #header v-if="!hideHeader">
@@ -34,22 +34,22 @@
                         <Link
                             v-if="canCreate"
                             class="p-button btn-primary"
-                            text="Thêm mới"
+                            :text="tt('models.table.create')"
                             :href="formUrl"
                         />
                         <a
                             v-if="canExport"
                             class="p-button btn-outline-primary"
-                            text="Xuất File"
+                            :text="tt('models.table.export')"
                             :href="route(`admin.${currentResource}.export`)"
                         />
                         <div
                             v-if="canImport"
-                            label="Thêm mới"
+                            :text="tt('models.table.import')"
                             class="btn btn-outline-primary"
                             @click.prevent="$refs.importBtn.click()"
                         >
-                            <span>Nhập file</span>
+                            <span>{{tt('models.table.import')}}</span>
                         </div>
                         <input
                             type="file"
@@ -99,14 +99,14 @@
                         />
                         <InputText
                             v-model="lazyParams.filters.global.value"
-                            placeholder="Tìm kiếm.."
+                            :placeholder="tt('models.table.search_load')"
                         />
                     </div>
                 </div>
             </div>
         </template>
-        <template #empty> Không tìm thấy dữ liệu. </template>
-        <template #loading>Đang tải dữ liệu...</template>
+        <template #empty>{{ tt('models.table.not_found') }}</template>
+        <template #loading>{{ tt('models.table.loading') }}</template>
 
         <Column
             selectionMode="multiple"
@@ -158,7 +158,7 @@
                         type="text"
                         v-model="lazyParams.filters[column.fields].value"
                         @keydown.enter="filterCallback()"
-                        placeholder="Tìm kiếm"
+                        :placeholder="tt('models.table.search')"
                     />
                 </template>
             </Column>
@@ -191,6 +191,12 @@ export default {
             timer: null,
             firstItem: 1,
             lastItem: 20,
+            reportPageValue: this.tt('models.table.from')
+                + " {first} "
+                + this.tt('models.table.to').toLowerCase()
+                + " {last} "
+                + this.tt('models.table.on_total').toLowerCase()
+                + " {totalRecords}",
 
             selectedItems: null,
             selectAll: false,
@@ -457,9 +463,10 @@ export default {
             let value = data[column.field];
 
             if (column.list) {
-                value = column.list.find(
+                let dataColumn = column.list.find(
                     (x) => x.label === value || x.id === value
-                ).label;
+                );
+                value = dataColumn.styles.label || dataColumn.label
             }
 
             if (this.mergedColumns[column.field].transform) {

@@ -21,14 +21,14 @@
             >
                 <Button
                     v-if="canDestroyResource && !form.deleted_at && form.id"
-                    label="Xóa"
+                    :label="tt('models.form.delete')"
                     class="btn-danger-link"
                     @click="destroy"
                 />
                 <Button v-if="reloadOctane" label="Xóa cache" class="btn-primary" @click="reloadOctane" :loading="octaneReloading"/>
                 <Button
                     v-if="canStore"
-                    label="Lưu"
+                    :label="tt('models.form.save')"
                     type="submit"
                     :loading="form.processing"
                     class="ml-auto"
@@ -145,7 +145,7 @@ export default {
         },
 
         destroy() {
-            if (confirm("Bạn chắc chắn muốn xoá đối tượng này?")) {
+            if (confirm(this.tt('models.form.confirm_destroy'))) {
                 this.$inertia.post(
                     this.route(`admin.${this.currentResource}.destroy`, {
                         id: this.form.id,
@@ -155,7 +155,7 @@ export default {
         },
 
         restore() {
-            if (confirm("Bạn muốn khôi phục đối tượng này?")) {
+            if (confirm(this.tt('models.form.confirm_restore'))) {
                 this.$inertia.post(
                     this.route(`admin.${this.currentResource}.restore`, {
                         id: this.form.id,

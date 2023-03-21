@@ -6,7 +6,7 @@
                     :activeIndex="Array.from(Array(20).keys())"
                     :multiple="true"
                 >
-                    <AccordionTab v-if="settingBar.info" header="Cài đặt thông tin">
+                    <AccordionTab v-if="settingBar.info" :header="tt('models.form.setting_general')">
                         <Link
                             v-if="settingBar.general"
                             class="item"
@@ -21,7 +21,7 @@
                                 }),
                             }"
                         >
-                            Thông tin chung
+                            {{ tt('models.form.general_information') }}
                         </Link>
                         <Link
                             v-if="!!route().t.routes['admin.settings.meta-pages.index']"
@@ -73,7 +73,7 @@
                                 }),
                             }"
                         >
-                            Tùy chỉnh biến môi trường
+                            {{ tt('models.form.custom_vars') }}
                         </Link>
                     </AccordionTab>
                     <AccordionTab v-if="settingBar.email" header="Email">
@@ -91,7 +91,7 @@
                                 }),
                             }"
                         >
-                            Cấu hình SMTP
+                            {{ tt('models.form.config_smtp') }}
                         </Link>
                         <Link
                             v-if="settingBar.notification"
@@ -107,7 +107,7 @@
                                 }),
                             }"
                         >
-                            Thông báo
+                            {{ tt('models.form.notification') }}
                         </Link>
                     </AccordionTab>
                 </Accordion>

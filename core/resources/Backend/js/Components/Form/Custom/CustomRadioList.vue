@@ -10,7 +10,7 @@
                 :disabled="disabled"
             />
             <label :for="`${fieldId}_${index}`" class="cursor-pointer label">
-                {{ option[labelBy] }}
+                {{ option.styles[labelBy] || option[labelBy] }}
             </label>
         </div>
     </div>
