@@ -43,7 +43,7 @@
                 <div
                     class="flex flex-col items-center justify-center w-full h-full py-4 space-y-2 text-xs font-medium text-center text-gray-600 border border-gray-400 border-dashed"
                 >
-                    <span>CLICK ĐỂ CHỌN</span>
+                    <span>{{ tt('models.files.input_upload') }}</span>
                 </div>
             </div>
         </template>

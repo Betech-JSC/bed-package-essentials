@@ -21,12 +21,12 @@
                 >
                     <ph-caret-left />
                 </div>
-                File Manager
+                {{ tt('models.files.file_manager') }}
             </h1>
             <div class="flex ml-auto space-x-3">
                 <input
                     type="text"
-                    placeholder="Nhập tên tệp..."
+                    :placeholder="tt('models.files.input_file')"
                     class="flex-inline w-[400px] py-[0.5rem] px-[1rem] border border-gray-300 focus:border-solid focus:outline-none focus:ring-0 rounded hover:border-gray-400 focus:border-gray-500"
                     @input="onChange"
                 />
@@ -35,11 +35,11 @@
                     class="space-x-2 btn-outline-primary"
                 >
                     <ph-plus-circle-light />
-                    <span> Tạo Thư Mục </span>
+                    <span> {{ tt('models.files.add_folder') }} </span>
                 </Button>
                 <Button @click.prevent="browse" class="space-x-2 btn-primary">
                     <ph:upload-simple />
-                    <span> Chọn Tệp </span>
+                    <span> {{ tt('models.files.select_file') }} </span>
                 </Button>
             </div>
         </div>
@@ -70,7 +70,7 @@
                         class="w-full space-x-2 btn-primary"
                     >
                         <ph:upload-simple />
-                        <span> Chọn Tệp </span>
+                        <span> {{ tt('models.files.select_file') }} </span>
                     </Button>
                     <hr class="my-2" />
                 </template>
@@ -81,7 +81,7 @@
                         label: false,
                         type: 'tree',
                         maxLevel: 10,
-                        expandDefaultLevel: 3,
+                        expandDefaultLevel: 2,
                         keyBy: 'slug',
                         labelBy: 'name',
                         childrenBy: 'children',
@@ -93,29 +93,17 @@
             <main
                 class="overflow-y-auto grow"
                 :class="
-                    isDeleteFolder
-                        ? 'flex items-center flex-col justify-center'
+                    canDeleteFolder
+                        ? 'flex items-center justify-center'
                         : 'flex-1'
                 "
             >
-                <div v-if="isDeleteFolder" >
-                    <h1 class="text-xl">
-                        Kéo thả hoặc
-                        <a @click="browse" class="link">click vào đây</a> để chọn
-                        tệp
-                    </h1>
-                </div>
-                <div v-if="isDeleteFolder" class="mt-6">
-                    <Button
-                        @click="deleteFolder"
-                        class="space-x-2 btn-outline-primary"
-                    >
-                        <carbon:subtract-alt />
-                        <span> Xóa Thư Mục </span>
-                    </Button>
-                </div>
+                <h1 v-if="canDeleteFolder" class="text-xl">
+                    {{ tt('models.files.empty_content_1') }}
+                    <a @click="browse" class="link">{{ tt('models.files.empty_content_2').toLowerCase() }}</a> {{ tt('models.files.empty_content_3').toLowerCase() }}
+                </h1>
                 <div
-                    v-if="Object.keys(searchFiles).length"
+                    v-if="!canDeleteFolder"
                     class="px-4 pt-8 pb-16 mx-auto space-y-4 max-w-7xl sm:px-6 lg:px-8"
                 >
                     <ul
@@ -172,9 +160,9 @@
             v-if="multiple && selectedFiles.length > 0"
             class="absolute bottom-0 left-0 right-0 flex items-center justify-center w-full h-16 space-x-2 bg-white border-t"
         >
-            <Button @click="selectedFiles = []"> Bỏ chọn </Button>
+            <Button @click="selectedFiles = []"> {{ tt('models.files.unchecked') }} </Button>
             <Button @click="submitFileSelect()">
-                Chọn ({{ selectedFiles.length }})
+                {{ tt('models.files.select') }} ({{ selectedFiles.length }})
             </Button>
         </div>
         <Dialog
@@ -191,14 +179,14 @@
                 v-model="folderForm.name"
                 :field="{
                     rules: 'required',
-                    label: 'Tên Thư Mục',
+                    name: 'name',
                 }"
             />
             <template #footer>
                 <Button
                     variant="white"
                     @click="showFolderModal = false"
-                    label="Hủy"
+                    :label="tt('models.files.cancel')"
                 />
                 <Button
                     type="button"
@@ -207,7 +195,7 @@
                         createFolder(folderForm.name);
                         showFolderModal = false;
                     "
-                    label="Lưu"
+                    :label="tt('models.files.save')"
                 />
             </template>
         </Dialog>
@@ -269,9 +257,9 @@ export default {
             folderForm: {
                 name: null,
             },
+            canDeleteFolder: false,
             search: null,
             embed: this.$page.props.route.query.embed,
-            isDeleteFolder: false
         };
     },
 
@@ -294,14 +282,7 @@ export default {
             if (value && this.data === null) {
                 this.getFiles();
             }
-        },
-        data() {
-            let isEmptyFile = this.data.files.length == 0;
-            let isEmptyFolder = this.isEmptyFolder(this.currentPath, this.tree);
-
-            this.isDeleteFolder = isEmptyFile && isEmptyFolder;
-            this.folderForm.name = '';
-        },
+        }
     },
 
     computed: {
@@ -311,7 +292,7 @@ export default {
             return Object.values(this.data.files).filter((x) =>
                 x.search_name.includes(this.search)
             );
-        },
+        }
     },
 
     methods: {
@@ -330,9 +311,17 @@ export default {
                     })
                 )
                 .then((res) => {
-                    this.data = res.data;
-                    this.tree = res.data.tree;
+                    this.data = {
+                        ...res.data,
+                        directories: res.data.directories ?? []
+                    };
+                    this.canDeleteFolder = this.data.files.length === 0 && this.data.directories.length === 0;
+                    if (!this.tree) {
+                        this.tree = res.data.tree;
+                    }
                 });
+
+
         },
         async copyUrl(file) {
             try {
@@ -343,8 +332,8 @@ export default {
         },
         onSelect(file) {
             if (this.embed) {
-                let path = new URL(file.static_url).pathname;
-                let src = path.includes('/static/') ? path : '/static' + path;
+                let src = '/static' + new URL(file.static_url).pathname;
+                src = src.replace('/static/static/', '/static/');
 
                 window.parent.postMessage({
                     mceAction: "insertContent",
@@ -391,7 +380,7 @@ export default {
                 const fileCheck = this.fileCheck(image);
                 if (!fileCheck.valid) {
                     alert(
-                        `Dung lượng file tối đa là ${fileCheck.maxSize}MB. Vui lòng thử lại.`
+                        this.tt('models.files.alert_valid_1') + ' ' + fileCheck.maxSize + this.tt('models.files.alert_valid_2')
                     );
                     this.$refs.file.value = "";
                     return false;
@@ -462,22 +451,6 @@ export default {
                 this.search = event.target.value;
             }, 150);
         },
-        deleteFolder() {
-            if (confirm("Bạn chắc chắn xóa thư mục này!") == true) {
-                this.$axios
-                    .post(
-                    this.route("admin.files.folders.delete", {
-                        path: this.currentPath
-                    })
-                    )
-                    .then((res) => {
-                        this.currentPath = "/";
-                        this.isDeleteFolder = false;
-                        this.getFiles();
-                        this.tree = res.data.tree;
-                    });
-            }
-        },
         createFolder(name) {
             this.$axios
                 .post(this.route("admin.files.folders.create"), {
@@ -490,24 +463,6 @@ export default {
                     this.folderForm.name = null;
                 });
         },
-        isEmptyFolder(curentPath, folders)
-        {
-            let folder = this.getFolderByPath(folders, curentPath);
-            return folder && folder.children.length == 0;
-        },
-        getFolderByPath(tree, path) {
-            for (var i = 0; i < tree.length; i++) {
-                if (tree[i].children && tree[i].children.length) {
-                    var result = this.getFolderByPath(tree[i].children, path);
-                if (result) {
-                    return result;
-                }
-                } else if (tree[i].path === path) {
-                    return tree[i];
-                }
-            }
-            return null;
-        }
     },
 };
 </script>
