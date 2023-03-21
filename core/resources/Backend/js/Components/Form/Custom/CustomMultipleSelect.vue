@@ -30,22 +30,22 @@ export default {
             let options = [];
             this.field.options?.forEach((option) => {
                 options.push({
-                    id: option[this.keyBy].toString(),
+                    [this.keyBy]: option[this.keyBy].toString(),
                     [this.labelBy]: option[this.labelBy].toString(),
                 });
             });
             return options;
         },
         selectedOptions() {
-            let options = [];
-            this.modelValue?.forEach((option) => {
-                options.push({
-                    id: option[this.keyBy].toString(),
-                    [this.labelBy]: option[this.labelBy].toString(),
-                });
+            const selectedIds = this.modelValue?.map((option) => {
+                if (typeof option === "object") {
+                    return option[this.keyBy].toString();
+                } else {
+                    return option;
+                }
             });
-            return options.filter((x) =>
-                this.pluck(this.options, this.keyBy).includes(x[this.keyBy])
+            return this.options.filter((x) =>
+                selectedIds.includes(x[this.keyBy])
             );
         },
     },
