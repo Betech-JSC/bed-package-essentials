@@ -160,9 +160,9 @@
             v-if="multiple && selectedFiles.length > 0"
             class="absolute bottom-0 left-0 right-0 flex items-center justify-center w-full h-16 space-x-2 bg-white border-t"
         >
-            <Button @click="selectedFiles = []"> {{ tt('models.files.unchecked') }} </Button>
+            <Button @click="selectedFiles = []"> Bỏ chọn </Button>
             <Button @click="submitFileSelect()">
-                {{ tt('models.files.select') }} ({{ selectedFiles.length }})
+                Chọn ({{ selectedFiles.length }})
             </Button>
         </div>
         <Dialog
@@ -179,14 +179,14 @@
                 v-model="folderForm.name"
                 :field="{
                     rules: 'required',
-                    name: 'name',
+                    label: 'Tên Folder',
                 }"
             />
             <template #footer>
                 <Button
                     variant="white"
                     @click="showFolderModal = false"
-                    :label="tt('models.files.cancel')"
+                    label="Hủy"
                 />
                 <Button
                     type="button"
@@ -195,7 +195,7 @@
                         createFolder(folderForm.name);
                         showFolderModal = false;
                     "
-                    :label="tt('models.files.save')"
+                    label="Lưu"
                 />
             </template>
         </Dialog>
@@ -380,7 +380,7 @@ export default {
                 const fileCheck = this.fileCheck(image);
                 if (!fileCheck.valid) {
                     alert(
-                        this.tt('models.files.alert_valid_1') + ' ' + fileCheck.maxSize + this.tt('models.files.alert_valid_2')
+                        `Dung lượng file tối đa là ${fileCheck.maxSize}MB. Vui lòng thử lại.`
                     );
                     this.$refs.file.value = "";
                     return false;
