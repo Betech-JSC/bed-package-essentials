@@ -30,7 +30,10 @@ class Option extends BaseModel
         'is_filter',
         'is_show_detail',
         'position',
-        'range_id'
+        'range_id',
+        'icon',
+        'banner_desktop',
+        'banner_mobile'
     ];
 
     public $translatedAttributes = [
@@ -38,6 +41,11 @@ class Option extends BaseModel
         'title',
         'slug',
         'custom_fields',
+    ];
+
+    protected $casts = [
+        'banner_desktop' => 'array',
+        'banner_mobile' => 'array'
     ];
 
     protected $searchable = [
@@ -173,7 +181,8 @@ class Option extends BaseModel
                 'slug' => $parent->slug,
                 'position' => $parent->pivot->position ?? 0,
                 'is_show_detail' => $parent->is_show_detail,
-                'nodes' => $nodes
+                'nodes' => $nodes,
+                'icon' => $parent->icon
             ];
         });
     }
@@ -184,6 +193,7 @@ class Option extends BaseModel
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
+            'icon' => $this->icon
         ];
 
         if ($conditions['options'] && count($conditions['options']) > 0) {
@@ -209,6 +219,7 @@ class Option extends BaseModel
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
+            'icon' => $this->icon,
         ];
     }
 
@@ -218,7 +229,18 @@ class Option extends BaseModel
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'custom_fields' => $this->custom_fields
+            'icon' => $this->icon,
+            'custom_fields' => $this->custom_fields,
+            'banner_desktop' => $this->getImageDetail($this->banner_desktop),
+            'banner_mobile' => $this->getImageDetail($this->banner_mobile)
+        ];
+    }
+
+    public function getImageDetail($image)
+    {
+        return [
+            'url' => isset($image['path']) ? static_url($image['path']) : null,
+            'alt' => $image['alt'] ?? $this->title,
         ];
     }
 
