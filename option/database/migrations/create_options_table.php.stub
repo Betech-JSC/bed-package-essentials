@@ -23,6 +23,8 @@ return new class extends Migration
             $table->boolean('is_show_detail')->nullable()->default(0);
             $table->bigInteger('range_id')->nullable();
             $table->text('icon')->nullable();
+            $table->json('banner_desktop')->nullable();
+            $table->json('banner_mobile')->nullable();
 
             $table->string('status', 30)->default(Option::STATUS_ACTIVE);
 
