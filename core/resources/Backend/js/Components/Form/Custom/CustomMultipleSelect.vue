@@ -8,7 +8,7 @@
         :optionLabel="labelBy"
         display="chip"
         :filter="field.filter || true"
-        :filterFields="['filter', keyBy]"
+        :filterFields="['filter', labelBy, keyBy]"
     />
 </template>
 
