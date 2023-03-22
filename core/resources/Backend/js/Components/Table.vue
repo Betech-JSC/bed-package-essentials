@@ -3,8 +3,9 @@
         :value="items"
         :lazy="true"
         :paginator="true"
-        :rows="rows"
-        :first="parseInt(lazyParams.page) * rows - 1"
+        :rows="parseInt(lazyParams.per_page || 20)"
+        :first="firstItem"
+        :last="lastItem"
         v-model:filters="lazyParams.filters"
         ref="data-table"
         dataKey="id"
@@ -13,6 +14,7 @@
         @page="onPage($event)"
         @sort="onSort($event)"
         @filter="onFilter($event)"
+        @update:rows="onChangePerPage"
         responsiveLayout="scroll"
         v-model:selection="selectedItems"
         :selectAll="selectAll"
@@ -29,7 +31,12 @@
             <div class="space-y-2">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <Link v-if="canCreate" class="p-button btn-primary" text="Thêm mới" :href="formUrl" />
+                        <Link
+                            v-if="canCreate"
+                            class="p-button btn-primary"
+                            text="Thêm mới"
+                            :href="formUrl"
+                        />
                         <a
                             v-if="canExport"
                             class="p-button btn-outline-primary"
@@ -44,19 +51,21 @@
                         >
                             <span>Nhập file</span>
                         </div>
-                            <input
+                        <input
                             type="file"
                             class="hidden"
                             accept=".xlsx, .xls, .csv"
                             ref="importBtn"
                             @input="
                                 $inertia.post(
-                                this.route(`admin.${currentResource}.import`),
-                                { file: $event.target.files[0] },
-                                { forceFormData: true }
+                                    this.route(
+                                        `admin.${currentResource}.import`
+                                    ),
+                                    { file: $event.target.files[0] },
+                                    { forceFormData: true }
                                 )
                             "
-                            />
+                        />
                     </div>
                     <span v-if="sortByDate" class="w-1/2">
                         <div class="field-row">
@@ -79,11 +88,19 @@
                         </div>
                     </span>
                     <div class="ml-auto mr-2" v-if="$slots.filter">
-                        <slot name="filter" :filters="lazyParams.filters"></slot>
+                        <slot
+                            name="filter"
+                            :filters="lazyParams.filters"
+                        ></slot>
                     </div>
                     <div class="p-input-icon-left w-[20rem]">
-                        <heroicons-outline:search class="absolute transform -translate-y-1/2 top-1/2 left-2" />
-                        <InputText v-model="lazyParams.filters.global.value" placeholder="Tìm kiếm.." />
+                        <heroicons-outline:search
+                            class="absolute transform -translate-y-1/2 top-1/2 left-2"
+                        />
+                        <InputText
+                            v-model="lazyParams.filters.global.value"
+                            placeholder="Tìm kiếm.."
+                        />
                     </div>
                 </div>
             </div>
@@ -91,8 +108,15 @@
         <template #empty> Không tìm thấy dữ liệu. </template>
         <template #loading>Đang tải dữ liệu...</template>
 
-        <Column selectionMode="multiple" headerStyle="width: 3rem" v-if="showCheckbox"></Column>
-        <template v-if="displayColumns" v-for="(column, index) in displayColumns">
+        <Column
+            selectionMode="multiple"
+            headerStyle="width: 3rem"
+            v-if="showCheckbox"
+        ></Column>
+        <template
+            v-if="displayColumns"
+            v-for="(column, index) in displayColumns"
+        >
             <Column
                 :field="column.field"
                 filterMatchMode="contains"
@@ -122,10 +146,14 @@
                         >
                             {{ transformCell(data, column) }}
                         </span>
-                        <span v-else v-html="transformCell(data, column)"> </span>
+                        <span v-else v-html="transformCell(data, column)">
+                        </span>
                     </Link>
                 </template>
-                <template #filter="{ filterCallback }" v-if="lazyParams.filters[column.field]">
+                <template
+                    #filter="{ filterCallback }"
+                    v-if="lazyParams.filters[column.field]"
+                >
                     <InputText
                         type="text"
                         v-model="lazyParams.filters[column.fields].value"
@@ -139,7 +167,7 @@
 </template>
 
 <script>
-import { FilterMatchMode } from 'primevue/api'
+import { FilterMatchMode } from "primevue/api";
 
 export default {
     props: {
@@ -158,10 +186,11 @@ export default {
     data() {
         return {
             items: null,
-            rows: 20,
             totalItems: 0,
             loading: false,
             timer: null,
+            firstItem: 1,
+            lastItem: 20,
 
             selectedItems: null,
             selectAll: false,
@@ -170,103 +199,139 @@ export default {
             filter_begin_time: null,
             filter_end_time: null,
             lazyParams: this.getParams(),
-        }
+        };
     },
     computed: {
         currentResource() {
-            return this.config.resource ?? this.getResource()
+            return this.config.resource ?? this.getResource();
         },
         tableName() {
-            return this.config.name ?? this.tt('models.table_list.' + this.currentResource)
+            return (
+                this.config.name ??
+                this.tt("models.table_list." + this.currentResource)
+            );
         },
         hideHeader() {
-            return this.config.hideHeader === true || false
+            return this.config.hideHeader === true || false;
         },
         showCheckbox() {
-            return this.config.showCheckbox ?? false
+            return this.config.showCheckbox ?? false;
         },
         showFilter() {
-            return this.config.showFilter ?? false
+            return this.config.showFilter ?? false;
         },
         formUrl() {
-            return this.config.formUrl ?? this.route(`admin.${this.currentResource}.form`)
+            return (
+                this.config.formUrl ??
+                this.route(`admin.${this.currentResource}.form`)
+            );
         },
         sortByDate() {
-            return this.config.sortByDate ?? false
+            return this.config.sortByDate ?? false;
         },
         displayColumns() {
             return Object.values(this.mergedColumns)
                 .filter((x) => x.display)
-                .filter((x) => x.field !== 'slug' && x.field !== 'locale' && !x.field.includes('seo_'))
+                .filter(
+                    (x) =>
+                        x.field !== "slug" &&
+                        x.field !== "locale" &&
+                        !x.field.includes("seo_")
+                )
                 .sort((a, b) => (a.order > b.order ? 1 : -1))
-                .slice(0, 8)
+                .slice(0, 8);
         },
         canCreate() {
-            return this.config.canCreate ?? this.can('admin.' + this.currentResource + '.form')
+            return (
+                this.config.canCreate ??
+                this.can("admin." + this.currentResource + ".form")
+            );
         },
         canExport() {
-            let routeName = this.getCurrentLocale() + '.admin.' + this.currentResource + '.export'
+            let routeName =
+                this.getCurrentLocale() +
+                ".admin." +
+                this.currentResource +
+                ".export";
             return (
                 Object.keys(this.route().t.routes).includes(routeName) &&
-                (this.config.canExport ?? this.can('admin.' + this.currentResource + '.export'))
-            )
+                (this.config.canExport ??
+                    this.can("admin." + this.currentResource + ".export"))
+            );
         },
         canImport() {
-            let routeName = this.getCurrentLocale() + '.admin.' + this.currentResource + '.import'
+            let routeName =
+                this.getCurrentLocale() +
+                ".admin." +
+                this.currentResource +
+                ".import";
             return (
                 Object.keys(this.route().t.routes).includes(routeName) &&
-                (this.config.canImport ?? this.can('admin.' + this.currentResource + '.import'))
-            )
+                (this.config.canImport ??
+                    this.can("admin." + this.currentResource + ".import"))
+            );
         },
     },
     watch: {
         selectedItems(value) {
-            this.$emit('on-select', value)
+            this.$emit("on-select", value);
         },
         lazyParams: {
             handler() {
-                this.pushToUrl()
+                this.pushToUrl();
             },
             deep: true,
         },
     },
     mounted() {
-        this.loadLazyData()
+        this.loadLazyData();
     },
     methods: {
         pushToUrl() {
             if (this.timer) {
-                clearTimeout(this.timer)
-                this.timer = null
+                clearTimeout(this.timer);
+                this.timer = null;
             }
 
             this.timer = setTimeout(() => {
-                const newUrl = this.route(`admin.${this.currentResource}.index`, this.lazyParams)
+                const newUrl = this.route(
+                    `admin.${this.currentResource}.index`,
+                    this.lazyParams
+                );
 
-                this.$inertia.page.url = newUrl
-                this.$inertia.pushState(this.$inertia.page)
+                this.$inertia.page.url = newUrl;
+                this.$inertia.pushState(this.$inertia.page);
 
-                this.loadLazyData()
-            }, 200)
+                this.loadLazyData();
+            }, 200);
         },
         loadLazyData() {
-            this.loading = true
+            this.loading = true;
 
-            this.$axios.get(this.route(`admin.${this.currentResource}.index`, this.lazyParams)).then((res) => {
-                const data = res.data
-                this.loading = false
-                this.items = data.data
-                this.rows = data.per_page
-                this.totalItems = data.total
-            })
+            this.$axios
+                .get(
+                    this.route(
+                        `admin.${this.currentResource}.index`,
+                        this.lazyParams
+                    )
+                )
+                .then((res) => {
+                    const data = res.data;
+                    this.loading = false;
+                    this.items = data.data;
+                    this.totalItems = data.total;
+
+                    this.firstItem = data.form;
+                    this.lastItem = data.to;
+                });
         },
         onPage(event) {
-            this.lazyParams.page = event.page + 1
+            this.lazyParams.page = event.page + 1;
         },
         onSort(event) {},
         onFilter(event) {},
         onSelectAllChange(event) {
-            const selectAll = event.checked
+            const selectAll = event.checked;
 
             if (selectAll) {
                 this.$axios
@@ -277,68 +342,73 @@ export default {
                         })
                     )
                     .then((res) => {
-                        this.selectAll = true
-                        this.selectedItems = res.data.data
-                    })
+                        this.selectAll = true;
+                        this.selectedItems = res.data.data;
+                    });
             } else {
-                this.selectAll = false
-                this.selectedItems = []
+                this.selectAll = false;
+                this.selectedItems = [];
             }
         },
         onRowSelect() {
-            this.selectAll = this.selectedItems.length === this.totalItems
+            this.selectAll = this.selectedItems.length === this.totalItems;
         },
         onRowUnselect() {
-            this.selectAll = false
+            this.selectAll = false;
         },
-        mergeColumns() {
-            let schemaColumns = { ...this.schema.columns }
+        onChangePerPage(value) {
+            this.lazyParams.per_page = value;
+        },
 
-            const columns = this.columns.length ? this.columns : this.pluck(Object.values(this.schema.columns), 'label')
+        mergeColumns() {
+            let schemaColumns = { ...this.schema.columns };
+
+            const columns = this.columns.length
+                ? this.columns
+                : this.pluck(Object.values(this.schema.columns), "label");
 
             columns.forEach(function (column, index) {
-                let transformColumn = {}
+                let transformColumn = {};
 
-                if (typeof column === 'object') {
+                if (typeof column === "object") {
                     transformColumn = {
                         display: true,
                         order: index,
                         ...column,
-                    }
+                    };
                 } else {
                     transformColumn = {
                         display: true,
                         order: index,
                         field: column,
-                    }
+                    };
                 }
 
                 if (schemaColumns[transformColumn.field]) {
                     schemaColumns[transformColumn.field] = {
                         ...schemaColumns[transformColumn.field],
                         ...transformColumn,
-                    }
+                    };
                 } else {
                     schemaColumns[transformColumn.field] = {
-                        type: 'text',
+                        type: "text",
                         default: null,
                         label: transformColumn.field,
                         ...transformColumn,
-                    }
+                    };
                 }
-            })
+            });
 
-            schemaColumns['id'].order = 0
+            schemaColumns["id"].order = 0;
 
-            return schemaColumns
+            return schemaColumns;
         },
 
         getParams() {
-            const params = route().params
+            const params = route().params;
             return {
                 page: params.page || 1,
-                // rows: this.$refs['data-table'].rows,
-                rows: 20,
+                per_page: params.per_page || 20,
                 sortField: null,
                 sortOrder: null,
                 filters: {
@@ -347,74 +417,86 @@ export default {
                         matchMode: FilterMatchMode.CONTAINS,
                     },
                 },
-            }
+            };
         },
 
         getFilters() {
-            let keyword = route().params.global?.value
+            let keyword = route().params.global?.value;
             let filters = {
                 ...route().params,
-            }
+            };
 
             filters.global = {
                 value: keyword,
                 matchMode: FilterMatchMode.CONTAINS,
-            }
+            };
 
-            const columns = this.mergeColumns
+            const columns = this.mergeColumns;
 
             Object.keys(columns)
-                .filter((x) => x === 'id' || columns[x]?.rules?.includes('required'))
+                .filter(
+                    (x) => x === "id" || columns[x]?.rules?.includes("required")
+                )
                 .forEach((column) => {
                     filters[column] = {
                         value: null,
                         matchMode: FilterMatchMode.CONTAINS,
-                    }
-                })
+                    };
+                });
 
-            return filters
+            return filters;
         },
         getStyles(data, column) {
-            const value = data[column.field]
-            if (!column.list) return false
+            const value = data[column.field];
+            if (!column.list) return false;
 
-            return column.list.find((x) => x.label === value || x.id === value).styles
+            return column.list.find((x) => x.label === value || x.id === value)
+                .styles;
         },
         transformCell(data, column) {
-            let value = data[column.field]
+            let value = data[column.field];
 
             if (column.list) {
-                value = column.list.find((x) => x.label === value || x.id === value).label
+                value = column.list.find(
+                    (x) => x.label === value || x.id === value
+                ).label;
             }
 
             if (this.mergedColumns[column.field].transform) {
-                value = this.mergedColumns[column.field].transform(data)
-            } else if (column.type === 'date') {
-                value = this.toDate(value, 'DD/MM/YYYY')
-            } else if (column.type === 'datetime') {
-                value = this.toDate(value)
-            } else if (column.type === 'decimal') {
-                value = this.toMoney(value)
-            } else if ((column.type === 'bigint' || column.type === 'integer') && column.field !== 'id') {
-                value = this.toNumber(value)
-            } else if (column.type === 'boolean') {
+                value = this.mergedColumns[column.field].transform(data);
+            } else if (column.type === "date") {
+                value = this.toDate(value, "DD/MM/YYYY");
+            } else if (column.type === "datetime") {
+                value = this.toDate(value);
+            } else if (column.type === "decimal") {
+                value = this.toMoney(value);
+            } else if (
+                (column.type === "bigint" || column.type === "integer") &&
+                column.field !== "id"
+            ) {
+                value = this.toNumber(value);
+            } else if (column.type === "boolean") {
                 value = `<div class="flex m-auto w-3 h-3 ${
-                    value ? 'bg-green-500' : 'bg-orange-300'
-                } rounded-full"></div>`
-            } else if (column.type === 'json' && value && Object.keys(value).length === 0) {
-                return null
+                    value ? "bg-green-500" : "bg-orange-300"
+                } rounded-full"></div>`;
+            } else if (
+                column.type === "json" &&
+                value &&
+                Object.keys(value).length === 0
+            ) {
+                return null;
             }
 
-            return value
+            return value;
         },
         isImageCell(data, column) {
-            return this.isImage(data[column.field]?.path)
+            return this.isImage(data[column.field]?.path);
         },
         capitalize(string) {
-            return string?.charAt(0).toUpperCase() + string.slice(1)
+            return string?.charAt(0).toUpperCase() + string.slice(1);
         },
     },
-}
+};
 </script>
 
 <style>

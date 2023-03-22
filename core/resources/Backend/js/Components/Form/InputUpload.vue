@@ -177,6 +177,7 @@ export default {
                     this.files = this.modelValue?.map(function (url) {
                         return {
                             static_url: url,
+                            path: url,
                         };
                     });
                 } else if (
@@ -185,7 +186,10 @@ export default {
                     this.modelValue !== undefined &&
                     Object.keys(this.modelValue).length
                 ) {
-                    this.files = [{ static_url: this.modelValue }];
+                    this.files = [{
+                        static_url: this.modelValue,
+                        path: this.modelValue,
+                    }];
                 }
             } else {
                 if (this.multiple) {

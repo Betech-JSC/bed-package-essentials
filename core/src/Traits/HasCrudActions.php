@@ -80,7 +80,7 @@ trait HasCrudActions
                 });
             }
         } else {
-            $items = $query->paginate(request()->input('rows', 20));
+            $items = $query->paginate(request()->input('per_page', 20));
 
             if (isset($this->appends['index'])) {
                 $appendAttributes = $this->appends['index'];

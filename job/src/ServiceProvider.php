@@ -60,5 +60,21 @@ class ServiceProvider extends BaseServiceProvider
                 __DIR__.'/../database/migrations/create_job_ref_tags_table.php.stub' => $jobRefTag,
             ], 'migrations');
         }
+
+        if (empty(File::glob(database_path('migrations/*_create_job_options_table.php')))
+            && empty(File::glob(database_path('migrations/*_create_job_option_translations_table.php')))
+            && empty(File::glob(database_path('migrations/*_create_job_ref_options_table.php')))
+        ) {
+            $timestamp = date('Y_m_d_His', time());
+            $option = database_path("migrations/{$timestamp}04_create_job_options_table.php");
+            $optionTranslation = database_path("migrations/{$timestamp}05_create_job_option_translations_table.php");
+            $jobRefOption = database_path("migrations/{$timestamp}06_create_job_ref_options_table.php");
+
+            $this->publishes([
+                __DIR__.'/../database/migrations/create_job_options_table.php.stub' => $option,
+                __DIR__.'/../database/migrations/create_job_option_translations_table.php.stub' => $optionTranslation,
+                __DIR__.'/../database/migrations/create_job_ref_options_table.php.stub' => $jobRefOption,
+            ], 'option_migrations');
+        }
     }
 }

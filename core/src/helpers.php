@@ -49,7 +49,7 @@ if (!function_exists('transform_seo')) {
             'seo_meta_keywords' => $model->seo_meta_keywords,
             'seo_meta_robots' => $model->seo_meta_robots,
             'seo_canonical' => $model->seo_canonical,
-            'seo_image' => static_url($model->seo_image ?? $model->image_url ?? '/cover.jpg'),
+            'seo_image' => static_url($model->seo_image ?? $model->image_url ?? 'cover.jpg'),
             'seo_schemas' => $model->seo_schemas,
         ];
     }

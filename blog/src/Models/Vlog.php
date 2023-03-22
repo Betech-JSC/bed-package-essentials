@@ -1,5 +1,4 @@
 <?php
-
 namespace JamstackVietnam\Blog\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,6 +30,7 @@ class Vlog extends BaseModel
         'position',
         'view_count',
         'image',
+        'time',
 
         'inject_head',
         'inject_body_start',
@@ -135,7 +135,8 @@ class Vlog extends BaseModel
 
     public function scopeActive($query)
     {
-        return $query->where('status', self::STATUS_ACTIVE)
+        return $query->whereLocaleActive()
+            ->where('status', self::STATUS_ACTIVE)
             ->where('published_at', '<=', now());
     }
 
@@ -154,7 +155,8 @@ class Vlog extends BaseModel
             'published_at' => $this->published_at,
             'description' => $this->description,
             'image' => $this->getImageDetail($this->image),
-            'url' => $this->current_url
+            'url' => $this->current_url,
+            'time' =>$this->time,
         ];
 
         if (isset($conditions['tags']) && $conditions['tags']) {
@@ -174,7 +176,8 @@ class Vlog extends BaseModel
             'image' => $this->getImageDetail($this->image),
             'video' => $this->getImageDetail($this->video),
             'video_url' => $this->video_url,
-            'url' => $this->current_url
+            'url' => $this->current_url,
+            'time' =>$this->time,
         ];
 
         if (isset($conditions['tags']) && $conditions['tags']) {

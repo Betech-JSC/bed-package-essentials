@@ -33,6 +33,7 @@ class Agency extends BaseModel
         'latitude',
         'region',
         'image',
+        'images',
         'province_id',
         'district_id',
         'ward_id',
@@ -50,7 +51,8 @@ class Agency extends BaseModel
     ];
 
     protected $casts = [
-        'image' => 'array'
+        'image' => 'array',
+        'images' => 'array',
     ];
 
     public function rules()
@@ -90,7 +92,7 @@ class Agency extends BaseModel
 
     public function scopeActive($query)
     {
-        return $query->where('status', self::STATUS_ACTIVE);
+        return $query->whereLocaleActive()->where('status', self::STATUS_ACTIVE);
     }
 
     public function transform()
@@ -134,7 +136,14 @@ class Agency extends BaseModel
             'image' => [
                 'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
                 'alt' => $this->image['alt'] ?? $this->title,
-            ]
+            ],
+            'images' => collect($this->images)
+                ->map(function ($item) {
+                    return [
+                        'url' => static_url($item['path']) ?? null,
+                        'alt' => $item['alt'] ?? $this->title
+                    ];
+                })
         ];
     }
 

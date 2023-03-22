@@ -1,6 +1,6 @@
 <?php
 
-namespace JamstackVietnam\Policy\Models;
+namespace JamstackVietnam\Project\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,7 +9,7 @@ use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
 use \Illuminate\Support\Facades\Route;
 
-class Policy extends BaseModel
+class ProjectCategory extends BaseModel
 {
     use HasFactory, SoftDeletes, Translatable, Searchable;
 
@@ -25,7 +25,6 @@ class Policy extends BaseModel
 
     public $fillable = [
         'position',
-        'icon',
         'status',
     ];
 
@@ -33,7 +32,7 @@ class Policy extends BaseModel
         'slug',
         'locale',
         'title',
-        'content',
+        'description',
 
         'seo_meta_title',
         'seo_slug',
@@ -49,18 +48,17 @@ class Policy extends BaseModel
     {
         return [
             'title' => 'required|string|max:255',
-            'content' => 'required',
         ];
     }
 
     protected $searchable = [
         'columns' => [
-            'policy_translations.title' => 10,
-            'policy_translations.id' => 5,
-            'policy_translations.slug' => 2,
+            'project_category_translations.title' => 10,
+            'project_category_translations.id' => 5,
+            'project_category_translations.slug' => 2,
         ],
         'joins' => [
-            'policy_translations' => ['policy_translations.policy_id', 'policies.id'],
+            'project_category_translations' => ['project_category_translations.project_category_id', 'project_categories.id'],
         ],
     ];
 
@@ -71,9 +69,9 @@ class Policy extends BaseModel
         $urls = [];
         $default_locale = config('app.locale');
         if ($this->is_active) {
-            if (Route::has($default_locale . ".policies.show")) {
+            if (Route::has($default_locale . ".project_categories.show")) {
                 foreach ($this->translations as $translation) {
-                    $urls[strtoupper($translation->locale)] = route("$translation->locale.policies.show", [
+                    $urls[strtoupper($translation->locale)] = route("$translation->locale.project_categories.show", [
                         'slug' => $translation->seo_slug ?? $translation->slug
                     ]);
                 }
@@ -97,8 +95,7 @@ class Policy extends BaseModel
         return [
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
-            'content' => transform_richtext($this->content),
-            'icon' => $this->icon,
+            'description' => $this->description,
             'url' => $this->current_url
         ];
     }

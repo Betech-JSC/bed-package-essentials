@@ -35,4 +35,32 @@ export default [
         content:
             '<section><div class="grid grid-cols-2 gap-x-[16px] xl:my-[48px] md:my-[34px] my-[24px]" ><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /></div><h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p></section>',
     },
+    {
+        title: '7. Template 2 images',
+        description: '',
+        content: `<div class="flex space-x-1 md:space-x-3 xl:space-x-6 my-[16px] md:my-[24px] xl:my-[32px]">
+                    <div class="flex-1">
+                        <img src="/static/720x400.png"
+                        style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+                    </div>
+                    <div class="flex-1">
+                        <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+                    </div>
+                </div>`,
+    },
+    {
+        title: '8. Template 3 images',
+        description: '',
+        content: `<div class="flex space-x-1 md:space-x-3 xl:space-x-6 my-[16px] md:my-[24px] xl:my-[32px]">
+        <div class="flex-1">
+            <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+        </div>
+        <div class="flex-1">
+            <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+        </div>
+        <div class="flex-1">
+            <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+        </div>
+        </div>,`
+    }
 ];

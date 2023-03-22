@@ -184,9 +184,11 @@ class Post extends BaseModel
 
                 if ($category) {
                     foreach ($this->translations as $translation) {
-                        $categoryTranslation = $category->translations->firstWhere(function ($item) use ($translation, $default_locale) {
+                        $categoryTranslation = $category->translations->where(function ($item) use ($translation, $default_locale) {
                             return $item->locale === $translation->locale || $item->locale === $default_locale;
-                        });
+                        })
+                            ->sortBy(fn ($item) => $item['locale'] === $translation->locale ? 0 : 1)
+                            ->first();
 
                         $urls[strtoupper($translation->locale)] = route("$translation->locale.nested_posts.show", [
                             'nested' => $categoryTranslation->seo_slug ?? $categoryTranslation->slug,
@@ -210,7 +212,8 @@ class Post extends BaseModel
 
     public function scopeActive($query)
     {
-        return $query->where('status', self::STATUS_ACTIVE)
+        return $query->whereLocaleActive()
+            ->where('status', self::STATUS_ACTIVE)
             ->where('published_at', '<=', now());
     }
 
