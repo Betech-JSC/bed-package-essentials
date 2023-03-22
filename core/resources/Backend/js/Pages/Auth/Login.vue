@@ -40,7 +40,7 @@
                 :href="route('admin.password.request')"
                 class="block w-full text-center underline"
             >
-                {{ tt('models.auth.forgot_password') }}
+                {{ tt('models.auth.forgot_password_text') }}
             </Link>
         </div>
 

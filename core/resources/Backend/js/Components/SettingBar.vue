@@ -6,7 +6,7 @@
                     :activeIndex="Array.from(Array(20).keys())"
                     :multiple="true"
                 >
-                    <AccordionTab v-if="settingBar.info" :header="tt('models.form.setting_general')">
+                    <AccordionTab v-if="settingBar.info" :header="tt('models.setting.setting_general')">
                         <Link
                             v-if="settingBar.general"
                             class="item"
@@ -21,7 +21,7 @@
                                 }),
                             }"
                         >
-                            {{ tt('models.form.general_information') }}
+                            {{ tt('models.setting.general_information') }}
                         </Link>
                         <Link
                             v-if="!!route().t.routes['admin.settings.meta-pages.index']"
@@ -73,7 +73,7 @@
                                 }),
                             }"
                         >
-                            {{ tt('models.form.custom_vars') }}
+                            {{ tt('models.setting.custom_vars') }}
                         </Link>
                     </AccordionTab>
                     <AccordionTab v-if="settingBar.email" header="Email">
@@ -91,7 +91,7 @@
                                 }),
                             }"
                         >
-                            {{ tt('models.form.config_smtp') }}
+                            {{ tt('models.setting.config_smtp') }}
                         </Link>
                         <Link
                             v-if="settingBar.notification"
@@ -107,7 +107,7 @@
                                 }),
                             }"
                         >
-                            {{ tt('models.form.notification') }}
+                            {{ tt('models.setting.notification') }}
                         </Link>
                     </AccordionTab>
                 </Accordion>
