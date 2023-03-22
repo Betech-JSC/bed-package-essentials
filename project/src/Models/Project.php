@@ -28,6 +28,7 @@ class Project extends BaseModel
         'status',
         'view_count',
         'image',
+        'condition',
     ];
 
     public $translatedAttributes = [
@@ -156,6 +157,7 @@ class Project extends BaseModel
             'progress' => $this->progress,
             'used' => $this->used,
             'location' => $this->location,
+            'condition' => $this->condition,
             'image' => $this->getImageDetail($this->image),
         ];
     }
@@ -171,6 +173,7 @@ class Project extends BaseModel
             'progress' => $this->progress,
             'used' => $this->used,
             'location' => $this->location,
+            'condition' => $this->condition,
             'image' => $this->getImageDetail($this->image),
         ];
     }
