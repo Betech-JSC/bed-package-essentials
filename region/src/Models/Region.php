@@ -71,7 +71,7 @@ class Region extends BaseModel
         $request = request()->all();
         return self::select('name_with_type', 'parent_code', 'code', 'id')
             ->where('parent_code', $request['params']['province_id'])
-            ->orderBy('sort', 'desc')
+            ->orderByPosition()
             ->orderBy('name_with_type')
             ->get()
             ->map(function ($item) {
@@ -87,7 +87,7 @@ class Region extends BaseModel
         $request = request()->all();
         return self::select('name_with_type', 'parent_code', 'code', 'id')
             ->where('parent_code', $request['params']['district_id'])
-            ->orderBy('sort', 'desc')
+            ->orderByPosition()
             ->orderBy('name_with_type')
             ->get()
             ->map(function ($item) {
@@ -102,7 +102,7 @@ class Region extends BaseModel
     {
         return $query
             ->where('parent_code', null)
-            ->orderBy('sort', 'desc')
+            ->orderByPosition()
             ->orderBy('name_with_type');
     }
 
@@ -111,7 +111,7 @@ class Region extends BaseModel
         return $query
             ->select('name_with_type', 'parent_code', 'code', 'id')
             ->where('parent_code', $city_code)
-            ->orderBy('sort', 'desc')
+            ->orderByPosition()
             ->orderBy('name_with_type')
             ->get()
             ->toArray();
@@ -122,7 +122,7 @@ class Region extends BaseModel
         return $query
             ->select('name_with_type', 'parent_code', 'code', 'id')
             ->where('parent_code', $district_code)
-            ->orderBy('sort', 'desc')
+            ->orderByPosition()
             ->orderBy('name_with_type')
             ->get()
             ->toArray();
@@ -182,6 +182,11 @@ class Region extends BaseModel
     {
         return $query->orderByRaw('ISNULL(sort) OR sort = 0, sort ASC')
             ->orderBy('id', 'desc');
+    }
+
+    public function scopeOrderByPosition($query)
+    {
+        return $query->orderByRaw('ISNULL(sort) OR sort = 0, sort ASC');
     }
 
     public function scopeWhereParent($query)

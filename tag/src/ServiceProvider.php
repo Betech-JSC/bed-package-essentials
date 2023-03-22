@@ -46,8 +46,8 @@ class ServiceProvider extends BaseServiceProvider
             && empty(File::glob(database_path('migrations/*_tag_translations_table.php')))
         ) {
             $timestamp = date('Y_m_d_His', time());
-            $tag = database_path("migrations/{$timestamp}_create_tags_table.php");
-            $tagTranslation = database_path("migrations/{$timestamp}_create_tag_translations_table.php");
+            $tag = database_path("migrations/{$timestamp}01_create_tags_table.php");
+            $tagTranslation = database_path("migrations/{$timestamp}02_create_tag_translations_table.php");
 
             $this->publishes([
                 __DIR__.'/../database/migrations/create_tags_table.php.stub' => $tag,
