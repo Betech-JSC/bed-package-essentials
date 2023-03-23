@@ -17,8 +17,10 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->json('image')->nullable();
+            $table->json('banner_desktop')->nullable();
+            $table->json('banner_mobile')->nullable();
             $table->string('status', 30)->default(Project::STATUS_ACTIVE);
-            $table->string('condition')->nullable();
+            $table->string('construction_progress')->nullable();
             $table->integer('view_count')->default(0);
             $table->integer('position')->nullable();
 
