@@ -46,9 +46,20 @@ export default {
                     return option;
                 }
             });
-            return this.options.filter((x) =>
-                selectedIds.includes(x[this.keyBy])
-            );
+
+            const sortedOptions = this.options
+                .filter((x) => selectedIds.includes(x[this.keyBy]))
+                .sort((a, b) => {
+                    const indexA = selectedIds.indexOf(
+                        a[this.keyBy].toString()
+                    );
+                    const indexB = selectedIds.indexOf(
+                        b[this.keyBy].toString()
+                    );
+                    return indexA - indexB;
+                });
+
+            return sortedOptions;
         },
     },
 
