@@ -39,7 +39,9 @@ export default {
             return options;
         },
         selectedOptions() {
-            const selectedIds = this.modelValue?.map((option) => {
+            if (!this.modelValue) return [];
+
+            const selectedIds = this.modelValue.map((option) => {
                 if (typeof option === "object") {
                     return option[this.keyBy].toString();
                 } else {
