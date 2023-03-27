@@ -166,7 +166,7 @@ class Agency extends BaseModel
             'latitude' => $this->latitude,
             'link_google_map' => $this->link_google_map,
             'description' => $this->description,
-            'content' => $this->content,
+            'content' => transform_richtext($this->content),
             'info' => $this->info,
             'region' => $this->region,
             'province_id' => $this->province_id,
