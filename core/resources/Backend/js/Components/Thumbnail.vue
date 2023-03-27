@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center">
+    <div class="flex items-center w-full h-full">
         <vue-plyr v-if="isVideo(staticUrl(file.path))">
             <div>
                 <video muted playsinline onmouseover="this.play()" onmouseout="this.pause()">
@@ -7,7 +7,7 @@
                 </video>
             </div>
         </vue-plyr>
-        <v-lazy-image v-else :src="`${staticUrl(file.path)}?w=200`" />
+        <v-lazy-image v-else :src="`${staticUrl(file.path)}?w=200`" class="object-contain w-full h-full" />
         <a
             class="absolute top-0 right-0 invisible space-x-1 text-white uppercase bg-black group-hover:visible w-[20px] h-[20px] flex items-center justify-center rounded-sm"
             :href="staticUrl(file.path)"

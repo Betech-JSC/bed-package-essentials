@@ -2,7 +2,7 @@
     <template v-if="multiple">
         <div class="grid gap-3" :class="itemsPerRow">
             <div
-                class="relative flex items-center col-span-1 overflow-hidden rounded-sm bg-gray-50 group"
+                class="relative flex items-center col-span-1 overflow-hidden rounded-sm bg-gray-50 group  aspect-[1/1]"
                 v-for="(file, index) in files"
                 :key="index"
             >
