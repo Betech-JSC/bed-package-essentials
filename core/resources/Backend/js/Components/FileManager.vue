@@ -269,7 +269,6 @@ export default {
             folderForm: {
                 name: null,
             },
-            canDeleteFolder: false,
             search: null,
             embed: this.$page.props.route.query.embed,
         };
@@ -304,6 +303,11 @@ export default {
             return Object.values(this.data.files).filter((x) =>
                 x.search_name.includes(this.search)
             );
+        },
+        canDeleteFolder() {
+            if (!this.data) return false;
+
+            return this.data.files.length === 0 && this.data.directories.length === 0;
         }
     },
 
@@ -324,7 +328,6 @@ export default {
                 )
                 .then((res) => {
                     this.data = res.data;
-                    this.canDeleteFolder = this.data.files.length === 0 && this.data.directories.length === 0;
                     if (!this.tree || loadTree) {
                         this.tree = res.data.tree;
                     }
