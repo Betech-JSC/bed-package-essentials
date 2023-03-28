@@ -115,7 +115,7 @@
                     </Button>
                 </div>
                 <div
-                    v-if="!canDeleteFolder"
+                    v-if="Object.keys(searchFiles).length"
                     class="px-4 pt-8 pb-16 mx-auto space-y-4 max-w-7xl sm:px-6 lg:px-8"
                 >
                     <ul
