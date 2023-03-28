@@ -8,6 +8,7 @@ use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use \Illuminate\Support\Facades\Route;
 
 class Agency extends BaseModel
 {
@@ -43,11 +44,22 @@ class Agency extends BaseModel
     public $translatedAttributes = [
         'locale',
         'title',
+        'slug',
         'location',
         'full_address',
         'description',
+        'content',
         'phones',
-        'info'
+        'info',
+
+        'seo_meta_title',
+        'seo_slug',
+        'seo_meta_description',
+        'seo_meta_keywords',
+        'seo_meta_robots',
+        'seo_canonical',
+        'seo_image',
+        'seo_schemas',
     ];
 
     protected $casts = [
@@ -76,6 +88,8 @@ class Agency extends BaseModel
         ],
     ];
 
+    protected $appends = ['url'];
+
     protected static function booted()
     {
         static::saved(function (self $model) {
@@ -90,9 +104,32 @@ class Agency extends BaseModel
         });
     }
 
+    public function getUrlAttribute(): array
+    {
+        $urls = [];
+        $default_locale = config('app.locale');
+
+        if ($this->is_active) {
+            if (Route::has($default_locale . ".agencies.show")) {
+                foreach ($this->translations as $translation) {
+                    $urls[strtoupper($translation->locale)] = route("$translation->locale.agencies.show", [
+                        'slug' => $translation->seo_slug ?? $translation->slug
+                    ]);
+                }
+            }
+        }
+
+        return $urls;
+    }
+
     public function scopeActive($query)
     {
         return $query->whereLocaleActive()->where('status', self::STATUS_ACTIVE);
+    }
+
+    public function getIsActiveAttribute()
+    {
+        return $this->status === self::STATUS_ACTIVE;
     }
 
     public function transform()
@@ -109,10 +146,12 @@ class Agency extends BaseModel
             'district_id' => $this->district_id,
             'ward_id' => $this->ward_id,
             'code' => $this->code,
+            'is_headquarter' => $this->is_headquarter,
             'image' => [
                 'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
                 'alt' => $this->image['alt'] ?? $this->title,
-            ]
+            ],
+            'url' => $this->current_url
         ];
     }
 
@@ -127,12 +166,14 @@ class Agency extends BaseModel
             'latitude' => $this->latitude,
             'link_google_map' => $this->link_google_map,
             'description' => $this->description,
+            'content' => transform_richtext($this->content),
             'info' => $this->info,
             'region' => $this->region,
             'province_id' => $this->province_id,
             'district_id' => $this->district_id,
             'ward_id' => $this->ward_id,
             'code' => $this->code,
+            'is_headquarter' => $this->is_headquarter,
             'image' => [
                 'url' => isset($this->image['path']) ? static_url($this->image['path']) : null,
                 'alt' => $this->image['alt'] ?? $this->title,
@@ -143,7 +184,8 @@ class Agency extends BaseModel
                         'url' => static_url($item['path']) ?? null,
                         'alt' => $item['alt'] ?? $this->title
                     ];
-                })
+                }),
+            'url' => $this->current_url
         ];
     }
 
@@ -176,5 +218,10 @@ class Agency extends BaseModel
         });
 
         return $query;
+    }
+
+    public function transformSeo()
+    {
+        return transform_seo($this);
     }
 }

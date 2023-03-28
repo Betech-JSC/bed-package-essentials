@@ -28,6 +28,9 @@ class Project extends BaseModel
         'status',
         'view_count',
         'image',
+        'banner_desktop',
+        'banner_mobile',
+        'construction_progress',
     ];
 
     public $translatedAttributes = [
@@ -53,6 +56,8 @@ class Project extends BaseModel
 
     protected $casts = [
         'image' => 'array',
+        'banner_desktop' => 'array',
+        'banner_mobile' => 'array',
     ];
 
     public function rules()
@@ -156,11 +161,12 @@ class Project extends BaseModel
             'progress' => $this->progress,
             'used' => $this->used,
             'location' => $this->location,
+            'construction_progress' => $this->construction_progress,
             'image' => $this->getImageDetail($this->image),
         ];
     }
 
-    public function transformDetail()
+    public function transformDetails()
     {
         return [
             'title' => $this->title,
@@ -171,7 +177,10 @@ class Project extends BaseModel
             'progress' => $this->progress,
             'used' => $this->used,
             'location' => $this->location,
+            'construction_progress' => $this->construction_progress,
             'image' => $this->getImageDetail($this->image),
+            'banner_desktop' => $this->getImageDetail($this->banner_desktop),
+            'banner_mobile' => $this->getImageDetail($this->banner_mobile),
         ];
     }
 

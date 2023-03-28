@@ -121,6 +121,14 @@
             :disabled="disabled"
         />
     </template>
+    <template v-else-if="field.type === 'checkbox_tree'">
+        <CustomCheckboxTree
+            :field="field"
+            :model-value="modelValue"
+            @change="$emit('update:modelValue', $event)"
+            :disabled="disabled"
+        />
+    </template>
     <template v-else-if="field.type === 'tree'">
         <TreeViewItem
             :model-value="modelValue"
@@ -173,6 +181,7 @@ import CustomSelectButton from "@Core/Components/Form/Custom/CustomSelectButton.
 import CustomSelectDate from "@Core/Components/Form/Custom/CustomSelectDate.vue";
 import CustomTags from "@Core/Components/Form/Custom/CustomTags.vue";
 import CustomTreeSelect from "@Core/Components/Form/Custom/CustomTreeSelect.vue";
+import CustomCheckboxTree from "@Core/Components/Form/Custom/CustomCheckboxTree.vue";
 
 import InputUpload from "@Core/Components/Form/InputUpload.vue";
 import TreeViewItem from "@Core/Components/TreeViewItem.vue";
@@ -186,6 +195,7 @@ export default {
         CustomRadioList,
         CustomSelectButton,
         CustomTreeSelect,
+        CustomCheckboxTree,
         CustomSelectDate,
         CustomEditor,
         CustomTags,

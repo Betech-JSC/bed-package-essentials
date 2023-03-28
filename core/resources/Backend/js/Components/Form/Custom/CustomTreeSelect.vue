@@ -34,7 +34,7 @@ export default {
             return this.field.labelBy || "title";
         },
         placeholder() {
-            return this.field.placeholder || `${this.tt('models.field.choose')} ${this.field.label}`;
+            return this.field.placeholder || `Chọn ${this.field.label}`;
         },
         options() {
             return this.field.options?.map((option) => this.transformOption(option));

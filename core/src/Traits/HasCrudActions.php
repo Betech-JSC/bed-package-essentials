@@ -201,9 +201,9 @@ trait HasCrudActions
         }
 
         if ($is_update || (isset($this->redirectBack) && $this->redirectBack)) {
-            return $this->redirectBack(__('models.has_crud_action.save_successfully'));
+            return $this->redirectBack(__('models.has_crud_action.store', [], current_locale()));
         } else {
-            return $this->redirectToForm($resource->id, __('models.has_crud_action.save_successfully'));
+            return $this->redirectToForm($resource->id, __('models.has_crud_action.store', [], current_locale()));
         }
     }
 
@@ -218,7 +218,7 @@ trait HasCrudActions
             DB::commit();
 
             if (!is_null($resource->getMacro('withTrashed'))) {
-                return $this->redirectBack( __('models.has_crud_action.delete_successfully'));
+                return $this->redirectBack(__('models.has_crud_action.destroy', [], current_locale()));
             } else {
                 return $this->redirectToIndex();
             }
@@ -235,7 +235,7 @@ trait HasCrudActions
         $resource = $this->model::withTrashed()->findOrFail($id);
         $resource->restore();
 
-        return $this->redirectBack(__('models.has_crud_action.successful_recovery'));
+        return $this->redirectBack(__('models.has_crud_action.restore', [], current_locale()));
     }
 
     // Private

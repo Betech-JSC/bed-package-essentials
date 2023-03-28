@@ -47,8 +47,12 @@ class FileController extends Controller
     public function folderCreate(Request $request)
     {
         $file = new File($request->input('path', '/'));
-        $file->folderCreate($request->input('name'));
+        return $file->folderCreate($request->input('name'));
+    }
 
-        return $file->tree();
+    public function folderDelete(Request $request)
+    {
+        $file = new File($request->input('path', '/'));
+        return $file->folderDelete();
     }
 }

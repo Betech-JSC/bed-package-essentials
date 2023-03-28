@@ -93,6 +93,7 @@ export default {
                     this.field.options
                 );
             }
+            this.fieldConfig.label = this.fieldLabel;
         },
     },
     created() {

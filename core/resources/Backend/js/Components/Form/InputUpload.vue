@@ -2,7 +2,7 @@
     <template v-if="multiple">
         <div class="grid gap-3" :class="itemsPerRow">
             <div
-                class="relative flex items-center col-span-1 overflow-hidden rounded-sm bg-gray-50 group"
+                class="relative flex items-center col-span-1 overflow-hidden rounded-sm bg-gray-50 group  aspect-[1/1]"
                 v-for="(file, index) in files"
                 :key="index"
             >
@@ -43,7 +43,7 @@
                 <div
                     class="flex flex-col items-center justify-center w-full h-full py-4 space-y-2 text-xs font-medium text-center text-gray-600 border border-gray-400 border-dashed"
                 >
-                    <span>CLICK ĐỂ CHỌN</span>
+                    <span>{{ tt('models.files.input_upload') }}</span>
                 </div>
             </div>
         </template>
@@ -97,12 +97,12 @@
         </div>
 
         <template #footer>
-            <Button variant="white" @click="showFileModal = null" label="Hủy" />
+            <Button variant="white" @click="showFileModal = null" :label="tt('models.files.cancel')" />
             <Button
                 type="button"
                 class="ml-2"
                 @click="editFileUpdate"
-                label="Lưu"
+                :label="tt('models.files.save')"
             />
         </template>
     </Dialog>

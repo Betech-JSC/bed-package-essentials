@@ -1,6 +1,6 @@
 <?php
 
-namespace JamstackVietnam\Option\Models;
+namespace JamstackVietnam\Job\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,7 +9,7 @@ use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Core\Traits\Translatable;
 use Illuminate\Support\Arr;
 
-class Option extends BaseModel
+class JobOption extends BaseModel
 {
     use HasFactory, Translatable, SoftDeletes, Searchable;
 
@@ -28,33 +28,23 @@ class Option extends BaseModel
         'status',
         'is_range',
         'is_filter',
-        'is_show_detail',
         'position',
-        'range_id',
-        'icon',
-        'banner_desktop',
-        'banner_mobile'
+        'range_id'
     ];
 
     public $translatedAttributes = [
         'locale',
         'title',
         'slug',
-        'custom_fields',
-    ];
-
-    protected $casts = [
-        'banner_desktop' => 'array',
-        'banner_mobile' => 'array'
     ];
 
     protected $searchable = [
         'columns' => [
-            'option_translations.title' => 10,
-            'option_translations.id' => 5,
+            'job_option_translations.title' => 10,
+            'job_option_translations.id' => 5,
         ],
         'joins' => [
-            'option_translations' => ['option_translations.option_id', 'options.id'],
+            'job_option_translations' => ['job_option_translations.job_option_id', 'job_options.id'],
         ],
     ];
 
@@ -68,12 +58,12 @@ class Option extends BaseModel
     protected static function booted()
     {
         static::saving(function (self $model) {
-            if (strpos(request()->getRequestUri(), '/options/store') == false) return;
+            if (strpos(request()->getRequestUri(), '/job-options/store') == false) return;
             $model->updated_at = now();
         });
 
         static::saved(function (self $model) {
-            if (strpos(request()->getRequestUri(), '/options/store') == false) return;
+            if (strpos(request()->getRequestUri(), '/job-options/store') == false) return;
             $model->saveChildren($model);
         });
     }
@@ -180,9 +170,7 @@ class Option extends BaseModel
                 'title' => $parent->title,
                 'slug' => $parent->slug,
                 'position' => $parent->pivot->position ?? 0,
-                'is_show_detail' => $parent->is_show_detail,
-                'nodes' => $nodes,
-                'icon' => $parent->icon
+                'nodes' => $nodes
             ];
         });
     }
@@ -193,7 +181,6 @@ class Option extends BaseModel
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'icon' => $this->icon
         ];
 
         if ($conditions['options'] && count($conditions['options']) > 0) {
@@ -219,7 +206,6 @@ class Option extends BaseModel
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'icon' => $this->icon,
         ];
     }
 
@@ -229,18 +215,7 @@ class Option extends BaseModel
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'icon' => $this->icon,
-            'custom_fields' => $this->custom_fields,
-            'banner_desktop' => $this->getImageDetail($this->banner_desktop),
-            'banner_mobile' => $this->getImageDetail($this->banner_mobile)
-        ];
-    }
-
-    public function getImageDetail($image)
-    {
-        return [
-            'url' => isset($image['path']) ? static_url($image['path']) : null,
-            'alt' => $image['alt'] ?? $this->title,
+            'custom_fields' => $this->custom_fields
         ];
     }
 

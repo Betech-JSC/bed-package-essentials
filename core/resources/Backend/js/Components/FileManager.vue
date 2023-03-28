@@ -93,15 +93,26 @@
             <main
                 class="overflow-y-auto grow"
                 :class="
-                    !Object.keys(searchFiles).length
-                        ? 'flex items-center justify-center'
+                    canDeleteFolder
+                        ? 'flex items-center flex-col justify-center'
                         : 'flex-1'
                 "
             >
-                <h1 v-if="!Object.keys(searchFiles).length" class="text-xl">
-                    {{ tt('models.files.empty_content_1') }}
-                    <a @click="browse" class="link">{{ tt('models.files.empty_content_2').toLowerCase() }}</a> {{ tt('models.files.empty_content_3').toLowerCase() }}
-                </h1>
+                <div v-if="canDeleteFolder" >
+                    <h1 v-if="canDeleteFolder" class="text-xl">
+                        {{ tt('models.files.empty_content_1') }}
+                        <a @click="browse" class="link">{{ tt('models.files.empty_content_2').toLowerCase() }}</a> {{ tt('models.files.empty_content_3').toLowerCase() }}
+                    </h1>
+                </div>
+                <div v-if="canDeleteFolder" class="mt-6">
+                    <Button
+                        @click="deleteFolder"
+                        class="space-x-2 btn-outline-primary"
+                    >
+                        <carbon:subtract-alt />
+                        <span> {{ tt('models.files.delete_folder') }} </span>
+                    </Button>
+                </div>
                 <div
                     v-if="Object.keys(searchFiles).length"
                     class="px-4 pt-8 pb-16 mx-auto space-y-4 max-w-7xl sm:px-6 lg:px-8"
@@ -281,7 +292,7 @@ export default {
             if (value && this.data === null) {
                 this.getFiles();
             }
-        },
+        }
     },
 
     computed: {
@@ -292,6 +303,11 @@ export default {
                 x.search_name.includes(this.search)
             );
         },
+        canDeleteFolder() {
+            if (!this.data) return false;
+
+            return this.data.files.length === 0 && this.data.directories.length === 0;
+        }
     },
 
     methods: {
@@ -299,7 +315,7 @@ export default {
             this.currentPath = item.path;
             this.getFiles();
         },
-        getFiles(params = {}) {
+        getFiles(params = {}, loadTree = false) {
             this.$axios
                 .get(
                     this.route("admin.files.index", {
@@ -311,10 +327,12 @@ export default {
                 )
                 .then((res) => {
                     this.data = res.data;
-                    if (!this.tree) {
+                    if (!this.tree || loadTree) {
                         this.tree = res.data.tree;
                     }
                 });
+
+
         },
         async copyUrl(file) {
             try {
@@ -451,10 +469,23 @@ export default {
                     path: this.currentPath,
                 })
                 .then((res) => {
-                    this.getFiles();
-                    this.tree = res.data.tree;
+                    this.getFiles({}, true);
                     this.folderForm.name = null;
                 });
+        },
+        deleteFolder() {
+            if (confirm(this.tt('models.files.confirm_delete')) == true) {
+                this.$axios
+                    .post(
+                    this.route("admin.files.folders.delete", {
+                        path: this.currentPath
+                    })
+                    )
+                    .then((res) => {
+                        this.currentPath = "/";
+                        this.getFiles({}, true);
+                    });
+            }
         },
     },
 };
