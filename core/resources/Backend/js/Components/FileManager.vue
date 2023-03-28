@@ -100,8 +100,8 @@
             >
                 <div v-if="canDeleteFolder" >
                     <h1 v-if="canDeleteFolder" class="text-xl">
-                        {{ tt('models.files.empty_content_1') }}
-                        <a @click="browse" class="link">{{ tt('models.files.empty_content_2').toLowerCase() }}</a> {{ tt('models.files.empty_content_3').toLowerCase() }}
+                        {{ tt('models.files.drop') }}
+                        <a @click="browse" class="link">{{ tt('models.files.click_here').toLowerCase() }}</a> {{ tt('models.files.select_files').toLowerCase() }}
                     </h1>
                 </div>
                 <div v-if="canDeleteFolder" class="mt-6">
@@ -391,7 +391,7 @@ export default {
                 const fileCheck = this.fileCheck(image);
                 if (!fileCheck.valid) {
                     alert(
-                        this.tt('models.files.alert_valid_1') + ' ' + fileCheck.maxSize + this.tt('models.files.alert_valid_2')
+                        this.tt('models.files.maximum_size') + ' ' + fileCheck.maxSize + this.tt('models.files.try_again')
                     );
                     this.$refs.file.value = "";
                     return false;
