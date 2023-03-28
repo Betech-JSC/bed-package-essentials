@@ -49,7 +49,7 @@ class FileController extends Controller
         $file = new File($request->input('path', '/'));
         $file->folderCreate($request->input('name'));
 
-        return $file->tree();
+        return true;
     }
 
     public function folderDelete(Request $request)
@@ -57,6 +57,6 @@ class FileController extends Controller
         $file = new File($request->input('path', '/'));
         $file->folderDelete();
 
-        return $file->tree();
+        return true;
     }
 }

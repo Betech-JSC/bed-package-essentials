@@ -312,7 +312,7 @@ export default {
             this.currentPath = item.path;
             this.getFiles();
         },
-        getFiles(params = {}) {
+        getFiles(params = {}, loadTree = false) {
             this.$axios
                 .get(
                     this.route("admin.files.index", {
@@ -325,7 +325,7 @@ export default {
                 .then((res) => {
                     this.data = res.data;
                     this.canDeleteFolder = this.data.files.length === 0 && this.data.directories.length === 0;
-                    if (!this.tree) {
+                    if (!this.tree || loadTree) {
                         this.tree = res.data.tree;
                     }
                 });
@@ -467,8 +467,7 @@ export default {
                     path: this.currentPath,
                 })
                 .then((res) => {
-                    this.getFiles();
-                    this.tree = res.data.tree;
+                    this.getFiles({}, true);
                     this.folderForm.name = null;
                 });
         },
@@ -482,8 +481,7 @@ export default {
                     )
                     .then((res) => {
                         this.currentPath = "/";
-                        this.getFiles();
-                        this.tree = res.data.tree;
+                        this.getFiles({}, true);
                     });
             }
         },
