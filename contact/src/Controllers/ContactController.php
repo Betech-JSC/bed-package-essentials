@@ -7,11 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use JamstackVietnam\Contact\Models\Contact;
 use JamstackVietnam\Core\Models\File;
-use JamstackVietnam\Core\Traits\ApiResponse;
 
 class ContactController extends Controller
 {
-    use ApiResponse;
     public $model = Contact::class;
 
     public function store(Request $request)
@@ -23,7 +21,7 @@ class ContactController extends Controller
         $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
-            return $this->failure($validator->errors());
+            return redirect()->back()->withErrors($validator->errors());
         }
 
         if (isset($requestData['data']['File CV'])) {
@@ -43,8 +41,9 @@ class ContactController extends Controller
             }
         }
 
-        $contact = $this->model::create($requestData);
+        $this->model::create($requestData);
 
-        return $this->success($contact);
+        return redirect()->back()->withSuccess('success');
     }
 }
+
