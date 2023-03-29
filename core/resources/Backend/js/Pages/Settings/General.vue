@@ -2,7 +2,7 @@
     <WrapSetting>
         <Form
             v-model="formData"
-            :config="{ canDestroy: false, reverse: true, addGrid: false }"
+            :config="{ canDestroy: false, reverse: true, addGrid: false, resource: 'settings' }"
         >
             <template #default="{ form }">
                 <div class="card">

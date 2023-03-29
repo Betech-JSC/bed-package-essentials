@@ -142,6 +142,12 @@ if (!function_exists('current_locale')) {
 
         if (request()->route() === null) return $default;
 
+        $routeNames = explode('.', request()->route()->getName());
+
+        if (!in_array($routeNames[0], config('app.locales')) && $routeNames[0] == 'admin' && !in_array('helper', $routeNames)) {
+            return request()->session()->get('session_locale');
+        }
+
         $prefix = request()->route()->getPrefix();
         $segments = explode('/', $prefix);
 

@@ -100,4 +100,11 @@ class HelperController extends Controller
 
         return $items;
     }
+
+    public function setSessionLocale()
+    {
+        request()->session()->put('session_locale', request()->input('locale'));
+
+        return request()->session()->get('session_locale');
+    }
 }

@@ -41,11 +41,11 @@ class SettingController extends Controller
         $breadcrumbs = [
             [
                 'url' => route($this->getResource() . '.index'),
-                'name' => trans('models.table_list.' . $this->getTable()),
+                'name' => __('models.table_list.' . $this->getTable(), [], current_locale()),
             ],
             [
                 'url' => route($this->getResource() . '.form', ['id' => $id]),
-                'name' => $settingName,
+                'name' => __('models.table_list.' . $settingName, [], current_locale()),
             ]
         ];
 
@@ -83,6 +83,6 @@ class SettingController extends Controller
             Artisan::call('queue:restart');
         }
 
-        return $this->redirectBack('Lưu đối tượng thành công.');
+        return $this->redirectBack( __('models.has_crud_action.store', [], current_locale()));
     }
 }

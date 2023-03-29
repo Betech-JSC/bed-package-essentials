@@ -88,6 +88,21 @@ export default {
             return this.$page.props.locale.current;
         },
     },
+
+    methods: {
+        async switchLocale(locale, params = {}) {
+            await this.$axios
+                .post(route(`admin.helper.set-locale`, { locale }));
+
+            const currentLocale = this.$inertia.page.props.locale.current
+            const currentRoute = route().current().replace(currentLocale, locale)
+
+            window.location.href = route(currentRoute, {
+                ...route().params,
+                ...params,
+            })
+        },
+    },
 };
 </script>
 <style lang="scss">
