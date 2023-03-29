@@ -228,6 +228,7 @@ class Job extends BaseModel
                 }
             }
         }
+
         return $urls;
     }
 
@@ -246,7 +247,7 @@ class Job extends BaseModel
     {
         return $this->status === self::STATUS_ACTIVE
             && $this->published_at <= now()
-            && ($this->expected_time == null || $this->expected_time >= Carbon::today());
+            && ($this->expected_time == null || $this->expected_time >= date('Y-m-d'));
     }
 
     public function transform($conditions = ['tags' => false, 'options' => false])
@@ -364,7 +365,7 @@ class Job extends BaseModel
                 })
                 ->first();
 
-            if ($jobOption->id && $jobOption->children) {
+            if (!empty($jobOption->id) && $jobOption->children) {
                 $options = explode(',', $value);
 
                 $ids = $jobOption->children
