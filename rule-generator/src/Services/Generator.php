@@ -143,7 +143,7 @@ class Generator
                             return [
                                 'id' => $value,
                                 'label' => $name,
-                                'styles' =>  trans()->has($trans) ? trans($trans) : false
+                                'styles' =>  __($trans, [], current_locale()) ?? (trans()->has($trans) ? trans($trans) : false)
                             ];
                         })->values()->toArray();
                 }

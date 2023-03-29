@@ -1,14 +1,13 @@
 <template layout>
     <Form v-model="formData" v-slot="{ form }">
         <div class="card">
-            <div class="card-header">Thông tin chung</div>
+            <div class="card-header">{{ tt('models.form.general_information') }}</div>
             <div class="card-body">
                 <Field
                     v-model="form.name"
                     :field="{
                         type: 'text',
                         name: 'name',
-                        label: 'Tên tài khoản',
                     }"
                 />
                 <div class="field-row">
@@ -17,7 +16,6 @@
                         :field="{
                             type: 'email',
                             name: 'email',
-                            label: 'Email',
                         }"
                     />
                     <Field
@@ -25,7 +23,6 @@
                         :field="{
                             type: 'text',
                             name: 'phone',
-                            label: 'Số điện thoại',
                         }"
                     />
                 </div>
@@ -36,7 +33,6 @@
                     :field="{
                         name: 'role',
                         type: 'radio_list',
-                        label: 'Vai trò',
                         keyBy: 'id',
                         labelBy: 'name',
                         source: {
@@ -49,7 +45,7 @@
             </div>
         </div>
         <div class="card">
-            <div class="card-header">Đặt mật khẩu</div>
+            <div class="card-header">{{ tt('model.admin.set_password') }}</div>
             <div class="card-body">
                 <div class="field-row">
                     <Field
@@ -57,7 +53,6 @@
                         :field="{
                             type: 'password',
                             name: 'password',
-                            label: 'Mật khẩu',
                         }"
                     />
                     <Field
@@ -65,7 +60,6 @@
                         :field="{
                             type: 'password',
                             name: 'password_confirmation',
-                            label: 'Xác nhận mật khẩu',
                         }"
                     />
                 </div>

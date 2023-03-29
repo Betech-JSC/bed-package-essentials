@@ -17,7 +17,7 @@
         </a>
         <Button
             class="absolute invisible right-1 bottom-1 group-hover:visible btn-white btn-sm"
-            label="Xóa"
+            :label="tt('models.files.delete')"
             @click="$emit('remove', file)"
         />
     </div>

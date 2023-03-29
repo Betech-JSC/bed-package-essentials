@@ -25,8 +25,8 @@ export default {
         },
         placeholder() {
             if (this.field.placeholder) return this.field.placeholder;
-            if (!this.field.label) return "Vui lòng chọn";
-            return `Chọn ${this.field.label}`;
+            if (!this.field.label) return this.tt('models.field.please_choose');
+            return `${this.tt('models.field.choose')} ${this.field.label}`;
         },
     },
 };

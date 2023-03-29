@@ -11,21 +11,18 @@
                             v-model="form.general_business_name"
                             :field="{
                                 name: 'general_business_name',
-                                label: 'Tên doanh nghiệp',
                             }"
                         />
                         <Field
                             v-model="form.general_site_name"
                             :field="{
                                 name: 'general_site_name',
-                                label: 'Tên website',
                             }"
                         />
                         <Field
                             v-model="form.general_email"
                             :field="{
                                 name: 'general_email',
-                                label: 'Email liên hệ',
                             }"
                         />
                     </div>

@@ -6,19 +6,17 @@
             :config="{ canDestroy: false, addGrid: false }"
         >
             <div class="card">
-                <div class="card-header">Thông báo liên hệ</div>
+                <div class="card-header">{{ tt('models.setting.notification_from.general_information') }}</div>
                 <div class="card-body">
                     <InlineMessage severity="info">
-                        Khi website nhận được liên hệ mới, hệ thống sẽ tự động gửi thông báo tới email của
-                        bạn.
+                        {{ tt('models.setting.notification_from.info') }}
                     </InlineMessage>
                     <Field
                         v-model="form.notification_production_to"
                         :field="{
                             type: 'tags',
                             name: 'notification_production_to',
-                            label: 'Email môi trường thật (Production)',
-                            help: 'Tips: Có thể nhập nhiều email, các email được ngăn cách bởi dấu phẩy',
+                            help: tt('models.setting.notification_from.help'),
                         }"
                     />
                     <Field
@@ -26,8 +24,7 @@
                         :field="{
                             type: 'tags',
                             name: 'notification_staging_to',
-                            label: 'Email môi trường test  (Local/Staging)',
-                            help: 'Tips: Có thể nhập nhiều email, các email được ngăn cách bởi dấu phẩy',
+                            help: tt('models.setting.notification_from.help'),
                         }"
                     />
                 </div>

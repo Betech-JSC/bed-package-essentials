@@ -115,6 +115,9 @@ export default {
         "field.options"() {
             this.fetchSource();
         },
+        options() {
+            this.items = this.options;
+        }
     },
 
     created() {
