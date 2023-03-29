@@ -1,6 +1,6 @@
 <template layout>
     <WrapSetting>
-        <Form v-model="formData" v-slot="{ form }" :config="{ canDestroy: false, addGrid: false }">
+        <Form v-model="formData" v-slot="{ form }" :config="{ canDestroy: false, addGrid: false, resource: 'settings' }">
             <div class="card">
                 <div class="card-header">{{ tt('models.setting.custom_vars_form.general_information') }}</div>
                 <div class="card-body">

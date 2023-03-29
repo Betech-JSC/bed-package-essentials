@@ -2,14 +2,13 @@
     <div class="lg:p-6">
         <Form v-model="formData" v-slot="{ form }" :config="{ addGrid: false }">
             <div class="card">
-                <div class="card-header">Thông tin chung</div>
+                <div class="card-header">{{ tt('models.form.general_information') }}</div>
                 <div class="card-body">
                     <Field
                         v-model="form.name"
                         :field="{
                             type: 'text',
                             name: 'name',
-                            label: 'Tên vai trò',
                         }"
                     />
                 </div>
@@ -17,59 +16,59 @@
             <div class="card">
                 <table class="table">
                     <thead>
-                        <th>Đối tượng</th>
+                        <th>{{ tt('models.roles.object') }}</th>
                         <th>
-                            <div>Xem</div>
+                            <div>{{ tt('models.roles.see') }}</div>
                             <div
                                 @click="toggle('index')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                Chọn tất cả
+                                {{ tt('models.roles.select_all') }}
                             </div>
                         </th>
                         <th>
-                            <div>Thêm</div>
+                            <div>{{ tt('models.roles.add') }}</div>
                             <div
                                 @click="toggle('form')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                Chọn tất cả
+                                {{ tt('models.roles.select_all') }}
                             </div>
                         </th>
                         <th>
-                            <div>Sửa</div>
+                            <div>{{ tt('models.roles.edit') }}</div>
                             <div
                                 @click="toggle('store')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                Chọn tất cả
+                                {{ tt('models.roles.select_all') }}
                             </div>
                         </th>
                         <th>
-                            <div>Xóa</div>
+                            <div>{{ tt('models.roles.delete') }}</div>
                             <div
                                 @click="toggle('destroy')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                Chọn tất cả
+                                {{ tt('models.roles.select_all') }}
                             </div>
                         </th>
                         <th>
-                            <div>Khôi phục</div>
+                            <div>{{ tt('models.roles.restore') }}</div>
                             <div
                                 @click="toggle('store')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                Chọn tất cả
+                                {{ tt('models.roles.select_all') }}
                             </div>
                         </th>
                         <th>
-                            <div>Khác</div>
+                            <div>{{ tt('models.roles.other') }}</div>
                             <div
                                 @click="toggle('other')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                Chọn tất cả
+                                {{ tt('models.roles.select_all') }}
                             </div>
                         </th>
                     </thead>

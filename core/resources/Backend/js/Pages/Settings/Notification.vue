@@ -3,7 +3,7 @@
         <Form
             v-model="formData"
             v-slot="{ form }"
-            :config="{ canDestroy: false, addGrid: false }"
+            :config="{ canDestroy: false, addGrid: false, resource: 'settings' }"
         >
             <div class="card">
                 <div class="card-header">{{ tt('models.setting.notification_from.general_information') }}</div>
