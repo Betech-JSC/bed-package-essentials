@@ -92,10 +92,7 @@ export default {
     methods: {
         async switchLocale(locale, params = {}) {
             await this.$axios
-                .post(route(`admin.helper.set-locale`, { locale }))
-                .then((res) => {
-                    console.log(res.data);
-                });
+                .post(route(`admin.helper.set-locale`, { locale }));
 
             const currentLocale = this.$inertia.page.props.locale.current
             const currentRoute = route().current().replace(currentLocale, locale)
