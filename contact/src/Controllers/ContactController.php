@@ -12,7 +12,6 @@ use JamstackVietnam\Core\Traits\ApiResponse;
 class ContactController extends Controller
 {
     use ApiResponse;
-
     public $model = Contact::class;
 
     public function store(Request $request)
