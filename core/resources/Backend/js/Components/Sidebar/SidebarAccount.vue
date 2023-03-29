@@ -15,7 +15,7 @@
                         @click="showAdminForm = true"
                         class="text-xs text-gray-400 cursor-pointer hover:text-gray-300 hover:underline"
                     >
-                        Đổi mật khẩu
+                        {{ tt('models.admins.change_password') }}
                     </div>
 
                     <Form
@@ -30,7 +30,7 @@
                         }"
                     >
                         <Dialog
-                            header="Cập nhật thông tin"
+                            :header="tt('models.admins.update_information')"
                             v-model:visible="showAdminForm"
                             :breakpoints="{
                                 '960px': '75vw',
@@ -44,7 +44,6 @@
                                 :field="{
                                     type: 'text',
                                     name: 'name',
-                                    label: 'Tên',
                                 }"
                             />
                             <div class="mt-6 field-row">
@@ -53,7 +52,6 @@
                                     :field="{
                                         type: 'password',
                                         name: 'password',
-                                        label: 'Mật khẩu mới',
                                     }"
                                 />
                                 <Field
@@ -61,17 +59,16 @@
                                     :field="{
                                         type: 'password',
                                         name: 'password_confirmation',
-                                        label: 'Xác nhận mật khẩu mới',
                                     }"
                                 />
                             </div>
                             <template #footer>
                                 <Button
-                                    label="Hủy"
+                                    :label="tt('models.admins.cancel')"
                                     @click="showAdminForm = false"
                                 />
                                 <Button
-                                    label="Lưu"
+                                    :label="tt('models.admins.save')"
                                     icon="pi pi-check"
                                     @click="submitAdminForm"
                                     class="btn-primary"
@@ -114,8 +111,8 @@ export default {
                     this.showAdminForm = false;
                     this.$toast.add({
                         severity: "success",
-                        summary: "Thành công",
-                        detail: `Cập nhật thông tin thành công`,
+                        summary: this.tt('models.admins.success'),
+                        detail: this.tt('models.admins.update_success'),
                         life: 2000,
                     });
                     window.location.href = window.location.href;
@@ -123,7 +120,7 @@ export default {
                 .catch(({ response }) => {
                     this.$toast.add({
                         severity: "error",
-                        summary: "Thất bại",
+                        summary: this.tt('models.admins.error'),
                         detail: response.data.message,
                         life: 2000,
                     });
