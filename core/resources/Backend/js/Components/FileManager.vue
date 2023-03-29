@@ -21,12 +21,12 @@
                 >
                     <ph-caret-left />
                 </div>
-                File Manager
+                {{ tt('models.files.file_manager') }}
             </h1>
             <div class="flex ml-auto space-x-3">
                 <input
                     type="text"
-                    placeholder="Nhập tên tệp..."
+                    :placeholder="tt('models.files.input_file')"
                     class="flex-inline w-[400px] py-[0.5rem] px-[1rem] border border-gray-300 focus:border-solid focus:outline-none focus:ring-0 rounded hover:border-gray-400 focus:border-gray-500"
                     @input="onChange"
                 />
@@ -35,11 +35,11 @@
                     class="space-x-2 btn-outline-primary"
                 >
                     <ph-plus-circle-light />
-                    <span> Tạo Folder </span>
+                    <span> {{ tt('models.files.add_folder') }} </span>
                 </Button>
                 <Button @click.prevent="browse" class="space-x-2 btn-primary">
                     <ph:upload-simple />
-                    <span> Chọn Tệp </span>
+                    <span> {{ tt('models.files.select_file') }} </span>
                 </Button>
             </div>
         </div>
@@ -70,7 +70,7 @@
                         class="w-full space-x-2 btn-primary"
                     >
                         <ph:upload-simple />
-                        <span> Chọn Tệp </span>
+                        <span> {{ tt('models.files.select_file') }} </span>
                     </Button>
                     <hr class="my-2" />
                 </template>
@@ -99,10 +99,9 @@
                 "
             >
                 <div v-if="canDeleteFolder" >
-                    <h1 class="text-xl">
-                        Kéo thả hoặc
-                        <a @click="browse" class="link">click vào đây</a> để chọn
-                        tệp
+                    <h1 v-if="canDeleteFolder" class="text-xl">
+                        {{ tt('models.files.drop') }}
+                        <a @click="browse" class="link">{{ tt('models.files.click_here').toLowerCase() }}</a> {{ tt('models.files.select_files').toLowerCase() }}
                     </h1>
                 </div>
                 <div v-if="canDeleteFolder" class="mt-6">
@@ -111,7 +110,7 @@
                         class="space-x-2 btn-outline-primary"
                     >
                         <carbon:subtract-alt />
-                        <span> Xóa Thư Mục </span>
+                        <span> {{ tt('models.files.delete_folder') }} </span>
                     </Button>
                 </div>
                 <div
@@ -172,9 +171,9 @@
             v-if="multiple && selectedFiles.length > 0"
             class="absolute bottom-0 left-0 right-0 flex items-center justify-center w-full h-16 space-x-2 bg-white border-t"
         >
-            <Button @click="selectedFiles = []"> Bỏ chọn </Button>
+            <Button @click="selectedFiles = []"> {{ tt('models.files.unchecked') }} </Button>
             <Button @click="submitFileSelect()">
-                Chọn ({{ selectedFiles.length }})
+                {{ tt('models.files.select') }} ({{ selectedFiles.length }})
             </Button>
         </div>
         <Dialog
@@ -191,14 +190,14 @@
                 v-model="folderForm.name"
                 :field="{
                     rules: 'required',
-                    label: 'Tên Folder',
+                    name: 'name',
                 }"
             />
             <template #footer>
                 <Button
                     variant="white"
                     @click="showFolderModal = false"
-                    label="Hủy"
+                    :label="tt('models.files.cancel')"
                 />
                 <Button
                     type="button"
@@ -207,7 +206,7 @@
                         createFolder(folderForm.name);
                         showFolderModal = false;
                     "
-                    label="Lưu"
+                    :label="tt('models.files.save')"
                 />
             </template>
         </Dialog>
@@ -392,7 +391,7 @@ export default {
                 const fileCheck = this.fileCheck(image);
                 if (!fileCheck.valid) {
                     alert(
-                        `Dung lượng file tối đa là ${fileCheck.maxSize}MB. Vui lòng thử lại.`
+                        this.tt('models.files.maximum_size') + ' ' + fileCheck.maxSize + this.tt('models.files.try_again')
                     );
                     this.$refs.file.value = "";
                     return false;
@@ -475,7 +474,7 @@ export default {
                 });
         },
         deleteFolder() {
-            if (confirm("Bạn chắc chắn xóa thư mục này!") == true) {
+            if (confirm(this.tt('models.files.confirm_delete')) == true) {
                 this.$axios
                     .post(
                     this.route("admin.files.folders.delete", {

@@ -22,7 +22,7 @@
                     field.type === 'richtext'
                 "
             >
-                {{ charCount }} ký tự, {{ wordCount }} từ
+                {{ charCount }} {{ tt('modes.field.characters') }}, {{ wordCount }} {{ tt('modes.field.from') }}
             </small>
         </label>
         <Input

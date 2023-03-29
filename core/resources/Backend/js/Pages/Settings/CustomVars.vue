@@ -2,7 +2,7 @@
     <WrapSetting>
         <Form v-model="formData" v-slot="{ form }" :config="{ canDestroy: false, addGrid: false }">
             <div class="card">
-                <div class="card-header">Danh sách</div>
+                <div class="card-header">{{ tt('models.setting.custom_vars_form.general_information') }}</div>
                 <div class="card-body">
                     <div class="space-y-4">
                         <div v-for="(item, index) in form.custom_vars" :key="index">
@@ -30,14 +30,14 @@
                                     v-model="item.is_public"
                                     :field="{
                                         type: 'checkbox',
-                                        label: 'Biến Public',
+                                        name: 'is_public',
                                     }"
                                 />
                             </div>
                         </div>
                     </div>
                     <div>
-                        <Button label="Thêm" variant="white" @click="
+                        <Button :label="tt('models.setting.custom_vars_form.add')" variant="white" @click="
                             this.formData.custom_vars.push({
                                 key: null,
                                 value: null,
@@ -66,7 +66,7 @@ export default {
     },
     methods: {
         confirmRemoveItem(index) {
-            if (confirm("Bạn có thực sự muốn xoá đối tượng này?")) {
+            if (confirm(this.tt('models.setting.custom_vars_form.confirm_delete'))) {
                 this.formData.custom_vars.splice(index, 1);
             }
         },

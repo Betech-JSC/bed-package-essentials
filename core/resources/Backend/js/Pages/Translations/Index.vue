@@ -1,6 +1,6 @@
 <template layout>
     <DataTable :value="items" responsiveLayout="scroll" :loading="loading">
-        <Column field="key" header="Mặc định">
+        <Column field="key" :header="tt('models.translations.default')">
             <template #body="{ data }">
                 <div>
                     <Image
@@ -13,7 +13,7 @@
                 </div>
             </template>
         </Column>
-        <Column field="translations" header="Bản dịch">
+        <Column field="translations" :header="tt('models.translations.translation')">
             <template #body="{ data }">
                 <table>
                     <template

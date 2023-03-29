@@ -6,7 +6,7 @@
             :config="{ canDestroy: false, addGrid: false }"
         >
             <div class="card">
-                <div class="card-header">Thông tin chung</div>
+                <div class="card-header">{{ tt('models.form.general_information') }}</div>
                 <div class="card-body">
                     <Field
                         v-model="form.robots_txt"
