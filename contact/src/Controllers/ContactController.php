@@ -12,10 +12,14 @@ use JamstackVietnam\Core\Traits\ApiResponse;
 class ContactController extends Controller
 {
     use ApiResponse;
+
     public $model = Contact::class;
 
     public function store(Request $request)
     {
+        if (!$request->has('contact.data')) {
+            return $this->empty();
+        }
         $data = $request->input('contact')['data'];
         $requestData = $request->all()['contact'];
         $requestData['type'] = $requestData['type'] ?? key(config('contact.types'));
