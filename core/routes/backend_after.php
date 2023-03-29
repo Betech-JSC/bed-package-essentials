@@ -48,6 +48,8 @@ Route::middleware(['auth:admin'])->name('admin.')->group(function () {
 
     Route::get('logs', [HelperController::class, 'getLogs'])->name('helper.logs');
     Route::get('reload-octane', [HelperController::class, 'reloadOctane'])->name('helper.reload-octane');
+
+    Route::post('set-locale', [HelperController::class, 'setSessionLocale'])->name('helper.set-locale');
 });
 
 require __DIR__ . '/auth.php';

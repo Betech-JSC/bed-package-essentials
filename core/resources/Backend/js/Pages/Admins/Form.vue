@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="card">
-            <div class="card-header">{{ tt('model.admin.set_password') }}</div>
+            <div class="card-header">{{ tt('models.admins.set_password') }}</div>
             <div class="card-body">
                 <div class="field-row">
                     <Field
