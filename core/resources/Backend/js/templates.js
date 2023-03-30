@@ -90,7 +90,7 @@ export default [
         title: "10. Template video youtube",
         description: "",
         content: `<div class="grid grid-cols-12 xl:gap-8 md:gap-[22px] my-[36px]">
-            <div class="col-span-full col-start-2 max-h-[500px]">
+            <div class="col-span-full max-h-[500px]">
             <iframe width="100%" height="100%" src="https://www.youtube.com/embed/NJMW2app0VI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
         </div>`,
