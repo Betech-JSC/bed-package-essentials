@@ -36,8 +36,8 @@ export default [
             '<section><div class="grid grid-cols-2 gap-x-[16px] xl:my-[48px] md:my-[34px] my-[24px]" ><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /></div><h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p></section>',
     },
     {
-        title: '7. Template 2 images',
-        description: '',
+        title: "7. Template 2 images",
+        description: "",
         content: `<div class="flex space-x-1 md:space-x-3 xl:space-x-6 my-[16px] md:my-[24px] xl:my-[32px]">
                     <div class="flex-1">
                         <img src="/static/720x400.png"
@@ -49,8 +49,8 @@ export default [
                 </div>`,
     },
     {
-        title: '8. Template 3 images',
-        description: '',
+        title: "8. Template 3 images",
+        description: "",
         content: `<div class="flex space-x-1 md:space-x-3 xl:space-x-6 my-[16px] md:my-[24px] xl:my-[32px]">
         <div class="flex-1">
             <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
@@ -61,6 +61,38 @@ export default [
         <div class="flex-1">
             <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
         </div>
-        </div>,`
-    }
+        </div>,`,
+    },
+    {
+        title: "9. Template 1 image 3 description",
+        description: "",
+        content: `<div class="grid md:grid-cols-2 grid-cols-1 xl:gap-8 md:gap-[22px] gap-4 items-center">
+            <div>
+                <img src="/static/720x400.png" style="width: 100%;height: 100% object-fit: contain;" />
+            </div>
+            <div class="space-y-10">
+                <div class="space-y-3">
+                    <h3 class="label-1 text-gray-warm-700">Lorem ipsum</h3>
+                    <p class="body-1 text-gray-warm-700">Lorem ipsum</p>
+                </div>
+                <div class="space-y-3">
+                    <h3 class="label-1 text-gray-warm-700">Lorem ipsum 2</h3>
+                    <p class="body-1 text-gray-warm-700">Lorem ipsum 2</p>
+                </div>
+                <div class="space-y-3">
+                    <h3 class="label-1 text-gray-warm-700">Lorem ipsum</h3>
+                    <p class="body-1 text-gray-warm-700">Lorem ipsum</p>
+                </div>
+            </div>
+        </div>`,
+    },
+    {
+        title: "10. Template video youtube",
+        description: "",
+        content: `<div class="grid grid-cols-12 xl:gap-x-8 md:gap-x-[22px]">
+            <div class="xl:col-span-10 col-span-full xl:col-start-2">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/NJMW2app0VI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>`,
+    },
 ];
