@@ -20,6 +20,10 @@ class OptionTranslation extends BaseModel
         'custom_fields',
     ];
 
+    protected $casts = [
+        'custom_fields' => 'array',
+    ];
+
     public function option()
     {
         return $this->belongsTo(Option::class);
