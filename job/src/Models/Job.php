@@ -366,14 +366,7 @@ class Job extends BaseModel
                 ->first();
 
             if (!empty($jobOption->id) && $jobOption->children) {
-                $options = explode(',', $value);
-
-                $ids = $jobOption->children
-                    ->where('status', JobOption::STATUS_ACTIVE)
-                    ->whereIn('slug', $options)
-                    ->values()
-                    ->pluck('id')
-                    ->toArray();
+                $ids = explode(',', $value);
 
                 $query->whereHas('options', function ($query) use ($ids) {
                     $query->whereIn('id', $ids);

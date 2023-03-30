@@ -21,7 +21,7 @@ class Project extends BaseModel
         self::STATUS_INACTIVE => 'Tắt',
     ];
 
-    public $with = ['translations'];
+    public $with = ['translations', 'categories'];
 
     public $fillable = [
         'position',
@@ -137,27 +137,29 @@ class Project extends BaseModel
                     ]);
                 }
             }
-        } else if (Route::has($default_locale . ".nested_projects.show")) {
-            $category = $this->categories
-                ->where('status', ProjectCategory::STATUS_ACTIVE)
-                ->values()
-                ->first();
+            else if (Route::has($default_locale . ".nested_projects.show")) {
+                $category = $this->categories
+                    ->where('status', ProjectCategory::STATUS_ACTIVE)
+                    ->values()
+                    ->first();
 
-            if ($category) {
-                foreach ($this->translations as $translation) {
-                    $categoryTranslation = $category->translations->where(function ($item) use ($translation, $default_locale) {
-                        return $item->locale === $translation->locale || $item->locale === $default_locale;
-                    })
-                        ->sortBy(fn ($item) => $item['locale'] === $translation->locale ? 0 : 1)
-                        ->first();
+                if ($category) {
+                    foreach ($this->translations as $translation) {
+                        $categoryTranslation = $category->translations->where(function ($item) use ($translation, $default_locale) {
+                            return $item->locale === $translation->locale || $item->locale === $default_locale;
+                        })
+                            ->sortBy(fn ($item) => $item['locale'] === $translation->locale ? 0 : 1)
+                            ->first();
 
-                    $urls[strtoupper($translation->locale)] = route("$translation->locale.nested_projects.show", [
-                        'nested' => $categoryTranslation->seo_slug ?? $categoryTranslation->slug,
-                        'slug' => $translation->seo_slug ?? $translation->slug,
-                    ]);
+                        $urls[strtoupper($translation->locale)] = route("$translation->locale.nested_projects.show", [
+                            'nested' => $categoryTranslation->seo_slug ?? $categoryTranslation->slug,
+                            'slug' => $translation->seo_slug ?? $translation->slug,
+                        ]);
+                    }
                 }
             }
         }
+
         return $urls;
     }
 
