@@ -355,13 +355,18 @@ class Job extends BaseModel
 
     public function scopeFilter(Builder $query, array $filters = []): Builder
     {
-        foreach($filters as $key => $value)
+
+        $optionFilters = collect($filters)->filter(function ($value, $key) {
+            return explode('-', $key)[0] == 'opt';
+        });
+
+        foreach($optionFilters as $key => $value)
         {
             $jobOption = JobOption::query()
                 ->active()
                 ->with('children')
                 ->whereHas('translations', function ($query) use ($key) {
-                    $query->where('slug', $key);
+                    $query->where('slug', str_replace('opt-', '', $key));
                 })
                 ->first();
 
