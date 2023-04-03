@@ -66,33 +66,33 @@ export default [
     {
         title: "9. Template 1 image 3 description",
         description: "",
-        content: `<div class="template-grid">
-            <div class="template-col--left">
-                <img src="/static/720x400.png" />
+        content: `<div class="grid lg:grid-cols-2 grid-cols-1 xl:gap-8 md:gap-[22px] gap-4 items-center">
+        <div>
+            <img src="/static/720x400.png" class="w-full h-full mb-0 object-contain" />
+        </div>
+        <div class="space-y-10">
+            <div class="space-y-3">
+                <h3 class="label-1 text-gray-warm-700">Lorem ipsum</h3>
+                <p class="body-1 text-gray-warm-700">Lorem ipsum</p>
             </div>
-            <div class="template-col--right">
-                <div class="template-item">
-                    <h3 class="label-1">Lorem ipsum</h3>
-                    <p class="body-1">Lorem ipsum</p>
-                </div>
-                <div class="template-item">
-                    <h3 class="label-1">Lorem ipsum 2</h3>
-                    <p class="body-1">Lorem ipsum 2</p>
-                </div>
-                <div class="template-item">
-                    <h3 class="label-1">Lorem ipsum</h3>
-                    <p class="body-1">Lorem ipsum</p>
-                </div>
+            <div class="space-y-3">
+                <h3 class="label-1 text-gray-warm-700">Lorem ipsum 2</h3>
+                <p class="body-1 text-gray-warm-700">Lorem ipsum 2</p>
             </div>
-        </div>`,
+            <div class="space-y-3">
+                <h3 class="label-1 text-gray-warm-700">Lorem ipsum</h3>
+                <p class="body-1 text-gray-warm-700">Lorem ipsum</p>
+            </div>
+        </div>
+    </div>`,
     },
     {
-        title: "10. Template video youtube",
+        title: "10. Template Youtube video",
         description: "",
-        content: `<div class="video-grid">
-            <div class="video-span">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/NJMW2app0VI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-        </div>`,
+        content: `<div class="grid grid-cols-12 xl:gap-8 md:gap-[22px]">
+        <div class="col-span-full xl:h-[500px] lg:h-[500px] md:h-[400px] h-[300px]">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/NpEaa2P7qZI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </div>`,
     },
 ];
