@@ -100,10 +100,10 @@ export default [
         description: "",
         content: `<div class="flex items-center space-x-6">
         <div class="flex-1">
-            <img src="/static/720x400.png" class="w-full h-full object-contain" />
+            <img src="/static/720x400.png" class="w-full h-full object-contain m-0" />
         </div>
         <div class="flex-1">
-            <img src="/static/720x400.png" class="w-full h-full object-contain" />
+            <img src="/static/720x400.png" class="w-full h-full object-contain m-0" />
         </div>
         </div>`,
     },
