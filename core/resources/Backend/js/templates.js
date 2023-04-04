@@ -87,16 +87,7 @@ export default [
     </div>`,
     },
     {
-        title: "10. Template Youtube video",
-        description: "",
-        content: `<div class="grid grid-cols-12 xl:gap-8 md:gap-[22px]">
-        <div class="xl:col-span-10 col-span-full xl:col-start-2 lg:h-[564px] md:h-[400px] h-[194px]">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/NpEaa2P7qZI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-    </div>`,
-    },
-    {
-        title: "11. Template 2 images on 1 row",
+        title: "10. Template 2 images on 1 row",
         description: "",
         content: `<div class="flex items-center space-x-6">
         <div class="flex-1">
