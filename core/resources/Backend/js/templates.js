@@ -95,4 +95,16 @@ export default [
         </div>
     </div>`,
     },
+    {
+        title: "11. Template 2 image on 1 row",
+        description: "",
+        content: `<div class="flex items-center space-x-6">
+        <div class="flex-1">
+            <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+        </div>
+        <div class="flex-1">
+            <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+        </div>
+        </div>`,
+    },
 ];
