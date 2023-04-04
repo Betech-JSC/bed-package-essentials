@@ -9,42 +9,42 @@ export default [
         title: "2. Images with heading and description",
         description: "",
         content:
-            '<section class="bg-white dark:bg-gray-900"><div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6"><div class="font-light text-gray-500 sm:text-lg dark:text-gray-400"><h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">We didn\'t reinvent the wheel</h2><p class="mb-4">We are strategists, designers and developers. Innovators and problem solvers. Small enough to be simple and quick, but big enough to deliver the scope you want at the pace you need. Small enough to be simple and quick, but big enough to deliver the scope you want at the pace you need.</p><p>We are strategists, designers and developers. Innovators and problem solvers. Small enough to be simple and quick.</p></div><div class="grid grid-cols-2 gap-4 mt-8"><img class="w-full rounded-lg" src="/static/720x400.png" alt="office content 1"><img class="mt-4 w-full lg:mt-10 rounded-lg" src="/static/720x400.png" alt="office content 2"></div></div></section>',
+            '<section class="bg-white dark:bg-gray-900"><div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6"><div class="font-light text-gray-500 sm:text-lg dark:text-gray-400"><h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">We didn\'t reinvent the wheel</h2><p class="mb-4">We are strategists, designers and developers. Innovators and problem solvers. Small enough to be simple and quick, but big enough to deliver the scope you want at the pace you need. Small enough to be simple and quick, but big enough to deliver the scope you want at the pace you need.</p><p>We are strategists, designers and developers. Innovators and problem solvers. Small enough to be simple and quick.</p></div><div class="grid grid-cols-2 gap-4 mt-8"><img class="w-full rounded-lg" src="https://via.placeholder.com/600x400.png" alt="office content 1"><img class="mt-4 w-full lg:mt-10 rounded-lg" src="https://via.placeholder.com/600x400.png" alt="office content 2"></div></div></section>',
     },
     {
         title: "3. 4 photos, full screen",
         description: "",
         content:
-            '<section><div class="grid grid-cols-2 gap-[16px] xl:my-[48px] md:my-[34px] my-[24px]" ><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /></div></section>',
+            '<section><div class="grid grid-cols-2 gap-[16px] xl:my-[48px] md:my-[34px] my-[24px]" ><img src="https://via.placeholder.com/300x200.png" class="w-full h-auto" alt="Cover" /><img src="https://via.placeholder.com/300x200.png" class="w-full h-auto" alt="Cover" /><img src="https://via.placeholder.com/300x200.png" class="w-full h-auto" alt="Cover" /><img src="https://via.placeholder.com/300x200.png" class="w-full h-auto" alt="Cover" /></div></section>',
     },
     {
         title: "4. Images with description",
         description: "",
         content:
-            '<section><img src="/static/720x400.png" class="w-full h-auto xl:mb-[16px] md:mb-[12px] mb-[8px]" alt="Cover" /><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</h4></section>',
+            '<section><img src="https://via.placeholder.com/1280x400.png" class="w-full h-auto xl:mb-[16px] md:mb-[12px] mb-[8px]" alt="Cover" /><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</h4></section>',
     },
     {
         title: "5. 3 photos with heading and description",
         description: "",
         content:
-            '<section><h3>Lorem ipsum dolor sit amet</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p><div class="grid grid-cols-3 gap-x-[16px] xl:my-[48px] md:my-[34px] my-[24px]" ><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /><img src="/static/720x400.png" class="w-full h-auto" alt="Cover"  /></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p></section>',
+            '<section><h3>Lorem ipsum dolor sit amet</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p><div class="grid grid-cols-3 gap-x-[16px] xl:my-[48px] md:my-[34px] my-[24px]" ><img src="https://via.placeholder.com/400x400.png" class="w-full h-auto" alt="Cover" /><img src="https://via.placeholder.com/400x400.png" class="w-full h-auto" alt="Cover" /><img src="https://via.placeholder.com/400x400.png" class="w-full h-auto" alt="Cover"  /></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p></section>',
     },
     {
         title: "6. 2 photos with description",
         description: "",
         content:
-            '<section><div class="grid grid-cols-2 gap-x-[16px] xl:my-[48px] md:my-[34px] my-[24px]" ><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /><img src="/static/720x400.png" class="w-full h-auto" alt="Cover" /></div><h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p></section>',
+            '<section><div class="grid grid-cols-2 gap-x-[16px] xl:my-[48px] md:my-[34px] my-[24px]" ><img src="https://via.placeholder.com/720x400.png" class="w-full h-auto" alt="Cover" /><img src="https://via.placeholder.com/720x400.png" class="w-full h-auto" alt="Cover" /></div><h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p></section>',
     },
     {
         title: "7. Template 2 images",
         description: "",
         content: `<div class="flex space-x-1 md:space-x-3 xl:space-x-6 my-[16px] md:my-[24px] xl:my-[32px]">
                     <div class="flex-1">
-                        <img src="/static/720x400.png"
-                        style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+                        <img src="https://via.placeholder.com/1280x400.png"
+                        class="w-full h-full object-contain m-0" />
                     </div>
                     <div class="flex-1">
-                        <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+                        <img src="https://via.placeholder.com/1280x400.png" class="w-full h-full object-contain m-0" />
                     </div>
                 </div>`,
     },
@@ -53,13 +53,13 @@ export default [
         description: "",
         content: `<div class="flex space-x-1 md:space-x-3 xl:space-x-6 my-[16px] md:my-[24px] xl:my-[32px]">
         <div class="flex-1">
-            <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+            <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-contain m-0" />
         </div>
         <div class="flex-1">
-            <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+            <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-contain m-0" />
         </div>
         <div class="flex-1">
-            <img src="/static/720x400.png" style="margin:0px;width: 100%;height: 100%;object-fit: contain;" />
+            <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-contain m-0" />
         </div>
         </div>,`,
     },
@@ -68,7 +68,7 @@ export default [
         description: "",
         content: `<div class="grid lg:grid-cols-2 grid-cols-1 xl:gap-8 md:gap-[22px] gap-4 items-center">
         <div>
-            <img src="/static/720x400.png" class="w-full h-full mb-0 object-contain" />
+            <img src="https://via.placeholder.com/720x400.png" class="w-full h-full mb-0 object-contain" />
         </div>
         <div class="space-y-10">
             <div class="space-y-3">
@@ -87,12 +87,15 @@ export default [
     </div>`,
     },
     {
-        title: "10. Template Youtube video",
+        title: "10. Template 2 images on 1 row",
         description: "",
-        content: `<div class="grid grid-cols-12 xl:gap-8 md:gap-[22px]">
-        <div class="xl:col-span-10 col-span-full xl:col-start-2 lg:h-[564px] md:h-[400px] h-[194px]">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/NpEaa2P7qZI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        content: `<div class="flex items-center space-x-6">
+        <div class="flex-1">
+            <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-contain m-0" />
         </div>
-    </div>`,
+        <div class="flex-1">
+            <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-contain m-0" />
+        </div>
+        </div>`,
     },
 ];
