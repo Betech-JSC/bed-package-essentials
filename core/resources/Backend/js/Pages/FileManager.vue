@@ -1,4 +1,5 @@
 <template>
+    <Head :title="tt('models.titles.file')" />
     <FileManager :show="true" :selectable="false" />
 </template>
 
