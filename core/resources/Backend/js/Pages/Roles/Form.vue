@@ -1,4 +1,5 @@
 <template layout>
+    <Head :title="tt('models.titles.role')" />
     <div class="lg:p-6">
         <Form v-model="formData" v-slot="{ form }" :config="{ addGrid: false }">
             <div class="card">

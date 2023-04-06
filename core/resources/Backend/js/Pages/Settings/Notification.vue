@@ -1,4 +1,5 @@
 <template layout>
+    <Head :title="tt('models.titles.setting')" />
     <WrapSetting>
         <Form
             v-model="formData"

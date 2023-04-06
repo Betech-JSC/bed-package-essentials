@@ -1,4 +1,5 @@
 <template layout>
+    <Head :title="tt('models.titles.admin')" />
     <Form v-model="formData" v-slot="{ form }">
         <div class="card">
             <div class="card-header">{{ tt('models.form.general_information') }}</div>

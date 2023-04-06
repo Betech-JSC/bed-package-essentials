@@ -1,4 +1,5 @@
 <template layout>
+    <Head :title="tt('models.titles.translation')" />
     <DataTable :value="items" responsiveLayout="scroll" :loading="loading">
         <Column field="key" :header="tt('models.translations.default')">
             <template #body="{ data }">
