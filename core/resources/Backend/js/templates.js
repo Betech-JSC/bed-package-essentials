@@ -83,6 +83,10 @@ export default [
                 <h3 class="label-1 text-gray-warm-700">Lorem ipsum</h3>
                 <p class="body-1 text-gray-warm-700">Lorem ipsum</p>
             </div>
+            <div class="space-y-3">
+                <h3 class="label-1 text-gray-warm-700">Lorem ipsum</h3>
+                <p class="body-1 text-gray-warm-700">Lorem ipsum</p>
+            </div>
         </div>
     </div>`,
     },
