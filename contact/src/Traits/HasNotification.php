@@ -19,7 +19,9 @@ trait HasNotification
 
                 $data = array_merge($data, $model->data);
 
-                $data['reverse'] = route('admin.contacts.reverse', ['id' => $model->id]);
+                $route = config('contact.types.' . $model->type . '.route');
+
+                $data['url'] = route(current_locale() . '.admin.' . $route . '.form', [ 'id' => $model->id ]);
 
                 foreach($emails as $email)
                 {
