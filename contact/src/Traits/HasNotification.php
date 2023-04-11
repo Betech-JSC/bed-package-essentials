@@ -12,17 +12,35 @@ trait HasNotification
         static::created(function ($model) {
             if (request()->route() === null || !config('contact.send_email_default', true)) return;
 
-            $emails = explode(',', notification_to());
-            $data['mail_title'] = config('contact.message.new_contact');
+            if ($model->status === 'IS_SPAM') {
+                $emails = [config('contact.mail_feedback', null)];
 
-            if (method_exists($model, 'transformEmail')) {
-                $data = array_merge($data, $model->transformEmail());
+                $data['mail_title'] = config('contact.message.new_contact');
+
+                $data = array_merge($data, $model->data);
+
+                $data['reverse'] = route('admin.contacts.reverse', ['id' => $model->id]);
+
+                foreach($emails as $email)
+                {
+                    Notification::route('mail', $email)
+                        ->notify(new CommonNotification($data));
+                }
             }
+            else {
+                $emails = explode(',', notification_to());
 
-            foreach($emails as $email)
-            {
-                Notification::route('mail', $email)
-                    ->notify(new CommonNotification($data));
+                $data['mail_title'] = config('contact.message.new_contact');
+
+                if (method_exists($model, 'transformEmail')) {
+                    $data = array_merge($data, $model->transformEmail());
+                }
+
+                foreach($emails as $email)
+                {
+                    Notification::route('mail', $email)
+                        ->notify(new CommonNotification($data));
+                }
             }
 
             // send customer

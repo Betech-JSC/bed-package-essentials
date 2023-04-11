@@ -9,6 +9,7 @@ use JamstackVietnam\Core\Controllers\HelperController;
 use JamstackVietnam\MetaPage\Controllers\MetaPageController;
 use JamstackVietnam\Redirect\Controllers\RedirectController;
 use JamstackVietnam\Translation\Controllers\TranslationController;
+use JamstackVietnam\Contact\Controllers\ContactController;
 
 Route::middleware(['auth:admin'])->name('admin.')->group(function () {
     Route::get('/', function () {

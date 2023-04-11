@@ -50,5 +50,20 @@ class ContactController extends Controller
 
         return $this->success($contact);
     }
+
+    public function reverse($id)
+    {
+        $contact = Contact::find($id);
+
+        if (empty($contact->id)) {
+            return $this->failure('Empty');
+        }
+
+        $contact->status = Contact::STATUS_NEW;
+        $contact->deleted_at = null;
+        $contact->save();
+
+        return $this->success($contact);
+    }
 }
 

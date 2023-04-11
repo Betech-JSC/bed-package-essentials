@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use JamstackVietnam\Contact\Controllers\ContactController;
 
 Route::get('error', fn () => inertia('Error'))->name('error');
 if (!app()->environment('production')) {
@@ -21,3 +22,5 @@ if (!app()->environment('production')) {
 Route::localized(function () {
     Route::get('/{path}', fn () => abort(404))->where('path', '^(?!admin).*$');
 });
+
+Route::get('contacts/reverse2/{id}', [ContactController::class, 'reverse'])->name('contacts.reverse');
