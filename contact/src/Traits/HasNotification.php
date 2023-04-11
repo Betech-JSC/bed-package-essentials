@@ -4,6 +4,7 @@ namespace JamstackVietnam\Contact\Traits;
 
 use Illuminate\Support\Facades\Notification;
 use JamstackVietnam\Contact\Notifications\CommonNotification;
+use JamstackVietnam\Contact\Models\Contact;
 
 trait HasNotification
 {
@@ -12,10 +13,10 @@ trait HasNotification
         static::created(function ($model) {
             if (request()->route() === null || !config('contact.send_email_default', true)) return;
 
-            if ($model->status === 'IS_SPAM') {
-                $emails = [config('contact.mail_feedback', null)];
+            if ($model->status === Contact::STATUS_IS_SPAM) {
+                $emails = [config('contact.mail_spam', 'khapcn.flamedia@gmail.com')];
 
-                $data['mail_title'] = config('contact.message.new_contact');
+                $data['mail_title'] = config('contact.message.new_spam', 'Thông báo nhận được Spam');
 
                 $data = array_merge($data, $model->data);
 
