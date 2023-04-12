@@ -56,13 +56,13 @@ export default [
         content: `<p></p>
         <div class="flex space-x-1 md:space-x-3 xl:space-x-6 my-[16px] md:my-[24px] xl:my-[32px]">
         <div class="flex-1">
-            <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-contain my-0" />
+            <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-contain !my-0" />
         </div>
         <div class="flex-1">
-            <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-contain my-0" />
+            <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-contain !my-0" />
         </div>
         <div class="flex-1">
-            <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-contain my-0" />
+            <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-contain !my-0" />
         </div>
         </div>
         <p></p>`,
