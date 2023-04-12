@@ -249,25 +249,31 @@ class File
         $cacheFilename = $pathinfo['filename'] . '_' . $newFilename . '.' . $options['fm'];
         $cacheFullPath = $cacheFolder . '/' . $cacheFilename;
 
-        if (!$this->publicStorage->exists($cacheFolder)) {
-            $this->publicStorage->makeDirectory($cacheFolder);
-        }
-
         if (!$this->publicStorage->exists($cacheFullPath)) {
-            $this->processImageInBackground($this->path, $cacheFullPath, $options);
-        }
+            // Create cache folder if it doesn't exist
+            $this->publicStorage->makeDirectory($cacheFolder, 0755, true);
 
-        $imageData = $this->publicStorage->get($cacheFullPath);
+            $imagePath = $this->storage->path($this->path);
 
-        return response()
-            ->make($imageData, 200)
-            ->header('Content-Type', 'image/webp');
-    }
+            // Check if the image has been modified
+            $lastModified = filemtime($imagePath);
+            $etag = md5_file($imagePath);
+            $headers = [
+                'Last-Modified' => gmdate('D, d M Y H:i:s', $lastModified) . ' GMT',
+                'ETag' => $etag,
+            ];
+            if (request()->headers->has('If-Modified-Since') &&
+                strtotime(request()->headers->get('If-Modified-Since')) >= $lastModified
+            ) {
+                return response()->make('', 304, $headers);
+            }
+            if (request()->headers->has('If-None-Match') &&
+                request()->headers->get('If-None-Match') == $etag
+            ) {
+                return response()->make('', 304, $headers);
+            }
 
-    protected function processImageInBackground($sourcePath, $cacheFullPath, $options)
-    {
-        dispatch(function () use ($sourcePath, $cacheFullPath, $options) {
-            $image = Image::make($this->storage->path($sourcePath));
+            $image = Image::make($imagePath);
 
             if (isset($options['w'])) {
                 $image->resize($options['w'], null, function ($constraint) {
@@ -275,11 +281,31 @@ class File
                 });
             }
 
-            $imageData = $image->encode($options['fm'])->getEncoded();
+            $image
+                ->encode($options['fm'])
+                ->save($this->publicStorage->path($cacheFullPath));
 
-            $this->publicStorage->put($cacheFullPath, $imageData);
-        });
+            // Set caching headers
+            $headers = [
+                'Content-Type' => 'image/' . $options['fm'],
+                'Cache-Control' => 'max-age=86400',
+                'Last-Modified' => gmdate('D, d M Y H:i:s', $lastModified) . ' GMT',
+                'ETag' => $etag,
+            ];
+        } else {
+            // Set caching headers
+            $headers = [
+                'Content-Type' => 'image/' . $options['fm'],
+                'Cache-Control' => 'max-age=86400',
+            ];
+        }
+
+        $imageData = $this->publicStorage->get($cacheFullPath);
+
+        return response()
+            ->make($imageData, 200, $headers);
     }
+
 
     protected function responseDefault()
     {
