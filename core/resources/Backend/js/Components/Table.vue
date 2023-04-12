@@ -127,7 +127,7 @@
                     <Image
                         v-if="isImageCell(data, column)"
                         :src="staticUrl(data[column.field]?.path)"
-                        width="80"
+                        imageClass="h-[80px] w-[80px] object-contain"
                         preview
                     />
                     <Link
