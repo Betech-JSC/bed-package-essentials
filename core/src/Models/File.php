@@ -238,7 +238,6 @@ class File
     {
         return VideoStreamer::streamFile($this->getFullPath());
     }
-
     protected function responseImage($options)
     {
         $pathinfo = pathinfo($this->path);
@@ -250,20 +249,12 @@ class File
         $cacheFilename = $pathinfo['filename'] . '_' . $newFilename . '.' . $options['fm'];
         $cacheFullPath = $cacheFolder . '/' . $cacheFilename;
 
-        if (!$this->publicStorage->exists($cacheFullPath)) {
+        if (!$this->publicStorage->exists($cacheFolder)) {
             $this->publicStorage->makeDirectory($cacheFolder);
+        }
 
-            $image = Image::make($this->storage->path($this->path));
-
-            if (isset($options['w'])) {
-                $image->resize($options['w'], null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-            }
-
-            $image
-                ->encode($options['fm'])
-                ->save($this->publicStorage->path($cacheFullPath));
+        if (!$this->publicStorage->exists($cacheFullPath)) {
+            $this->processImageInBackground($this->path, $cacheFullPath, $options);
         }
 
         $imageData = $this->publicStorage->get($cacheFullPath);
@@ -271,6 +262,23 @@ class File
         return response()
             ->make($imageData, 200)
             ->header('Content-Type', 'image/webp');
+    }
+
+    protected function processImageInBackground($sourcePath, $cacheFullPath, $options)
+    {
+        dispatch(function () use ($sourcePath, $cacheFullPath, $options) {
+            $image = Image::make($this->storage->path($sourcePath));
+
+            if (isset($options['w'])) {
+                $image->resize($options['w'], null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
+
+            $imageData = $image->encode($options['fm'])->getEncoded();
+
+            $this->publicStorage->put($cacheFullPath, $imageData);
+        });
     }
 
     protected function responseDefault()
