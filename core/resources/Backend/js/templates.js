@@ -70,7 +70,7 @@ export default [
     {
         title: "9. Template 1 image 4 description",
         description: "",
-        content: `<p></p><div class="mceTmpl"><div class="grid lg:grid-cols-2 grid-cols-1 xl:gap-8 md:gap-[22px] gap-4 items-center">
+        content: `<p></p><div class="grid lg:grid-cols-2 grid-cols-1 xl:gap-8 md:gap-[22px] gap-4 items-center">
         <div>
             <img src="https://via.placeholder.com/720x400.png" class="w-full h-full mb-0 object-contain" />
         </div>
@@ -92,7 +92,6 @@ export default [
                 <p class="body-1 text-gray-warm-700">Lorem ipsum</p>
             </div>
         </div>
-    </div>
     </div>
     <p></p>`,
     },
