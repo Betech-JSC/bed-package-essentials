@@ -182,16 +182,19 @@ trait HasCrudActions
         $validated = $request->validate($rules);
 
         if ($is_update = !empty($id)) {
-            $resource = $this->model::query();
-
-            if (!is_null($resource->getMacro('withTrashed'))) {
-                $resource = $resource->withTrashed();
-            }
-
-            $resource = $resource->findOrFail($id);
-            $resource->update($request->all());
+            $resource = $this->updateModel($id, $request->all());
         } else {
-            $resource = $this->model::create($request->all());
+            $data = $request->all();
+            $defaultLocale = config('app.locale');
+            if ($defaultLocale !=  current_locale() && $request->has('locale')) {
+                $data['locale'] = $defaultLocale;
+                $default = $this->model::create($data);
+
+                $data['locale'] = current_locale();
+                $resource = $this->updateModel($default->id, $data);
+            } else {
+                $resource = $this->model::create($data);
+            }
         }
 
         $this->afterStore($request, $resource);
@@ -445,5 +448,19 @@ trait HasCrudActions
         if (!current_admin()->hasPermissionTo($routeName)) {
             return abort(403);
         }
+    }
+
+    public function updateModel($id, $data)
+    {
+        $resource = $this->model::query();
+
+        if (!is_null($resource->getMacro('withTrashed'))) {
+            $resource = $resource->withTrashed();
+        }
+
+        $resource = $resource->findOrFail($id);
+        $resource->update($data);
+
+        return $resource;
     }
 }
