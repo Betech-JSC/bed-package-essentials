@@ -7,14 +7,12 @@ use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\Storage;
 use Iman\Streamer\VideoStreamer;
-use Image;
 
-class File
+class FileBackup
 {
     protected $path;
     protected $disk;
     protected $storage;
-    protected $publicStorage;
     protected $contents;
 
     public const MAX_SIZE_LIST = [
@@ -29,7 +27,6 @@ class File
         $this->path = $path;
         $this->disk = $disk ?? 'uploads';
         $this->storage = Storage::disk($this->disk);
-        $this->publicStorage = Storage::disk('public');
     }
 
     public function items()
@@ -120,19 +117,33 @@ class File
     public function findOrFail($options = [])
     {
         try {
-            if ($this->isVideo()) {
-                return $this->responseStreamingVideo();
+            if (str_contains($this->path, '.mp4') && request()->input('stream') !== 'false') {
+                return VideoStreamer::streamFile($this->storage->path($this->path));
             }
 
-            if ($this->isPdf()) {
-                return $this->responsePdf($options);
+            $fileData = $this->storage->get($this->path);
+            $filePath = $this->storage->path($this->path);
+            $mimeType = $this->storage->mimeType($this->path);
+
+            if (str_contains($this->path, '.mp4')) {
+                $size = $this->storage->size($this->path);
+
+                return response()->make($fileData, 200)
+                    ->header('Accept-Ranges', 'bytes')
+                    ->header('Content-Length', $size)
+                    ->header('Content-Type', $mimeType);
             }
 
-            if ($this->isImage()) {
-                return $this->responseImage($options);
+            if (
+                str_contains($this->path, '.pdf') &&
+                isset($options['download'])
+            ) {
+                return response()
+                    ->download($filePath, basename($filePath));
             }
 
-            return $this->responseDefault();
+            return response()->make($fileData, 200)
+                ->header('Content-Type', $mimeType);
         } catch (\Exception $exception) {
             logger()->error($exception->getMessage());
 
@@ -224,96 +235,13 @@ class File
         return (bool) $this->storage->makeDirectory($pathName);
     }
 
-    protected function responsePdf(): bool
+    public function folderDelete()
     {
-        $filePath = $this->getFullPath();
-        if (isset($options['download'])) {
-            return response()->download($filePath, basename($filePath));
+        if (collect($this->storage->listContents($this->path))->count() > 0) {
+            return false;
         }
 
-        return $this->responseDefault();
-    }
-
-    protected function responseStreamingVideo(): bool
-    {
-        return VideoStreamer::streamFile($this->getFullPath());
-    }
-
-    protected function responseImage($options)
-    {
-        $pathinfo = pathinfo($this->path);
-        $options = array_merge(['fm' => 'webp'], $options);
-
-        $newFilename = implode('_', $options);
-
-        $cacheFolder = 'cache/' . $pathinfo['dirname'] . '/' . str_replace('.', '_', $pathinfo['basename']);
-        $cacheFilename = $pathinfo['filename'] . '_' . $newFilename . '.' . $options['fm'];
-        $cacheFullPath = $cacheFolder . '/' . $cacheFilename;
-
-        if (!$this->publicStorage->exists($cacheFullPath)) {
-            $this->publicStorage->makeDirectory($cacheFolder);
-
-            $image = Image::make($this->storage->path($this->path));
-
-            if (isset($options['w'])) {
-                $image->resize($options['w'], null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-            }
-
-            $image
-                ->encode($options['fm'])
-                ->save($this->publicStorage->path($cacheFullPath));
-        }
-
-        $imageData = $this->publicStorage->get($cacheFullPath);
-
-        return response()
-            ->make($imageData, 200)
-            ->header('Content-Type', 'image/webp');
-    }
-
-    protected function responseDefault()
-    {
-        return response()
-            ->make($this->getFileData(), 200)
-            ->header('Content-Type', $this->getMimeType());
-    }
-
-    protected function getFullPath(): string
-    {
-        return $this->storage->path($this->path);
-    }
-
-    protected function getFileData(): string
-    {
-        return $this->storage->get($this->path);
-    }
-
-    protected function getSize(): string
-    {
-        return $this->storage->size($this->path);
-    }
-
-    protected function getMimeType(): string
-    {
-        return $this->storage->mimeType($this->path);
-    }
-
-    protected function isPdf(): bool
-    {
-        return str_contains($this->path, '.pdf');
-    }
-
-    protected function isImage(): bool
-    {
-        $mimeType = $this->getMimeType();
-        return str_contains($mimeType, 'image/') && $mimeType !== 'image/heic';
-    }
-
-    protected function isVideo(): bool
-    {
-        return str_contains($this->path, '.mp4');
+        return (bool) $this->storage->deleteDirectory($this->path);
     }
 
     private function formatBytes($size)
