@@ -282,7 +282,7 @@ class File
             }
 
             $image
-                ->encode($options['fm'])
+                ->encode($options['fm'], 100)
                 ->save($this->publicStorage->path($cacheFullPath));
 
             // Set caching headers
