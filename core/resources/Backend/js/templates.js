@@ -64,7 +64,7 @@ export default [
         </div>,`,
     },
     {
-        title: "9. Template 1 image 3 description",
+        title: "9. Template 1 image 4 description",
         description: "",
         content: `<div class="grid lg:grid-cols-2 grid-cols-1 xl:gap-8 md:gap-[22px] gap-4 items-center">
         <div>
