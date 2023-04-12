@@ -186,7 +186,7 @@ trait HasCrudActions
         } else {
             $data = $request->all();
             $defaultLocale = config('app.locale');
-            if ($defaultLocale !=  current_locale() && $request->has('locale')) {
+            if ($defaultLocale != current_locale() && $request->has('locale')) {
                 $data['locale'] = $defaultLocale;
                 $default = $this->model::create($data);
 
