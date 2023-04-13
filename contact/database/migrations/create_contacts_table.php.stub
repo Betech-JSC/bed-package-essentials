@@ -26,6 +26,7 @@ class CreateContactsTable extends Migration
             $table->string('request_url')->nullable();
 
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

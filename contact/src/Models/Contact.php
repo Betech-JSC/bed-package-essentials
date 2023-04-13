@@ -83,6 +83,10 @@ class Contact extends BaseModel
             $model->user_agent = $model->setUserAgent();
             $model->request_url = $model->setRequestUrl();
             $model->status = $model->setStatus();
+
+            if ($model->status == self::STATUS_IS_SPAM) {
+                $model->deleted_at = now();
+            }
         });
     }
 
