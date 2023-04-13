@@ -23,12 +23,14 @@
                     }"
                 >
                     <div
+                        v-if="element.nodes.length > 0"
                         @click="onClickIcon(element)"
                         class="p-1 rounded-sm hover:bg-gray-200"
                     >
                         <ph:caret-right-fill v-if="!elementIsActive(element)" />
                         <ph:caret-down-fill v-else />
                     </div>
+                    <div v-else class="ml-[32px]"></div>
                     <label
                         class="flex-1 py-2"
                         @click="onClickName($event.target, element)"
