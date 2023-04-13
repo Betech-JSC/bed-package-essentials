@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\Validator;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Contact\Traits\HasNotification;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contact extends BaseModel
 {
     use HasFactory;
     use Searchable;
     use HasNotification;
+    use SoftDeletes;
 
     const STATUS_NEW = 'NEW';
     const STATUS_RESPONSE = 'RESPONSE';
