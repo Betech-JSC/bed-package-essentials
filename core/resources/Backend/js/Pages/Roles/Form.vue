@@ -57,7 +57,7 @@
                         <th>
                             <div>{{ tt('models.roles.restore') }}</div>
                             <div
-                                @click="toggle('store')"
+                                @click="toggle('restore')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
                                 {{ tt('models.roles.select_all') }}
