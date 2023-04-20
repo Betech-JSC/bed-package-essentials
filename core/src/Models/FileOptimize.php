@@ -224,7 +224,7 @@ class FileOptimize
         return (bool) $this->storage->makeDirectory($pathName);
     }
 
-    protected function responsePdf(): bool
+    protected function responsePdf()
     {
         $filePath = $this->getFullPath();
         if (isset($options['download'])) {
