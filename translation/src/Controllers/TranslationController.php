@@ -54,8 +54,7 @@ class TranslationController extends Controller
         if (!empty($item->id)) {
             $item->value = $data['value'];
             $item->save();
-        }
-        else {
+        } else {
             $item = Translation::create($data);
         }
 
