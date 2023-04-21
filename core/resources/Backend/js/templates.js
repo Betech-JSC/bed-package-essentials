@@ -108,4 +108,21 @@ export default [
         </div>
         <p class="hidden"></p>`,
     },
+    {
+        title: "11. Template 2 images on 1 row with fixed ratio",
+        description: "",
+        content: `<p class="hidden"></p><div class="flex items-center space-x-6">
+        <div class="flex-1">
+            <div class="aspect-w-3 aspect-h-2">
+                <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-cover my-0" />
+            </div>
+        </div>
+        <div class="flex-1">
+            <div class="aspect-w-3 aspect-h-2">
+                <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-cover my-0" />
+            </div>
+        </div>
+        </div>
+        <p class="hidden"></p>`,
+    },
 ];
