@@ -128,7 +128,7 @@ class File
                 return $this->responsePdf($options);
             }
 
-            if ($this->isImage() && !$this->isSvg()) {
+            if ($this->isImage()) {
                 return $this->responseImage($options);
             }
 
@@ -340,15 +340,10 @@ class File
         return str_contains($this->path, '.pdf');
     }
 
-    protected function isSvg(): bool
-    {
-        return str_contains($this->path, '.svg');
-    }
-
     protected function isImage(): bool
     {
         $mimeType = $this->getMimeType();
-        return str_contains($mimeType, 'image/') && $mimeType !== 'image/heic';
+        return str_contains($mimeType, 'image/') && $mimeType !== 'image/heic' && !str_contains($this->path, '.svg');
     }
 
     protected function isVideo(): bool
