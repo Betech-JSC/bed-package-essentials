@@ -238,6 +238,7 @@ class File
     {
         return VideoStreamer::streamFile($this->getFullPath());
     }
+
     protected function responseImage($options)
     {
         $pathinfo = pathinfo($this->path);
@@ -342,7 +343,7 @@ class File
     protected function isImage(): bool
     {
         $mimeType = $this->getMimeType();
-        return str_contains($mimeType, 'image/') && $mimeType !== 'image/heic';
+        return str_contains($mimeType, 'image/') && $mimeType !== 'image/heic' && !str_contains($this->path, '.svg') && !str_contains($this->path, '.gif');
     }
 
     protected function isVideo(): bool
