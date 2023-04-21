@@ -111,7 +111,7 @@ export default [
     {
         title: "11. Template 2 images on 1 row with fixed ratio",
         description: "",
-        content: `<p class="hidden"></p><div class="flex items-center space-x-6">
+        content: `<p class="hidden"></p><div class="flex space-x-6">
         <div class="flex-1">
             <div class="aspect-w-3 aspect-h-2">
                 <img src="https://via.placeholder.com/600x400.png" class="w-full h-full object-cover my-0" />
