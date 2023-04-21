@@ -343,7 +343,7 @@ class File
     protected function isImage(): bool
     {
         $mimeType = $this->getMimeType();
-        return str_contains($mimeType, 'image/') && $mimeType !== 'image/heic' && !str_contains($this->path, '.svg');
+        return str_contains($mimeType, 'image/') && $mimeType !== 'image/heic' && !str_contains($this->path, '.svg') && !str_contains($this->path, '.gif');
     }
 
     protected function isVideo(): bool
