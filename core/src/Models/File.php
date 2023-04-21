@@ -128,7 +128,7 @@ class File
                 return $this->responsePdf($options);
             }
 
-            if ($this->isImage()) {
+            if ($this->isImage() && !$this->isSvg()) {
                 return $this->responseImage($options);
             }
 
@@ -238,6 +238,7 @@ class File
     {
         return VideoStreamer::streamFile($this->getFullPath());
     }
+
     protected function responseImage($options)
     {
         $pathinfo = pathinfo($this->path);
@@ -337,6 +338,11 @@ class File
     protected function isPdf(): bool
     {
         return str_contains($this->path, '.pdf');
+    }
+
+    protected function isSvg(): bool
+    {
+        return str_contains($this->path, '.svg');
     }
 
     protected function isImage(): bool
