@@ -45,10 +45,19 @@ class TranslationController extends Controller
 
     public function store(Request $request)
     {
-        $item = Translation::updateOrCreate(
-            $request->only('key', 'locale'),
-            $request->only('value'),
-        );
+        $data = $request->only('key', 'locale', 'value');
+
+        $item = Translation::where('locale', $data['locale'])
+            ->whereRaw('BINARY `key` = ?', [$data['key']])
+            ->first();
+
+        if (!empty($item->id)) {
+            $item->value = $data['value'];
+            $item->save();
+        }
+        else {
+            $item = Translation::create($data);
+        }
 
         $this->storeToJson();
         $this->buildFrontendAssets();
