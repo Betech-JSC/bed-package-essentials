@@ -224,6 +224,15 @@ class File
         return (bool) $this->storage->makeDirectory($pathName);
     }
 
+    public function folderDelete()
+    {
+        if (collect($this->storage->listContents($this->path))->count() > 0) {
+            return false;
+        }
+
+        return (bool) $this->storage->deleteDirectory($this->path);
+    }
+
     protected function responsePdf()
     {
         $filePath = $this->getFullPath();
