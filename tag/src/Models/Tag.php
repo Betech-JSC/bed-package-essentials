@@ -52,6 +52,7 @@ class Tag extends BaseModel
         'title',
         'slug',
         'description',
+        'image',
 
         'seo_meta_title',
         'seo_slug',
@@ -126,6 +127,7 @@ class Tag extends BaseModel
             'text_color' => $this->text_color,
             'background_color' => $this->background_color,
             'type' => $this->type,
+            'image' => $this->getImageDetail($this->image),
             'url' => $this->current_url
         ];
     }
@@ -141,7 +143,16 @@ class Tag extends BaseModel
             'background_color' => $this->background_color,
             'type' => $this->type,
             'description' => $this->description,
+            'image' => $this->getImageDetail($this->image),
             'url' => $this->current_url
+        ];
+    }
+
+    public function getImageDetail($image)
+    {
+        return [
+            'url' => isset($image['path']) ? static_url($image['path']) : null,
+            'alt' => $image['alt'] ?? $this->title,
         ];
     }
 
