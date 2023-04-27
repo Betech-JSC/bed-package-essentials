@@ -44,6 +44,7 @@ class Tag extends BaseModel
         'background_color',
         'type',
         'icon',
+        'value',
         'view_count'
     ];
 
@@ -127,6 +128,7 @@ class Tag extends BaseModel
             'text_color' => $this->text_color,
             'background_color' => $this->background_color,
             'type' => $this->type,
+            'value' => $this->value,
             'image' => $this->getImageDetail($this->image),
             'url' => $this->current_url
         ];
@@ -143,6 +145,7 @@ class Tag extends BaseModel
             'background_color' => $this->background_color,
             'type' => $this->type,
             'description' => $this->description,
+            'value' => $this->value,
             'image' => $this->getImageDetail($this->image),
             'url' => $this->current_url
         ];
