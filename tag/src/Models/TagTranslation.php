@@ -18,6 +18,7 @@ class TagTranslation extends BaseModel
         'title',
         'slug',
         'description',
+        'image',
 
         'seo_meta_title',
         'seo_slug',
@@ -27,6 +28,10 @@ class TagTranslation extends BaseModel
         'seo_canonical',
         'seo_image',
         'seo_schemas',
+    ];
+
+    protected $casts = [
+        'image' => 'array',
     ];
 
     public function tag()
