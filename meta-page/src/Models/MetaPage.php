@@ -1,9 +1,9 @@
 <?php
 
 namespace JamstackVietnam\MetaPage\Models;
-use Illuminate\Database\Eloquent\Model;
+use JamstackVietnam\Core\Models\BaseModel;
 
-class MetaPage extends Model
+class MetaPage extends BaseModel
 {
     public $fillable = [
         'url',
