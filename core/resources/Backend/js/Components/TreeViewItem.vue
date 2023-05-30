@@ -31,7 +31,6 @@
                         <ph:caret-down-fill v-else />
                     </div>
                     <label
-                        :class="element.nodes.length > 0 ? '' : 'ml-[32px]'"
                         class="flex-1 py-2"
                         @click="onClickName($event.target, element)"
                     >
