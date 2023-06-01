@@ -125,4 +125,60 @@ export default [
         </div>
         <p class="hidden"></p>`,
     },
+    {
+        title: "12. Template 1 images left 10 row text",
+        description: "",
+        content: `<p class="hidden"></p>
+        <div class="flex mb-6 xl:mb-12 md:mb-8">
+            <div class="max-w-[500px] flex-shrink-0 mr-4 h-full">
+                <img src="https://via.placeholder.com/600x400.png" class="object-contain w-full h-full my-0" />
+            </div>
+            <div class="w-full">
+                <h3>Lorem ipsum dolor sit amet</h3>
+                <div>
+                    <ul>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <p class="hidden"></p>`,
+    },
+    {
+        title: "13. Template 1 images right 10 row text",
+        description: "",
+        content: `<p class="hidden"></p>
+        <div class="flex mb-6 xl:mb-12 md:mb-8">
+            <div class="w-full mr-4">
+                <h3>Lorem ipsum dolor sit amet</h3>
+                <div>
+                    <ul>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Lorem ipsum dolor sit amet</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="max-w-[500px] flex-shrink-0 h-full">
+                <img src="https://via.placeholder.com/600x400.png" class="object-contain w-full h-full my-0" />
+            </div>
+        </div>
+        <p class="hidden"></p>`,
+    },
 ];
