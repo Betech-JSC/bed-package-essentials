@@ -129,13 +129,13 @@ export default [
         title: "12. Template 1 images left 10 row text",
         description: "",
         content: `<p class="hidden"></p>
-        <div class="flex flex-col mb-6 lg:flex-row xl:mb-12 md:mb-8">
-            <div class="lg:max-w-[500px] flex-shrink-0 lg:mr-4 w-full h-full lg:mb-0 mb-2">
-                <img src="https://via.placeholder.com/600x400.png" class="object-contain w-full h-full my-0" />
-            </div>
-            <div class="w-full">
-                <h3>Lorem ipsum dolor sit amet</h3>
-                <div>
+            <div class="flex flex-col mb-6 lg:flex-row xl:mb-12 md:mb-8">
+                <div class="lg:max-w-[500px] flex-shrink-0 lg:mr-4 w-full h-full lg:mb-0 mb-2">
+                    <img src="https://via.placeholder.com/600x400.png" class="object-contain w-full h-full my-0" />
+                </div>
+                <div class="w-full">
+                    <h3>Lorem ipsum dolor sit amet</h3>
+                    <p>Lorem ipsum dolor sit amet</p>
                     <ul>
                         <li>Lorem ipsum dolor sit amet</li>
                         <li>Lorem ipsum dolor sit amet</li>
@@ -148,19 +148,19 @@ export default [
                         <li>Lorem ipsum dolor sit amet</li>
                         <li>Lorem ipsum dolor sit amet</li>
                     </ul>
+                    <em>Lorem ipsum dolor sit amet</em>
                 </div>
             </div>
-        </div>
         <p class="hidden"></p>`,
     },
     {
         title: "13. Template 1 images right 10 row text",
         description: "",
         content: `<p class="hidden"></p>
-        <div class="flex flex-col-reverse mb-6 lg:flex-row xl:mb-12 md:mb-8">
-            <div class="w-full lg:mr-4">
-                <h3>Lorem ipsum dolor sit amet</h3>
-                <div>
+            <div class="flex flex-col-reverse mb-6 lg:flex-row xl:mb-12 md:mb-8">
+                <div class="w-full lg:mr-4">
+                    <h3>Lorem ipsum dolor sit amet</h3>
+                    <p>Lorem ipsum dolor sit amet</p>
                     <ul>
                         <li>Lorem ipsum dolor sit amet</li>
                         <li>Lorem ipsum dolor sit amet</li>
@@ -173,12 +173,12 @@ export default [
                         <li>Lorem ipsum dolor sit amet</li>
                         <li>Lorem ipsum dolor sit amet</li>
                     </ul>
+                    <em>Lorem ipsum dolor sit amet</em>
+                </div>
+                <div class="lg:max-w-[500px] flex-shrink-0 w-full h-full lg:mb-0 mb-2">
+                    <img src="https://via.placeholder.com/600x400.png" class="object-contain w-full h-full my-0" />
                 </div>
             </div>
-            <div class="lg:max-w-[500px] flex-shrink-0 w-full h-full lg:mb-0 mb-2">
-                <img src="https://via.placeholder.com/600x400.png" class="object-contain w-full h-full my-0" />
-            </div>
-        </div>
         <p class="hidden"></p>`,
     },
 ];
