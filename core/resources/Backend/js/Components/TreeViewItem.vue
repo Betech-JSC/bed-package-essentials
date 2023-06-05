@@ -23,7 +23,7 @@
                     }"
                 >
                     <div
-                        v-if="element.nodes.length > 0"
+                        v-if="element[childrenBy] && element[childrenBy].length > 0"
                         @click="onClickIcon(element)"
                         class="p-1 rounded-sm hover:bg-gray-200"
                     >
