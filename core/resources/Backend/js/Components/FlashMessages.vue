@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="flash.error || hasErrors" class="p-4 rounded-md bg-red-50">
+        <div v-if="hasErrors" class="p-4 rounded-md bg-red-50">
             <div class="flex">
                 <div class="flex-shrink-0">
                     <heroicons-outline:x-circle
@@ -45,7 +45,7 @@
                     >
                         {{ flash.error }}
                     </h3>
-                    <template v-if="hasErrors">
+                    <template v-if="Object.keys(errors).length">
                         <h3 class="text-sm font-medium text-red-800">
                             Có {{ Object.keys(errors).length }} lỗi với nội dung
                             bạn gửi
@@ -89,7 +89,7 @@ export default {
             return this.$page.props.errors;
         },
         hasErrors() {
-            return Object.keys(this.errors).length > 0;
+            return this.flash.error || Object.keys(this.errors).length > 0;
         },
     },
     methods: {
