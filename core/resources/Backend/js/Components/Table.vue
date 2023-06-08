@@ -95,7 +95,7 @@
                     </div>
                     <div class="p-input-icon-left w-[20rem]">
                         <heroicons-outline:search
-                            class="absolute transform -translate-y-1/2 top-1/2 left-2"
+                            class="absolute right-2"
                         />
                         <InputText
                             v-model="lazyParams.filters.global.value"
@@ -127,7 +127,7 @@
                     <Image
                         v-if="isImageCell(data, column)"
                         :src="staticUrl(data[column.field]?.path)"
-                        width="80"
+                        imageClass="h-[80px] w-[80px] object-contain"
                         preview
                     />
                     <Link

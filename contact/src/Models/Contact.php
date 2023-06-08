@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\Validator;
 use JamstackVietnam\Core\Models\BaseModel;
 use JamstackVietnam\Core\Traits\Searchable;
 use JamstackVietnam\Contact\Traits\HasNotification;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contact extends BaseModel
 {
     use HasFactory;
     use Searchable;
     use HasNotification;
+    use SoftDeletes;
 
     const STATUS_NEW = 'NEW';
     const STATUS_RESPONSE = 'RESPONSE';
@@ -83,6 +85,10 @@ class Contact extends BaseModel
             $model->user_agent = $model->setUserAgent();
             $model->request_url = $model->setRequestUrl();
             $model->status = $model->setStatus();
+
+            if ($model->status == self::STATUS_IS_SPAM) {
+                $model->deleted_at = now();
+            }
         });
     }
 

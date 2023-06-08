@@ -22,6 +22,7 @@ class CreateTagTranslationsTable extends Migration
             $table->string('slug');
 
             $table->text('description')->nullable();
+            $table->json('image')->nullable();
 
             $table->addSeo();
 

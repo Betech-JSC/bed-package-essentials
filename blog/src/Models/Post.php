@@ -32,6 +32,7 @@ class Post extends BaseModel
         'is_featured',
         'position',
         'home_position',
+        'footer_position',
         'view_count',
         'image',
         'banner',
@@ -377,6 +378,20 @@ class Post extends BaseModel
     public function scopeOrderByHomePosition($query)
     {
         return $query->orderByRaw('ISNULL(home_position) OR home_position = 0, home_position ASC');
+    }
+
+    public function scopeOrderByFooterPosition($query)
+    {
+        return $query->orderByRaw('ISNULL(footer_position) OR footer_position = 0, footer_position ASC');
+    }
+
+    public function scopeWhereFooter($query)
+    {
+        return $query->where(function ($query) {
+            $query->whereNotNull('footer_position')->where('footer_position', '>', 0);
+        })
+            ->orderByFooterPosition()
+            ->orderBy('id', 'desc');
     }
 
     public function scopeFilter(Builder $query, array $filters = []): Builder

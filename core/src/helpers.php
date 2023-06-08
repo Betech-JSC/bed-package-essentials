@@ -193,9 +193,18 @@ if (!function_exists('replace_layout')) {
     }
 }
 
+if (!function_exists('replace_layout_product')) {
+    function replace_layout_product($content)
+    {
+        return $content;
+    }
+}
+
 if (!function_exists('transform_richtext')) {
     function transform_richtext($content)
     {
+        $content = replace_layout_product($content);
+
         // add_responsive_iframe
         $content = replace_layout($content);
 

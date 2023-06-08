@@ -73,6 +73,7 @@ class Region extends BaseModel
             ->where('parent_code', $request['params']['province_id'])
             ->orderByPosition()
             ->orderBy('name_with_type')
+            ->where('level', 2)
             ->get()
             ->map(function ($item) {
                 return [
@@ -89,6 +90,7 @@ class Region extends BaseModel
             ->where('parent_code', $request['params']['district_id'])
             ->orderByPosition()
             ->orderBy('name_with_type')
+            ->where('level', 3)
             ->get()
             ->map(function ($item) {
                 return [
@@ -103,6 +105,7 @@ class Region extends BaseModel
         return $query
             ->where('parent_code', null)
             ->orderByPosition()
+            ->where('level', 1)
             ->orderBy('name_with_type');
     }
 
@@ -113,6 +116,7 @@ class Region extends BaseModel
             ->where('parent_code', $city_code)
             ->orderByPosition()
             ->orderBy('name_with_type')
+            ->where('level', 2)
             ->get()
             ->toArray();
     }
@@ -124,6 +128,7 @@ class Region extends BaseModel
             ->where('parent_code', $district_code)
             ->orderByPosition()
             ->orderBy('name_with_type')
+            ->where('level', 3)
             ->get()
             ->toArray();
     }

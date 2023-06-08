@@ -224,7 +224,16 @@ class File
         return (bool) $this->storage->makeDirectory($pathName);
     }
 
-    protected function responsePdf(): bool
+    public function folderDelete()
+    {
+        if (collect($this->storage->listContents($this->path))->count() > 0) {
+            return false;
+        }
+
+        return (bool) $this->storage->deleteDirectory($this->path);
+    }
+
+    protected function responsePdf()
     {
         $filePath = $this->getFullPath();
         if (isset($options['download'])) {
@@ -238,6 +247,7 @@ class File
     {
         return VideoStreamer::streamFile($this->getFullPath());
     }
+
     protected function responseImage($options)
     {
         $pathinfo = pathinfo($this->path);
@@ -342,7 +352,7 @@ class File
     protected function isImage(): bool
     {
         $mimeType = $this->getMimeType();
-        return str_contains($mimeType, 'image/') && $mimeType !== 'image/heic';
+        return str_contains($mimeType, 'image/') && $mimeType !== 'image/heic' && !str_contains($this->path, '.svg') && !str_contains($this->path, '.gif');
     }
 
     protected function isVideo(): bool

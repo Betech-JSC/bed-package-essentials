@@ -2,7 +2,7 @@
     <Tiny
         api-key="7w40acxv5in6m21n1k9ny0tqej2d44gwyj6557igizadb1r6"
         :init="{ ...initConfig, height: size }"
-        :modelValue="value"
+        :modelValue="modelValue"
         @update:modelValue="$emit('change', $event)"
     />
 </template>
@@ -17,7 +17,7 @@ export default {
         Tiny,
     },
     props: {
-        value: {
+        modelValue: {
             type: String,
         },
         limit: {
@@ -38,6 +38,14 @@ export default {
                 md: 400,
                 lg: 1000,
             }[this.field?.size ?? "md"];
+        },
+    },
+
+    watch: {
+        modelValue(value) {
+            if (value == null) {
+                this.$emit('change', "");
+            }
         },
     },
 

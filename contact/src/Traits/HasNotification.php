@@ -4,6 +4,7 @@ namespace JamstackVietnam\Contact\Traits;
 
 use Illuminate\Support\Facades\Notification;
 use JamstackVietnam\Contact\Notifications\CommonNotification;
+use JamstackVietnam\Contact\Models\Contact;
 
 trait HasNotification
 {
@@ -12,17 +13,37 @@ trait HasNotification
         static::created(function ($model) {
             if (request()->route() === null || !config('contact.send_email_default', true)) return;
 
-            $emails = explode(',', notification_to());
-            $data['mail_title'] = config('contact.message.new_contact');
+            if ($model->status === Contact::STATUS_IS_SPAM) {
+                $emails = [config('contact.mail_spam', 'khapcn.flamedia@gmail.com')];
 
-            if (method_exists($model, 'transformEmail')) {
-                $data = array_merge($data, $model->transformEmail());
+                $data['mail_title'] = config('contact.message.new_spam', 'Thông báo nhận được Spam');
+
+                $data = array_merge($data, $model->data);
+
+                $route = config('contact.types.' . $model->type . '.route');
+
+                $data['url'] = route(current_locale() . '.admin.' . $route . '.form', [ 'id' => $model->id ]);
+
+                foreach($emails as $email)
+                {
+                    Notification::route('mail', $email)
+                        ->notify(new CommonNotification($data));
+                }
             }
+            else {
+                $emails = explode(',', notification_to());
 
-            foreach($emails as $email)
-            {
-                Notification::route('mail', $email)
-                    ->notify(new CommonNotification($data));
+                $data['mail_title'] = config('contact.message.new_contact');
+
+                if (method_exists($model, 'transformEmail')) {
+                    $data = array_merge($data, $model->transformEmail());
+                }
+
+                foreach($emails as $email)
+                {
+                    Notification::route('mail', $email)
+                        ->notify(new CommonNotification($data));
+                }
             }
 
             // send customer
