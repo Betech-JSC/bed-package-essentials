@@ -2,7 +2,6 @@
 
 namespace JamstackVietnam\Core\Traits;
 
-use Illuminate\Support\Facades\Cache;
 use \Spiritix\LadaCache\Database\LadaCacheTrait;
 
 trait ResponseCache
@@ -23,6 +22,7 @@ trait ResponseCache
 
     private function cacheKey($model)
     {
-        return ['cache_response', $model->getTable()];
+        return [$model->getTable()];
+        // return ['cache_response', $model->getTable()];
     }
 }
