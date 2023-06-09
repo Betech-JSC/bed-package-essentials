@@ -40,6 +40,7 @@ class PostCategory extends BaseModel
         'slug',
         'locale',
         'title',
+        'sliders',
 
         'seo_meta_title',
         'seo_slug',

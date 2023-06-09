@@ -1,4 +1,5 @@
 <template layout>
+    <Head :title="tt('models.titles.redirect')" />
     <WrapSetting>
         <Table :schema="schema" :config="{
             resource: 'settings.redirects',
