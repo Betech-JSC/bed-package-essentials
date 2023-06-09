@@ -1,4 +1,5 @@
 <template layout>
+    <Head :title="tt('models.titles.redirect')" />
     <WrapSetting>
         <Form
             v-model="formData"

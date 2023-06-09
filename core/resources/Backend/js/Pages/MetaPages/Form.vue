@@ -1,4 +1,5 @@
 <template layout>
+    <Head :title="tt('models.titles.meta_page')" />
     <WrapSetting>
         <Form
             v-model="formData"

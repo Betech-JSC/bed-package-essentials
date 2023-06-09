@@ -1,4 +1,5 @@
 <template layout>
+    <Head :title="tt('models.titles.meta_page')" />
     <WrapSetting>
         <Table
             :schema="schema"

@@ -17,6 +17,7 @@ class PostCategoryTranslation extends BaseModel
         'slug',
         'locale',
         'title',
+        'sliders',
 
         'seo_meta_title',
         'seo_slug',
@@ -26,6 +27,10 @@ class PostCategoryTranslation extends BaseModel
         'seo_canonical',
         'seo_image',
         'seo_schemas',
+    ];
+
+    protected $casts = [
+        'sliders' => 'array',
     ];
 
     public function category()
