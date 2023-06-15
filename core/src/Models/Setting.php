@@ -39,7 +39,7 @@ class Setting extends Model
                 'mail_password' => 'required',
                 'mail_host' => 'required',
                 'mail_port' => 'required',
-                'mail_encryption' => 'required',
+                'mail_encryption' => 'nullable',
             ],
             'notification' => [
                 'notification_production_to' => 'required',
