@@ -8,13 +8,13 @@
             </div>
             <div class="ml-3">
                 <p class="text-sm text-yellow-700">
-                    Đối tượng này đã xóa vào lúc
+                    {{ tt('models.message.trashed_message1') }}
                     {{ toDate($parent.form.deleted_at) }}.
                     <Link
                         @click="$parent.restore()"
                         class="font-medium text-yellow-700 underline hover:text-yellow-600"
                     >
-                        Bấm vào đây để khôi phục.
+                        {{ tt('models.message.trashed_message2') }}
                     </Link>
                 </p>
             </div>
