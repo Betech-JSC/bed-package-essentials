@@ -67,6 +67,14 @@ class HelperController extends Controller
         ], 200);
     }
 
+    public function clearCache()
+    {
+        clear_cache();
+        return response()->json([
+            'success' => true,
+        ], 200);
+    }
+
     public function modelNamespace($model = null)
     {
         $model = $model ?: request()->input('model');

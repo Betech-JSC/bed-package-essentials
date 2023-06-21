@@ -48,6 +48,7 @@ Route::middleware(['auth:admin'])->name('admin.')->group(function () {
 
     Route::get('logs', [HelperController::class, 'getLogs'])->name('helper.logs');
     Route::get('reload-octane', [HelperController::class, 'reloadOctane'])->name('helper.reload-octane');
+    Route::get('clear-cache', [HelperController::class, 'clearCache'])->name('helper.clear-cache');
 
     Route::post('set-locale', [HelperController::class, 'setSessionLocale'])->name('helper.set-locale');
 });
