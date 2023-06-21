@@ -11,6 +11,10 @@
     @apply overflow-hidden;
 }
 
+.p-multiselect-token-icon {
+    @apply flex-shrink-0;
+}
+
 .p-treeselect-token .p-multiselect-token-icon,
 .p-multiselect-token .p-multiselect-token-icon {
     margin-left: 0.5rem;
