@@ -329,7 +329,7 @@ class File
         return $this->storage->path($this->path);
     }
 
-    protected function getFileData(): string
+    protected function getFileData()
     {
         return $this->storage->get($this->path);
     }
