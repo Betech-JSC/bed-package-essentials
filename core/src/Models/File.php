@@ -117,7 +117,7 @@ class File
             ->keyBy('path');
 
         if (request()->has('keyword')) {
-            $files = $files->filter(fn ($item) => strpos($item['search_name'], (request()->input('keyword'))) !== false);
+            $files = $files->filter(fn ($item) => str_contains($item['search_name'], (request()->input('keyword'))));
         }
         else if (request()->has('limit')) {
             $page = request()->input('page') ?? 1;
