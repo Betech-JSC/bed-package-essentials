@@ -91,7 +91,7 @@
                 />
             </aside>
             <main
-                class="overflow-y-auto grow"
+                class="overflow-y-auto grow group-image-admin"
                 :class="
                     canDeleteFolder
                         ? 'flex items-center flex-col justify-center'
@@ -261,7 +261,12 @@ export default {
             selectedFiles: [],
             isDragging: false,
             timer: null,
-            data: null,
+            timerScoll: null,
+            data: {
+                tree: null,
+                directories: [],
+                files: []
+            },
             tree: null,
             currentPath: "/",
             showFolderModal: null,
@@ -270,6 +275,9 @@ export default {
             },
             search: null,
             embed: this.$page.props.route.query.embed,
+            limit: 10,
+            page: 1,
+            isScollImage: true
         };
     },
 
@@ -281,6 +289,23 @@ export default {
         this.$bus.on("treeSelectedItemFileManager", (item) => {
             this.selectedItem(item);
         });
+
+        let images = document.querySelector(".group-image-admin")
+
+        images.addEventListener("scroll", () => {
+            if (this.timerScoll) {
+                clearTimeout(this.timerScoll);
+                this.timerScoll = null;
+            }
+
+            this.timerScoll = setTimeout(this.scrollImage, 300);
+        });
+    },
+
+    unmounted() {
+        let images = document.querySelector(".group-image-admin")
+
+        images.removeEventListener("scroll", this.scrollImage);
     },
 
     beforeDestroy() {
@@ -311,28 +336,47 @@ export default {
     },
 
     methods: {
+        scrollImage() {
+            this.page = this.page + 1
+            this.getFiles({page: this.page})
+        },
         selectedItem(item) {
             this.currentPath = item.path;
+            this.data.files = [];
             this.getFiles();
+            this.page = 1;
+            this.isScollImage = true;
         },
         getFiles(params = {}, loadTree = false) {
             this.$axios
                 .get(
                     this.route("admin.files.index", {
                         page: 1,
+                        limit: this.limit,
                         search: null,
                         path: this.currentPath,
                         ...params,
                     })
                 )
                 .then((res) => {
-                    this.data = res.data;
+                    let files = this.data.files;
+                    let new_files = res.data.files ? res.data.files : null;
+
+                    if (!new_files) {
+                        this.isScollImage = false;
+                    }
+                    files = {...files, ...new_files}
+                    console.log(new_files)
+                    this.data = {
+                        tree: res.data.tree,
+                        directories: res.data.directories,
+                        files: files
+                    };
+
                     if (!this.tree || loadTree) {
                         this.tree = res.data.tree;
                     }
                 });
-
-
         },
         async copyUrl(file) {
             try {
