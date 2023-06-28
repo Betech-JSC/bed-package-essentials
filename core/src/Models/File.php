@@ -116,7 +116,12 @@ class File
             ->sortByDesc('last_modified')
             ->keyBy('path');
 
-        if (request()->has('limit')) {
+        if (request()->has('keyword')) {
+            $files = $files->filter(function ($item) {
+                return strpos($item['search_name'], (request()->input('keyword'))) !== false;
+            });
+        }
+        else if (request()->has('limit')) {
             $page = request()->input('page') ?? 1;
             $limit = request()->input('limit');
 

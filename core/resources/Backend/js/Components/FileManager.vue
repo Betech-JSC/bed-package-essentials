@@ -277,7 +277,7 @@ export default {
             embed: this.$page.props.route.query.embed,
             limit: 10,
             page: 1,
-            isScollImage: true
+            fetchData: true
         };
     },
 
@@ -298,7 +298,9 @@ export default {
                 this.timerScoll = null;
             }
 
-            this.timerScoll = setTimeout(this.scrollImage, 300);
+            if (this.fetchData) {
+                this.timerScoll = setTimeout(this.scrollImage, 300);
+            }
         });
     },
 
@@ -322,11 +324,20 @@ export default {
 
     computed: {
         searchFiles() {
-            if (!this.data || !this.data.files) return [];
+            if (!this.data || !this.data.files) {
+                if (!this.search) {
+                    this.getFiles()
+                    return this.data.files;
+                }
+                return [];
+            }
             if (!this.search) return this.data.files;
-            return Object.values(this.data.files).filter((x) =>
-                x.search_name.includes(this.search)
-            );
+
+            this.getFiles({keyword: this.search})
+
+            this.fetchData = false
+
+            return this.data.files;
         },
         canDeleteFolder() {
             if (!this.data) return false;
@@ -345,38 +356,46 @@ export default {
             this.data.files = [];
             this.getFiles();
             this.page = 1;
-            this.isScollImage = true;
+            this.fetchData = true;
         },
         getFiles(params = {}, loadTree = false) {
-            this.$axios
-                .get(
-                    this.route("admin.files.index", {
-                        page: 1,
-                        limit: this.limit,
-                        search: null,
-                        path: this.currentPath,
-                        ...params,
-                    })
-                )
-                .then((res) => {
-                    let files = this.data.files;
-                    let new_files = res.data.files ? res.data.files : null;
+            if (this.fetchData) {
+                this.$axios
+                    .get(
+                        this.route("admin.files.index", {
+                            page: 1,
+                            limit: this.limit,
+                            search: null,
+                            path: this.currentPath,
+                            ...params,
+                        })
+                    )
+                    .then((res) => {
+                        let files = this.data.files;
+                        let new_files = res.data.files ? res.data.files : null;
 
-                    if (!new_files) {
-                        this.isScollImage = false;
-                    }
-                    files = {...files, ...new_files}
-                    console.log(new_files)
-                    this.data = {
-                        tree: res.data.tree,
-                        directories: res.data.directories,
-                        files: files
-                    };
+                        if (Array.isArray(new_files) && new_files.length == 0) {
+                            this.fetchData = false;
+                        }
+                        else {
+                            if (this.page == 1) {
+                                files = new_files;
+                            }
+                            else {
+                                files = {...files, ...new_files}
+                            }
+                            this.data = {
+                                tree: res.data.tree,
+                                directories: res.data.directories,
+                                files: files
+                            };
 
-                    if (!this.tree || loadTree) {
-                        this.tree = res.data.tree;
-                    }
-                });
+                            if (!this.tree || loadTree) {
+                                this.tree = res.data.tree;
+                            }
+                        }
+                    });
+                }
         },
         async copyUrl(file) {
             try {
@@ -504,7 +523,9 @@ export default {
 
             this.timer = setTimeout(() => {
                 this.search = event.target.value;
-            }, 150);
+                this.page = 1;
+                this.fetchData = true;
+            }, 500);
         },
         createFolder(name) {
             this.$axios
