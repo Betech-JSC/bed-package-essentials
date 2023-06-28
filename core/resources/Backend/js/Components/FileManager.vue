@@ -227,7 +227,7 @@ export default {
             },
             search: null,
             embed: this.$page.props.route.query.embed,
-            limit: 100,
+            limit: 50,
             page: 1,
             fetchData: true,
         }
