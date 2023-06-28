@@ -30,10 +30,7 @@
                     class="flex-inline w-[400px] py-[0.5rem] px-[1rem] border border-gray-300 focus:border-solid focus:outline-none focus:ring-0 rounded hover:border-gray-400 focus:border-gray-500"
                     @input="onChange"
                 />
-                <Button
-                    @click.prevent="showFolderModal = true"
-                    class="space-x-2 btn-outline-primary"
-                >
+                <Button @click.prevent="showFolderModal = true" class="space-x-2 btn-outline-primary">
                     <ph-plus-circle-light />
                     <span> {{ tt('models.files.add_folder') }} </span>
                 </Button>
@@ -43,10 +40,7 @@
                 </Button>
             </div>
         </div>
-        <div
-            class="flex items-stretch flex-1 h-full overflow-hidden"
-            @dragover.prevent="isDragging = true"
-        >
+        <div class="flex items-stretch flex-1 h-full overflow-hidden" @dragover.prevent="isDragging = true">
             <div
                 class="fixed inset-0 overflow-hidden border-4 border-dashed before:absolute before:bg-green-300 before:bg-opacity-25 before:inset-0 before:z-10 left-from-sidebar"
                 :class="
@@ -55,20 +49,13 @@
                         : 'z-0 border-transparent before:invisible invisible'
                 "
                 @dragleave.prevent="isDragging = false"
-                @drop.prevent="
-                    (isDragging = false), (dragCounter = 0), drop($event)
-                "
+                @drop.prevent=";(isDragging = false), (dragCounter = 0), drop($event)"
             ></div>
 
             <!-- Details sidebar -->
-            <aside
-                class="hidden p-8 pb-16 overflow-y-auto bg-white border-l border-r border-gray-200 w-80 lg:block"
-            >
+            <aside class="hidden p-8 pb-16 overflow-y-auto bg-white border-l border-r border-gray-200 w-80 lg:block">
                 <template v-if="embed">
-                    <Button
-                        @click.prevent="browse"
-                        class="w-full space-x-2 btn-primary"
-                    >
+                    <Button @click.prevent="browse" class="w-full space-x-2 btn-primary">
                         <ph:upload-simple />
                         <span> {{ tt('models.files.select_file') }} </span>
                     </Button>
@@ -92,23 +79,17 @@
             </aside>
             <main
                 class="overflow-y-auto grow group-image-admin"
-                :class="
-                    canDeleteFolder
-                        ? 'flex items-center flex-col justify-center'
-                        : 'flex-1'
-                "
+                :class="canDeleteFolder ? 'flex items-center flex-col justify-center' : 'flex-1'"
             >
-                <div v-if="canDeleteFolder" >
+                <div v-if="canDeleteFolder">
                     <h1 v-if="canDeleteFolder" class="text-xl">
                         {{ tt('models.files.drop') }}
-                        <a @click="browse" class="link">{{ tt('models.files.click_here').toLowerCase() }}</a> {{ tt('models.files.select_files').toLowerCase() }}
+                        <a @click="browse" class="link">{{ tt('models.files.click_here').toLowerCase() }}</a>
+                        {{ tt('models.files.select_files').toLowerCase() }}
                     </h1>
                 </div>
                 <div v-if="canDeleteFolder" class="mt-6">
-                    <Button
-                        @click="deleteFolder"
-                        class="space-x-2 btn-outline-primary"
-                    >
+                    <Button @click="deleteFolder" class="space-x-2 btn-outline-primary">
                         <carbon:subtract-alt />
                         <span> {{ tt('models.files.delete_folder') }} </span>
                     </Button>
@@ -117,37 +98,21 @@
                     v-if="Object.keys(searchFiles).length"
                     class="px-4 pt-8 pb-16 mx-auto space-y-4 max-w-7xl sm:px-6 lg:px-8"
                 >
-                    <ul
-                        role="list"
-                        class="grid grid-cols-3 gap-4 lg:grid-cols-4 2xl:grid-cols-6"
-                    >
-                        <li
-                            class="relative"
-                            v-if="data"
-                            v-for="(file, index) in searchFiles"
-                            :key="file.static_url"
-                        >
+                    <ul role="list" class="grid grid-cols-3 gap-4 lg:grid-cols-4 2xl:grid-cols-6">
+                        <li class="relative" v-if="data" v-for="(file, index) in searchFiles" :key="file.static_url">
                             <div
                                 class="group w-full rounded bg-gray-100 overflow-hidden aspect-[1/1] flex cursor-pointer justify-center items-center border border-transparent hover:border-gray-400 relative outline outline-offset-2 outline-2 outline-transparent"
                                 :class="{
-                                    'outline-black':
-                                        selectedFiles.includes(file),
+                                    'outline-black': selectedFiles.includes(file),
                                 }"
                                 @click="onSelect(file)"
                             >
-                                <Thumbnail
-                                    :file="file"
-                                    @remove="onRemove(file)"
-                                />
+                                <Thumbnail :file="file" @remove="onRemove(file)" />
                             </div>
-                            <p
-                                class="block mt-2 text-sm font-medium text-gray-900 truncate pointer-events-none"
-                            >
+                            <p class="block mt-2 text-sm font-medium text-gray-900 truncate pointer-events-none">
                                 {{ file.filename }}
                             </p>
-                            <p
-                                class="block space-x-1 text-xs font-medium text-gray-500 pointer-events-none"
-                            >
+                            <p class="block space-x-1 text-xs font-medium text-gray-500 pointer-events-none">
                                 <span class="uppercase">
                                     {{ file.extension }}
                                 </span>
@@ -159,11 +124,7 @@
                         </li>
                     </ul>
 
-                    <Pagination
-                        v-if="data"
-                        :links="data.links"
-                        @changePage="getFiles($event)"
-                    />
+                    <Pagination v-if="data" :links="data.links" @changePage="getFiles($event)" />
                 </div>
             </main>
         </div>
@@ -172,9 +133,7 @@
             class="absolute bottom-0 left-0 right-0 flex items-center justify-center w-full h-16 space-x-2 bg-white border-t"
         >
             <Button @click="selectedFiles = []"> {{ tt('models.files.unchecked') }} </Button>
-            <Button @click="submitFileSelect()">
-                {{ tt('models.files.select') }} ({{ selectedFiles.length }})
-            </Button>
+            <Button @click="submitFileSelect()"> {{ tt('models.files.select') }} ({{ selectedFiles.length }}) </Button>
         </div>
         <Dialog
             header="Folder"
@@ -194,18 +153,11 @@
                 }"
             />
             <template #footer>
-                <Button
-                    variant="white"
-                    @click="showFolderModal = false"
-                    :label="tt('models.files.cancel')"
-                />
+                <Button variant="white" @click="showFolderModal = false" :label="tt('models.files.cancel')" />
                 <Button
                     type="button"
                     class="ml-2"
-                    @click="
-                        createFolder(folderForm.name);
-                        showFolderModal = false;
-                    "
+                    @click="createFolder(folderForm.name), showFolderModal = false"
                     :label="tt('models.files.save')"
                 />
             </template>
@@ -213,12 +165,12 @@
     </div>
 </template>
 <script>
-import Pagination from "@Core/Components/Pagination.vue";
-import Thumbnail from "@Core/Components/Thumbnail.vue";
-import { onMounted, onUnmounted } from "vue";
+import Pagination from '@Core/Components/Pagination.vue'
+import Thumbnail from '@Core/Components/Thumbnail.vue'
+import { onMounted, onUnmounted } from 'vue'
 
-const MAX_SIZE_OF_IMAGE = 5;
-const MAX_SIZE_OF_VIDEO = 50;
+const MAX_SIZE_OF_IMAGE = 5
+const MAX_SIZE_OF_VIDEO = 50
 
 export default {
     components: { Thumbnail, Pagination },
@@ -236,23 +188,23 @@ export default {
 
     setup(props, { emit }) {
         const close = () => {
-            emit("update:show", false);
-        };
+            emit('update:show', false)
+        }
 
         const closeOnEscape = (e) => {
-            if (e.key === "Escape" && props.show) {
-                close();
+            if (e.key === 'Escape' && props.show) {
+                close()
             }
-        };
+        }
 
-        onMounted(() => document.addEventListener("keydown", closeOnEscape));
+        onMounted(() => document.addEventListener('keydown', closeOnEscape))
         onUnmounted(() => {
-            document.removeEventListener("keydown", closeOnEscape);
-        });
+            document.removeEventListener('keydown', closeOnEscape)
+        })
 
         return {
             close,
-        };
+        }
     },
 
     data() {
@@ -265,10 +217,10 @@ export default {
             data: {
                 tree: null,
                 directories: [],
-                files: []
+                files: [],
             },
             tree: null,
-            currentPath: "/",
+            currentPath: '/',
             showFolderModal: null,
             folderForm: {
                 name: null,
@@ -277,49 +229,49 @@ export default {
             embed: this.$page.props.route.query.embed,
             limit: 100,
             page: 1,
-            fetchData: true
-        };
+            fetchData: true,
+        }
     },
 
     created() {
-        this.getFiles();
+        this.getFiles()
     },
 
     mounted() {
-        this.$bus.on("treeSelectedItemFileManager", (item) => {
-            this.selectedItem(item);
-        });
+        this.$bus.on('treeSelectedItemFileManager', (item) => {
+            this.selectedItem(item)
+        })
 
-        let images = document.querySelector(".group-image-admin")
+        let images = document.querySelector('.group-image-admin')
 
-        images.addEventListener("scroll", () => {
+        images.addEventListener('scroll', () => {
             if (this.timerScoll) {
-                clearTimeout(this.timerScoll);
-                this.timerScoll = null;
+                clearTimeout(this.timerScoll)
+                this.timerScoll = null
             }
 
             if (this.fetchData) {
-                this.timerScoll = setTimeout(this.scrollImage, 300);
+                this.timerScoll = setTimeout(this.scrollImage, 300)
             }
-        });
+        })
     },
 
     unmounted() {
-        let images = document.querySelector(".group-image-admin")
+        let images = document.querySelector('.group-image-admin')
 
-        images.removeEventListener("scroll", this.scrollImage);
+        images.removeEventListener('scroll', this.scrollImage)
     },
 
     beforeDestroy() {
-        this.$bus.off("treeSelectedItemFileManager");
+        this.$bus.off('treeSelectedItemFileManager')
     },
 
     watch: {
         show(value) {
             if (value && this.data === null) {
-                this.getFiles();
+                this.getFiles()
             }
-        }
+        },
     },
 
     computed: {
@@ -327,43 +279,43 @@ export default {
             if (!this.data || !this.data.files) {
                 if (!this.search) {
                     this.getFiles()
-                    return this.data.files;
+                    return this.data.files
                 }
-                return [];
+                return []
             }
-            if (!this.search) return this.data.files;
+            if (!this.search) return this.data.files
 
-            this.getFiles({keyword: this.search})
+            this.getFiles({ keyword: this.search })
 
             this.fetchData = false
 
-            return this.data.files;
+            return this.data.files
         },
         canDeleteFolder() {
-            if (!this.data) return false;
+            if (!this.data) return false
 
-            return this.data.files.length === 0 && this.data.directories.length === 0;
-        }
+            return this.data.files.length === 0 && this.data.directories.length === 0
+        },
     },
 
     methods: {
         scrollImage() {
             this.page = this.page + 1
-            this.getFiles({page: this.page})
+            this.getFiles({ page: this.page })
         },
         selectedItem(item) {
-            this.currentPath = item.path;
-            this.data.files = [];
-            this.search = null;
-            this.getFiles();
-            this.page = 1;
-            this.fetchData = true;
+            this.currentPath = item.path
+            this.data.files = []
+            this.search = null
+            this.getFiles()
+            this.page = 1
+            this.fetchData = true
         },
         getFiles(params = {}, loadTree = false) {
             if (this.fetchData) {
                 this.$axios
                     .get(
-                        this.route("admin.files.index", {
+                        this.route('admin.files.index', {
                             page: 1,
                             limit: this.limit,
                             search: null,
@@ -372,189 +324,184 @@ export default {
                         })
                     )
                     .then((res) => {
-                        let files = this.data.files;
-                        let new_files = res.data.files ? res.data.files : null;
+                        let files = this.data.files
+                        let new_files = res.data.files ? res.data.files : null
 
                         if (Array.isArray(new_files) && new_files.length == 0) {
-                            this.fetchData = false;
-                        }
-                        else {
+                            this.fetchData = false
+                        } else {
                             if (this.page == 1) {
-                                files = new_files;
-                            }
-                            else {
-                                files = {...files, ...new_files}
+                                files = new_files
+                            } else {
+                                files = { ...files, ...new_files }
                             }
                             this.data = {
                                 tree: res.data.tree,
                                 directories: res.data.directories,
-                                files: files
-                            };
+                                files: files,
+                            }
 
                             if (!this.tree || loadTree) {
-                                this.tree = res.data.tree;
+                                this.tree = res.data.tree
                             }
                         }
-                    });
-                }
+                    })
+            }
         },
         async copyUrl(file) {
             try {
-                await navigator.clipboard.writeText(
-                    this.staticUrl(file.static_url)
-                );
+                await navigator.clipboard.writeText(this.staticUrl(file.static_url))
             } catch ($e) {}
         },
         onSelect(file) {
             if (this.embed) {
-                let src = '/static' + new URL(file.static_url).pathname;
-                src = src.replace('/static/static/', '/static/');
+                let src = '/static' + new URL(file.static_url).pathname
+                src = src.replace('/static/static/', '/static/')
 
                 window.parent.postMessage({
-                    mceAction: "insertContent",
+                    mceAction: 'insertContent',
                     content: `<img src="${src}">`,
-                });
+                })
                 window.parent.postMessage({
-                    mceAction: "close",
-                });
-                return;
+                    mceAction: 'close',
+                })
+                return
             }
 
-            if (!this.selectable) return;
+            if (!this.selectable) return
 
             if (!this.multiple) {
-                this.selectedFiles[0] = file;
-                this.submitFileSelect();
+                this.selectedFiles[0] = file
+                this.submitFileSelect()
             } else {
                 if (!this.selectedFiles.includes(file)) {
-                    this.selectedFiles.push(file);
+                    this.selectedFiles.push(file)
                 } else {
-                    const fileIndex = this.selectedFiles.indexOf(file);
-                    this.selectedFiles.splice(fileIndex, 1);
+                    const fileIndex = this.selectedFiles.indexOf(file)
+                    this.selectedFiles.splice(fileIndex, 1)
                 }
             }
         },
         submitFileSelect() {
-            this.$emit("on-select", this.selectedFiles);
-            this.selectedFiles = [];
-            this.$emit("update:show", false);
+            this.$emit('on-select', this.selectedFiles)
+            this.selectedFiles = []
+            this.$emit('update:show', false)
         },
         browse() {
-            this.$refs.file.click();
+            this.$refs.file.click()
         },
         drop(event) {
-            this.uploadFiles(event.dataTransfer.files);
+            this.uploadFiles(event.dataTransfer.files)
         },
         fileChange() {
-            this.uploadFiles(this.$refs.file.files);
+            this.uploadFiles(this.$refs.file.files)
         },
         uploadFiles(images) {
-            if (images.length === 0) return;
+            if (images.length === 0) return
 
             for (const image of images) {
-                const fileCheck = this.fileCheck(image);
+                const fileCheck = this.fileCheck(image)
                 if (!fileCheck.valid) {
                     alert(
-                        this.tt('models.files.maximum_size') + ' ' + fileCheck.maxSize + this.tt('models.files.try_again')
-                    );
-                    this.$refs.file.value = "";
-                    return false;
+                        this.tt('models.files.maximum_size') +
+                            ' ' +
+                            fileCheck.maxSize +
+                            this.tt('models.files.try_again')
+                    )
+                    this.$refs.file.value = ''
+                    return false
                 }
             }
 
-            var formData = new FormData();
+            var formData = new FormData()
             for (let index = 0; index < images.length; index++) {
-                const image = images[index];
+                const image = images[index]
 
                 if (this.isImage(image.name)) {
-                    const reader = new FileReader();
+                    const reader = new FileReader()
                     reader.onload = (e) => {
                         this.uploadingFiles.push({
                             filename: image.name,
                             base64_code: e.target.result,
-                        });
-                    };
-                    reader.readAsDataURL(image);
+                        })
+                    }
+                    reader.readAsDataURL(image)
                 } else {
                     this.uploadingFiles.push({
                         filename: image.name,
                         base64_code: null,
                         size: image.size,
-                    });
+                    })
                 }
-                formData.append("files[" + index + "]", image);
-                formData.append("path", this.currentPath);
+                formData.append('files[' + index + ']', image)
+                formData.append('path', this.currentPath)
             }
-            this.$refs.file.value = "";
-            this.postFiles(formData);
+            this.$refs.file.value = ''
+            this.postFiles(formData)
         },
         postFiles(formData) {
-            this.$axios
-                .post(this.route("admin.files.store"), formData)
-                .then((response) => {
-                    if (response.status === 200) {
-                        this.getFiles();
-                    }
-                });
+            this.$axios.post(this.route('admin.files.store'), formData).then((response) => {
+                if (response.status === 200) {
+                    this.getFiles()
+                }
+            })
         },
         onRemove(file) {
             this.$axios
-                .post(this.route("admin.files.destroy", { id: 0 }), {
+                .post(this.route('admin.files.destroy', { id: 0 }), {
                     files: [file],
                 })
                 .then((response) => {
                     if (response.status === 200) {
-                        this.getFiles();
+                        this.getFiles()
                     }
-                });
+                })
         },
         fileCheck(file) {
-            const maxSize = this.isImage(file.name)
-                ? MAX_SIZE_OF_IMAGE
-                : MAX_SIZE_OF_VIDEO;
-            const fileSize = file.size / 1024 / 1024;
+            const maxSize = this.isImage(file.name) ? MAX_SIZE_OF_IMAGE : MAX_SIZE_OF_VIDEO
+            const fileSize = file.size / 1024 / 1024
 
-            return { valid: fileSize <= maxSize, maxSize };
+            return { valid: fileSize <= maxSize, maxSize }
         },
         onChange(event) {
             if (this.timer) {
-                clearTimeout(this.timer);
-                this.timer = null;
+                clearTimeout(this.timer)
+                this.timer = null
             }
 
             this.timer = setTimeout(() => {
-                this.search = event.target.value;
-                this.page = 1;
-                this.fetchData = true;
-            }, 500);
+                this.search = event.target.value
+                this.page = 1
+                this.fetchData = true
+            }, 500)
         },
         createFolder(name) {
             this.$axios
-                .post(this.route("admin.files.folders.create"), {
+                .post(this.route('admin.files.folders.create'), {
                     name: name,
                     path: this.currentPath,
                 })
                 .then((res) => {
-                    this.getFiles({}, true);
-                    this.folderForm.name = null;
-                });
+                    this.getFiles({}, true)
+                    this.folderForm.name = null
+                })
         },
         deleteFolder() {
             if (confirm(this.tt('models.files.confirm_delete')) == true) {
                 this.$axios
                     .post(
-                    this.route("admin.files.folders.delete", {
-                        path: this.currentPath
-                    })
+                        this.route('admin.files.folders.delete', {
+                            path: this.currentPath,
+                        })
                     )
                     .then((res) => {
-                        this.currentPath = "/";
-                        this.getFiles({}, true);
-                    });
+                        this.currentPath = '/'
+                        this.getFiles({}, true)
+                    })
             }
         },
     },
-};
+}
 </script>
 <style lang="scss" scoped>
 .left-from-sidebar {
