@@ -354,6 +354,7 @@ export default {
         selectedItem(item) {
             this.currentPath = item.path;
             this.data.files = [];
+            this.search = null;
             this.getFiles();
             this.page = 1;
             this.fetchData = true;

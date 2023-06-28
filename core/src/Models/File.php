@@ -117,9 +117,7 @@ class File
             ->keyBy('path');
 
         if (request()->has('keyword')) {
-            $files = $files->filter(function ($item) {
-                return strpos($item['search_name'], (request()->input('keyword'))) !== false;
-            });
+            $files = $files->filter(fn ($item) => strpos($item['search_name'], (request()->input('keyword'))) !== false);
         }
         else if (request()->has('limit')) {
             $page = request()->input('page') ?? 1;
@@ -343,7 +341,7 @@ class File
         return $this->storage->path($this->path);
     }
 
-    protected function getFileData(): string
+    protected function getFileData()
     {
         return $this->storage->get($this->path);
     }
