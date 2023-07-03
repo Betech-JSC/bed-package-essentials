@@ -44,8 +44,15 @@ export default {
     },
 
     watch: {
-        radioValue(value) {
-            this.change(value);
+        radioValue(newValue, oldValue) {
+            if(newValue !== oldValue) {
+                this.change(newValue);
+            }
+        },
+        modelValue(newValue, oldValue) {
+            if(newValue !== oldValue) {
+                this.radioValue = newValue;
+            }
         },
     },
 
