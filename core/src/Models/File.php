@@ -108,13 +108,25 @@ class File
 
     public function files()
     {
-        return $this->contents
+        $files = $this->contents
             ->filter(fn ($item) => $item->isFile())
             ->values()
             ->map(fn ($item) => $this->transformFile($item))
             ->reject(fn ($item) => $this->firstCharIs($item['filename'], '.'))
             ->sortByDesc('last_modified')
             ->keyBy('path');
+
+        if (request()->has('keyword')) {
+            $files = $files->filter(fn ($item) => str_contains($item['search_name'], (request()->input('keyword'))));
+        }
+        else if (request()->has('limit')) {
+            $page = request()->input('page') ?? 1;
+            $limit = request()->input('limit');
+
+            return $files->skip(($page - 1) * $limit)->take($limit);
+        }
+
+        return $files;
     }
 
     public function findOrFail($options = [])
