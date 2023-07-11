@@ -128,6 +128,8 @@ export default {
                     { text: "C", value: "c" },
                     { text: "C#", value: "csharp" },
                     { text: "C++", value: "cpp" },
+                    { text: "Go", value: "go" },
+                    { text: "Bash", value: "bash" },
                 ],
                 codesample_global_prismjs: true,
             },
