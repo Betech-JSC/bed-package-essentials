@@ -95,7 +95,7 @@
                     </div>
                     <div class="p-input-icon-left w-[20rem]">
                         <heroicons-outline:search
-                            class="absolute right-2"
+                            class="absolute left-2"
                         />
                         <InputText
                             v-model="lazyParams.filters.global.value"
