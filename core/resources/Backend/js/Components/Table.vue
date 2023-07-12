@@ -93,9 +93,9 @@
                             :filters="lazyParams.filters"
                         ></slot>
                     </div>
-                    <div class="p-input-icon-left w-[20rem]">
+                    <div class="p-input-icon-right w-[20rem]">
                         <heroicons-outline:search
-                            class="absolute left-2"
+                            class="absolute right-2"
                         />
                         <InputText
                             v-model="lazyParams.filters.global.value"
