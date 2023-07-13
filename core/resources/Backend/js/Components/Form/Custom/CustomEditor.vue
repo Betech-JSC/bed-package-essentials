@@ -44,7 +44,7 @@ export default {
     watch: {
         modelValue(value) {
             if (value == null) {
-                this.$emit('change', "");
+                this.$emit("change", "");
             }
         },
     },
@@ -128,7 +128,7 @@ export default {
                     { text: "C", value: "c" },
                     { text: "C#", value: "csharp" },
                     { text: "C++", value: "cpp" },
-                    { text: "Go", value: "go" },
+                    { text: "Go", value: "protobuf" },
                     { text: "Bash", value: "bash" },
                 ],
                 codesample_global_prismjs: true,
