@@ -43,6 +43,7 @@ class Project extends BaseModel
         'progress',
         'used',
         'location',
+        'detail',
 
         'seo_meta_title',
         'seo_slug',
@@ -207,6 +208,7 @@ class Project extends BaseModel
             'progress' => $this->progress,
             'used' => $this->used,
             'location' => $this->location,
+            'detail' => $this->detail,
             'construction_progress' => $this->construction_progress,
             'image' => $this->getImageDetail($this->image),
             'banner_desktop' => $this->getImageDetail($this->banner_desktop),

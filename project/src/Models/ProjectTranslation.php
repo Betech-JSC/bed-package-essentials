@@ -23,6 +23,7 @@ class ProjectTranslation extends BaseModel
         'progress',
         'used',
         'location',
+        'detail',
 
         'seo_meta_title',
         'seo_slug',

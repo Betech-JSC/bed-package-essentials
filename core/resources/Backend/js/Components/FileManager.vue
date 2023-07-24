@@ -259,7 +259,9 @@ export default {
     unmounted() {
         let images = document.querySelector('.group-image-admin')
 
-        images.removeEventListener('scroll', this.scrollImage)
+        if (images) {
+            images.removeEventListener('scroll', this.scrollImage);
+        }
     },
 
     beforeDestroy() {
