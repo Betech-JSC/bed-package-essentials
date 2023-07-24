@@ -33,6 +33,7 @@ class ProjectCategory extends BaseModel
         'locale',
         'title',
         'description',
+        'type',
 
         'seo_meta_title',
         'seo_slug',
@@ -96,6 +97,7 @@ class ProjectCategory extends BaseModel
             'title' => $this->title,
             'slug' => $this->seo_slug ?? $this->slug,
             'description' => $this->description,
+            'type' => $this->type,
             'url' => $this->current_url
         ];
     }

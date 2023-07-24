@@ -41,7 +41,8 @@
                             v-if="canExport"
                             class="p-button btn-outline-primary"
                             :text="tt('models.table.export')"
-                            :href="route(`admin.${currentResource}.export`)"
+                            :href="route(`admin.${currentResource}.export`, {filters: lazyParams.filters, sellectIds
+                        })"
                         />
                         <div
                             v-if="canImport"
@@ -199,6 +200,7 @@ export default {
                 + " {totalRecords}",
 
             selectedItems: null,
+            selectedIds: [],
             selectAll: false,
 
             mergedColumns: this.mergeColumns(),
@@ -280,6 +282,11 @@ export default {
     },
     watch: {
         selectedItems(value) {
+            this.sellectIds = this.selectedIds = value
+                .map(function (item) {
+                    return item.id
+                })
+                .join();
             this.$emit("on-select", value);
         },
         lazyParams: {

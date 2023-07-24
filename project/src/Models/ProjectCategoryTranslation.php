@@ -18,6 +18,7 @@ class ProjectCategoryTranslation extends BaseModel
         'locale',
         'title',
         'description',
+        'type',
 
         'seo_meta_title',
         'seo_slug',
