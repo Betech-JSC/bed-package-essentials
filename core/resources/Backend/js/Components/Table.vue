@@ -247,7 +247,7 @@ export default {
                         !x.field.includes("seo_")
                 )
                 .sort((a, b) => (a.order > b.order ? 1 : -1))
-                .slice(0, 8);
+                .slice(0, 10);
         },
         canCreate() {
             return (
