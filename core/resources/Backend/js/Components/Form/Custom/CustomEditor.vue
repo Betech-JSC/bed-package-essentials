@@ -99,7 +99,8 @@ export default {
                         .post(route("admin.files.store"), data)
                         .then((response) => {
                             if (response.status === 200) {
-                                return response.data.successFiles[0];
+                                let path = response.data.successFiles[0];
+                                return path.includes('/static/') ? path : '/static' + path;
                             }
                         });
                 },
