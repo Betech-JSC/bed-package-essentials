@@ -19,5 +19,5 @@ if (!app()->environment('production')) {
 }
 
 Route::localized(function () {
-    Route::get('/{path}', fn () => abort(404))->where('path', '^(?!admin).*$');
+    Route::get('/{path}', fn () => abort(404))->where('path', '^(?!admin|totem).*$');
 });
