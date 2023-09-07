@@ -6,7 +6,25 @@
             'grid grid-cols-12 gap-y-4 lg:gap-x-6 lg:p-6':
                 config?.addGrid !== false,
         }"
-    >
+        >
+        <div
+            v-if="showActions && (canDestroyResource || canStore) && config?.showActionOntop"
+            class=" col-span-full lg:col-span-8 flex justify-between" >
+            <Button
+                v-if="canDestroyResource && !form.deleted_at && form.id"
+                :label="tt('models.form.delete')"
+                class="btn-danger-link"
+                @click="destroy"
+                />
+            <Button v-if="reloadOctane" label="Xóa cache" class="btn-primary" @click="reloadOctane" :loading="octaneReloading"/>
+            <Button
+                v-if="canStore"
+                :label="tt('models.form.save')"
+                type="submit"
+                :loading="form.processing"
+                class="ml-auto"
+                />
+        </div>
         <div class="space-y-6 col-span-full lg:col-span-8">
             <div class="card" v-if="form.deleted_at">
                 <TrashedMessage v-if="form.deleted_at" />
