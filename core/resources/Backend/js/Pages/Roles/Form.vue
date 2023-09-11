@@ -10,6 +10,7 @@
                         :field="{
                             type: 'text',
                             name: 'name',
+                            label: 'Tên (*)'
                         }"
                     />
                 </div>
