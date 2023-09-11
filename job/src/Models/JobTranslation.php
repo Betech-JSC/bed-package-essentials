@@ -14,6 +14,7 @@ class JobTranslation extends BaseModel
     public $slugAttribute = 'title';
 
     public $fillable = [
+        'job_id',
         'slug',
         'locale',
         'title',

@@ -12,6 +12,8 @@ class SliderTranslation extends BaseModel
     public $timestamps = false;
 
     public $fillable = [
+        'slider_id',
+        'locale',
         'title',
         'description',
         'link',

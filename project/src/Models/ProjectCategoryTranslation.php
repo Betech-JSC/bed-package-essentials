@@ -14,6 +14,7 @@ class ProjectCategoryTranslation extends BaseModel
     public $slugAttribute = 'title';
 
     public $fillable = [
+        'project_category_id',
         'slug',
         'locale',
         'title',

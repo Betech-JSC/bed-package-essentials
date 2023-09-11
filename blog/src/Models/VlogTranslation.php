@@ -14,6 +14,7 @@ class VlogTranslation extends BaseModel
     public $slugAttribute = 'title';
 
     public $fillable = [
+        'vlog_id',
         'slug',
         'locale',
         'title',

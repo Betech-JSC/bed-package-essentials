@@ -14,6 +14,7 @@ class PolicyTranslation extends BaseModel
     public $slugAttribute = 'title';
 
     public $fillable = [
+        'policy_id',
         'slug',
         'locale',
         'title',
