@@ -214,8 +214,15 @@ class File
             } else {
                 if ($item['type'] === 'dir') {
                     $this->storage->deleteDirectory($item['path']);
+
+                    $cacheFolder = 'cache/' . $item['path'];
+
+                    $this->publicStorage->deleteDirectory($cacheFolder);
                 } else {
                     $this->storage->delete($item['path']);
+                    $cacheFolder = 'cache/' . str_replace('.', '_', $item['path']);
+
+                    $this->publicStorage->deleteDirectory($cacheFolder);
                 }
             }
 
