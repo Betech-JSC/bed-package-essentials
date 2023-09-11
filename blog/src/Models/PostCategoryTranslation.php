@@ -14,6 +14,7 @@ class PostCategoryTranslation extends BaseModel
     public $slugAttribute = 'title';
 
     public $fillable = [
+        'post_category_id',
         'slug',
         'locale',
         'title',

@@ -14,6 +14,7 @@ class TagTranslation extends BaseModel
     public $slugAttribute = 'title';
 
     public $fillable = [
+        'tag_id',
         'locale',
         'title',
         'slug',

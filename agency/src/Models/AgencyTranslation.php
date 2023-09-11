@@ -14,6 +14,7 @@ class AgencyTranslation extends BaseModel
     public $slugAttribute = 'title';
 
     public $fillable = [
+        'agency_id',
         'locale',
         'title',
         'slug',

@@ -29,6 +29,7 @@ class ProjectCategory extends BaseModel
     ];
 
     public $translatedAttributes = [
+        'project_id',
         'slug',
         'locale',
         'title',

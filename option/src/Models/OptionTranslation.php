@@ -14,6 +14,7 @@ class OptionTranslation extends BaseModel
     public $slugAttribute = 'title';
 
     public $fillable = [
+        'option_id',
         'locale',
         'title',
         'slug',
