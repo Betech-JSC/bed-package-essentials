@@ -55,7 +55,7 @@
                         :field="{
                             type: 'password',
                             name: 'password',
-                            label: tt('models.password') + form.id ? '' : ' (*)'
+                            label: tt('models.password') + (form.id ? '' : ' (*)')
                         }"
                     />
                     <Field
