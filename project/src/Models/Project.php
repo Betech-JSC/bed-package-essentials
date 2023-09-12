@@ -66,6 +66,7 @@ class Project extends BaseModel
         return [
             'title' => 'required|string|max:255',
             'content' => 'required',
+            'position' => 'gte:0',
         ];
     }
 
