@@ -36,6 +36,7 @@
                         type: 'radio_list',
                         keyBy: 'id',
                         labelBy: 'name',
+                        label: tt('models.role') + ' (*)',
                         source: {
                             model: 'Role',
                             method: 'getRoles',
@@ -54,6 +55,7 @@
                         :field="{
                             type: 'password',
                             name: 'password',
+                            label: tt('models.password') + (form.id ? '' : ' (*)')
                         }"
                     />
                     <Field
