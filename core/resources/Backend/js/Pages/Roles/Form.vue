@@ -3,14 +3,16 @@
     <div class="lg:p-6">
         <Form v-model="formData" v-slot="{ form }" :config="{ addGrid: false }">
             <div class="card">
-                <div class="card-header">{{ tt('models.form.general_information') }}</div>
+                <div class="card-header">
+                    {{ tt("models.form.general_information") }}
+                </div>
                 <div class="card-body">
                     <Field
                         v-model="form.name"
                         :field="{
                             type: 'text',
                             name: 'name',
-                            label: 'Tên (*)'
+                            label: tt('models.name') + ' (*)',
                         }"
                     />
                 </div>
@@ -18,59 +20,59 @@
             <div class="card">
                 <table class="table">
                     <thead>
-                        <th>{{ tt('models.roles.object') }}</th>
+                        <th>{{ tt("models.roles.object") }}</th>
                         <th>
-                            <div>{{ tt('models.roles.see') }}</div>
+                            <div>{{ tt("models.roles.see") }}</div>
                             <div
                                 @click="toggle('index')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                {{ tt('models.roles.select_all') }}
+                                {{ tt("models.roles.select_all") }}
                             </div>
                         </th>
                         <th>
-                            <div>{{ tt('models.roles.add') }}</div>
+                            <div>{{ tt("models.roles.add") }}</div>
                             <div
                                 @click="toggle('form')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                {{ tt('models.roles.select_all') }}
+                                {{ tt("models.roles.select_all") }}
                             </div>
                         </th>
                         <th>
-                            <div>{{ tt('models.roles.edit') }}</div>
+                            <div>{{ tt("models.roles.edit") }}</div>
                             <div
                                 @click="toggle('store')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                {{ tt('models.roles.select_all') }}
+                                {{ tt("models.roles.select_all") }}
                             </div>
                         </th>
                         <th>
-                            <div>{{ tt('models.roles.delete') }}</div>
+                            <div>{{ tt("models.roles.delete") }}</div>
                             <div
                                 @click="toggle('destroy')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                {{ tt('models.roles.select_all') }}
+                                {{ tt("models.roles.select_all") }}
                             </div>
                         </th>
                         <th>
-                            <div>{{ tt('models.roles.restore') }}</div>
+                            <div>{{ tt("models.roles.restore") }}</div>
                             <div
                                 @click="toggle('restore')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                {{ tt('models.roles.select_all') }}
+                                {{ tt("models.roles.select_all") }}
                             </div>
                         </th>
                         <th>
-                            <div>{{ tt('models.roles.other') }}</div>
+                            <div>{{ tt("models.roles.other") }}</div>
                             <div
                                 @click="toggle('other')"
                                 class="pt-1 text-xs font-normal capitalize select-none link"
                             >
-                                {{ tt('models.roles.select_all') }}
+                                {{ tt("models.roles.select_all") }}
                             </div>
                         </th>
                     </thead>
@@ -187,27 +189,29 @@
                                 <div class="flex justify-center">
                                     <div>
                                         <Field
-
-                                    v-for="(permission, index) in Object.keys(
-                                        form.permissions[group]
-                                    ).filter(
-                                        (x) =>
-                                            !x.includes('.index') &&
-                                            !x.includes('.form') &&
-                                            !x.includes('.store') &&
-                                            !x.includes('.destroy') &&
-                                            !x.includes('.restore')
-                                    )"
-                                    v-model="
-                                        form.permissions[group][permission]
-                                    "
-                                    :field="{
-                                        type: 'checkbox',
-                                        name: permission,
-                                    }"
-                                />
+                                            v-for="(
+                                                permission, index
+                                            ) in Object.keys(
+                                                form.permissions[group]
+                                            ).filter(
+                                                (x) =>
+                                                    !x.includes('.index') &&
+                                                    !x.includes('.form') &&
+                                                    !x.includes('.store') &&
+                                                    !x.includes('.destroy') &&
+                                                    !x.includes('.restore')
+                                            )"
+                                            v-model="
+                                                form.permissions[group][
+                                                    permission
+                                                ]
+                                            "
+                                            :field="{
+                                                type: 'checkbox',
+                                                name: permission,
+                                            }"
+                                        />
                                     </div>
-
                                 </div>
                             </td>
                         </tr>
