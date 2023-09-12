@@ -184,8 +184,10 @@
                                 />
                             </td>
                             <td>
-                                <Field
-                                    class="flex justify-center"
+                                <div class="flex justify-center">
+                                    <div>
+                                        <Field
+
                                     v-for="(permission, index) in Object.keys(
                                         form.permissions[group]
                                     ).filter(
@@ -204,6 +206,9 @@
                                         name: permission,
                                     }"
                                 />
+                                    </div>
+
+                                </div>
                             </td>
                         </tr>
                     </tbody>
