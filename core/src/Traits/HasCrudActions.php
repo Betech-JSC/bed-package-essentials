@@ -210,6 +210,80 @@ trait HasCrudActions
         }
     }
 
+    public function storeDraft(Request $request, $id = null)
+    {
+        $request['locale'] = current_locale();
+
+        $this->checkAuthorize();
+
+        $rules = $this->getModelRules(__FUNCTION__, $id);
+
+        $rules = $this->beforeStore($request, $rules);
+
+        foreach ($rules as $column => $rule) {
+            if (str_contains($rule, 'required') && empty($request[$column])) {
+                if (str_contains($rule, 'string')) {
+                    $request[$column] = __('models.common.' . $column);
+                } else if (str_contains($rule, 'integer')) {
+                    $request[$column] = 0;
+                } else if (str_contains($rule, 'array')) {
+                    $request[$column] = [];
+                } else {
+                    $request[$column] = '';
+                }
+            }
+        }
+
+        if (!empty($request['status'])) {
+            $request['status'] = $this->model()->statusDraft ?? null;
+        }
+
+        $isValidationRequest = $request->header('X-Dry-Run') == 'true';
+
+        if (!$isValidationRequest) {
+            $appends = [];
+            if ($id) {
+                $appends['updated_by'] = current_admin_id();
+            } else {
+                $appends['created_by'] = current_admin_id();
+            }
+
+            $request->request->add([
+                ...$this->getEmptyFields(),
+                ...$request->all(),
+                ...$appends
+            ]);
+        }
+
+        if ($is_update = !empty($id)) {
+            $resource = $this->updateModel($id, $request->all());
+        } else {
+            $data = $request->all();
+            $defaultLocale = config('app.locale');
+            if ($defaultLocale != current_locale() && $request->has('locale')) {
+                $data['locale'] = $defaultLocale;
+                $default = $this->model::create($data);
+
+                $data['locale'] = current_locale();
+                $resource = $this->updateModel($default->id, $data);
+            } else {
+                $resource = $this->model::create($data);
+            }
+        }
+
+        $this->afterStore($request, $resource);
+
+        if (request()->wantsJson()) {
+            return response()->json($resource);
+        }
+
+        if ($is_update || (isset($this->redirectBack) && $this->redirectBack)) {
+            return $this->redirectBack(__('models.has_crud_action.store', [], current_locale()));
+        } else {
+            return $this->redirectToForm($resource->id, __('models.has_crud_action.store', [], current_locale()));
+        }
+    }
+
     public function destroy($id)
     {
         $this->checkAuthorize();
