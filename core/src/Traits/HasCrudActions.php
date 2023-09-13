@@ -226,6 +226,8 @@ trait HasCrudActions
                     $request[$column] = __('models.common.' . $column);
                 } else if (str_contains($rule, 'integer')) {
                     $request[$column] = 0;
+                } else if (str_contains($rule, 'array')) {
+                    $request[$column] = [];
                 } else {
                     $request[$column] = '';
                 }
@@ -233,7 +235,7 @@ trait HasCrudActions
         }
 
         if (!empty($request['status'])) {
-            $request['status'] = $this->draftStatus ?? null;
+            $request['status'] = $this->model()->statusDraft() ?? null;
         }
 
         $isValidationRequest = $request->header('X-Dry-Run') == 'true';

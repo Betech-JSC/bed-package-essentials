@@ -33,7 +33,7 @@
                     v-if="canStoreDraft"
                     :label="tt('models.form.store_draft')"
                     @click="storeDraft"
-                    class="btn-primary"
+                    class="btn-warning"
                     :loading="form.processing"
                 />
                 <Button
@@ -74,7 +74,7 @@
                         v-if="canStoreDraft"
                         :label="tt('models.form.store_draft')"
                         @click="storeDraft"
-                        class="btn-primary"
+                        class="btn-warning"
                         :loading="form.processing"
                     />
                     <Button
