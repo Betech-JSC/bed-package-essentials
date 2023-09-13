@@ -210,8 +210,9 @@ trait HasCrudActions
         }
     }
 
-    public function storeDraft(Request $request, $id = null)
+    public function storeDraft(Request $request)
     {
+        $id = request()->input('id') ?? null;
         $request['locale'] = current_locale();
 
         $this->checkAuthorize();
