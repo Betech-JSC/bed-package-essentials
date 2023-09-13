@@ -74,7 +74,7 @@ class Agency extends BaseModel
             'location' => 'required',
             'longitude' => 'nullable|numeric|min:-180|max:180',
             'latitude' => 'nullable|numeric|min:-90|max:90',
-            'position' => 'gte:0',
+            'position' => 'nullable|integer|min:0',
         ];
     }
 

@@ -77,7 +77,7 @@ class Post extends BaseModel
     {
         return [
             'title' => 'required|string|max:255',
-            'position' => 'gte:0',
+            'position' => 'nullable|integer|min:0',
         ];
     }
 
