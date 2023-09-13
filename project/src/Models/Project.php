@@ -66,7 +66,7 @@ class Project extends BaseModel
         return [
             'title' => 'required|string|max:255',
             'content' => 'required',
-            'position' => 'gte:0',
+            'position' => 'nullable|integer|min:0',
         ];
     }
 
@@ -138,8 +138,7 @@ class Project extends BaseModel
                         'slug' => $translation->seo_slug ?? $translation->slug
                     ]);
                 }
-            }
-            else if (Route::has($default_locale . ".nested_projects.show")) {
+            } else if (Route::has($default_locale . ".nested_projects.show")) {
                 $category = $this->categories
                     ->where('status', ProjectCategory::STATUS_ACTIVE)
                     ->values()
