@@ -148,7 +148,7 @@ export default {
         canStoreDraft() {
             return (
                 this.config.canStoreDraft ??
-                this.can("admin." + this.currentResource + ".store_draft")
+                this.can("admin." + this.currentResource + ".draft")
             );
         },
         reloadOctane() {
@@ -203,7 +203,7 @@ export default {
 
         storeDraft() {
             this.$inertia.post(
-                this.route(`admin.${this.currentResource}.store_draft`, {
+                this.route(`admin.${this.currentResource}.draft`, {
                     id: this.form?.id,
                 }),
                 this.form,
