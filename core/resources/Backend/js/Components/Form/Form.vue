@@ -6,24 +6,43 @@
             'grid grid-cols-12 gap-y-4 lg:gap-x-6 lg:p-6':
                 config?.addGrid !== false,
         }"
-        >
+    >
         <div
-            v-if="showActions && (canDestroyResource || canStore) && config?.showActionOntop"
-            class=" col-span-full lg:col-span-8 flex justify-between" >
+            v-if="
+                showActions &&
+                (canDestroyResource || canStore) &&
+                config?.showActionOntop
+            "
+            class="flex justify-between col-span-full lg:col-span-8"
+        >
             <Button
                 v-if="canDestroyResource && !form.deleted_at && form.id"
                 :label="tt('models.form.delete')"
                 class="btn-danger-link"
                 @click="destroy"
-                />
-            <Button v-if="reloadOctane" label="Xóa cache" class="btn-primary" @click="reloadOctane" :loading="octaneReloading"/>
+            />
             <Button
-                v-if="canStore"
-                :label="tt('models.form.save')"
-                type="submit"
-                :loading="form.processing"
-                class="ml-auto"
+                v-if="reloadOctane"
+                label="Xóa cache"
+                class="btn-primary"
+                @click="reloadOctane"
+                :loading="octaneReloading"
+            />
+            <div class="flex items-center ml-auto space-x-2">
+                <Button
+                    v-if="canStoreDraft"
+                    :label="tt('models.form.store_draft')"
+                    @click="storeDraft"
+                    class="btn-primary"
+                    :loading="form.processing"
                 />
+                <Button
+                    v-if="canStore"
+                    :label="tt('models.form.save')"
+                    type="submit"
+                    :loading="form.processing"
+                />
+            </div>
         </div>
         <div class="space-y-6 col-span-full lg:col-span-8">
             <div class="card" v-if="form.deleted_at">
@@ -43,14 +62,28 @@
                     class="btn-danger-link"
                     @click="destroy"
                 />
-                <Button v-if="reloadOctane" label="Xóa cache" class="btn-primary" @click="reloadOctane" :loading="octaneReloading"/>
                 <Button
-                    v-if="canStore"
-                    :label="tt('models.form.save')"
-                    type="submit"
-                    :loading="form.processing"
-                    class="ml-auto"
+                    v-if="reloadOctane"
+                    label="Xóa cache"
+                    class="btn-primary"
+                    @click="reloadOctane"
+                    :loading="octaneReloading"
                 />
+                <div class="flex items-center ml-auto space-x-2">
+                    <Button
+                        v-if="canStoreDraft"
+                        :label="tt('models.form.store_draft')"
+                        @click="storeDraft"
+                        class="btn-primary"
+                        :loading="form.processing"
+                    />
+                    <Button
+                        v-if="canStore"
+                        :label="tt('models.form.save')"
+                        type="submit"
+                        :loading="form.processing"
+                    />
+                </div>
             </div>
         </div>
         <div
@@ -81,7 +114,7 @@ export default {
     data() {
         return {
             form: this.$inertia.form(this.modelValue),
-            octaneReloading: false
+            octaneReloading: false,
         };
     },
     watch: {
@@ -110,6 +143,12 @@ export default {
             return (
                 this.config.canStore ??
                 this.can("admin." + this.currentResource + ".store")
+            );
+        },
+        canStoreDraft() {
+            return (
+                this.config.canStoreDraft ??
+                this.can("admin." + this.currentResource + ".store_draft")
             );
         },
         reloadOctane() {
@@ -162,8 +201,22 @@ export default {
             );
         },
 
+        storeDraft() {
+            this.$inertia.post(
+                this.route(`admin.${this.currentResource}.store_draft`, {
+                    id: this.form?.id,
+                }),
+                this.form,
+                {
+                    onSuccess: () => {
+                        this.form = this.$inertia.form(this.modelValue);
+                    },
+                }
+            );
+        },
+
         destroy() {
-            if (confirm(this.tt('models.form.confirm_destroy'))) {
+            if (confirm(this.tt("models.form.confirm_destroy"))) {
                 this.$inertia.post(
                     this.route(`admin.${this.currentResource}.destroy`, {
                         id: this.form.id,
@@ -173,7 +226,7 @@ export default {
         },
 
         restore() {
-            if (confirm(this.tt('models.form.confirm_restore'))) {
+            if (confirm(this.tt("models.form.confirm_restore"))) {
                 this.$inertia.post(
                     this.route(`admin.${this.currentResource}.restore`, {
                         id: this.form.id,
@@ -183,11 +236,11 @@ export default {
         },
 
         reloadOctane() {
-            this.octaneReloading = true
+            this.octaneReloading = true;
             this.$axios
                 .get(this.route("admin.helper.reload-octane"))
-                .finally(() => this.octaneReloading = false);
-        }
+                .finally(() => (this.octaneReloading = false));
+        },
     },
 };
 </script>
