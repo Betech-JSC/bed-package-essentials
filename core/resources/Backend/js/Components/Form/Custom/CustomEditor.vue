@@ -112,7 +112,7 @@ export default {
                         onAction: () =>
                             editor.windowManager.openUrl({
                                 title: "File Manager",
-                                url: `/admin/files?embed=true`,
+                                url: `/admin/files?embed=true&select-multiple=true`,
                                 height: 640,
                                 width: 1000,
                             }),

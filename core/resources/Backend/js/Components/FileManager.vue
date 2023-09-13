@@ -98,6 +98,13 @@
                     v-if="Object.keys(searchFiles).length"
                     class="px-4 pt-8 pb-16 mx-auto space-y-4 max-w-7xl sm:px-6 lg:px-8"
                 >
+                <div class="absolute bottom-0 w-full bg-white p-2 border-t">
+                <Button
+                    class="btn-primary btn-sm"
+                    :label="tt('models.files.submit')"
+                    @click="submitFiles"
+                />
+                </div>
                     <ul role="list" class="grid grid-cols-3 gap-4 lg:grid-cols-4 2xl:grid-cols-6">
                         <li class="relative" v-if="data" v-for="(file, index) in searchFiles" :key="file.static_url">
                             <div
@@ -227,6 +234,7 @@ export default {
             },
             search: null,
             embed: this.$page.props.route.query.embed,
+            selectMultiple: this.$page.props.route.query['select-multiple'] == 'true',
             limit: 50,
             page: 1,
             fetchData: true,
