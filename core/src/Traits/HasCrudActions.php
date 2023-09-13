@@ -235,7 +235,7 @@ trait HasCrudActions
         }
 
         if (!empty($request['status'])) {
-            $request['status'] = $this->model()->statusDraft() ?? null;
+            $request['status'] = $this->model()->statusDraft ?? null;
         }
 
         $isValidationRequest = $request->header('X-Dry-Run') == 'true';
