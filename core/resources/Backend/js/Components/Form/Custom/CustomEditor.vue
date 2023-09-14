@@ -76,11 +76,11 @@ export default {
                 contextmenu: "link image imagetools table",
                 skin: "oxide",
                 content_css: "default",
+                // content_style: "image { max-width: inherit; }",
                 // content_css:
                 //     "https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css",
                 importcss_append: true,
-                content_style:
-                    "body {margin:1rem;};img { max-width: 100%; height: auto; }",
+                content_style: "img { max-width: 100%; }",
                 paste_data_images: true,
                 convert_urls: false,
                 images_upload_handler(blobInfo, progress) {
