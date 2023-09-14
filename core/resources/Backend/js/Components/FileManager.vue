@@ -101,10 +101,8 @@
                     <ul role="list" class="grid grid-cols-3 gap-4 lg:grid-cols-4 2xl:grid-cols-6">
                         <li class="relative" v-if="data" v-for="(file, index) in searchFiles" :key="file.static_url">
                             <div
-                                class="group w-full rounded bg-gray-100 overflow-hidden aspect-[1/1] flex cursor-pointer justify-center items-center border border-transparent hover:border-gray-400 relative outline outline-offset-2 outline-2 outline-transparent"
-                                :class="{
-                                    'outline-black': selectedFiles.includes(file),
-                                }"
+                                class="group w-full rounded bg-gray-100 overflow-hidden aspect-[1/1] flex cursor-pointer justify-center items-center border border-transparent hover:border-gray-400 relative outline outline-offset-2 outline-2"
+                                :class="selectedFiles.includes(file) ? 'outline-black' : 'outline-transparent'"
                                 @click="onSelect(file)"
                             >
                                 <Thumbnail :file="file" @remove="onRemove(file)" />
@@ -129,11 +127,11 @@
             </main>
         </div>
         <div
-            v-if="multiple && selectedFiles.length > 0"
+            v-if="canSelectMultiple && selectedFiles.length > 0"
             class="absolute bottom-0 left-0 right-0 flex items-center justify-center w-full h-16 space-x-2 bg-white border-t"
         >
             <Button @click="selectedFiles = []"> {{ tt('models.files.unchecked') }} </Button>
-            <Button @click="submitFileSelect()"> {{ tt('models.files.select') }} ({{ selectedFiles.length }}) </Button>
+            <Button class="btn-primary" @click="submitFileSelect()"> {{ tt('models.files.select') }} ({{ selectedFiles.length }}) </Button>
         </div>
         <Dialog
             header="Folder"
@@ -157,7 +155,7 @@
                 <Button
                     type="button"
                     class="ml-2"
-                    @click="createFolder(folderForm.name), showFolderModal = false"
+                    @click="createFolder(folderForm.name), (showFolderModal = false)"
                     :label="tt('models.files.save')"
                 />
             </template>
@@ -227,6 +225,7 @@ export default {
             },
             search: null,
             embed: this.$page.props.route.query.embed,
+            selectMultiple: this.$page.props.route.query['select-multiple'] == 'true',
             limit: 50,
             page: 1,
             fetchData: true,
@@ -260,7 +259,7 @@ export default {
         let images = document.querySelector('.group-image-admin')
 
         if (images) {
-            images.removeEventListener('scroll', this.scrollImage);
+            images.removeEventListener('scroll', this.scrollImage)
         }
     },
 
@@ -297,6 +296,9 @@ export default {
             if (!this.data) return false
 
             return this.data.files.length === 0 && this.data.directories.length === 0
+        },
+        canSelectMultiple() {
+            return this.multiple || this.selectMultiple
         },
     },
 
@@ -355,36 +357,59 @@ export default {
                 await navigator.clipboard.writeText(this.staticUrl(file.static_url))
             } catch ($e) {}
         },
-        onSelect(file) {
-            if (this.embed) {
+        submitToParentIframe() {
+            let htmlImages = ''
+            this.selectedFiles.forEach((file) => {
                 let src = '/static' + new URL(file.static_url).pathname
                 src = src.replace('/static/static/', '/static/')
+                htmlImages += `<img src="${src}">`
+            })
 
-                window.parent.postMessage({
-                    mceAction: 'insertContent',
-                    content: `<img src="${src}">`,
-                })
-                window.parent.postMessage({
-                    mceAction: 'close',
-                })
+            window.parent.postMessage({
+                mceAction: 'insertContent',
+                content: htmlImages,
+            })
+            window.parent.postMessage({
+                mceAction: 'close',
+            })
+            return
+        },
+
+        onSelect(file) {
+            if (this.embed) {
+                if (this.canSelectMultiple) {
+                    this.toggleFileSelect(file)
+                } else {
+                    this.selectedFiles = [file]
+                    this.submitToParentIframe()
+                }
                 return
             }
 
             if (!this.selectable) return
 
-            if (!this.multiple) {
+            if (!this.canSelectMultiple) {
                 this.selectedFiles[0] = file
                 this.submitFileSelect()
             } else {
-                if (!this.selectedFiles.includes(file)) {
-                    this.selectedFiles.push(file)
-                } else {
-                    const fileIndex = this.selectedFiles.indexOf(file)
-                    this.selectedFiles.splice(fileIndex, 1)
-                }
+                this.toggleFileSelect(file)
+            }
+        },
+        toggleFileSelect(file) {
+            if (!this.selectedFiles.includes(file)) {
+                this.selectedFiles.push(file)
+            } else {
+                const fileIndex = this.selectedFiles.indexOf(file)
+                this.selectedFiles.splice(fileIndex, 1)
             }
         },
         submitFileSelect() {
+            if (this.embed) {
+                if (this.canSelectMultiple) {
+                    return this.submitToParentIframe()
+                }
+                return
+            }
             this.$emit('on-select', this.selectedFiles)
             this.selectedFiles = []
             this.$emit('update:show', false)
