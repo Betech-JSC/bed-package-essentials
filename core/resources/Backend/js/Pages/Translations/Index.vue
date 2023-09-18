@@ -5,8 +5,8 @@
             <template #body="{ data }">
                 <div>
                     <Image
-                        v-if="isImage(data.key)"
-                        :src="data.key"
+                        v-if="isImage(transformKey(data.key))"
+                        :src="transformKey(data.key)"
                         width="80"
                         preview
                     />
@@ -123,7 +123,8 @@ export default {
             return /(<([^>]+)>)/.test(string);
         },
         transformKey(value) {
-            return value.replace('\\x40', '@');
+            value = value.toString().replace('\\x40', '@');
+            return value;
         },
     },
 };
