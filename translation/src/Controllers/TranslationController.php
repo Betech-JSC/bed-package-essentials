@@ -36,7 +36,7 @@ class TranslationController extends Controller
             ->map(function ($value, $key) {
                 return [
                     'key' => $key,
-                    'translations' => $value->keyBy('locale')->map(fn ($translation) => $translation->value)
+                    'translations' => $value->keyBy('locale')->map(fn ($translation) => $translation->cover_value)
                 ];
             })->values();
 
@@ -47,6 +47,8 @@ class TranslationController extends Controller
     {
         $data = $request->only('key', 'locale', 'value');
 
+        $data['value'] = str_replace('@', '\x40', $data['value']);
+
         $item = Translation::where('locale', $data['locale'])
             ->whereRaw('BINARY `key` = ?', [$data['key']])
             ->first();
@@ -55,7 +57,15 @@ class TranslationController extends Controller
             $item->value = $data['value'];
             $item->save();
         } else {
-            $item = Translation::create($data);
+            $item = Translation::updateOrCreate(
+                [
+                    'key' => $data['key'],
+                    'locale' => $data['locale'],
+                ],
+                [
+                    'value' => $data['value']
+                ]
+            );
         }
 
         $this->storeToJson();
@@ -94,13 +104,18 @@ class TranslationController extends Controller
         // Translation::whereIn('key', $diff->values())->delete();
 
         if ($diff->count()) {
-            Translation::insert(
-                $diff->transform(fn ($item) => [
-                    'key' => trim($item),
-                    'value' => $item,
-                    'locale' => $locale
-                ])->toArray()
-            );
+            foreach ($diff as $item) {
+                $item = str_replace('@', '\x40', $item);
+                Translation::updateOrCreate(
+                    [
+                        'key' => trim($item),
+                        'locale' => $locale,
+                    ],
+                    [
+                        'value' => $item
+                    ]
+                );
+            }
         }
     }
 

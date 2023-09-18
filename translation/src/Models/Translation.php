@@ -16,4 +16,11 @@ class Translation extends Model
         'key' => 'required',
         'value' => 'required',
     ];
+
+    public $appends = ['cover_value'];
+
+    public function getCoverValueAttribute()
+    {
+        return str_replace('\x40', '@', $this->value);
+    }
 }

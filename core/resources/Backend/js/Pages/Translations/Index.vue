@@ -10,7 +10,7 @@
                         width="80"
                         preview
                     />
-                    <div v-html="data.key" class="break-words"></div>
+                    <div v-html="transformKey(data.key)" class="break-words"></div>
                 </div>
             </template>
         </Column>
@@ -121,6 +121,9 @@ export default {
         },
         isHTML(string) {
             return /(<([^>]+)>)/.test(string);
+        },
+        transformKey(value) {
+            return value.replace('\\x40', '@');
         },
     },
 };
