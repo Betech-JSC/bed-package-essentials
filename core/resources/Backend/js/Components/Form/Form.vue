@@ -29,6 +29,7 @@
                 :loading="octaneReloading"
             />
             <div class="flex items-center ml-auto space-x-2">
+                <slot name="buttons"></slot>
                 <Button
                     v-if="canStoreDraft"
                     :label="tt('models.form.store_draft')"
@@ -70,6 +71,7 @@
                     :loading="octaneReloading"
                 />
                 <div class="flex items-center ml-auto space-x-2">
+                    <slot name="buttons"></slot>
                     <Button
                         v-if="canStoreDraft"
                         :label="tt('models.form.store_draft')"
