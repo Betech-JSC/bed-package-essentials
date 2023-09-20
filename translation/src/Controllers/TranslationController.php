@@ -101,7 +101,7 @@ class TranslationController extends Controller
                 $data = [
                     'key' => $item,
                     'value' => $item,
-                    'value' => $locale
+                    'locale' => $locale
                 ];
 
                 Translation::updateOrCreateData($data);
