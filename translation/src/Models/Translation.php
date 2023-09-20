@@ -17,13 +17,13 @@ class Translation extends Model
         'value' => 'required',
     ];
 
-    public static function updateOrCreateData($key, $value, $locale)
+    public static function updateOrCreateData($data)
     {
         static::updateOrCreate([
-            'key' => trim($key),
-            'locale' => $locale
+            'key' => trim($data['key']),
+            'locale' => $data['locale']
         ], [
-            'value' => $value
+            'value' => $data['value']
         ]);
     }
 

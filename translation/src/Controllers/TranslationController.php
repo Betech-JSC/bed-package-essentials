@@ -55,7 +55,7 @@ class TranslationController extends Controller
             $item->value = $data['value'];
             $item->save();
         } else {
-            Translation::updateOrCreateData($data['key'], $data['value'], $data['locale']);
+            Translation::updateOrCreateData($data);
         }
 
         $this->storeToJson();
@@ -97,7 +97,14 @@ class TranslationController extends Controller
 
         if ($diff->count()) {
             foreach ($diff as $item) {
-                Translation::updateOrCreateData(Translation::decodeEmail($item), Translation::decodeEmail($item), $locale);
+                $item = Translation::decodeEmail($item);
+                $data = [
+                    'key' => $item,
+                    'value' => $item,
+                    'value' => $locale
+                ];
+
+                Translation::updateOrCreateData($data);
             }
         }
     }
