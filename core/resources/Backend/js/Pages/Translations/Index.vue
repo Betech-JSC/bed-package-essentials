@@ -5,12 +5,12 @@
             <template #body="{ data }">
                 <div>
                     <Image
-                        v-if="isImage(transformKey(data.key))"
-                        :src="transformKey(data.key)"
+                        v-if="isImage(data.key)"
+                        :src="data.key"
                         width="80"
                         preview
                     />
-                    <div v-html="transformKey(data.key)" class="break-words"></div>
+                    <div v-html="data.key" class="break-words"></div>
                 </div>
             </template>
         </Column>
@@ -121,10 +121,6 @@ export default {
         },
         isHTML(string) {
             return /(<([^>]+)>)/.test(string);
-        },
-        transformKey(value) {
-            value = value.toString().replace('\\x40', '@');
-            return value;
         },
     },
 };
