@@ -55,7 +55,7 @@ class TranslationController extends Controller
             $item->value = $data['value'];
             $item->save();
         } else {
-            $item = Translation::create($data);
+            Translation::updateOrCreateData($data);
         }
 
         $this->storeToJson();
@@ -86,7 +86,9 @@ class TranslationController extends Controller
             ));
         }
 
-        $storedTranslations = Translation::pluck('key');
+        $storedTranslations = Translation::pluck('key')
+            ->map(fn ($key) => Translation::encodeEmail($key));
+
         $diff = $translations->map(fn ($item) => trim($item))
             ->diff($storedTranslations);
 
@@ -94,13 +96,16 @@ class TranslationController extends Controller
         // Translation::whereIn('key', $diff->values())->delete();
 
         if ($diff->count()) {
-            Translation::insert(
-                $diff->transform(fn ($item) => [
-                    'key' => trim($item),
+            foreach ($diff as $item) {
+                $item = Translation::decodeEmail($item);
+                $data = [
+                    'key' => $item,
                     'value' => $item,
                     'locale' => $locale
-                ])->toArray()
-            );
+                ];
+
+                Translation::updateOrCreateData($data);
+            }
         }
     }
 
@@ -117,7 +122,7 @@ class TranslationController extends Controller
                 $translateLocale = $translation->firstWhere('locale', $locale)?->value;
                 $translateDefaultLocale = $translation->firstWhere('locale', $defaultLocale)?->value;
 
-                $locales[$locale][$key] = $translateLocale ?? $translateDefaultLocale;
+                $locales[$locale][Translation::encodeEmail($key)] = Translation::encodeEmail($translateLocale) ?? Translation::encodeEmail($translateDefaultLocale);
             }
         }
 
