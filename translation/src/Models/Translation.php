@@ -17,10 +17,27 @@ class Translation extends Model
         'value' => 'required',
     ];
 
-    public $appends = ['cover_value'];
-
-    public function getCoverValueAttribute()
+    public static function updateOrCreateData($key, $value, $locale)
     {
-        return str_replace('\x40', '@', $this->value);
+        static::updateOrCreate([
+            'key' => trim($key),
+            'locale' => $locale
+        ], [
+            'value' => $value
+        ]);
+    }
+
+    public static function encodeEmail($value) {
+        if (str_contains($value, '@')) {
+            return str_replace('@', '\x40', $value);
+        }
+        return $value;
+    }
+
+    public static function decodeEmail($value) {
+        if (str_contains($value, '\x40')) {
+            return str_replace('\x40', '@', $value);
+        }
+        return $value;
     }
 }

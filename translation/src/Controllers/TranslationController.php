@@ -36,7 +36,7 @@ class TranslationController extends Controller
             ->map(function ($value, $key) {
                 return [
                     'key' => $key,
-                    'translations' => $value->keyBy('locale')->map(fn ($translation) => $translation->cover_value)
+                    'translations' => $value->keyBy('locale')->map(fn ($translation) => $translation->value)
                 ];
             })->values();
 
@@ -47,8 +47,6 @@ class TranslationController extends Controller
     {
         $data = $request->only('key', 'locale', 'value');
 
-        $data['value'] = str_replace('@', '\x40', $data['value']);
-
         $item = Translation::where('locale', $data['locale'])
             ->whereRaw('BINARY `key` = ?', [$data['key']])
             ->first();
@@ -57,15 +55,7 @@ class TranslationController extends Controller
             $item->value = $data['value'];
             $item->save();
         } else {
-            $item = Translation::updateOrCreate(
-                [
-                    'key' => $data['key'],
-                    'locale' => $data['locale'],
-                ],
-                [
-                    'value' => $data['value']
-                ]
-            );
+            Translation::updateOrCreateData($data['key'], $data['value'], $data['locale']);
         }
 
         $this->storeToJson();
@@ -96,7 +86,9 @@ class TranslationController extends Controller
             ));
         }
 
-        $storedTranslations = Translation::pluck('key');
+        $storedTranslations = Translation::pluck('key')
+            ->map(fn ($key) => Translation::encodeEmail($key));
+
         $diff = $translations->map(fn ($item) => trim($item))
             ->diff($storedTranslations);
 
@@ -105,16 +97,7 @@ class TranslationController extends Controller
 
         if ($diff->count()) {
             foreach ($diff as $item) {
-                $item = str_replace('@', '\x40', $item);
-                Translation::updateOrCreate(
-                    [
-                        'key' => trim($item),
-                        'locale' => $locale,
-                    ],
-                    [
-                        'value' => $item
-                    ]
-                );
+                Translation::updateOrCreateData(Translation::decodeEmail($item), Translation::decodeEmail($item), $locale);
             }
         }
     }
@@ -132,7 +115,7 @@ class TranslationController extends Controller
                 $translateLocale = $translation->firstWhere('locale', $locale)?->value;
                 $translateDefaultLocale = $translation->firstWhere('locale', $defaultLocale)?->value;
 
-                $locales[$locale][$key] = $translateLocale ?? $translateDefaultLocale;
+                $locales[$locale][Translation::encodeEmail($key)] = Translation::encodeEmail($translateLocale) ?? Translation::encodeEmail($translateDefaultLocale);
             }
         }
 
