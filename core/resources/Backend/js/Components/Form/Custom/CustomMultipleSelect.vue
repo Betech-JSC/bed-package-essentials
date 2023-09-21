@@ -8,7 +8,7 @@
         :optionLabel="labelBy"
         display="chip"
         :filter="field.filter || true"
-        :filterFields="['filter', labelBy, keyBy]"
+        :filterFields="['filter', labelBy, keyBy].concat(filterBy)"
     />
 </template>
 
@@ -24,17 +24,29 @@ export default {
         labelBy() {
             return this.field.labelBy || "label";
         },
+        filterBy() {
+            return this.field.filterBy || [];
+        },
         placeholder() {
-            return this.field.placeholder || `${this.tt('models.field.choose')} ${this.field.label}`;
+            return (
+                this.field.placeholder ||
+                `${this.tt("models.field.choose")} ${this.field.label}`
+            );
         },
         options() {
             let options = [];
-            this.field.options?.forEach((option) => {
-                options.push({
-                    [this.keyBy]: option[this.keyBy].toString(),
-                    [this.labelBy]: option[this.labelBy].toString(),
-                    filter: this.slugify(option[this.labelBy]),
-                });
+            this.field.options?.forEach((value) => {
+                let option = {
+                    [this.keyBy]: value[this.keyBy].toString(),
+                    [this.labelBy]: value[this.labelBy].toString(),
+                    filter: this.slugify(value[this.labelBy]),
+                };
+
+                for (const key of this.filterBy) {
+                    option[key] = value[key];
+                }
+
+                options.push(option);
             });
             return options;
         },
