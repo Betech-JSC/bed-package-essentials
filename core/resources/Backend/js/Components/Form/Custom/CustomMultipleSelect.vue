@@ -28,7 +28,10 @@ export default {
             return this.field.filterBy || [];
         },
         placeholder() {
-            return this.field.placeholder || `${this.tt('models.field.choose')} ${this.field.label}`;
+            return (
+                this.field.placeholder ||
+                `${this.tt("models.field.choose")} ${this.field.label}`
+            );
         },
         options() {
             let options = [];
@@ -36,12 +39,11 @@ export default {
                 let option = {
                     [this.keyBy]: value[this.keyBy].toString(),
                     [this.labelBy]: value[this.labelBy].toString(),
-                    filter: this.slugify(value[this.labelBy])
+                    filter: this.slugify(value[this.labelBy]),
                 };
 
                 for (const key of this.filterBy) {
-                    console.log(key)
-                    option[key] = value[key]
+                    option[key] = value[key];
                 }
 
                 options.push(option);
