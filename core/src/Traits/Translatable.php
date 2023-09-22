@@ -4,6 +4,7 @@ namespace JamstackVietnam\Core\Traits;
 
 use Astrotomic\Translatable\Translatable as AstrotomicTranslatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Route;
 
 trait Translatable
 {
@@ -54,5 +55,18 @@ trait Translatable
         }
 
         return $query;
+    }
+
+    protected function useFallback(): bool
+    {
+        if (isset($this->useTranslationFallback) && is_bool($this->useTranslationFallback)) {
+            return $this->useTranslationFallback;
+        }
+
+        if (str_contains(Route::current()->getName(), 'admin.')) {
+            return (bool) config('translatable.use_fallback_backend', config('translatable.use_fallback', false));
+        } else {
+            return (bool) config('translatable.use_fallback_frontend', config('translatable.use_fallback', false));
+        }
     }
 }
