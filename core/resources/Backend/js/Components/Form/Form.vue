@@ -172,8 +172,10 @@ export default {
         },
     },
     created() {
-        document.addEventListener("inertia:before", this.beforeWindowUnload);
-        window.addEventListener("beforeunload", this.beforeWindowUnload);
+        if (this.config?.isConfirm ?? false ) {
+            document.addEventListener("inertia:before", this.beforeWindowUnload);
+            window.addEventListener("beforeunload", this.beforeWindowUnload);
+        }
     },
     unmounted() {
         document.removeEventListener("inertia:before", this.beforeWindowUnload);
@@ -182,9 +184,7 @@ export default {
     methods: {
 
         confirmLeave() {
-            return confirm(
-                "Thông tin chưa được lưu. Bạn có thực sự muốn thoát trang?"
-            );
+            return confirm( this.tt('models.message.confirm_message') );
         },
 
         confirmStayInDirtyForm() {
