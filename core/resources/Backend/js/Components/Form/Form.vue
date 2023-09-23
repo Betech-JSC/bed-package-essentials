@@ -101,6 +101,8 @@
 <script>
 import FlashMessages from "@Core/Components/FlashMessages.vue";
 import TrashedMessage from "@Core/Components/TrashedMessage.vue";
+import cloneDeep from "lodash/cloneDeep";
+import isEqual from "lodash/isEqual";
 export default {
     components: { FlashMessages, TrashedMessage },
     props: {
@@ -117,6 +119,9 @@ export default {
         return {
             form: this.$inertia.form(this.modelValue),
             octaneReloading: false,
+            isCreate : false,
+            loading: false,
+            initItems: cloneDeep(this.modelValue),
         };
     },
     watch: {
@@ -166,7 +171,42 @@ export default {
             );
         },
     },
+    created() {
+        document.addEventListener("inertia:before", this.beforeWindowUnload);
+        window.addEventListener("beforeunload", this.beforeWindowUnload);
+    },
+    unmounted() {
+        document.removeEventListener("inertia:before", this.beforeWindowUnload);
+        window.removeEventListener("beforeunload", this.beforeWindowUnload);
+    },
     methods: {
+
+        confirmLeave() {
+            return confirm(
+                "Thông tin chưa được lưu. Bạn có thực sự muốn thoát trang?"
+            );
+        },
+
+        confirmStayInDirtyForm() {
+            return (
+                !this.isCreate &&
+                !this.loading &&
+                this.isDirty() &&
+                !this.confirmLeave()
+            );
+        },
+
+        beforeWindowUnload(e) {
+            if (this.confirmStayInDirtyForm()) {
+                e.preventDefault();
+                e.returnValue = "";
+            }
+        },
+
+        isDirty() {
+            return !isEqual(this.initItems, this.modelValue);
+        },
+
         pick(obj, fields) {
             return fields.reduce(
                 (acc, cur) => ((acc[cur] = obj[cur]), acc),
