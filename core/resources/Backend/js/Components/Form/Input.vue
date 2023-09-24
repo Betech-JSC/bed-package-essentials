@@ -14,7 +14,7 @@
             :type="field.type ?? 'text'"
             :model-value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
-            @blur="validateAsync(field.name)"
+            @blur="validateAsync($event.target.value , field.name)"
             :disabled="disabled"
             :placeholder="field.placeholder || ''"
         />
@@ -217,8 +217,8 @@ export default {
         }
     },
     methods: {
-        validateAsync(name) {
-            if (name && this.$parent.$parent.validateAsync) {
+        validateAsync(value, name) {
+            if ( value === "" && name && this.$parent.$parent.validateAsync) {
                 if (name.includes("password")) {
                     return this.$parent.$parent.validateAsync(
                         "password",
