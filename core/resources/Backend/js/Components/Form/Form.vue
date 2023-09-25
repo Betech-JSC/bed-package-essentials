@@ -225,19 +225,19 @@ export default {
         },
 
         submit() {
+            this.isSubmit = true,
             this.$inertia.post(
                 this.route(`admin.${this.currentResource}.store`, {
                     id: this.form?.id,
                 }),
                 this.form,
-                this.isSubmit = true,
                 {
                     onSuccess: () => {
                         this.form = this.$inertia.form(this.modelValue);
-                        this.isSubmit = false
                     },
                 }
             );
+            this.isSubmit = false
         },
 
         storeDraft() {
