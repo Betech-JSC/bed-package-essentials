@@ -118,8 +118,8 @@ export default {
         return {
             form: this.$inertia.form(this.modelValue),
             octaneReloading: false,
-            isSubmitting : false,
-            initItems:this.modelValue,
+            isLoading : false,
+            initItems: this.modelValue,
         };
     },
     watch: {
@@ -185,7 +185,7 @@ export default {
 
         confirmStayInDirtyForm() {
             return (
-                !this.isSubmit &&
+                !this.isLoading &&
                 !this.form.processing &&
                 this.isDirty() &&
                 !this.confirmLeave()
@@ -226,22 +226,24 @@ export default {
         },
 
         submit() {
+            this.isLoading = true,
             this.$inertia.post(
                 this.route(`admin.${this.currentResource}.store`, {
                     id: this.form?.id,
                 }),
                 this.form,
-                this.isSubmitting = true,
                 {
                     onSuccess: () => {
                         this.form = this.$inertia.form(this.modelValue);
-                        this.isSubmitting = false
+                        this.isLoading = true
                     },
                 }
             );
+            this.isLoading = false
         },
 
         storeDraft() {
+            this.isLoading = false
             this.$inertia.post(
                 this.route(`admin.${this.currentResource}.draft`, {
                     id: this.form?.id,
@@ -250,9 +252,11 @@ export default {
                 {
                     onSuccess: () => {
                         this.form = this.$inertia.form(this.modelValue);
+                        this.isLoading = true
                     },
                 }
             );
+            this.isLoading = false
         },
 
         destroy() {
@@ -260,7 +264,7 @@ export default {
                 this.$inertia.post(
                     this.route(`admin.${this.currentResource}.destroy`, {
                         id: this.form.id,
-                    })
+                    }), this.isLoading = true,
                 );
             }
         },
