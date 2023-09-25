@@ -101,7 +101,6 @@
 <script>
 import FlashMessages from "@Core/Components/FlashMessages.vue";
 import TrashedMessage from "@Core/Components/TrashedMessage.vue";
-import cloneDeep from "lodash/cloneDeep";
 import isEqual from "lodash/isEqual";
 export default {
     components: { FlashMessages, TrashedMessage },
@@ -183,7 +182,6 @@ export default {
             document.removeEventListener("inertia:before", this.beforeWindowUnload);
             window.removeEventListener("beforeunload", this.beforeWindowUnload);
         }
-
     },
     methods: {
 
