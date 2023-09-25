@@ -101,7 +101,6 @@
 <script>
 import FlashMessages from "@Core/Components/FlashMessages.vue";
 import TrashedMessage from "@Core/Components/TrashedMessage.vue";
-import isEqual from "lodash/isEqual";
 export default {
     components: { FlashMessages, TrashedMessage },
     props: {
@@ -119,8 +118,6 @@ export default {
             form: this.$inertia.form(this.modelValue),
             octaneReloading: false,
             isSubmit : false,
-            loading: false,
-            initItems: this.modelValue,
             isConfirm: this.config?.isConfirm ?? false
         };
     },
@@ -192,8 +189,8 @@ export default {
         confirmStayInDirtyForm() {
             return (
                 !this.isSubmit &&
-                !this.loading &&
-                this.isDirty() &&
+                !this.form.processing &&
+                this.form.isDirty &&
                 !this.confirmLeave()
             );
         },
@@ -203,10 +200,6 @@ export default {
                 e.preventDefault();
                 e.returnValue = "";
             }
-        },
-
-        isDirty() {
-            return !isEqual(this.initItems, this.modelValue);
         },
 
         pick(obj, fields) {
