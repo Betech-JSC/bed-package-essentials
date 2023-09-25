@@ -119,9 +119,9 @@ export default {
         return {
             form: this.$inertia.form(this.modelValue),
             octaneReloading: false,
-            isCreate : false,
+            isSubmit : false,
             loading: false,
-            initItems: cloneDeep(this.modelValue),
+            initItems: this.modelValue,
             isConfirm: this.config?.isConfirm ?? false
         };
     },
@@ -193,7 +193,7 @@ export default {
 
         confirmStayInDirtyForm() {
             return (
-                !this.isCreate &&
+                !this.isSubmit &&
                 !this.loading &&
                 this.isDirty() &&
                 !this.confirmLeave()
@@ -239,9 +239,11 @@ export default {
                     id: this.form?.id,
                 }),
                 this.form,
+                this.isSubmit = true,
                 {
                     onSuccess: () => {
                         this.form = this.$inertia.form(this.modelValue);
+                        this.isSubmit = false
                     },
                 }
             );
