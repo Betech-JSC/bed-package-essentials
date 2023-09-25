@@ -101,6 +101,7 @@
 <script>
 import FlashMessages from "@Core/Components/FlashMessages.vue";
 import TrashedMessage from "@Core/Components/TrashedMessage.vue";
+import isEqual from "lodash/isEqual";
 export default {
     components: { FlashMessages, TrashedMessage },
     props: {
@@ -117,8 +118,8 @@ export default {
         return {
             form: this.$inertia.form(this.modelValue),
             octaneReloading: false,
-            isSubmit : false,
-            isConfirm: this.config?.isConfirm ?? false
+            isSubmitting : false,
+            initItems:this.modelValue,
         };
     },
     watch: {
@@ -190,7 +191,7 @@ export default {
             return (
                 !this.isSubmit &&
                 !this.form.processing &&
-                this.form.isDirty &&
+                this.isDirty() &&
                 !this.confirmLeave()
             );
         },
@@ -200,6 +201,10 @@ export default {
                 e.preventDefault();
                 e.returnValue = "";
             }
+        },
+
+        isDirty() {
+            return !isEqual(this.initItems, this.modelValue);
         },
 
         pick(obj, fields) {
@@ -225,7 +230,7 @@ export default {
         },
 
         submit() {
-            this.isSubmit = true,
+            this.isSubmitting = true,
             this.$inertia.post(
                 this.route(`admin.${this.currentResource}.store`, {
                     id: this.form?.id,
@@ -237,7 +242,7 @@ export default {
                     },
                 }
             );
-            this.isSubmit = false
+            this.isSubmitting = false
         },
 
         storeDraft() {
