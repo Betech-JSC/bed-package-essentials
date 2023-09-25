@@ -229,6 +229,11 @@ export default {
             formData: this.item,
         };
     },
+    watch: {
+        item() {
+            this.formData = this.item
+        },
+    },
     methods: {
         toggle(action) {
             if (action === "other") {
