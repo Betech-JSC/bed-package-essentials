@@ -211,6 +211,7 @@ export default {
         },
 
         validateAsync(...fields) {
+            this.isLoading = true,
             this.$inertia.post(
                 this.route(`admin.${this.currentResource}.store`, {
                     id: this.form?.id,
@@ -223,6 +224,7 @@ export default {
                     onSuccess: () => this.form.clearErrors(...fields),
                 }
             );
+            this.isLoading = false
         },
 
         submit() {
