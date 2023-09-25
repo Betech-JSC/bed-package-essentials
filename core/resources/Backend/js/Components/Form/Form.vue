@@ -119,7 +119,7 @@ export default {
             form: this.$inertia.form(this.modelValue),
             octaneReloading: false,
             isLoading : false,
-            initItems: this.modelValue,
+            initFormValue: this.modelValue,
         };
     },
     watch: {
@@ -200,7 +200,7 @@ export default {
         },
 
         isDirty() {
-            return !isEqual(this.initItems, this.modelValue);
+            return !isEqual(this.initFormValue, this.modelValue);
         },
 
         pick(obj, fields) {
