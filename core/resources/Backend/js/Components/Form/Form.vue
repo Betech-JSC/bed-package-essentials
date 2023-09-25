@@ -122,6 +122,7 @@ export default {
             isCreate : false,
             loading: false,
             initItems: cloneDeep(this.modelValue),
+            isConfirm: this.config?.isConfirm ?? false
         };
     },
     watch: {
@@ -172,14 +173,17 @@ export default {
         },
     },
     created() {
-        if (this.config?.isConfirm ?? false ) {
+        if (this.isConfirm) {
             document.addEventListener("inertia:before", this.beforeWindowUnload);
             window.addEventListener("beforeunload", this.beforeWindowUnload);
         }
     },
     unmounted() {
-        document.removeEventListener("inertia:before", this.beforeWindowUnload);
-        window.removeEventListener("beforeunload", this.beforeWindowUnload);
+        if (this.isConfirm) {
+            document.removeEventListener("inertia:before", this.beforeWindowUnload);
+            window.removeEventListener("beforeunload", this.beforeWindowUnload);
+        }
+
     },
     methods: {
 
