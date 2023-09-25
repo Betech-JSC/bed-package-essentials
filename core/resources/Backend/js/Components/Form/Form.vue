@@ -170,16 +170,12 @@ export default {
         },
     },
     created() {
-        if (this.isConfirm) {
             document.addEventListener("inertia:before", this.beforeWindowUnload);
             window.addEventListener("beforeunload", this.beforeWindowUnload);
-        }
     },
     unmounted() {
-        if (this.isConfirm) {
             document.removeEventListener("inertia:before", this.beforeWindowUnload);
             window.removeEventListener("beforeunload", this.beforeWindowUnload);
-        }
     },
     methods: {
 
@@ -230,19 +226,19 @@ export default {
         },
 
         submit() {
-            this.isSubmitting = true,
             this.$inertia.post(
                 this.route(`admin.${this.currentResource}.store`, {
                     id: this.form?.id,
                 }),
                 this.form,
+                this.isSubmitting = true,
                 {
                     onSuccess: () => {
                         this.form = this.$inertia.form(this.modelValue);
+                        this.isSubmitting = false
                     },
                 }
             );
-            this.isSubmitting = false
         },
 
         storeDraft() {
