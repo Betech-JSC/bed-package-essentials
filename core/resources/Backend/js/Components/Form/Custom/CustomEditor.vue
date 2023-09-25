@@ -83,6 +83,9 @@ export default {
                 content_style: "img { max-width: 100%; }",
                 paste_data_images: true,
                 convert_urls: false,
+                images_dataimg_filter: function(img) {
+                    return !img.hasAttribute('internal-blob');
+                },
                 images_upload_handler(blobInfo, progress) {
                     const data = new FormData();
                     const file = new File(
