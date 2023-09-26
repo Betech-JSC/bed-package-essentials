@@ -101,6 +101,7 @@
 <script>
 import FlashMessages from "@Core/Components/FlashMessages.vue";
 import TrashedMessage from "@Core/Components/TrashedMessage.vue";
+import isEqual from "lodash/isEqual";
 export default {
     components: { FlashMessages, TrashedMessage },
     props: {
@@ -117,6 +118,8 @@ export default {
         return {
             form: this.$inertia.form(this.modelValue),
             octaneReloading: false,
+            isLoading : false,
+            initFormValue: this.modelValue,
         };
     },
     watch: {
@@ -166,7 +169,40 @@ export default {
             );
         },
     },
+    created() {
+            document.addEventListener("inertia:before", this.beforeWindowUnload);
+            window.addEventListener("beforeunload", this.beforeWindowUnload);
+    },
+    unmounted() {
+            document.removeEventListener("inertia:before", this.beforeWindowUnload);
+            window.removeEventListener("beforeunload", this.beforeWindowUnload);
+    },
     methods: {
+
+        confirmLeave() {
+            return confirm( this.tt('models.message.confirm_message') );
+        },
+
+        confirmStayInDirtyForm() {
+            return (
+                !this.isLoading &&
+                !this.form.processing &&
+                this.isDirty() &&
+                !this.confirmLeave()
+            );
+        },
+
+        beforeWindowUnload(e) {
+            if (this.confirmStayInDirtyForm()) {
+                e.preventDefault();
+                e.returnValue = "";
+            }
+        },
+
+        isDirty() {
+            return !isEqual(this.initFormValue, this.modelValue);
+        },
+
         pick(obj, fields) {
             return fields.reduce(
                 (acc, cur) => ((acc[cur] = obj[cur]), acc),
@@ -175,6 +211,7 @@ export default {
         },
 
         validateAsync(...fields) {
+            this.isLoading = true,
             this.$inertia.post(
                 this.route(`admin.${this.currentResource}.store`, {
                     id: this.form?.id,
@@ -183,13 +220,21 @@ export default {
                 {
                     preserveScroll: true,
                     headers: { "X-Dry-Run": true },
-                    onError: (errors) => this.form.setError(errors),
-                    onSuccess: () => this.form.clearErrors(...fields),
+                    onError: (errors) => {
+                        this.form.setError(errors),
+                        this.isLoading = true
+                    },
+                    onSuccess: () =>{
+                        this.form.clearErrors(...fields),
+                        this.isDirty() ? this.isLoading = false :  this.isLoading = true
+                    }
                 }
             );
+            this.isLoading = false
         },
 
         submit() {
+            this.isLoading = true,
             this.$inertia.post(
                 this.route(`admin.${this.currentResource}.store`, {
                     id: this.form?.id,
@@ -198,12 +243,15 @@ export default {
                 {
                     onSuccess: () => {
                         this.form = this.$inertia.form(this.modelValue);
+                        this.isLoading = true
                     },
                 }
             );
+            this.isLoading = false
         },
 
         storeDraft() {
+            this.isLoading = false
             this.$inertia.post(
                 this.route(`admin.${this.currentResource}.draft`, {
                     id: this.form?.id,
@@ -212,9 +260,11 @@ export default {
                 {
                     onSuccess: () => {
                         this.form = this.$inertia.form(this.modelValue);
+                        this.isLoading = true
                     },
                 }
             );
+            this.isLoading = false
         },
 
         destroy() {
@@ -222,7 +272,7 @@ export default {
                 this.$inertia.post(
                     this.route(`admin.${this.currentResource}.destroy`, {
                         id: this.form.id,
-                    })
+                    }), this.isLoading = true,
                 );
             }
         },
