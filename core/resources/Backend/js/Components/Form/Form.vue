@@ -220,8 +220,14 @@ export default {
                 {
                     preserveScroll: true,
                     headers: { "X-Dry-Run": true },
-                    onError: (errors) => this.form.setError(errors),
-                    onSuccess: () => this.form.clearErrors(...fields),
+                    onError: (errors) => {
+                        this.form.setError(errors),
+                        this.isLoading = true
+                    },
+                    onSuccess: () =>{
+                        this.form.clearErrors(...fields),
+                        this.isDirty() ? this.isLoading = false :  this.isLoading = true
+                    }
                 }
             );
             this.isLoading = false
