@@ -224,7 +224,7 @@ export default {
                         this.form.setError(errors),
                         this.isLoading = true
                     },
-                    onSuccess: () =>{
+                    onSuccess: () => {
                         this.form.clearErrors(...fields),
                         !this.isDirty() ? this.isLoading = false :  this.isLoading = true
                     }
