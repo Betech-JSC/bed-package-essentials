@@ -251,7 +251,7 @@ export default {
         },
 
         storeDraft() {
-            this.isLoading = false
+            this.isLoading = true
             this.$inertia.post(
                 this.route(`admin.${this.currentResource}.draft`, {
                     id: this.form?.id,
