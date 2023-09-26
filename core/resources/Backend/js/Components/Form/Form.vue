@@ -228,9 +228,13 @@ export default {
                             this.isLoading = false
                         }
                     },
-                    onSuccess: () => {
-                        this.form.clearErrors(...fields),
-                        this.isLoading = this.isDirty()
+                    onSuccess: () =>{
+                        this.form.clearErrors(...fields)
+                        if (this.form?.id){
+                            this.isLoading = !this.isDirty() ? false : true
+                        }else{
+                            this.isLoading = false
+                        }
                     }
                 }
             );
