@@ -226,7 +226,7 @@ export default {
                     },
                     onSuccess: () =>{
                         this.form.clearErrors(...fields),
-                        this.isDirty() ? this.isLoading = false :  this.isLoading = true
+                        this.isDirty() || this.isLoading === true  ? this.isLoading = true :  this.isLoading = false
                     }
                 }
             );
