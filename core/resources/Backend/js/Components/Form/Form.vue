@@ -221,12 +221,20 @@ export default {
                     preserveScroll: true,
                     headers: { "X-Dry-Run": true },
                     onError: (errors) => {
-                        this.form.setError(errors),
-                        this.isLoading = true
+                        this.form.setError(errors)
+                        if (this.form?.id){
+                            this.isLoading = !this.isDirty() ? false : true
+                        }else{
+                            this.isLoading = false
+                        }
                     },
                     onSuccess: () =>{
-                        this.form.clearErrors(...fields),
-                        this.isDirty() ? this.isLoading = false :  this.isLoading = true
+                        this.form.clearErrors(...fields)
+                        if (this.form?.id){
+                            this.isLoading = !this.isDirty() ? false : true
+                        }else{
+                            this.isLoading = false
+                        }
                     }
                 }
             );
@@ -251,7 +259,7 @@ export default {
         },
 
         storeDraft() {
-            this.isLoading = false
+            this.isLoading = true
             this.$inertia.post(
                 this.route(`admin.${this.currentResource}.draft`, {
                     id: this.form?.id,
