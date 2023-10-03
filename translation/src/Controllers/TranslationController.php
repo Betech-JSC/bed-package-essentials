@@ -89,7 +89,7 @@ class TranslationController extends Controller
         $storedTranslations = Translation::pluck('key')
             ->map(fn ($key) => Translation::encodeEmail($key));
 
-        $diff = $translations->map(fn ($item) => trim($item))
+        $diff = $translations->map(fn ($item) => Translation::encodeEmail(trim($item)))
             ->diff($storedTranslations);
 
         $unusedTranslations = $storedTranslations->diff($translations)->values();
