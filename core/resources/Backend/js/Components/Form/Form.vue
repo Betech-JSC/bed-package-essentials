@@ -187,7 +187,8 @@ export default {
             return (
                 !this.isLoading &&
                 !this.form.processing &&
-                this.isDirty() &&
+                this.formValueChanged() &&
+                this.form.isDirty &&
                 !this.confirmLeave()
             );
         },
@@ -199,7 +200,7 @@ export default {
             }
         },
 
-        isDirty() {
+        formValueChanged() {
             return !isEqual(this.initFormValue, this.modelValue);
         },
 
@@ -220,22 +221,8 @@ export default {
                 {
                     preserveScroll: true,
                     headers: { "X-Dry-Run": true },
-                    onError: (errors) => {
-                        this.form.setError(errors)
-                        if (this.form?.id){
-                            this.isLoading = !this.isDirty() ? false : true
-                        }else{
-                            this.isLoading = false
-                        }
-                    },
-                    onSuccess: () =>{
-                        this.form.clearErrors(...fields)
-                        if (this.form?.id){
-                            this.isLoading = !this.isDirty() ? false : true
-                        }else{
-                            this.isLoading = false
-                        }
-                    }
+                    onError: (errors) => this.form.setError(errors),
+                    onSuccess: () => this.form.clearErrors(...fields),
                 }
             );
             this.isLoading = false
@@ -290,7 +277,7 @@ export default {
                 this.$inertia.post(
                     this.route(`admin.${this.currentResource}.restore`, {
                         id: this.form.id,
-                    })
+                    }),this.isLoading = true,
                 );
             }
         },
