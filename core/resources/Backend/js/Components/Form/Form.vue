@@ -277,7 +277,7 @@ export default {
                 this.$inertia.post(
                     this.route(`admin.${this.currentResource}.restore`, {
                         id: this.form.id,
-                    })
+                    }),this.isLoading = true,
                 );
             }
         },
