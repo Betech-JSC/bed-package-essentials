@@ -187,7 +187,7 @@ export default {
             return (
                 !this.isLoading &&
                 !this.form.processing &&
-                this.confirmChangeValueForm() &&
+                this.formValueChanged() &&
                 this.form.isDirty &&
                 !this.confirmLeave()
             );
@@ -200,7 +200,7 @@ export default {
             }
         },
 
-        confirmChangeValueForm() {
+        formValueChanged() {
             return !isEqual(this.initFormValue, this.modelValue);
         },
 
