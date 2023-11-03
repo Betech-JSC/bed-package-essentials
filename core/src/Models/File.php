@@ -159,15 +159,26 @@ class File
         $failureFiles = [];
 
         foreach ($files as $file) {
+            $fileName = $file->getClientOriginalName();
+
             if ($this->fileValidation($file)) {
                 $filePath = $this->storage->putFileAs(
                     $this->path,
                     $file,
-                    $file->getClientOriginalName()
+                    $fileName
                 );
                 $successFiles[] = static_url($filePath, [], false);
+
+                if (!$filePath) {
+                    logger('Store file');
+                    logger($file);
+                    logger("Disk: $this->disk");
+                    logger("Folder: $this->path");
+                    logger("File name: $fileName");
+                    logger('End store file');
+                }
             } else {
-                $failureFiles[] = $file->getClientOriginalName();
+                $failureFiles[] = $fileName;
             }
         }
         return [
