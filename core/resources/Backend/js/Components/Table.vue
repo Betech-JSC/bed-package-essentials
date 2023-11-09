@@ -425,6 +425,7 @@ export default {
                 sortField: null,
                 sortOrder: null,
                 filters: {
+                    ...params,
                     global: {
                         value: params.filters?.global?.value,
                         matchMode: FilterMatchMode.CONTAINS,
