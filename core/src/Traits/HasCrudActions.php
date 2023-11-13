@@ -80,7 +80,11 @@ trait HasCrudActions
                 });
             }
         } else {
-            $items = $query->paginate(request()->input('per_page', 20));
+            if (request()->input('fast-paginate') === 'false') {
+                $items = $query->paginate(request()->input('per_page', 20));
+            } else {
+                $items = $query->fastPaginate(request()->input('per_page', 20));
+            }
 
             if (isset($this->appends['index'])) {
                 $appendAttributes = $this->appends['index'];
