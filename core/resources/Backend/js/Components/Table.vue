@@ -29,7 +29,7 @@
     >
         <template #header v-if="!hideHeader">
             <div class="space-y-2">
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between flex-wrap gap-2">
                     <div class="flex items-center space-x-2">
                         <Link
                             v-if="canCreate"
