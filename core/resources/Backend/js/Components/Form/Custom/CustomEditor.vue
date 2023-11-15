@@ -166,6 +166,7 @@ export default {
 .tox .tox-mbtn {
     height: 20px !important;
     margin: 0px !important;
+    width: unset !important;
 }
 .tox .tox-mbtn__select-label {
     margin: 0px !important;
