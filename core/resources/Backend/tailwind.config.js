@@ -5,7 +5,7 @@ module.exports = {
     content: [
         "./resources/Backend/js/**/*.blade.php",
         "./resources/Backend/js/**/*.vue",
-        "./packages/betech-package-essentials/core/resources/Backend/js/**/*.vue",
+        "./packages/bed-package-essentials/core/resources/Backend/js/**/*.vue",
     ],
     theme: {
         extend: {

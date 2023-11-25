@@ -3,7 +3,7 @@
 if (!function_exists('package_path')) {
     function package_path($path)
     {
-        return base_path('packages/betech-package-essentials/' . $path);
+        return base_path('packages/bed-package-essentials/' . $path);
     }
 }
 
