@@ -34,7 +34,7 @@ class Contact extends BaseModel
     public function getFormattedStatusAttribute(): string
     {
         if (!empty($this->status)) {
-            switch($this->status) {
+            switch ($this->status) {
                 case 'NEW':
                     return 'Mới';
                 case 'RESPONSE':
@@ -152,7 +152,7 @@ class Contact extends BaseModel
         $data = ['Form' => $this->formatted_type];
 
         $columns = config('contact.types.' . $this->type . '.columns');
-        foreach($columns as $column) {
+        foreach ($columns as $column) {
             $data[$column] = $this->data[$column] ?? null;
         }
 
@@ -165,31 +165,29 @@ class Contact extends BaseModel
         $data = ['Form' => $this->formatted_type];
 
         $columns = config('contact.types.' . $this->type . '.all_columns');
-        foreach($columns as $key => $column) {
-            if(is_array($column) && isset($column['route']['name'])) {
+        foreach ($columns as $key => $column) {
+            if (is_array($column) && isset($column['route']['name'])) {
                 $params = [];
-                foreach($column['route']['params'] as $param) {
+                foreach ($column['route']['params'] as $param) {
                     $params[$param] = $this->data[$key][$param] ?? null;
                 }
 
                 $routeLocale = config('app.locale');
 
-                foreach(config('app.locales') as $locale) {
-                    if(strpos($this->request_url, '/' . $locale . '/')) {
+                foreach (config('app.locales') as $locale) {
+                    if (strpos($this->request_url, '/' . $locale . '/')) {
                         $routeLocale = $locale;
                     }
                 }
 
                 $data[$column['column']] = route($routeLocale . '.' . $column['route']['name'], $params);
-            }
-            else if ($column == 'File CV' && is_array($this->data[$column])) {
+            } else if ($column == 'File CV' && is_array($this->data[$column])) {
                 $files = [];
-                foreach($this->data[$column] as $index => $file) {
+                foreach ($this->data[$column] as $index => $file) {
                     $files['CV ' . $index + 1] = env('APP_URL') . $file;
                 }
                 $data[$column] = $files;
-            }
-            else {
+            } else {
                 $data[$column] = $this->data[$column] ?? null;
             }
         }
@@ -199,6 +197,6 @@ class Contact extends BaseModel
     public function getUrl()
     {
         $route = config('contact.types.' . $this->type . '.route');
-        return route(current_locale() . '.admin.' . $route . '.form', [ 'id' => $this->id ]);
+        return route(current_locale() . '.admin.' . $route . '.form', ['id' => $this->id]);
     }
 }
