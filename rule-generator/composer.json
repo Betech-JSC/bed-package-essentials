@@ -1,7 +1,7 @@
 {
     "name": "jamstackvietnam/rule-generator",
     "require": {
-        "doctrine/dbal": "*"
+        "doctrine/dbal": "^3"
     },
     "autoload": {
         "psr-4": {
