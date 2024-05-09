@@ -49,6 +49,7 @@ class Admin extends Authenticatable
     ];
 
     public $rules = [
+        'email' => 'string',
         'password' => 'confirmed|nullable|min:8|max:255'
     ];
 
