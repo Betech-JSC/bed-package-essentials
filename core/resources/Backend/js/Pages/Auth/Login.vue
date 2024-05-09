@@ -84,6 +84,7 @@
               :field="{
                 type: 'email',
                 name: 'email',
+                placeholder:"Vui lòng email"
               }"
             />
 
@@ -93,6 +94,7 @@
               :field="{
                 type: 'password',
                 name: 'password',
+                placeholder:"Vui lòng nhập password"
               }"
             />
 
