@@ -20,13 +20,13 @@
                 name: 'password',
             }"
         />
-        <Field
+        <!-- <Field
             v-model="form.remember"
             :field="{
                 type: 'checkbox',
                 name: 'remember',
             }"
-        />
+        /> -->
         <div class="space-y-2">
             <Button
                 type="submit"
@@ -51,7 +51,7 @@
                 class="w-full btn btn-success"
                 method="post"
             >
-                Local Login
+                Đăng nhập Local
             </Link>
         </div>
     </form>
