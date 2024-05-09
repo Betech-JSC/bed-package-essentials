@@ -1,6 +1,6 @@
 <template>
     <Tiny
-        api-key="7w40acxv5in6m21n1k9ny0tqej2d44gwyj6557igizadb1r6"
+        api-key="kk8b71st8g7se8kra0do3fzsckuxv92i3y7p7onfzof65jwh"
         :init="{ ...initConfig, height: size }"
         :modelValue="modelValue"
         @update:modelValue="$emit('change', $event)"
